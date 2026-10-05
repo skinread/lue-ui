@@ -93,8 +93,8 @@ export const directions = {
       'bg-canvas': [0.978, 0.007, 290], 'bg-surface': [0.993, 0.003, 290], 'bg-surface-subtle': [0.952, 0.012, 290],
       'fg-default': [0.215, 0.03, 285], 'fg-muted': [0.455, 0.03, 285],
       'border-subtle': [0.895, 0.012, 285], 'border-strong': [0.56, 0.016, 275],
-      'bg-accent': [0.50, 0.19, 318], 'bg-accent-hover': [0.50, 0.19, 318], 'bg-accent-active': [0.44, 0.18, 318],
-      'bg-accent-subtle': [0.94, 0.035, 310], 'fg-accent': [0.48, 0.19, 312], 'fg-on-accent': [0.99, 0.004, 290],
+      'bg-accent': [0.82, 0.10, 318], 'bg-accent-hover': [0.79, 0.10, 318], 'bg-accent-active': [0.76, 0.10, 318],
+      'bg-accent-subtle': [0.94, 0.035, 310], 'fg-accent': [0.48, 0.19, 312], 'fg-on-accent': [0.215, 0.03, 285],
       'focus-ring': [0.46, 0.2, 285],
       'bg-critical': [0.52, 0.19, 18], 'fg-on-critical': [0.99, 0.004, 290], 'fg-critical': [0.50, 0.18, 20], 'bg-critical-subtle': [0.955, 0.025, 15],
       'fg-warning': [0.52, 0.11, 70], 'bg-warning-subtle': [0.958, 0.045, 85],
@@ -106,8 +106,8 @@ export const directions = {
       'bg-canvas': [0.155, 0.02, 285], 'bg-surface': [0.195, 0.024, 285], 'bg-surface-subtle': [0.235, 0.026, 285],
       'fg-default': [0.955, 0.008, 290], 'fg-muted': [0.78, 0.02, 290],
       'border-subtle': [0.31, 0.022, 285], 'border-strong': [0.64, 0.016, 275],
-      'bg-accent': [0.80, 0.115, 312], 'bg-accent-hover': [0.80, 0.115, 312], 'bg-accent-active': [0.86, 0.09, 312],
-      'bg-accent-subtle': [0.30, 0.07, 305], 'fg-accent': [0.82, 0.11, 312], 'fg-on-accent': [0.17, 0.03, 290],
+      'bg-accent': [0.50, 0.13, 318], 'bg-accent-hover': [0.53, 0.13, 318], 'bg-accent-active': [0.46, 0.13, 318],
+      'bg-accent-subtle': [0.30, 0.07, 305], 'fg-accent': [0.82, 0.11, 312], 'fg-on-accent': [0.955, 0.008, 290],
       'focus-ring': [0.86, 0.13, 195],
       'bg-critical': [0.74, 0.14, 18], 'fg-on-critical': [0.17, 0.03, 18], 'fg-critical': [0.78, 0.13, 18], 'bg-critical-subtle': [0.29, 0.07, 15],
       'fg-warning': [0.86, 0.12, 80], 'bg-warning-subtle': [0.29, 0.05, 80],
@@ -127,10 +127,11 @@ export const luminous = {
   prismChroma: 0.16,
   light: {
     // Filled accents are an iso-lightness gradient: hover slides along it, so text contrast never changes.
-    accent: {
-      rest: [[0.50, 0.17, 355], [0.50, 0.19, 318], [0.49, 0.18, 288], [0.50, 0.13, 252]],
-      active: [[0.44, 0.16, 355], [0.44, 0.18, 318], [0.43, 0.17, 288], [0.44, 0.12, 252]],
-    },
+    // Multi-tone fills for small controls (checkbox, radio, switch, steps): pastel tones at one lightness, obsidian marks.
+    accent: { L: 0.82, Lactive: 0.77, C: 0.10, hues: ['aqua', 'mint', 'citron', 'rose', 'orchid'] },
+    // The multi-tone ring that replaces chrome on selected and on states: deep enough to stay a 3:1 boundary.
+    ring: { L: 0.54, C: 0.12, hues: ['aqua', 'mint', 'citron', 'rose', 'orchid'] },
+    beadOn: [0.30, 0.015, 285],
     // Gunmetal chrome: on a pearl ground every stop stays dark enough to be a 3:1 control boundary.
     chrome: [[0.56, 0.006, 265], [0.38, 0.012, 285], [0.51, 0.005, 240], [0.29, 0.014, 290], [0.545, 0.008, 270]],
     neutral: [[0.998, 0.002, 290], [0.958, 0.011, 290]],
@@ -154,10 +155,10 @@ export const luminous = {
     metal: [[1, 0, 0], [0.955, 0.006, 285], [0.985, 0.004, 285], [0.94, 0.008, 285]],
   },
   dark: {
-    accent: {
-      rest: [[0.80, 0.11, 355], [0.80, 0.115, 318], [0.79, 0.11, 288], [0.81, 0.10, 215]],
-      active: [[0.86, 0.085, 355], [0.86, 0.09, 318], [0.85, 0.085, 288], [0.87, 0.08, 215]],
-    },
+    // Jewel tones at one lightness, pearl marks.
+    accent: { L: 0.50, Lactive: 0.46, C: 0.13, hues: ['aqua', 'mint', 'amber', 'rose', 'orchid'] },
+    ring: { L: 0.79, C: 0.11, hues: ['aqua', 'mint', 'amber', 'rose', 'orchid'] },
+    beadOn: [0.95, 0.006, 285],
     // Bright silver with a darker horizon band; every stop clears 3:1 against obsidian.
     chrome: [[0.97, 0.004, 270], [0.74, 0.012, 275], [0.64, 0.016, 285], [0.89, 0.008, 250], [0.70, 0.014, 280]],
     neutral: [[0.275, 0.026, 285], [0.215, 0.024, 285]],
@@ -188,6 +189,10 @@ const maxChroma = (L, h) => {
 };
 export const prismRamp = () => Object.fromEntries(Object.entries(luminous.prism).map(([name, h]) =>
   [name, luminous.prismSteps.map((L) => [L, +Math.min(luminous.prismChroma, 0.9 * maxChroma(L, h)).toFixed(3), h])]));
+export const tones = (s, key, Lkey = 'L') => luminous[s][key].hues.map((n) => {
+  const spec = luminous[s][key], L = spec[Lkey], h = luminous.prism[n];
+  return [L, +Math.min(spec.C, 0.9 * maxChroma(L, h)).toFixed(3), h];
+});
 export const buttonBlobs = (s) => luminous[s].buttons.prism.hues.map((n) => {
   const { L, C } = luminous[s].buttons.prism, h = luminous.prism[n];
   return [L, +Math.min(C, 0.9 * maxChroma(L, h)).toFixed(3), h];
@@ -218,15 +223,19 @@ export function evaluateLuminous(s) {
     rows.push({ what, ratio: lo, min, pass: lo >= min });
   };
   const chrome = X.chrome.map((c) => oklch(...c));
-  const accentRest = X.accent.rest.map((c) => oklch(...c));
-  const accentActive = X.accent.active.map((c) => oklch(...c));
+  const accentRest = tones(s, 'accent').map((c) => oklch(...c));
+  const accentActive = tones(s, 'accent', 'Lactive').map((c) => oklch(...c));
+  // Linear gradients interpolate in gamma-encoded sRGB, so the midpoint of each adjacent pair is checked too.
+  const withMids = (t) => [...t, ...t.slice(1).map((c, i) => over(c, 0.5, t[i]))];
+  const ring = tones(s, 'ring').map((c) => oklch(...c));
   const glows = ambientGlows(s).map((c) => over(oklch(...c), X.ambient.alpha, col['bg-canvas']));
   // Ambient layers can overlap (an orb over the refracted band), so text may sit on two glows at once.
   const doubled = ambientGlows(s).flatMap((a) => ambientGlows(s).map((b) =>
     over(oklch(...a), X.ambient.alpha, over(oklch(...b), X.ambient.alpha, col['bg-canvas']))));
 
-  worst('fg-on-accent on prism fill (rest + hover)', [col['fg-on-accent']], accentRest, 4.5);
-  worst('fg-on-accent on prism fill (active)', [col['fg-on-accent']], accentActive, 4.5);
+  worst('fg-on-accent on multi-tone fill (marks, step numbers)', [col['fg-on-accent']], withMids(accentRest), 4.5);
+  worst('fg-on-accent on multi-tone fill (active)', [col['fg-on-accent']], withMids(accentActive), 4.5);
+  worst('switch bead (on) vs multi-tone track', [oklch(...X.beadOn)], withMids(accentRest), 3);
   worst('chrome boundary on canvas/surfaces', chrome, [col['bg-canvas'], col['bg-surface'], col['bg-surface-subtle']], 3);
   worst('fg-default on neutral button sheen', [col['fg-default']], X.neutral.map((c) => oklch(...c)), 7);
   worst('chrome boundary vs neutral button outside (canvas)', chrome, [col['bg-canvas']], 3);
@@ -287,6 +296,7 @@ export function evaluateLuminous(s) {
   worst('fg-critical ring vs canvas and glass', [col['fg-critical']], [col['bg-canvas'], col['bg-surface'], ...glassAll], 3);
   // Materials (round 3): the dispersion band is part of the chrome boundary; hero text sits on satin.
   const dispersion = X.dispersion.map((c) => oklch(...c));
+  worst('multi-tone ring (selected, on) as a boundary', withMids(ring), [col['bg-canvas'], col['bg-surface'], col['bg-surface-subtle'], ...glassAll], 3);
   worst('dispersion band of the chrome boundary', dispersion, [col['bg-canvas'], col['bg-surface'], col['bg-surface-subtle'], ...glassAll], 3);
   worst('fg-default on satin', [col['fg-default']], satin, 7);
   worst('fg-muted on satin', [col['fg-muted']], satin, 4.5);

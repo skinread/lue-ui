@@ -3,6 +3,8 @@
 // Imported by build-canvas.mjs and luminous-canvas.mjs. All colours come from custom properties, so every piece follows
 // the board's scheme.
 
+import { DISPLAY_STYLE } from './luminous-canvas.mjs';
+
 let uid = 0;
 const nid = (p) => `${p}${++uid}`;
 const stop = (offset, v, opacity) => `<stop offset="${offset}" style="stop-color: var(${v})${opacity == null ? '' : `; stop-opacity: ${opacity}`}"></stop>`;
@@ -134,7 +136,7 @@ export function lxBlocks({ icon }) {
     <div class="lx-split">
       <div class="lx-hero__text">
         <p class="t-micro">Case study · [Client]</p>
-        <h2 class="lx-display" id="${hid}" style="font-size: clamp(2.6rem, 1.5rem + 3.4vw, 4.75rem)">A design system that catches the light</h2>
+        <h2 class="lx-display" id="${hid}" style="font-size: calc(clamp(2.6rem, 1.5rem + 3.4vw, 4.75rem) * var(--display-scale, 1))">A design system that catches the light</h2>
         <p class="lx-lede">[Two sentences on the brief, the constraint that made it interesting, and what shipped.]</p>
         <div class="lx-actions"><a class="ns-button" data-variant="primary" href="#">Read the case study</a><a class="ns-button" data-variant="quiet" href="#">All work ${arrow}</a></div>
       </div>
@@ -264,7 +266,7 @@ export function lxBlocks({ icon }) {
 
 // ---------------------------------------------------------------- boards
 const shell = (inner) => `
-<div class="board dir-luminous lx-stage" data-scheme="{{scheme}}" style="display: grid; align-content: start">
+<div class="board dir-luminous lx-stage" data-scheme="{{scheme}}" style="display: grid; align-content: start; ${DISPLAY_STYLE}">
   <div class="lx-ambient" aria-hidden="true"></div>
 ${inner}
 </div>`;
@@ -276,7 +278,7 @@ export function blocksBoard(ctx) {
   <main id="main" style="display: grid; gap: 72px; padding-block: 56px 24px">
     <div class="lx-wrap" style="display: grid; gap: 14px">
       <p class="t-micro">Lue UI · block library</p>
-      <h1 class="lx-display" style="font-size: clamp(2.8rem, 1.6rem + 3.6vw, 5rem)"><span class="lx-chrome-text">Blocks</span> for portfolios and journals</h1>
+      <h1 class="lx-display" style="font-size: calc(clamp(2.8rem, 1.6rem + 3.6vw, 5rem) * var(--display-scale, 1))"><span class="lx-chrome-text">Blocks</span> for portfolios and journals</h1>
       <p class="lx-lede">Heroes, content and editorial blocks built from the same glass, chrome and light. Every block reflows to a single column on a phone. Tweak <b>dark</b> to see obsidian.</p>
     </div>
     <section style="display: grid; gap: 18px" aria-label="Hero, statement">${label('Hero · statement', 'satin folds · glass prism · two actions')}${B.heroStatement('bl-h1')}</section>
@@ -382,8 +384,8 @@ export function materialsSection() {
     <div class="section-head"><h2 class="t-h2">Metal and light</h2><p class="t-micro">liquid metal · satin · dispersion</p></div>
     <p class="t-small t-muted" style="max-inline-size: 76ch">Inspired by the qualities of polished metal and thick glass: forms with volume, light that disperses into a short spectrum where it meets an edge, and satin folds behind heroes. Colour appears as light, never as paint. Hero text on satin is checked against its lightest and darkest folds; tiles and the prism are decorative.</p>
     <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
-      ${panel('light')}
       ${panel('dark')}
+      ${panel('light')}
     </div>
   </section>`;
 }

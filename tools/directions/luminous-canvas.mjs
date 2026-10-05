@@ -1,12 +1,29 @@
 // C2 · Chroma Luminous — the pieces of the canvas a flat palette can't express: chrome hairlines, glass tiers,
 // the prism fill that slides on interaction, sparks, ambient prism light, and the fallbacks that switch them off.
 // Imported by build-canvas.mjs. Values come from palettes.mjs, where every rule here is contrast-checked.
-import { directions as PAL, luminous as LUM, evaluateLuminous, prismRamp, ambientGlows, buttonBlobs } from './palettes.mjs';
+import { directions as PAL, luminous as LUM, evaluateLuminous, prismRamp, ambientGlows, buttonBlobs, tones } from './palettes.mjs';
 import { oklch, contrast } from './contrast.mjs';
 import { materialsSection } from './luminous-pages.mjs';
 
 const raw = ([L, C, h], a) => `oklch(${+L.toFixed(3)} ${+C.toFixed(3)} ${+(+h).toFixed(1)}${a == null ? '' : ` / ${a}`})`;
 const mapped = (v, a) => { const c = oklch(...v); return raw([c.L, c.C, c.h], a); };
+
+// ---------------------------------------------------------------- display face (a Tweak on every C2 board)
+// Wider, more luxurious faces on trial (2026-10-05). Each carries its width axis, tracking and a size scale, because a
+// wide face at Bricolage's sizes would wrap headlines badly. All are SIL OFL.
+export const DISPLAY_FACES = {
+  'Anybody, expanded': { family: "'Anybody', 'Archivo', system-ui, sans-serif", fvs: "'wdth' 128", ls: '-0.012em', lsHeading: '-0.006em', scale: 0.78, headingScale: 0.9 },
+  'Archivo, expanded': { family: "'Archivo', system-ui, sans-serif", fvs: "'wdth' 125", ls: '-0.018em', lsHeading: '-0.01em', scale: 0.8, headingScale: 0.92 },
+  Unbounded: { family: "'Unbounded', system-ui, sans-serif", fvs: 'normal', ls: '-0.02em', lsHeading: '-0.01em', scale: 0.76, headingScale: 0.88 },
+  'Bricolage (previous)': { family: "'Bricolage Grotesque', system-ui, sans-serif", fvs: "'wdth' 100, 'opsz' 96", ls: '-0.035em', lsHeading: '-0.025em', scale: 1, headingScale: 1 },
+};
+export const DISPLAY_DEFAULT = 'Anybody, expanded';
+export const DISPLAY_FONTS = 'family=Anybody:ital,wdth,wght@0,50..150,100..900;1,50..150,100..900&family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Unbounded:wght@200..900&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Figtree:ital,wght@0,300..900;1,300..900&family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap';
+export const displayProp = { display: { editor: 'enum', options: Object.keys(DISPLAY_FACES), default: DISPLAY_DEFAULT, section: 'Type' } };
+// Formatted with spaces so no "}}" ever appears in the artboard source.
+export const displayLogic = `const F = ${JSON.stringify(DISPLAY_FACES, null, 1)};\n    const f = F[this.props.display] || F[${JSON.stringify(DISPLAY_DEFAULT)}];`;
+export const displayReturn = 'fontDisplay: f.family, fvsDisplay: f.fvs, lsDisplay: f.ls, lsHeading: f.lsHeading, displayScale: f.scale, headingScale: f.headingScale';
+export const DISPLAY_STYLE = '--font-display: {{fontDisplay}}; --fvs-display: {{fvsDisplay}}; --ls-display: {{lsDisplay}}; --ls-heading: {{lsHeading}}; --display-scale: {{displayScale}}; --heading-scale: {{headingScale}}';
 
 // ---------------------------------------------------------------- per-scheme custom properties
 export function lxVars(s) {
@@ -17,9 +34,10 @@ export function lxVars(s) {
   const disp = X.dispersion.map((v) => mapped(v));
   const metal = X.metal.map((v) => mapped(v));
   const satin = X.satin.map((v) => mapped(v));
-  const acc = X.accent.rest.map((v) => mapped(v));
-  const act = X.accent.active.map((v) => mapped(v));
-  const strip = (a) => [a[0], a[1], a[2], a[3], a[2], a[1], a[0]].join(', ');
+  const acc = tones(s, 'accent').map((v) => mapped(v));
+  const act = tones(s, 'accent', 'Lactive').map((v) => mapped(v));
+  const ring = tones(s, 'ring').map((v) => mapped(v));
+  const strip = (a) => [...a, ...a.slice(0, -1).reverse()].join(', ');
   const g = X.glass;
   const glows = ambientGlows(s);
   const amb = Object.fromEntries(Object.keys(LUM.prism).map((n, i) => [`--amb-${n}`, mapped(glows[i], X.ambient.alpha)]));
@@ -59,7 +77,8 @@ export function lxVars(s) {
     '--accent-strip': strip(acc),
     '--accent-strip-active': strip(act),
     '--accent-stops': acc.join(', '),
-    '--prism-ring': `${acc[0]}, ${acc[1]}, ${acc[2]}, ${acc[3]}, ${acc[0]}`,
+    '--accent-stops-active': act.join(', '),
+    '--prism-ring': [...ring, ring[0]].join(', '),
     '--neutral-top': mapped(X.neutral[0]),
     '--neutral-bottom': mapped(X.neutral[1]),
     '--field-bg': dark ? 'var(--bg-surface-subtle)' : 'var(--bg-surface)',
@@ -89,10 +108,11 @@ export function lxVars(s) {
       ? 'radial-gradient(circle at 34% 30%, oklch(0.99 0.004 270), oklch(0.84 0.01 270) 42%, oklch(0.62 0.014 280))'
       : 'radial-gradient(circle at 34% 30%, oklch(1 0 0), oklch(0.78 0.008 270) 46%, oklch(0.52 0.012 280))',
     '--bead-rim': dark ? 'oklch(0.64 0.016 285)' : 'oklch(0.38 0.012 285)',
+    // On: a pearl bead on the jewel track (dark), a graphite bead on the pastel track (light) — 3:1 either way.
     '--bead-on': dark
-      ? 'radial-gradient(circle at 34% 30%, oklch(0.62 0.03 290), oklch(0.24 0.03 290) 48%, oklch(0.15 0.03 290))'
-      : 'radial-gradient(circle at 34% 30%, oklch(1 0 0), oklch(0.98 0.006 300) 50%, oklch(0.9 0.02 300))',
-    '--bead-on-rim': dark ? 'oklch(0.12 0.03 290)' : 'oklch(1 0 0 / 0.7)',
+      ? 'radial-gradient(circle at 34% 30%, oklch(1 0 0), oklch(0.96 0.006 285) 50%, oklch(0.86 0.012 285))'
+      : 'radial-gradient(circle at 34% 30%, oklch(0.6 0.02 285), oklch(0.3 0.015 285) 48%, oklch(0.2 0.02 285))',
+    '--bead-on-rim': dark ? 'oklch(1 0 0 / 0.6)' : 'oklch(0.15 0.02 285)',
     ...amb,
   };
 }
@@ -141,6 +161,9 @@ export const LX_CSS = `
   background: linear-gradient(116deg, transparent 4%, var(--amb-rose) 19%, var(--amb-amber) 30%, var(--amb-citron) 41%, var(--amb-mint) 52%, var(--amb-aqua) 63%, var(--amb-azure) 74%, var(--amb-iris) 85%, transparent 97%);
   mask-image: radial-gradient(closest-side, #000 18%, transparent 100%); }
 .lx-dust { pointer-events: none; background-image: radial-gradient(circle 0.9px, var(--spark) 0 60%, transparent), radial-gradient(circle 0.7px, var(--spark) 0 60%, transparent); background-size: 97px 89px, 61px 73px; background-position: 11px 7px, 37px 41px; opacity: 0.5; }
+
+/* Headings follow the display face's width axis and tracking */
+.dir-luminous :is(.t-h1, .t-h2, .t-h3, .t-h4, .ns-dialog__title, .ns-error-summary__title, .lx-quote__mark) { font-variation-settings: var(--fvs-display); letter-spacing: var(--ls-heading); }
 
 /* Chrome hairline ring */
 .dir-luminous :is(${RINGED}) { position: relative; border: 1px solid transparent; }
@@ -211,7 +234,7 @@ export const LX_CSS = `
 .dir-luminous :is(.ns-input, .ns-select):is(:focus-visible, [data-demo=focus]) { --lx-angle: 220deg; outline: var(--focus-w) solid var(--focus-ring); outline-offset: var(--focus-offset-field); box-shadow: inset 0 1px 2px var(--field-inset), 0 0 0 7px var(--focus-glow); }
 .dir-luminous :is(.ns-input, .ns-check, .ns-radio)[aria-invalid=true] { background: linear-gradient(var(--field-bg), var(--field-bg)) padding-box, linear-gradient(var(--fg-critical), var(--fg-critical)) border-box; box-shadow: inset 0 0 0 1px var(--fg-critical); }
 .dir-luminous .ns-check:checked { background: linear-gradient(135deg, var(--accent-stops)) padding-box, conic-gradient(from var(--lx-angle), var(--prism-ring)) border-box; box-shadow: var(--glow-rest); }
-.dir-luminous .ns-radio:checked { background: radial-gradient(circle, var(--bg-accent) 0 5px, var(--field-bg) 5.5px) padding-box, conic-gradient(from var(--lx-angle), var(--prism-ring)) border-box; box-shadow: var(--glow-rest); }
+.dir-luminous .ns-radio:checked { background: radial-gradient(circle, var(--fg-on-accent) 0 3.5px, transparent 4px) padding-box, linear-gradient(135deg, var(--accent-stops)) padding-box, conic-gradient(from var(--lx-angle), var(--prism-ring)) border-box; box-shadow: var(--glow-rest); }
 .dir-luminous :is(.ns-check, .ns-radio, .ns-switch)[data-demo=focus] { outline: var(--focus-w) solid var(--focus-ring); outline-offset: 3px; box-shadow: 0 0 0 7px var(--focus-glow); }
 .dir-luminous .ns-switch::before { inset-block-start: 4px; inset-inline-start: 4px; background: var(--bead); box-shadow: 0 0 0 1px var(--bead-rim), 0 1px 3px oklch(0 0 0 / 0.3); }
 .dir-luminous .ns-switch:checked { background: linear-gradient(100deg, var(--accent-stops)) padding-box, conic-gradient(from var(--lx-angle), var(--prism-ring)) border-box; box-shadow: var(--glow-rest); }
@@ -250,7 +273,7 @@ export const LX_CSS = `
 .lx-navlink[aria-current=page] { background-color: var(--btn-glass); box-shadow: var(--btn-depth); }
 @media (hover: hover) { .lx-navlink:hover { background-color: var(--btn-glass); } }
 .lx-navlink:focus-visible, .lx-wordmark:focus-visible, .lx-footer a:focus-visible, .lx-toc a:focus-visible, .lx-pages a:focus-visible { outline: var(--focus-w) solid var(--focus-ring); outline-offset: 2px; }
-.lx-wordmark { font-family: var(--font-display); font-weight: 400; font-size: 22px; letter-spacing: -0.01em; color: var(--fg-default); text-decoration: none; display: inline-flex; align-items: center; gap: 10px; min-block-size: 44px; }
+.lx-wordmark { font-family: var(--font-display); font-weight: 400; font-size: calc(22px * var(--heading-scale, 1)); letter-spacing: var(--ls-heading); font-variation-settings: var(--fvs-display); color: var(--fg-default); text-decoration: none; display: inline-flex; align-items: center; gap: 10px; min-block-size: 44px; }
 .lx-wordmark .lx-tile { inline-size: 34px; block-size: 34px; }
 
 /* Heroes */
@@ -259,7 +282,7 @@ export const LX_CSS = `
 .lx-hero__text { display: grid; gap: 24px; justify-items: start; }
 .lx-hero[data-layout=center] .lx-hero__grid { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
 .lx-hero[data-layout=center] .lx-hero__text { justify-items: center; }
-.lx-display { font-family: var(--font-display); font-weight: 300; font-size: clamp(3rem, 1.4rem + 4.6vw, 6.25rem); line-height: 0.98; letter-spacing: -0.035em; margin: 0; text-wrap: balance; font-variation-settings: 'opsz' 96; }
+.lx-display { font-family: var(--font-display); font-weight: 300; font-size: calc(clamp(3rem, 1.4rem + 4.6vw, 6.25rem) * var(--display-scale, 1)); line-height: 1; letter-spacing: var(--ls-display); margin: 0; text-wrap: balance; font-variation-settings: var(--fvs-display); }
 .lx-lede { font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); line-height: 1.55; color: var(--fg-muted); max-inline-size: 46ch; margin: 0; text-wrap: pretty; }
 .lx-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .lx-hero__object { display: grid; place-items: center; }
@@ -267,8 +290,8 @@ export const LX_CSS = `
 /* Sections and grids */
 .lx-section { padding-block: clamp(56px, 8vw, 112px); display: grid; gap: clamp(28px, 4vw, 48px); }
 .lx-section__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px 32px; }
-.lx-h2 { font-family: var(--font-display); font-weight: 350; font-size: clamp(2rem, 1.4rem + 2vw, 3.25rem); line-height: 1.05; letter-spacing: -0.025em; margin: 0; text-wrap: balance; }
-.lx-h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.5rem; line-height: 1.15; letter-spacing: -0.01em; margin: 0; }
+.lx-h2 { font-family: var(--font-display); font-weight: 350; font-size: calc(clamp(2rem, 1.4rem + 2vw, 3.25rem) * var(--heading-scale, 1)); line-height: 1.08; letter-spacing: var(--ls-heading); margin: 0; text-wrap: balance; font-variation-settings: var(--fvs-display); }
+.lx-h3 { font-family: var(--font-display); font-weight: 400; font-size: calc(1.5rem * var(--heading-scale, 1)); line-height: 1.18; letter-spacing: var(--ls-heading); margin: 0; font-variation-settings: var(--fvs-display); }
 .lx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(var(--min, 300px), 100%), 1fr)); gap: clamp(18px, 2.4vw, 28px); }
 .lx-block-label { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-block: 0 4px; }
 
@@ -292,7 +315,7 @@ export const LX_CSS = `
 
 /* Quote, split, timeline, CTA, footer */
 .lx-quote { margin: 0; display: grid; gap: 28px; justify-items: start; max-inline-size: 64rem; }
-.lx-quote blockquote { margin: 0; font-family: var(--font-display); font-weight: 300; font-size: clamp(1.75rem, 1.2rem + 1.9vw, 2.9rem); line-height: 1.18; letter-spacing: -0.02em; text-wrap: balance; }
+.lx-quote blockquote { margin: 0; font-family: var(--font-display); font-weight: 300; font-size: calc(clamp(1.75rem, 1.2rem + 1.9vw, 2.9rem) * var(--heading-scale, 1)); line-height: 1.2; letter-spacing: var(--ls-heading); text-wrap: balance; font-variation-settings: var(--fvs-display); }
 .lx-quote figcaption { display: flex; align-items: center; gap: 14px; }
 .lx-quote__mark { font-family: var(--font-display); font-weight: 300; font-size: 96px; line-height: 0.6; block-size: 0.5em; }
 .lx-split { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: clamp(28px, 4vw, 64px); align-items: center; }
@@ -314,7 +337,7 @@ export const LX_CSS = `
 
 /* Article */
 .lx-article__head { display: grid; gap: 22px; justify-items: start; padding-block: clamp(56px, 8vw, 112px) 44px; }
-.lx-title { font-family: var(--font-display); font-weight: 300; font-size: clamp(2.6rem, 1.5rem + 3.6vw, 5rem); line-height: 1.0; letter-spacing: -0.032em; margin: 0; max-inline-size: 16ch; text-wrap: balance; }
+.lx-title { font-family: var(--font-display); font-weight: 300; font-size: calc(clamp(2.6rem, 1.5rem + 3.6vw, 5rem) * var(--display-scale, 1)); line-height: 1.02; letter-spacing: var(--ls-display); margin: 0; max-inline-size: 18ch; text-wrap: balance; font-variation-settings: var(--fvs-display); }
 .lx-dek { font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.5rem); line-height: 1.5; color: var(--fg-muted); margin: 0; max-inline-size: 44ch; text-wrap: pretty; }
 .lx-byline { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
 .lx-byline p { margin: 0; }
@@ -334,12 +357,12 @@ export const LX_CSS = `
 .lx-prose { flex: 999 1 34rem; min-inline-size: 0; max-inline-size: 42rem; font-size: 1.1875rem; line-height: 1.7; }
 .lx-prose :where(p, ul, ol, figure, blockquote, aside) { margin: 0; }
 .lx-prose > * + * { margin-block-start: 1.15em; }
-.lx-prose > h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.6rem, 1.3rem + 1vw, 2.15rem); line-height: 1.15; letter-spacing: -0.02em; margin-block: 2.1em 0; scroll-margin-block-start: 104px; }
+.lx-prose > h2 { font-family: var(--font-display); font-weight: 400; font-size: calc(clamp(1.6rem, 1.3rem + 1vw, 2.15rem) * var(--heading-scale, 1)); line-height: 1.18; letter-spacing: var(--ls-heading); font-variation-settings: var(--fvs-display); margin-block: 2.1em 0; scroll-margin-block-start: 104px; }
 .lx-prose p { text-wrap: pretty; }
 .lx-prose a { color: var(--fg-accent); text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
 .lx-prose ul { padding-inline-start: 1.2em; display: grid; gap: 0.35em; }
 .lx-prose > .lx-pull { margin-block: 1.6em; }
-.lx-pull { font-family: var(--font-display); font-weight: 300; font-size: clamp(1.7rem, 1.2rem + 1.5vw, 2.5rem); line-height: 1.18; letter-spacing: -0.02em; text-align: center; text-wrap: balance; padding-block: 0.7em; border-block: 1px solid transparent; border-image: linear-gradient(90deg, transparent, var(--chrome-line), transparent) 1; }
+.lx-pull { font-family: var(--font-display); font-weight: 300; font-size: calc(clamp(1.7rem, 1.2rem + 1.5vw, 2.5rem) * var(--heading-scale, 1)); line-height: 1.2; letter-spacing: var(--ls-heading); font-variation-settings: var(--fvs-display); text-align: center; text-wrap: balance; padding-block: 0.7em; border-block: 1px solid transparent; border-image: linear-gradient(90deg, transparent, var(--chrome-line), transparent) 1; }
 .lx-code { border-radius: var(--radius-m); overflow: clip; font-size: 1rem; }
 .lx-code figcaption { display: flex; justify-content: space-between; gap: 12px; padding: 10px 18px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); border-block-end: 1px solid var(--border-subtle); }
 .lx-code pre { margin: 0; padding: 18px 20px; overflow-x: auto; font-family: var(--font-mono); font-size: 14px; line-height: 1.7; }
@@ -384,7 +407,7 @@ export function lxFoundations({ icon }) {
     </div>
     <p class="t-small t-muted" style="max-inline-size: 72ch">Ambient light comes from the whole prism. Glass buttons carry several of its tones at once — ${LUM.light.buttons.prism.hues.join(', ')} in light; ${LUM.dark.buttons.prism.hues.join(', ')} in dark — all at one lightness, so they can drift without changing contrast. Small solid fills (checkboxes, switches, steps) keep an iso-lightness slice.</p>
     <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
-      ${['light', 'dark'].map((s) => panel(s, `
+      ${['dark', 'light'].map((s) => panel(s, `
         <p class="t-micro">${label(s)} · glass buttons</p>
         <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
           <button type="button" class="ns-button">Clear glass</button>
@@ -400,7 +423,7 @@ export function lxFoundations({ icon }) {
   <section style="display: grid; gap: 20px">
     <div class="section-head"><h2 class="t-h2">Chrome</h2><p class="t-micro">1 px · conic reflection · a real 3:1 boundary</p></div>
     <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
-      ${['light', 'dark'].map((s) => panel(s, `
+      ${['dark', 'light'].map((s) => panel(s, `
         <p class="t-micro">${label(s)} · ${s === 'light' ? 'gunmetal' : 'silver'}</p>
         <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px">
           ${LUM[s].chrome.map((v, i) => `<div style="display: grid; gap: 4px"><span style="block-size: 30px; border-radius: var(--radius-xs); background: ${mapped(v)}"></span><span class="t-micro" style="letter-spacing: 0.04em">${chromeRatios(s)[i]}:1</span></div>`).join('')}
@@ -425,7 +448,7 @@ export function lxFoundations({ icon }) {
   <section style="display: grid; gap: 20px">
     <div class="section-head"><h2 class="t-h2">Glass</h2><p class="t-micro">two tiers · checked against the worst backdrop</p></div>
     <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
-      ${['light', 'dark'].map((s) => panel(s, `
+      ${['dark', 'light'].map((s) => panel(s, `
         <div aria-hidden="true" style="position: absolute; inset-block-start: 64px; inset-inline-start: 150px; inline-size: 120px; block-size: 150px; border-radius: 18px; background: oklch(1 0 0)"></div>
         <div aria-hidden="true" style="position: absolute; inset-block-start: 150px; inset-inline-start: 250px; inline-size: 130px; block-size: 140px; border-radius: 18px; background: oklch(0 0 0)"></div>
         <div aria-hidden="true" style="position: absolute; inset-block-start: 230px; inset-inline-start: 60px; inline-size: 170px; block-size: 46px; border-radius: 999px; background: linear-gradient(100deg, var(--accent-strip)) 0% 50% / 300% 100%"></div>
