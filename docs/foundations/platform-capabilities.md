@@ -34,6 +34,12 @@ Cr Chrome/Edge · Fx Firefox · Sf Safari · TP Safari Technology Preview · PE 
    which breaks nested light/dark "scheme islands". Register only private, non-inheriting knobs.
 4. **Focus rings use `outline`**, not `box-shadow` — forced-colours mode removes box-shadows.
 5. **Fluid type mixes `rem` with container units.** Pure viewport units break text zoom (WCAG 1.4.4).
+6. **Forced colours keeps `backdrop-filter` and background alpha** (Chromium and Firefox; checked 2026-10-05). Glass
+   becomes see-through Canvas over a blurred page unless forced-colours styles set `backdrop-filter: none` and an
+   opaque `background-color: Canvas`.
+7. **Never build gradient text with `color: transparent`.** Firefox's forced colours overrides
+   `-webkit-text-fill-color` but leaves `color: transparent` alone, so the text vanishes. Keep `color` solid and
+   clear only `-webkit-text-fill-color`, inside `@supports`.
 
 ## CSS architecture
 
@@ -88,7 +94,7 @@ Cr Chrome/Edge · Fx Firefox · Sf Safari · TP Safari Technology Preview · PE 
 | `display: grid-lanes` (masonry) | L: Sf 26.4; Cr/Fx flags | PE over grid |
 | `reading-flow` | L: Cr 137 | Never rely on it — keep DOM order logical (WCAG 1.3.2, 2.4.3) |
 | `shape()` | N Feb 2026 | Responsive clip paths |
-| `corner-shape` | L: Cr 139; TP | PE over `border-radius` |
+| `corner-shape` | L: Cr 139; TP (on by default in WebKit main since 14 Aug 2026, not in Safari 27.0 notes); Fx Nightly | PE over `border-radius` |
 | Gap decorations · `border-shape` · `flex-wrap: balance` | L: Cr | Decorative PE |
 
 ## Motion
@@ -103,6 +109,23 @@ Cr Chrome/Edge · Fx Firefox · Sf Safari · TP Safari Technology Preview · PE 
 | Scroll-triggered animations | L: Cr 146 | PE |
 | `@starting-style`, `transition-behavior: allow-discrete` | N Aug 2024 | Popover/dialog entry and exit |
 | `linear()` easing, `prefers-reduced-motion` | W | Spring-like easings as tokens |
+
+## Glass, chrome and light
+
+Checked 2026-10-05 for C2 · Chroma Luminous: Chrome 154 and Playwright's WebKit 26.6 probed live with forced colours
+emulated; Firefox from its source and BCD (it wouldn't launch under Playwright).
+
+| Feature | Status | Note |
+| --- | --- | --- |
+| `backdrop-filter` | N Sep 2024 (Safari 18 last) | Unprefixed. If a `-webkit-` line is kept, give it a literal value (some Safari 18.x builds rejected `var()` there). SVG `url()` filters — real refraction — are Chromium-only. An ancestor with opacity < 1, `filter`, `mask`, `clip-path` or `will-change` is a backdrop root, so glass inside glass shows nothing behind the outer pane |
+| Masks, `mask-composite: exclude` | W (Jun 2026) | Unprefixed: Cr 120, Fx 53, Sf 15.4. The chrome ring (`mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0)`) works in WebKit 26.6 although BCD says Safari lacks `content-box` in masks — keep a WebKit visual test. `background-clip: border-area` (Cr 150, Sf 18.2) is a simpler PE |
+| `@property <angle>` animating a `conic-gradient` | N Jul 2024 | Animates in all three. Firefox steps when a keyframe value is `var()` — use literal angles. Repaints on the main thread, so keep it to short interaction transitions; prefer `inherits: false` and animate on the pseudo-element itself |
+| `background-clip: text` | L (Fx partial: breaks with multi-layer backgrounds and `fixed` attachment) | PE inside `@supports`, one background layer, with `-webkit-text-fill-color: transparent` and a solid `color` (trap 7) |
+| `prefers-reduced-transparency` | L: Cr 118 (Fx behind a pref; Sf no, privacy concerns) | Honour it, but also turn glass opaque under `prefers-contrast: more` and `[data-contrast="more"]` |
+| Out-of-gamut OKLCH | W, but every engine clips per channel | Clipping shifts hue and contrast, worst for light tints. Gamut-map tokens at build time; put P3 values only inside `@media (color-gamut: p3)` |
+| Forced colours and decoration | — | Gradients and `box-shadow` become `none`; `background-color` is forced but keeps its alpha; `backdrop-filter` stays on in Cr and Fx (trap 6); WebKit changes nothing |
+| `backdrop-filter` on `<dialog>` / `::backdrop` | W | `::backdrop` reads its dialog's custom properties in all three. Blur the dialog *or* the backdrop, not both. `overlay` is Cr-only, so exit blur can't animate in Fx and Sf. On iOS 26, `::backdrop` doesn't reach under the address bar ([WebKit 303167](https://bugs.webkit.org/show_bug.cgi?id=303167)) |
+| Performance | — | No engine publishes a budget; each `backdrop-filter` is an extra rendering pass, Firefox lags without GPU rendering, and large fixed blurred layers are slow to first paint on iOS. Keep few glass surfaces live; fade with opacity, never animate the blur radius |
 
 ## Interactive HTML
 
@@ -213,6 +236,11 @@ already has `if()`, `@function`, `attr()`, `closedby`, `popover="hint"` and `cor
 - "Limited" on anchor positioning reflects how web-features now scopes the feature, not missing core support.
 - The live Interop 2026 dashboard couldn't be read; the last snapshot seen is stale.
 - The EU Official Journal date for EN 301 549 v4.1.1 is unconfirmed.
+- Playwright's WebKit build reports `corner-shape` as supported though shipping Safari doesn't, so three-engine tests
+  ([ADR-0005](../architecture/adr/0005-three-engine-testing-and-a11y-gates.md)) can pass features Safari lacks.
+  Real Safari 27.0.1 wasn't tested for the glass checks.
+- Whether `@supports` still reports `backdrop-filter` when Firefox disables it without GPU rendering is unchecked.
+- The WebKit blog dates Safari 27.0 to 17 Sep; this page says 14 Sep.
 
 ## Sources
 
@@ -236,6 +264,15 @@ already has `if()`, `@function`, `attr()`, `closedby`, `popover="hint"` and `cor
 - Interop: [Interop 2026](https://webkit.org/blog/17818/announcing-interop-2026/) ·
   [Interop 2025 review](https://webkit.org/blog/17808/interop-2025-review/) ·
   [focus areas](https://github.com/web-platform-tests/interop/blob/main/2026/README.md)
+- Glass, chrome and light (2026-10-05): [backdrop-filter](https://api.webstatus.dev/v1/features/backdrop-filter) ·
+  [BCD #25914](https://github.com/mdn/browser-compat-data/issues/25914) · [masks](https://api.webstatus.dev/v1/features/masks) ·
+  [registered custom properties](https://api.webstatus.dev/v1/features/registered-custom-properties) ·
+  [Firefox 1899531](https://bugzil.la/1899531) · [background-clip: text](https://api.webstatus.dev/v1/features/background-clip-text) ·
+  [prefers-reduced-transparency](https://api.webstatus.dev/v1/features/prefers-reduced-transparency) ·
+  [gamut mapping (Interop #1394)](https://github.com/web-platform-tests/interop/issues/1394) ·
+  [forced colours properties](https://drafts.csswg.org/css-color-adjust-1/#forced-colors-properties) ·
+  [corner-shape](https://api.webstatus.dev/v1/features/corner-shape) · [overlay](https://api.webstatus.dev/v1/features/overlay) ·
+  [backdrop root](https://drafts.csswg.org/filter-effects-2/#BackdropRoot) · [Firefox 1888024](https://bugzil.la/1888024)
 - Specific features: [invoker commands in Safari 26.2](https://www.infoq.com/news/2026/01/html-invoker-commands/) ·
   [interest invokers intent](https://groups.google.com/a/chromium.org/g/blink-dev/c/bX1G_yDt6W4) ·
   [anchor positioning (caniuse)](https://caniuse.com/css-anchor-positioning) ·
