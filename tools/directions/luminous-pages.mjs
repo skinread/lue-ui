@@ -275,7 +275,7 @@ export function blocksBoard(ctx) {
   return shell(`${B.nav('Work')}
   <main id="main" style="display: grid; gap: 72px; padding-block: 56px 24px">
     <div class="lx-wrap" style="display: grid; gap: 14px">
-      <p class="t-micro">Direction C2 · block library</p>
+      <p class="t-micro">Lue UI · block library</p>
       <h1 class="lx-display" style="font-size: clamp(2.8rem, 1.6rem + 3.6vw, 5rem)"><span class="lx-chrome-text">Blocks</span> for portfolios and journals</h1>
       <p class="lx-lede">Heroes, content and editorial blocks built from the same glass, chrome and light. Every block reflows to a single column on a phone. Tweak <b>dark</b> to see obsidian.</p>
     </div>

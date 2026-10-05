@@ -531,7 +531,7 @@ for (const d of Object.keys(DIRS)) {
   ${d === 'luminous' ? `<header class="scheme lx-stage" data-scheme="dark" style="display: grid; gap: 20px; margin: -64px -72px 0; padding: 72px 72px 64px">
     <div class="lx-ambient" aria-hidden="true"></div>
     <div class="lx-dust" aria-hidden="true" style="position: absolute; inset-block: 0; inset-inline-end: 0; inline-size: 34%; z-index: -1"></div>
-    <p class="t-micro">Direction ${t.letter} · foundations · evolves C · Chroma</p>
+    <p class="t-micro">Lue UI · direction ${t.letter} · foundations</p>
     <h1 class="t-display"><span class="lx-chrome-text">${t.name}</span></h1>
     <p class="t-h3" style="font-weight: 300; max-inline-size: 30ch">${t.motto}</p>
     <div style="display: flex; flex-wrap: wrap; gap: 8px">${t.tags.map((x) => `<span class="ns-tag">${x}</span>`).join('')}</div>
@@ -567,7 +567,7 @@ ${lx.afterColour}
       <div style="display: flex; flex-wrap: wrap; gap: 28px; align-items: baseline">
         <p class="t-label">Label text</p>
         <p class="t-micro">Micro label</p>
-        <code class="t-code">--ns-color-fg-default</code>
+        <code class="t-code">--${d === 'luminous' ? 'lue' : 'ns'}-color-fg-default</code>
         <p class="t-body">0123456789 · $1,249.00</p>
       </div>
     </div>
@@ -630,7 +630,7 @@ for (const d of Object.keys(DIRS)) {
   const body = `
 <div class="board dir-${d}" data-scheme="light" style="width: ${W}px; min-height: ${H}px; display: grid; align-content: start; gap: 32px; padding: 56px 56px 72px">
   <header style="display: flex; justify-content: space-between; align-items: end; gap: 24px">
-    <div style="display: grid; gap: 8px"><p class="t-micro">Direction ${t.letter} · components</p><h1 class="t-h1">${t.name} — Tier 1 sheet</h1></div>
+    <div style="display: grid; gap: 8px"><p class="t-micro">${d === 'luminous' ? 'Lue UI · direction' : 'Direction'} ${t.letter} · components</p><h1 class="t-h1">${t.name} — Tier 1 sheet</h1></div>
     <p class="t-small t-muted" style="max-inline-size: 46ch">Real elements: buttons, inputs with labels, fieldsets, a dialog with a method="dialog" form. States drawn: hover, active, focus, disabled, pressed, invalid.</p>
   </header>
   <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; align-items: start">
@@ -728,7 +728,7 @@ for (const d of Object.keys(DIRS)) {
 {
   const t = DIRS.luminous;
   for (const [f, label, build, H, dark] of [
-    ['Blocks', 'block library', blocksBoard, 8800, false],
+    ['Blocks', 'block library', blocksBoard, 8000, false],
     ['Portfolio', 'portfolio home', portfolioBoard, 5400, false],
     ['Article', 'journal article', articleBoard, 6600, true],
   ]) {
@@ -827,7 +827,7 @@ const canvas = {
   v: 3,
   attachments: {}, // added by the canvas editor; kept so republishing doesn't fight it
   createdOnFiles: { v: 1, at: '2026-10-04T22:01:56Z' }, // the published canvas's marker — never change it
-  title: 'never-ui — design directions',
+  title: 'Lue UI — design directions',
   launch: { view: 'canvas', page: 'luminous' },
   pages,
   boards, order, notes,

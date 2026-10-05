@@ -60,7 +60,7 @@ shares it.
   in-use row — portfolio, article, checkout) and `phase-1` (the cover and the three Phase 1 rows). Every board and
   title note carries its `page`.
 - Portfolio, journal and block boards are **fluid** (`expand: "fill"`, no root width, `$preview` 1440 wide) and reflow
-  to one column. Their heights are estimates (Blocks 8800, Portfolio 5400, Article 6600) — raise them if clipped.
+  to one column. Their heights are estimates (Blocks 8000 — set on the canvas by the user, Portfolio 5400, Article 6600) — raise them if clipped.
 - SVG gradients, masks and filters use IDs from one counter per build, so they stay unique across boards. Use
   `gradientUnits="userSpaceOnUse"` on stroked icons — a straight line has a zero-height bounding box and an
   object-bounding-box gradient won't paint it.
