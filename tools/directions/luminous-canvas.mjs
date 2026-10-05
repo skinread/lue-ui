@@ -86,7 +86,7 @@ const GLASS = '.ns-card, .ns-menu, .ns-tag, .lx-glass';
 const FIELDS = '.ns-input, .ns-select, .ns-check, .ns-radio, .ns-switch';
 // The opaque fallback, shared by the user-setting media queries and the .lx-opaque demo panel.
 const opaque = (scope) => `
-${scope} :is(${GLASS}, .ns-dialog) { background-color: var(--bg-surface); background-image: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+${scope} :is(${GLASS}, .ns-dialog) { background-color: var(--bg-surface); background-image: none; backdrop-filter: none; }
 ${scope} :is(${RINGED})::before { background: var(--border-strong); }
 ${scope} :is(${FIELDS}) { background: var(--field-bg); border-color: var(--border-strong); }
 ${scope} :is(.lx-ambient, .lx-dust) { display: none; }`;
@@ -110,11 +110,15 @@ export const LX_CSS = `
 .dir-luminous :is(${RINGED})::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; pointer-events: none;
   background: conic-gradient(from var(--lx-angle), var(--chrome-stops));
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
-.lx-chrome-text { background: linear-gradient(180deg, var(--chrome-text)); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+/* Chrome lettering: colour stays solid (Firefox's forced colours leaves color: transparent alone); only the fill is cleared. */
+.lx-chrome-text { color: var(--fg-default); }
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .lx-chrome-text { background: linear-gradient(180deg, var(--chrome-text)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+}
 
 /* Glass */
-.dir-luminous :is(${GLASS}) { background-color: var(--glass-overlay); background-image: var(--glass-sheen); backdrop-filter: var(--glass-filter); -webkit-backdrop-filter: var(--glass-filter); }
-.dir-luminous :is(.ns-dialog, .lx-glass[data-tier=modal]) { background-color: var(--glass-modal); background-image: var(--glass-sheen); backdrop-filter: var(--glass-filter); -webkit-backdrop-filter: var(--glass-filter); }
+.dir-luminous :is(${GLASS}) { background-color: var(--glass-overlay); background-image: var(--glass-sheen); backdrop-filter: var(--glass-filter); }
+.dir-luminous :is(.ns-dialog, .lx-glass[data-tier=modal]) { background-color: var(--glass-modal); background-image: var(--glass-sheen); backdrop-filter: var(--glass-filter); }
 .dir-luminous .ns-card { box-shadow: var(--shadow-raised), var(--fringe); }
 .dir-luminous :is(.ns-menu, .ns-dialog, .lx-glass) { box-shadow: var(--shadow-overlay), var(--fringe); }
 .dir-luminous .ns-dialog { position: relative; }
@@ -183,10 +187,10 @@ export const LX_CSS = `
 ${opaque('.dir-luminous .lx-opaque')}
 @media (forced-colors: active) {
   .dir-luminous :is(${RINGED})::before, .dir-luminous .ns-button::after, .dir-luminous :is(.lx-ambient, .lx-dust) { content: none; display: none; }
-  .dir-luminous :is(${RINGED}) { border-color: CanvasText; background-image: none; backdrop-filter: none; }
+  .dir-luminous :is(${RINGED}) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
   .dir-luminous :is(${FIELDS}) { background: Field; border-color: FieldText; }
   .dir-luminous .ns-button { background: ButtonFace; color: ButtonText; border-color: ButtonText; }
-  .lx-chrome-text { background: none; color: CanvasText; -webkit-text-fill-color: CanvasText; }
+  .lx-chrome-text { background: none; color: CanvasText; -webkit-text-fill-color: currentColor; }
 }
 `;
 
