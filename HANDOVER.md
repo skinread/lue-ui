@@ -14,6 +14,9 @@
 - **Repo:** `/Volumes/Code/never-ui` (the git root). `main` holds only the initial commit (MIT `LICENSE`,
   `.gitignore`, `.gitattributes`); all work happens on **`develop`**, where Phase 1 was committed on 2026-10-05. No
   remote.
+- **Private, never published (user's rule, 2026-10-05):** the design system is always kept private. Artifacts stay
+  private and unshared; nothing is pushed publicly or published to npm. Whether this replaces the open-source plan in
+  the docs (README, [ADR-0006](docs/architecture/adr/0006-licence-and-governance.md)) is waiting on the user.
 - **Git workflow (user's decision, 2026-10-05):** commit as you go on `develop`, in logical units. No feature branches.
   Don't push unless asked.
 - **The Claude Design canvas** holds C2 first, then the three Phase 1 directions for comparison. Waiting on the user's
