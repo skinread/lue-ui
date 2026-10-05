@@ -146,6 +146,12 @@ export const luminous = {
       pressed: { tint: [0.94, 0.035, 310], alpha: 0.75 },
       sheen: 0.35,
     },
+    // Dispersion: the short band of spectral light at the lower edge of chrome (amber → citron → mint → aqua → azure).
+    dispersion: [[0.56, 0.12, 72], [0.55, 0.13, 118], [0.54, 0.11, 168], [0.54, 0.10, 205], [0.52, 0.13, 250]],
+    // Satin folds behind heroes: pearl, champagne and lilac-grey, plus the highlight ridge. Text sits on these.
+    satin: [[0.985, 0.004, 285], [0.935, 0.014, 70], [0.95, 0.012, 300], [0.905, 0.012, 280], [0.97, 0.008, 40], [1, 0, 0]],
+    // Liquid metal for tiles and avatars: satin pearl bands.
+    metal: [[1, 0, 0], [0.955, 0.006, 285], [0.985, 0.004, 285], [0.94, 0.008, 285]],
   },
   dark: {
     accent: {
@@ -166,6 +172,9 @@ export const luminous = {
       pressed: { tint: [0.30, 0.07, 305], alpha: 0.75 },
       sheen: 0.06,
     },
+    dispersion: [[0.80, 0.12, 72], [0.82, 0.13, 118], [0.80, 0.12, 168], [0.80, 0.10, 205], [0.76, 0.12, 250]],
+    satin: [[0.165, 0.02, 285], [0.24, 0.022, 60], [0.215, 0.026, 305], [0.29, 0.016, 270], [0.14, 0.02, 285], [0.36, 0.014, 275]],
+    metal: [[0.33, 0.014, 285], [0.21, 0.02, 285], [0.26, 0.016, 285], [0.16, 0.02, 285]],
   },
 };
 
@@ -244,7 +253,8 @@ export function evaluateLuminous(s) {
   // root), so both the raw and the filtered readings are checked.
   const B = X.buttons;
   const glassAll = ['overlay', 'modal'].flatMap((tier) => backdrops.flatMap((b) => glassOver(s, tier, b)));
-  const btnBackdrops = [col['bg-canvas'], col['bg-surface'], col['bg-surface-subtle'], ...glows, ...doubled, ...glassAll]
+  const satin = X.satin.map((c) => oklch(...c));
+  const btnBackdrops = [col['bg-canvas'], col['bg-surface'], col['bg-surface-subtle'], ...glows, ...doubled, ...glassAll, ...satin]
     .flatMap((b) => [b, ...filtered(b, B.filter)]);
   const sheen = (c) => (s === 'dark' ? over(WHITE, B.sheen, c) : c); // a white sheen only hurts light text
   const pane = (tint, alpha) => btnBackdrops.map((b) => sheen(over(oklch(...tint), alpha, b)));
@@ -275,6 +285,13 @@ export function evaluateLuminous(s) {
   worst('fg-muted on disabled glass button (advisory)', [col['fg-muted']], neutral, 3);
   worst('fg-accent on quiet button hover (neutral glass)', [col['fg-accent']], neutral, 4.5);
   worst('fg-critical ring vs canvas and glass', [col['fg-critical']], [col['bg-canvas'], col['bg-surface'], ...glassAll], 3);
+  // Materials (round 3): the dispersion band is part of the chrome boundary; hero text sits on satin.
+  const dispersion = X.dispersion.map((c) => oklch(...c));
+  worst('dispersion band of the chrome boundary', dispersion, [col['bg-canvas'], col['bg-surface'], col['bg-surface-subtle'], ...glassAll], 3);
+  worst('fg-default on satin', [col['fg-default']], satin, 7);
+  worst('fg-muted on satin', [col['fg-muted']], satin, 4.5);
+  worst('fg-accent on satin', [col['fg-accent']], satin, 4.5);
+  worst('fg-default on liquid metal (avatars, tiles)', [col['fg-default']], X.metal.map((c) => oklch(...c)), 4.5);
   return { rows, chrome, accentRest, accentActive };
 }
 

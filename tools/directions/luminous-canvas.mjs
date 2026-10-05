@@ -3,6 +3,7 @@
 // Imported by build-canvas.mjs. Values come from palettes.mjs, where every rule here is contrast-checked.
 import { directions as PAL, luminous as LUM, evaluateLuminous, prismRamp, ambientGlows, buttonBlobs } from './palettes.mjs';
 import { oklch, contrast } from './contrast.mjs';
+import { materialsSection } from './luminous-pages.mjs';
 
 const raw = ([L, C, h], a) => `oklch(${+L.toFixed(3)} ${+C.toFixed(3)} ${+(+h).toFixed(1)}${a == null ? '' : ` / ${a}`})`;
 const mapped = (v, a) => { const c = oklch(...v); return raw([c.L, c.C, c.h], a); };
@@ -13,6 +14,9 @@ export function lxVars(s) {
   const P = PAL.luminous[s];
   const dark = s === 'dark';
   const [c0, c1, c2, c3, c4] = X.chrome.map((v) => mapped(v));
+  const disp = X.dispersion.map((v) => mapped(v));
+  const metal = X.metal.map((v) => mapped(v));
+  const satin = X.satin.map((v) => mapped(v));
   const acc = X.accent.rest.map((v) => mapped(v));
   const act = X.accent.active.map((v) => mapped(v));
   const strip = (a) => [a[0], a[1], a[2], a[3], a[2], a[1], a[0]].join(', ');
@@ -33,7 +37,20 @@ export function lxVars(s) {
     '--btn-rim-top': dark ? 'oklch(1 0 0 / 0.16)' : 'oklch(1 0 0 / 0.9)',
     '--btn-rim-bottom': dark ? 'oklch(1 0 0 / 0.05)' : 'oklch(1 0 0 / 0.45)',
     ...irid,
-    '--chrome-stops': `${c0} 0deg, ${c3} 38deg, ${c1} 64deg, ${c0} 104deg, ${c2} 150deg, ${c4} 196deg, ${c3} 236deg, ${c0} 282deg, ${c1} 318deg, ${c0} 360deg`,
+    // Chrome with a short band of dispersed light at its lower edge (around 180°), like light through thick glass.
+    '--chrome-stops': `${c0} 0deg, ${c3} 38deg, ${c1} 64deg, ${c0} 104deg, ${c2} 140deg, ${disp[0]} 158deg, ${disp[1]} 168deg, ${disp[2]} 178deg, ${disp[3]} 188deg, ${disp[4]} 198deg, ${c4} 220deg, ${c3} 248deg, ${c0} 286deg, ${c1} 320deg, ${c0} 360deg`,
+    ...Object.fromEntries([c0, c1, c2, c3, c4].map((c, i) => [`--c${i}`, c])),
+    ...Object.fromEntries(disp.map((c, i) => [`--disp-${i + 1}`, c])),
+    ...Object.fromEntries(satin.map((c, i) => [`--satin-${i}`, c])),
+    '--metal': `linear-gradient(165deg, ${metal[0]} 0%, ${metal[1]} 46%, ${metal[2]} 62%, ${metal[3]} 100%)`,
+    '--metal-rim-top': dark ? 'oklch(1 0 0 / 0.16)' : 'oklch(1 0 0)',
+    '--metal-rim-bottom': dark ? 'oklch(0 0 0 / 0.5)' : 'oklch(0.82 0.01 285 / 0.6)',
+    '--tile-shadow': dark ? '0 16px 34px -14px oklch(0 0 0 / 0.8), 0 0 0 1px oklch(1 0 0 / 0.04)' : '0 1px 1px oklch(0.3 0.03 285 / 0.08), 0 14px 30px -14px oklch(0.35 0.06 285 / 0.35), 0 6px 14px -8px oklch(0.4 0.05 285 / 0.22)',
+    '--prism-glass-top': dark ? 'oklch(0.46 0.02 285 / 0.55)' : 'oklch(1 0 0 / 0.92)',
+    '--prism-glass-bottom': dark ? 'oklch(0.17 0.02 285 / 0.85)' : 'oklch(0.92 0.012 285 / 0.8)',
+    '--prism-shadow': dark ? 'oklch(0 0 0 / 0.7)' : 'oklch(0.35 0.05 285 / 0.35)',
+    '--btn-refract': dark ? 'oklch(0.75 0.12 205 / 0.35)' : 'oklch(0.75 0.12 205 / 0.55)',
+    '--btn-depth': `inset 0 1px 0.5px var(--btn-rim-top), inset 0 -1px 0 var(--btn-rim-bottom), inset 0 -7px 10px -8px var(--btn-refract)`,
     '--chrome-solid': c1,
     '--chrome-line': dark ? c4 : c1,
     '--chrome-text': dark
@@ -113,15 +130,16 @@ export const LX_CSS = `
 @media (prefers-reduced-motion: reduce) { .dir-luminous { --dur-fast: 0s; --dur-moderate: 0s; --dur-dance: 0s; } }
 
 /* Ambient prism light: refracted bands and two soft orbs, behind content only. */
-.lx-stage { position: relative; isolation: isolate; overflow: hidden; }
+.lx-stage { position: relative; isolation: isolate; overflow: clip; }
 .lx-ambient { position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
-    radial-gradient(50% 64% at 95% 2%, var(--amb-orchid), transparent 74%),
-    radial-gradient(46% 60% at 1% 99%, var(--amb-aqua), transparent 74%); }
+    radial-gradient(62% 80% at 0% 72%, var(--amb-amber), transparent 76%),
+    radial-gradient(58% 78% at 100% 64%, var(--amb-azure), transparent 76%),
+    radial-gradient(40% 50% at 92% 0%, var(--amb-orchid), transparent 74%); }
 /* The refracted band: wide, soft hue steps, feathered out at both ends by an elliptical mask. */
-.lx-ambient::before { content: ""; position: absolute; inset: -12%;
+.lx-ambient::before { content: ""; position: absolute; inset: -12%; opacity: 0.55;
   background: linear-gradient(116deg, transparent 4%, var(--amb-rose) 19%, var(--amb-amber) 30%, var(--amb-citron) 41%, var(--amb-mint) 52%, var(--amb-aqua) 63%, var(--amb-azure) 74%, var(--amb-iris) 85%, transparent 97%);
-  mask-image: radial-gradient(closest-side, #000 18%, transparent 100%); opacity: 0.8; }
+  mask-image: radial-gradient(closest-side, #000 18%, transparent 100%); }
 .lx-dust { pointer-events: none; background-image: radial-gradient(circle 0.9px, var(--spark) 0 60%, transparent), radial-gradient(circle 0.7px, var(--spark) 0 60%, transparent); background-size: 97px 89px, 61px 73px; background-position: 11px 7px, 37px 41px; opacity: 0.5; }
 
 /* Chrome hairline ring */
@@ -146,15 +164,16 @@ export const LX_CSS = `
 /* Buttons: frosted glass panes inside the chrome ring. Neutral is clear glass; primary carries several prism tones at
    one lightness, which drift on hover. Inside a glass parent (a backdrop root) buttons don't blur again. */
 .dir-luminous .ns-button { border-color: transparent; color: var(--fg-default); background-color: var(--btn-glass); background-image: linear-gradient(180deg, var(--btn-sheen) 0%, transparent 52%); backdrop-filter: var(--btn-filter);
-  box-shadow: inset 0 1px 0 var(--btn-rim-top), inset 0 -1px 0 var(--btn-rim-bottom), var(--shadow-control);
+  box-shadow: var(--btn-depth), var(--shadow-control);
   transition: --lx-angle var(--dur-dance) var(--ease-dance), background-position var(--dur-dance) var(--ease-dance), background-color var(--dur-dance) var(--ease-dance), box-shadow var(--dur-dance) var(--ease-dance), scale var(--dur-fast) var(--ease); }
-.dir-luminous :is(.ns-card, .ns-dialog, .ns-menu, .lx-glass) .ns-button { backdrop-filter: none; }
+.dir-luminous :is(.ns-card, .ns-dialog, .ns-menu, .lx-glass) :is(.ns-button, .ns-tag) { backdrop-filter: none; }
+.dir-luminous a.ns-button { text-decoration: none; }
 .dir-luminous .ns-button:where([data-variant=primary]) { background-color: var(--btn-prism-base);
   background-image: linear-gradient(180deg, var(--btn-sheen) 0%, transparent 52%), radial-gradient(closest-side, var(--irid-1), transparent), radial-gradient(closest-side, var(--irid-2), transparent), radial-gradient(closest-side, var(--irid-3), transparent), radial-gradient(closest-side, var(--irid-4), transparent), radial-gradient(closest-side, var(--irid-5), transparent);
   background-size: 100% 100%, 64% 190%, 56% 170%, 66% 190%, 58% 180%, 52% 170%;
-  background-position: 0 0, -6% 0%, 104% -20%, 100% 120%, 18% 120%, 58% 40%;
+  background-position: 0 0, -6% 120%, 104% 110%, 70% 145%, 26% 150%, 50% 130%;
   background-repeat: no-repeat;
-  box-shadow: inset 0 1px 0 var(--btn-rim-top), inset 0 -1px 0 var(--btn-rim-bottom), var(--glow-rest); }
+  box-shadow: var(--btn-depth), var(--glow-rest); }
 .dir-luminous .ns-button:where([data-variant=danger]) { background-color: var(--btn-danger-glass); }
 .dir-luminous .ns-button:where([data-variant=danger])::before { background: linear-gradient(var(--fg-critical), var(--fg-critical)); }
 .dir-luminous .ns-button:where([data-variant=quiet]) { color: var(--fg-accent); background-color: transparent; background-image: none; backdrop-filter: none; box-shadow: none; }
@@ -163,19 +182,19 @@ export const LX_CSS = `
   background: radial-gradient(circle 1.3px at 20% 17%, var(--spark) 0 55%, transparent), radial-gradient(circle 1px at 44% 86%, var(--spark) 0 55%, transparent), radial-gradient(circle 1.5px at 69% 14%, var(--spark) 0 55%, transparent), radial-gradient(circle 1px at 86% 80%, var(--spark) 0 55%, transparent);
   transition: opacity var(--dur-dance) var(--ease-dance), translate var(--dur-dance) var(--ease-dance); }
 .dir-luminous .ns-button[data-demo=hover], .dir-luminous .ns-button[data-demo=active] { --lx-angle: 150deg; }
-.dir-luminous .ns-button[data-demo=hover] { box-shadow: inset 0 1px 0 var(--btn-rim-top), inset 0 -1px 0 var(--btn-rim-bottom), var(--glow-soft); }
-.dir-luminous .ns-button:where([data-variant=primary])[data-demo=hover] { background-position: 0 0, 26% 70%, 72% 10%, 74% 86%, -4% 40%, 40% 100%; box-shadow: inset 0 1px 0 var(--btn-rim-top), inset 0 -1px 0 var(--btn-rim-bottom), var(--glow-hover); }
+.dir-luminous .ns-button[data-demo=hover] { box-shadow: var(--btn-depth), var(--glow-soft); }
+.dir-luminous .ns-button:where([data-variant=primary])[data-demo=hover] { background-position: 0 0, 30% 130%, 76% 118%, 102% 150%, -4% 140%, 60% 112%; box-shadow: var(--btn-depth), var(--glow-hover); }
 .dir-luminous .ns-button:where([data-variant=primary])[data-demo=hover]::after { opacity: 1; translate: 8% 0; }
-.dir-luminous .ns-button:where([data-variant=primary])[data-demo=active] { background-color: var(--btn-prism-base-active); background-position: 0 0, 40% 100%, 50% 0%, 60% 100%, 10% 0%, 90% 60%; scale: 0.985; }
+.dir-luminous .ns-button:where([data-variant=primary])[data-demo=active] { background-color: var(--btn-prism-base-active); background-position: 0 0, 50% 100%, 18% 118%, 82% 120%, 40% 140%, 92% 100%; scale: 0.985; }
 @media (hover: hover) {
-  .dir-luminous .ns-button:hover { --lx-angle: 150deg; box-shadow: inset 0 1px 0 var(--btn-rim-top), inset 0 -1px 0 var(--btn-rim-bottom), var(--glow-soft); }
-  .dir-luminous .ns-button:where([data-variant=primary]):hover { background-position: 0 0, 26% 70%, 72% 10%, 74% 86%, -4% 40%, 40% 100%; box-shadow: inset 0 1px 0 var(--btn-rim-top), inset 0 -1px 0 var(--btn-rim-bottom), var(--glow-hover); }
+  .dir-luminous .ns-button:hover { --lx-angle: 150deg; box-shadow: var(--btn-depth), var(--glow-soft); }
+  .dir-luminous .ns-button:where([data-variant=primary]):hover { background-position: 0 0, 30% 130%, 76% 118%, 102% 150%, -4% 140%, 60% 112%; box-shadow: var(--btn-depth), var(--glow-hover); }
   .dir-luminous .ns-button:where([data-variant=primary]):hover::after { opacity: 1; translate: 8% 0; }
-  .dir-luminous .ns-button:where([data-variant=danger]):hover { box-shadow: inset 0 1px 0 var(--btn-rim-top), inset 0 -1px 0 var(--btn-rim-bottom), var(--glow-critical); }
+  .dir-luminous .ns-button:where([data-variant=danger]):hover { box-shadow: var(--btn-depth), var(--glow-critical); }
   .dir-luminous .ns-button:where([data-variant=quiet]):hover { background-color: var(--btn-glass); box-shadow: none; }
   .dir-luminous .ns-button:where([data-variant=quiet]):hover::before { opacity: 1; }
 }
-.dir-luminous .ns-button:where([data-variant=primary]):active { background-color: var(--btn-prism-base-active); background-position: 0 0, 40% 100%, 50% 0%, 60% 100%, 10% 0%, 90% 60%; scale: 0.985; }
+.dir-luminous .ns-button:where([data-variant=primary]):active { background-color: var(--btn-prism-base-active); background-position: 0 0, 50% 100%, 18% 118%, 82% 120%, 40% 140%, 92% 100%; scale: 0.985; }
 .dir-luminous .ns-button:is(:focus-visible, [data-demo=focus]) { --lx-angle: 220deg; outline: var(--focus-w) solid var(--focus-ring); outline-offset: var(--focus-offset); box-shadow: inset 0 1px 0 var(--btn-rim-top), 0 0 0 7px var(--focus-glow), 0 0 26px 2px var(--focus-glow); }
 .dir-luminous .ns-button[aria-pressed=true] { background-color: var(--btn-pressed-glass); box-shadow: inset 0 1px 0 var(--btn-rim-top), var(--glow-soft); }
 .dir-luminous .ns-button[aria-pressed=true]::before { padding: 1.5px; background: conic-gradient(from var(--lx-angle), var(--prism-ring)); }
@@ -206,6 +225,130 @@ export const LX_CSS = `
 .dir-luminous .ns-menu__sep { background: linear-gradient(90deg, transparent, var(--chrome-line), transparent); }
 .dir-luminous .ns-steps li[aria-current=step] .num { background: linear-gradient(135deg, var(--accent-stops)); border-color: transparent; box-shadow: var(--glow-rest); }
 .dir-luminous .ns-error-summary { border-width: 1px; box-shadow: inset 0 0 0 1px var(--fg-critical); }
+
+/* Materials: liquid metal tiles and avatars, satin folds, the glass prism */
+.lx-tile { inline-size: 64px; block-size: 64px; border-radius: 30%; display: inline-grid; place-items: center; flex: none; background: var(--metal); box-shadow: inset 0 1px 0 var(--metal-rim-top), inset 0 -1px 0 var(--metal-rim-bottom), var(--tile-shadow); }
+.lx-tile[data-size=lg] { inline-size: 112px; block-size: 112px; }
+.lx-tile svg { inline-size: 54%; block-size: 54%; overflow: visible; }
+@supports (corner-shape: squircle) { .lx-tile { corner-shape: squircle; border-radius: 44%; } }
+.lx-avatar { inline-size: 44px; block-size: 44px; border-radius: 50%; display: inline-grid; place-items: center; flex: none; background: var(--metal); box-shadow: inset 0 1px 0 var(--metal-rim-top), inset 0 -1px 0 var(--metal-rim-bottom), var(--tile-shadow); font-family: var(--font-display); font-weight: 500; font-size: 15px; color: var(--fg-default); }
+.lx-avatar[data-size=lg] { inline-size: 72px; block-size: 72px; font-size: 22px; }
+.lx-satin { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; z-index: -1; display: block; }
+.lx-prism { inline-size: min(100%, 440px); block-size: auto; display: block; overflow: visible; }
+.lx-media { position: relative; isolation: isolate; overflow: clip; display: grid; place-items: center; border-radius: calc(var(--radius-l) - 8px); box-shadow: inset 0 0 0 1px var(--border-subtle); aspect-ratio: 4 / 3; }
+.lx-media > svg:not(.lx-satin) { inline-size: 54%; block-size: auto; max-block-size: 82%; }
+
+/* Page shell (fluid boards) */
+.dir-luminous { --gutter: clamp(16px, 4vw, 56px); }
+.lx-wrap { inline-size: min(100% - 2 * var(--gutter), 1200px); margin-inline: auto; }
+.lx-skip { position: absolute; inset-inline-start: 16px; inset-block-start: 12px; z-index: 20; translate: 0 -200%; }
+.lx-skip:focus-visible { translate: 0 0; }
+.lx-nav { position: sticky; inset-block-start: 16px; z-index: 10; margin-block-start: 16px; }
+.lx-nav__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; padding: 8px 8px 8px 24px; border-radius: 999px; }
+.lx-nav ul { display: flex; flex-wrap: wrap; gap: 2px; list-style: none; margin: 0; padding: 0; }
+.lx-navlink { display: inline-flex; align-items: center; min-block-size: 44px; padding-inline: 16px; border-radius: 999px; color: var(--fg-default); text-decoration: none; font-weight: 500; transition: background-color var(--dur-dance) var(--ease-dance); }
+.lx-navlink[aria-current=page] { background-color: var(--btn-glass); box-shadow: var(--btn-depth); }
+@media (hover: hover) { .lx-navlink:hover { background-color: var(--btn-glass); } }
+.lx-navlink:focus-visible, .lx-wordmark:focus-visible, .lx-footer a:focus-visible, .lx-toc a:focus-visible, .lx-pages a:focus-visible { outline: var(--focus-w) solid var(--focus-ring); outline-offset: 2px; }
+.lx-wordmark { font-family: var(--font-display); font-weight: 400; font-size: 22px; letter-spacing: -0.01em; color: var(--fg-default); text-decoration: none; display: inline-flex; align-items: center; gap: 10px; min-block-size: 44px; }
+.lx-wordmark .lx-tile { inline-size: 34px; block-size: 34px; }
+
+/* Heroes */
+.lx-hero { position: relative; isolation: isolate; overflow: clip; padding-block: clamp(72px, 10vw, 148px) clamp(64px, 8vw, 124px); }
+.lx-hero__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(440px, 100%), 1fr)); gap: clamp(32px, 5vw, 72px); align-items: center; }
+.lx-hero__text { display: grid; gap: 24px; justify-items: start; }
+.lx-hero[data-layout=center] .lx-hero__grid { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
+.lx-hero[data-layout=center] .lx-hero__text { justify-items: center; }
+.lx-display { font-family: var(--font-display); font-weight: 300; font-size: clamp(3rem, 1.4rem + 4.6vw, 6.25rem); line-height: 0.98; letter-spacing: -0.035em; margin: 0; text-wrap: balance; font-variation-settings: 'opsz' 96; }
+.lx-lede { font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); line-height: 1.55; color: var(--fg-muted); max-inline-size: 46ch; margin: 0; text-wrap: pretty; }
+.lx-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.lx-hero__object { display: grid; place-items: center; }
+
+/* Sections and grids */
+.lx-section { padding-block: clamp(56px, 8vw, 112px); display: grid; gap: clamp(28px, 4vw, 48px); }
+.lx-section__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px 32px; }
+.lx-h2 { font-family: var(--font-display); font-weight: 350; font-size: clamp(2rem, 1.4rem + 2vw, 3.25rem); line-height: 1.05; letter-spacing: -0.025em; margin: 0; text-wrap: balance; }
+.lx-h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.5rem; line-height: 1.15; letter-spacing: -0.01em; margin: 0; }
+.lx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(var(--min, 300px), 100%), 1fr)); gap: clamp(18px, 2.4vw, 28px); }
+.lx-block-label { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-block: 0 4px; }
+
+/* Cards and lists */
+.lx-project { display: grid; gap: 18px; align-content: start; padding: 12px 12px 26px; border-radius: var(--radius-l); }
+.lx-project__body { display: grid; gap: 10px; padding-inline: 14px; }
+.lx-project :is(h3, .lx-h3) a, .lx-post :is(h3, .lx-h3) a { color: var(--fg-default); text-decoration: none; }
+.lx-project :is(h3, .lx-h3) a::after, .lx-post :is(h3, .lx-h3) a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 1; }
+.lx-project:has(a:focus-visible), .lx-post:has(a:focus-visible) { outline: var(--focus-w) solid var(--focus-ring); outline-offset: 4px; }
+.lx-project :is(h3, .lx-h3) a:focus-visible, .lx-post :is(h3, .lx-h3) a:focus-visible { outline: none; }
+@media (hover: hover) { .lx-project:hover, .lx-post:hover { --lx-angle: 120deg; } }
+.dir-luminous .lx-project, .dir-luminous .lx-post[data-variant=card] { transition: --lx-angle var(--dur-dance) var(--ease-dance); }
+.lx-tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; position: relative; z-index: 2; }
+.lx-post { position: relative; display: grid; gap: 10px; align-content: start; padding-block: 26px; border-block-start: 1px solid transparent; border-image: linear-gradient(90deg, var(--chrome-line), transparent) 1; }
+.lx-post[data-variant=card] { padding: 12px 12px 26px; border: 1px solid transparent; border-image: none; border-radius: var(--radius-l); gap: 16px; }
+.lx-post[data-variant=card] > :not(.lx-media) { margin-inline: 14px; }
+.lx-meta { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; margin: 0; }
+.lx-excerpt { color: var(--fg-muted); margin: 0; max-inline-size: 60ch; text-wrap: pretty; }
+.lx-feature { display: grid; gap: 16px; align-content: start; }
+.lx-feature p { margin: 0; color: var(--fg-muted); text-wrap: pretty; }
+
+/* Quote, split, timeline, CTA, footer */
+.lx-quote { margin: 0; display: grid; gap: 28px; justify-items: start; max-inline-size: 64rem; }
+.lx-quote blockquote { margin: 0; font-family: var(--font-display); font-weight: 300; font-size: clamp(1.75rem, 1.2rem + 1.9vw, 2.9rem); line-height: 1.18; letter-spacing: -0.02em; text-wrap: balance; }
+.lx-quote figcaption { display: flex; align-items: center; gap: 14px; }
+.lx-quote__mark { font-family: var(--font-display); font-weight: 300; font-size: 96px; line-height: 0.6; block-size: 0.5em; }
+.lx-split { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: clamp(28px, 4vw, 64px); align-items: center; }
+.lx-timeline { list-style: none; margin: 0; padding: 0; display: grid; }
+.lx-timeline li { display: flex; flex-wrap: wrap; gap: 6px 32px; padding-block: 22px; border-block-start: 1px solid transparent; border-image: linear-gradient(90deg, var(--chrome-line), transparent) 1; }
+.lx-timeline time { flex: 0 0 11rem; }
+.lx-timeline div { flex: 1 1 22rem; display: grid; gap: 4px; }
+.lx-timeline p { margin: 0; }
+.lx-cta { position: relative; isolation: isolate; overflow: clip; border-radius: calc(var(--radius-l) * 1.4); padding: clamp(32px, 6vw, 72px); display: grid; gap: 24px; justify-items: start; }
+.lx-cta form { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; inline-size: 100%; max-inline-size: 640px; }
+.lx-cta .ns-field { flex: 1 1 260px; }
+.lx-footer { padding-block: 40px 64px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px 32px; border-block-start: 1px solid transparent; border-image: linear-gradient(90deg, transparent, var(--chrome-line), transparent) 1; }
+.lx-footer ul { display: flex; flex-wrap: wrap; gap: 4px 20px; list-style: none; padding: 0; margin: 0; }
+.lx-footer a { color: var(--fg-muted); text-decoration: none; display: inline-flex; min-block-size: 44px; align-items: center; }
+@media (hover: hover) { .lx-footer a:hover { color: var(--fg-default); text-decoration: underline; } }
+.lx-pages { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; list-style: none; margin: 0; padding: 0; }
+.lx-pages a { display: inline-grid; place-items: center; min-inline-size: 44px; min-block-size: 44px; border-radius: 999px; color: var(--fg-default); text-decoration: none; }
+.lx-pages a[aria-current=page] { background-color: var(--btn-pressed-glass); box-shadow: var(--btn-depth); font-weight: 600; }
+
+/* Article */
+.lx-article__head { display: grid; gap: 22px; justify-items: start; padding-block: clamp(56px, 8vw, 112px) 44px; }
+.lx-title { font-family: var(--font-display); font-weight: 300; font-size: clamp(2.6rem, 1.5rem + 3.6vw, 5rem); line-height: 1.0; letter-spacing: -0.032em; margin: 0; max-inline-size: 16ch; text-wrap: balance; }
+.lx-dek { font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.5rem); line-height: 1.5; color: var(--fg-muted); margin: 0; max-inline-size: 44ch; text-wrap: pretty; }
+.lx-byline { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.lx-byline p { margin: 0; }
+.lx-crumbs ol { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.lx-crumbs li + li::before { content: "/"; margin-inline-end: 8px; color: var(--fg-muted); }
+.lx-crumbs a { color: var(--fg-muted); text-underline-offset: 0.2em; }
+.lx-figure { margin: 0; display: grid; gap: 14px; }
+.lx-figure .lx-media { aspect-ratio: 16 / 7; border-radius: var(--radius-l); box-shadow: var(--shadow-raised); }
+.lx-figure figcaption { font-size: var(--fs-small); color: var(--fg-muted); }
+.lx-article__body { display: flex; flex-wrap: wrap; gap: 32px 64px; align-items: start; padding-block: 56px 32px; }
+.lx-toc { flex: 1 1 14rem; max-inline-size: 18rem; position: sticky; inset-block-start: 104px; display: grid; gap: 12px; padding: 20px; border-radius: var(--radius-l); }
+.lx-toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.lx-toc a { display: flex; align-items: center; gap: 10px; min-block-size: 44px; padding-inline: 12px; border-radius: 14px; color: var(--fg-muted); text-decoration: none; }
+.lx-toc a::before { content: ""; inline-size: 6px; block-size: 6px; border-radius: 50%; background: var(--border-strong); flex: none; }
+.lx-toc a[aria-current=true] { color: var(--fg-default); background-color: var(--btn-glass); }
+.lx-toc a[aria-current=true]::before { background: linear-gradient(135deg, var(--accent-stops)); }
+.lx-prose { flex: 999 1 34rem; min-inline-size: 0; max-inline-size: 42rem; font-size: 1.1875rem; line-height: 1.7; }
+.lx-prose :where(p, ul, ol, figure, blockquote, aside) { margin: 0; }
+.lx-prose > * + * { margin-block-start: 1.15em; }
+.lx-prose > h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.6rem, 1.3rem + 1vw, 2.15rem); line-height: 1.15; letter-spacing: -0.02em; margin-block: 2.1em 0; scroll-margin-block-start: 104px; }
+.lx-prose p { text-wrap: pretty; }
+.lx-prose a { color: var(--fg-accent); text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+.lx-prose ul { padding-inline-start: 1.2em; display: grid; gap: 0.35em; }
+.lx-prose > .lx-pull { margin-block: 1.6em; }
+.lx-pull { font-family: var(--font-display); font-weight: 300; font-size: clamp(1.7rem, 1.2rem + 1.5vw, 2.5rem); line-height: 1.18; letter-spacing: -0.02em; text-align: center; text-wrap: balance; padding-block: 0.7em; border-block: 1px solid transparent; border-image: linear-gradient(90deg, transparent, var(--chrome-line), transparent) 1; }
+.lx-code { border-radius: var(--radius-m); overflow: clip; font-size: 1rem; }
+.lx-code figcaption { display: flex; justify-content: space-between; gap: 12px; padding: 10px 18px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); border-block-end: 1px solid var(--border-subtle); }
+.lx-code pre { margin: 0; padding: 18px 20px; overflow-x: auto; font-family: var(--font-mono); font-size: 14px; line-height: 1.7; }
+.lx-code pre:focus-visible { outline: var(--focus-w) solid var(--focus-ring); outline-offset: -4px; }
+.lx-code .tk-p { color: var(--fg-accent); }
+.lx-code .tk-c { color: var(--fg-muted); }
+.lx-author { display: flex; flex-wrap: wrap; gap: 18px 22px; align-items: center; padding: 24px 28px; border-radius: var(--radius-l); }
+.lx-author div { flex: 1 1 18rem; display: grid; gap: 4px; }
+.lx-author p { margin: 0; }
 
 /* User settings win: reduced transparency, more contrast, no backdrop-filter → opaque surfaces and solid steel rings */
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {${opaque('.dir-luminous')}
@@ -346,5 +489,5 @@ export function lxFoundations({ icon }) {
     </div>
   </section>`;
 
-  return { afterColour: prism + chrome + glass, beforeSignature: motion + fallbacks };
+  return { afterColour: prism + chrome + glass + materialsSection(), beforeSignature: motion + fallbacks };
 }

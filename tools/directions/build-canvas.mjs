@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { directions as PAL, evaluate } from './palettes.mjs';
 import { contrast } from './contrast.mjs';
 import { lxVars, lxShadows, LX_CSS, lxFoundations } from './luminous-canvas.mjs';
+import { blocksBoard, portfolioBoard, articleBoard } from './luminous-pages.mjs';
 
 // Output: <this folder>/out/canvas (gitignored), or a folder passed as the first argument.
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -154,7 +155,7 @@ const DIRS = {
     tags: ['Chrome hairlines', 'Liquid glass', 'Prismatic neon', 'Light that moves'],
     fonts: 'family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Figtree:ital,wght@0,300..900;1,300..900&family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap',
     fontNames: ['Bricolage Grotesque — display, light', 'Figtree — body', 'Spline Sans Mono — micro-labels and code'],
-    H: { foundations: 6000, components: 2560, checkout: 1240 },
+    H: { foundations: 7000, components: 2560, checkout: 1240 },
     interactive: true,
     vars: {
       '--font-display': "'Bricolage Grotesque', system-ui, sans-serif",
@@ -723,6 +724,21 @@ for (const d of Object.keys(DIRS)) {
       `return { scheme: ${darkDefault ? '(this.props.dark ?? true)' : 'this.props.dark'} ? 'dark' : 'light', showDialog: !!this.props.dialog };`) };
 }
 
+// C2 pages: fluid boards (expand: fill) for portfolio and editorial sites, each with a dark tweak
+{
+  const t = DIRS.luminous;
+  for (const [f, label, build, H, dark] of [
+    ['Blocks', 'block library', blocksBoard, 8800, false],
+    ['Portfolio', 'portfolio home', portfolioBoard, 5400, false],
+    ['Article', 'journal article', articleBoard, 6600, true],
+  ]) {
+    files[`Luminous-${f}.dc.html`] = { w: 1440, h: H, title: `${t.letter} · ${t.name} — ${label}`, interactive: true, expand: 'fill',
+      html: page(`${t.name} — ${label}`, t.fonts, ['luminous'], build({ icon }),
+        { dark: { editor: 'boolean', default: dark }, $preview: { width: 1440, height: H } },
+        `return { scheme: ${dark ? '(this.props.dark ?? true)' : 'this.props.dark'} ? 'dark' : 'light' };`) };
+  }
+}
+
 // Main — the three directions side by side
 {
   const W = 1500, H = 1060;
@@ -780,24 +796,33 @@ const pages = [{ id: 'luminous', name: 'C2 · Chroma Luminous' }, { id: 'phase-1
 const boards = {};
 const order = [];
 const notes = {};
-const placeRow = (d, y, page) => {
-  const t = DIRS[d];
-  const row = [`${fileOf(t)}-Foundations.dc.html`, `${fileOf(t)}-Components.dc.html`, `${fileOf(t)}-Checkout.dc.html`];
+const placeRow = (key, row, text, y, page) => {
   let x = 0, maxH = 0;
   for (const f of row) {
-    boards[f] = { x, y, w: files[f].w, h: files[f].h, title: files[f].title, page, ...(files[f].interactive ? { is_interactive: true } : {}) };
+    boards[f] = { x, y, w: files[f].w, h: files[f].h, title: files[f].title, page,
+      ...(files[f].interactive ? { is_interactive: true } : {}), ...(files[f].expand ? { expand: files[f].expand } : {}) };
     order.push(f);
     x += files[f].w + 80;
     maxH = Math.max(maxH, files[f].h);
   }
-  notes[`row-${d}`] = { x: 0, y: y - 260, text: `${t.letter} · ${t.name} — ${t.tagline.toLowerCase()}`, kind: 'title1', w: 240, maxW: x - 80, page };
+  notes[`row-${key}`] = { x: 0, y: y - 260, text, kind: 'title1', w: 240, maxW: x - 80, page };
   return y + maxH + rowGap + titleSpace;
 };
-placeRow('luminous', titleSpace, 'luminous');
+const dirRow = (d, y, page) => {
+  const t = DIRS[d], f = fileOf(t);
+  return placeRow(d, [`${f}-Foundations.dc.html`, `${f}-Components.dc.html`, `${f}-Checkout.dc.html`], `${t.letter} · ${t.name} — ${t.tagline.toLowerCase()}`, y, page);
+};
+{
+  const t = DIRS.luminous;
+  const y2 = placeRow('luminous', ['Luminous-Foundations.dc.html', 'Luminous-Components.dc.html', 'Luminous-Blocks.dc.html'],
+    `${t.letter} · ${t.name} — the system: foundations, components, blocks`, titleSpace, 'luminous');
+  placeRow('luminous-pages', ['Luminous-Portfolio.dc.html', 'Luminous-Article.dc.html', 'Luminous-Checkout.dc.html'],
+    `${t.letter} · ${t.name} — in use: portfolio, journal, a form`, y2, 'luminous');
+}
 boards['Main.dc.html'] = { x: 0, y: 0, w: files['Main.dc.html'].w, h: files['Main.dc.html'].h, title: files['Main.dc.html'].title, page: 'phase-1' };
 order.push('Main.dc.html');
 let y = files['Main.dc.html'].h + rowGap + titleSpace;
-for (const d of ['loom', 'instrument', 'chroma']) y = placeRow(d, y, 'phase-1');
+for (const d of ['loom', 'instrument', 'chroma']) y = dirRow(d, y, 'phase-1');
 const canvas = {
   v: 3,
   attachments: {}, // added by the canvas editor; kept so republishing doesn't fight it
