@@ -1,7 +1,7 @@
 // C2 · Chroma Luminous — the pieces of the canvas a flat palette can't express: chrome hairlines, glass tiers,
 // the prism fill that slides on interaction, sparks, ambient prism light, and the fallbacks that switch them off.
 // Imported by build-canvas.mjs. Values come from palettes.mjs, where every rule here is contrast-checked.
-import { directions as PAL, luminous as LUM, evaluateLuminous, prismRamp, ambientGlows } from './palettes.mjs';
+import { directions as PAL, luminous as LUM, evaluateLuminous, prismRamp, ambientGlows, buttonBlobs } from './palettes.mjs';
 import { oklch, contrast } from './contrast.mjs';
 
 const raw = ([L, C, h], a) => `oklch(${+L.toFixed(3)} ${+C.toFixed(3)} ${+(+h).toFixed(1)}${a == null ? '' : ` / ${a}`})`;
@@ -20,7 +20,19 @@ export function lxVars(s) {
   const glows = ambientGlows(s);
   const amb = Object.fromEntries(Object.keys(LUM.prism).map((n, i) => [`--amb-${n}`, mapped(glows[i], X.ambient.alpha)]));
   const tone = (L, C, h, a) => raw([L, C, h], a);
+  const B = X.buttons;
+  const irid = Object.fromEntries(buttonBlobs(s).map((c, i) => [`--irid-${i + 1}`, mapped(c, B.prism.alpha)]));
   return {
+    '--btn-glass': mapped(B.neutral.tint, B.neutral.alpha),
+    '--btn-filter': `blur(10px) saturate(1.8) contrast(${B.filter.contrast}) brightness(${B.filter.brightness})`,
+    '--btn-prism-base': mapped(B.neutral.tint, B.prism.base),
+    '--btn-prism-base-active': mapped(B.neutral.tint, B.prism.baseActive),
+    '--btn-danger-glass': mapped(B.danger.tint, B.danger.alpha),
+    '--btn-pressed-glass': mapped(B.pressed.tint, B.pressed.alpha),
+    '--btn-sheen': `oklch(1 0 0 / ${B.sheen})`,
+    '--btn-rim-top': dark ? 'oklch(1 0 0 / 0.16)' : 'oklch(1 0 0 / 0.9)',
+    '--btn-rim-bottom': dark ? 'oklch(1 0 0 / 0.05)' : 'oklch(1 0 0 / 0.45)',
+    ...irid,
     '--chrome-stops': `${c0} 0deg, ${c3} 38deg, ${c1} 64deg, ${c0} 104deg, ${c2} 150deg, ${c4} 196deg, ${c3} 236deg, ${c0} 282deg, ${c1} 318deg, ${c0} 360deg`,
     '--chrome-solid': c1,
     '--chrome-line': dark ? c4 : c1,
@@ -89,6 +101,10 @@ const opaque = (scope) => `
 ${scope} :is(${GLASS}, .ns-dialog) { background-color: var(--bg-surface); background-image: none; backdrop-filter: none; }
 ${scope} :is(${RINGED})::before { background: var(--border-strong); }
 ${scope} :is(${FIELDS}) { background: var(--field-bg); border-color: var(--border-strong); }
+${scope} .ns-button { backdrop-filter: none; background-color: var(--bg-surface); }
+${scope} .ns-button:where([data-variant=primary]) { background-color: var(--bg-accent-subtle); background-image: none; }
+${scope} .ns-button:where([data-variant=danger]) { background-color: var(--bg-critical-subtle); }
+${scope} .ns-button:where([data-variant=quiet]) { background-color: transparent; }
 ${scope} :is(.lx-ambient, .lx-dust) { display: none; }`;
 
 export const LX_CSS = `
@@ -100,9 +116,12 @@ export const LX_CSS = `
 .lx-stage { position: relative; isolation: isolate; overflow: hidden; }
 .lx-ambient { position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
-    radial-gradient(38% 52% at 92% 6%, var(--amb-orchid), transparent 70%),
-    radial-gradient(34% 46% at 4% 96%, var(--amb-aqua), transparent 70%),
-    linear-gradient(116deg, transparent 30%, var(--amb-rose) 37%, var(--amb-amber) 40.5%, var(--amb-citron) 43.5%, var(--amb-mint) 46.5%, var(--amb-azure) 50%, var(--amb-iris) 53.5%, transparent 60%); }
+    radial-gradient(50% 64% at 95% 2%, var(--amb-orchid), transparent 74%),
+    radial-gradient(46% 60% at 1% 99%, var(--amb-aqua), transparent 74%); }
+/* The refracted band: wide, soft hue steps, feathered out at both ends by an elliptical mask. */
+.lx-ambient::before { content: ""; position: absolute; inset: -12%;
+  background: linear-gradient(116deg, transparent 4%, var(--amb-rose) 19%, var(--amb-amber) 30%, var(--amb-citron) 41%, var(--amb-mint) 52%, var(--amb-aqua) 63%, var(--amb-azure) 74%, var(--amb-iris) 85%, transparent 97%);
+  mask-image: radial-gradient(closest-side, #000 18%, transparent 100%); opacity: 0.8; }
 .lx-dust { pointer-events: none; background-image: radial-gradient(circle 0.9px, var(--spark) 0 60%, transparent), radial-gradient(circle 0.7px, var(--spark) 0 60%, transparent); background-size: 97px 89px, 61px 73px; background-position: 11px 7px, 37px 41px; opacity: 0.5; }
 
 /* Chrome hairline ring */
@@ -124,38 +143,47 @@ export const LX_CSS = `
 .dir-luminous .ns-dialog { position: relative; }
 @supports (corner-shape: squircle) { .dir-luminous :is(.ns-card, .ns-dialog, .lx-glass) { corner-shape: squircle; border-radius: calc(var(--radius-l) * 1.7); } }
 
-/* Buttons: neutral sheen, prism fill that slides, chrome glint, glow, sparks */
-.dir-luminous .ns-button { border-color: transparent; background: linear-gradient(180deg, var(--neutral-top), var(--neutral-bottom)); box-shadow: inset 0 1px 0 var(--glint), var(--shadow-control);
-  transition: --lx-angle var(--dur-dance) var(--ease-dance), background-position var(--dur-dance) var(--ease-dance), box-shadow var(--dur-dance) var(--ease-dance), scale var(--dur-fast) var(--ease); }
-.dir-luminous .ns-button:where([data-variant=primary]) { color: var(--fg-on-accent); background: linear-gradient(100deg, var(--accent-strip)) 0% 50% / 300% 100%; box-shadow: inset 0 1px 0 var(--glint-accent), inset 0 -1px 0 var(--shade-accent), var(--glow-rest); }
-.dir-luminous .ns-button:where([data-variant=danger]) { background: var(--bg-critical); color: var(--fg-on-critical); box-shadow: inset 0 1px 0 var(--glint-accent), var(--shadow-control); }
-.dir-luminous .ns-button:where([data-variant=quiet]) { background: transparent; box-shadow: none; }
+/* Buttons: frosted glass panes inside the chrome ring. Neutral is clear glass; primary carries several prism tones at
+   one lightness, which drift on hover. Inside a glass parent (a backdrop root) buttons don't blur again. */
+.dir-luminous .ns-button { border-color: transparent; color: var(--fg-default); background-color: var(--btn-glass); background-image: linear-gradient(180deg, var(--btn-sheen) 0%, transparent 52%); backdrop-filter: var(--btn-filter);
+  box-shadow: inset 0 1px 0 var(--btn-rim-top), inset 0 -1px 0 var(--btn-rim-bottom), var(--shadow-control);
+  transition: --lx-angle var(--dur-dance) var(--ease-dance), background-position var(--dur-dance) var(--ease-dance), background-color var(--dur-dance) var(--ease-dance), box-shadow var(--dur-dance) var(--ease-dance), scale var(--dur-fast) var(--ease); }
+.dir-luminous :is(.ns-card, .ns-dialog, .ns-menu, .lx-glass) .ns-button { backdrop-filter: none; }
+.dir-luminous .ns-button:where([data-variant=primary]) { background-color: var(--btn-prism-base);
+  background-image: linear-gradient(180deg, var(--btn-sheen) 0%, transparent 52%), radial-gradient(closest-side, var(--irid-1), transparent), radial-gradient(closest-side, var(--irid-2), transparent), radial-gradient(closest-side, var(--irid-3), transparent), radial-gradient(closest-side, var(--irid-4), transparent), radial-gradient(closest-side, var(--irid-5), transparent);
+  background-size: 100% 100%, 64% 190%, 56% 170%, 66% 190%, 58% 180%, 52% 170%;
+  background-position: 0 0, -6% 0%, 104% -20%, 100% 120%, 18% 120%, 58% 40%;
+  background-repeat: no-repeat;
+  box-shadow: inset 0 1px 0 var(--btn-rim-top), inset 0 -1px 0 var(--btn-rim-bottom), var(--glow-rest); }
+.dir-luminous .ns-button:where([data-variant=danger]) { background-color: var(--btn-danger-glass); }
+.dir-luminous .ns-button:where([data-variant=danger])::before { background: linear-gradient(var(--fg-critical), var(--fg-critical)); }
+.dir-luminous .ns-button:where([data-variant=quiet]) { color: var(--fg-accent); background-color: transparent; background-image: none; backdrop-filter: none; box-shadow: none; }
 .dir-luminous .ns-button:where([data-variant=quiet])::before { opacity: 0; transition: opacity var(--dur-dance) var(--ease-dance); }
 .dir-luminous .ns-button:where([data-variant=primary])::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; translate: -8% 0;
   background: radial-gradient(circle 1.3px at 20% 17%, var(--spark) 0 55%, transparent), radial-gradient(circle 1px at 44% 86%, var(--spark) 0 55%, transparent), radial-gradient(circle 1.5px at 69% 14%, var(--spark) 0 55%, transparent), radial-gradient(circle 1px at 86% 80%, var(--spark) 0 55%, transparent);
   transition: opacity var(--dur-dance) var(--ease-dance), translate var(--dur-dance) var(--ease-dance); }
 .dir-luminous .ns-button[data-demo=hover], .dir-luminous .ns-button[data-demo=active] { --lx-angle: 150deg; }
-.dir-luminous .ns-button[data-demo=hover] { box-shadow: inset 0 1px 0 var(--glint), var(--glow-soft); }
-.dir-luminous .ns-button:where([data-variant=primary])[data-demo=hover] { background-position: 62% 50%; box-shadow: inset 0 1px 0 var(--glint-accent), inset 0 -1px 0 var(--shade-accent), var(--glow-hover); }
+.dir-luminous .ns-button[data-demo=hover] { box-shadow: inset 0 1px 0 var(--btn-rim-top), inset 0 -1px 0 var(--btn-rim-bottom), var(--glow-soft); }
+.dir-luminous .ns-button:where([data-variant=primary])[data-demo=hover] { background-position: 0 0, 26% 70%, 72% 10%, 74% 86%, -4% 40%, 40% 100%; box-shadow: inset 0 1px 0 var(--btn-rim-top), inset 0 -1px 0 var(--btn-rim-bottom), var(--glow-hover); }
 .dir-luminous .ns-button:where([data-variant=primary])[data-demo=hover]::after { opacity: 1; translate: 8% 0; }
-.dir-luminous .ns-button:where([data-variant=primary])[data-demo=active] { background-image: linear-gradient(100deg, var(--accent-strip-active)); background-position: 100% 50%; scale: 0.985; }
+.dir-luminous .ns-button:where([data-variant=primary])[data-demo=active] { background-color: var(--btn-prism-base-active); background-position: 0 0, 40% 100%, 50% 0%, 60% 100%, 10% 0%, 90% 60%; scale: 0.985; }
 @media (hover: hover) {
-  .dir-luminous .ns-button:hover { --lx-angle: 150deg; box-shadow: inset 0 1px 0 var(--glint), var(--glow-soft); background: linear-gradient(180deg, var(--neutral-top), var(--neutral-bottom)); }
-  .dir-luminous .ns-button:where([data-variant=primary]):hover { background: linear-gradient(100deg, var(--accent-strip)) 62% 50% / 300% 100%; box-shadow: inset 0 1px 0 var(--glint-accent), inset 0 -1px 0 var(--shade-accent), var(--glow-hover); }
+  .dir-luminous .ns-button:hover { --lx-angle: 150deg; box-shadow: inset 0 1px 0 var(--btn-rim-top), inset 0 -1px 0 var(--btn-rim-bottom), var(--glow-soft); }
+  .dir-luminous .ns-button:where([data-variant=primary]):hover { background-position: 0 0, 26% 70%, 72% 10%, 74% 86%, -4% 40%, 40% 100%; box-shadow: inset 0 1px 0 var(--btn-rim-top), inset 0 -1px 0 var(--btn-rim-bottom), var(--glow-hover); }
   .dir-luminous .ns-button:where([data-variant=primary]):hover::after { opacity: 1; translate: 8% 0; }
-  .dir-luminous .ns-button:where([data-variant=danger]):hover { background: var(--bg-critical); box-shadow: inset 0 1px 0 var(--glint-accent), var(--glow-critical); }
-  .dir-luminous .ns-button:where([data-variant=quiet]):hover { background: var(--bg-accent-subtle); box-shadow: none; }
+  .dir-luminous .ns-button:where([data-variant=danger]):hover { box-shadow: inset 0 1px 0 var(--btn-rim-top), inset 0 -1px 0 var(--btn-rim-bottom), var(--glow-critical); }
+  .dir-luminous .ns-button:where([data-variant=quiet]):hover { background-color: var(--btn-glass); box-shadow: none; }
   .dir-luminous .ns-button:where([data-variant=quiet]):hover::before { opacity: 1; }
 }
-.dir-luminous .ns-button:where([data-variant=primary]):active { background-image: linear-gradient(100deg, var(--accent-strip-active)); background-position: 100% 50%; scale: 0.985; }
-.dir-luminous .ns-button:is(:focus-visible, [data-demo=focus]) { --lx-angle: 220deg; outline: var(--focus-w) solid var(--focus-ring); outline-offset: var(--focus-offset); box-shadow: inset 0 1px 0 var(--glint), 0 0 0 7px var(--focus-glow), 0 0 26px 2px var(--focus-glow); }
-.dir-luminous .ns-button[aria-pressed=true] { background: var(--bg-accent-subtle); color: var(--fg-default); box-shadow: inset 0 1px 0 var(--glint), var(--glow-soft); }
+.dir-luminous .ns-button:where([data-variant=primary]):active { background-color: var(--btn-prism-base-active); background-position: 0 0, 40% 100%, 50% 0%, 60% 100%, 10% 0%, 90% 60%; scale: 0.985; }
+.dir-luminous .ns-button:is(:focus-visible, [data-demo=focus]) { --lx-angle: 220deg; outline: var(--focus-w) solid var(--focus-ring); outline-offset: var(--focus-offset); box-shadow: inset 0 1px 0 var(--btn-rim-top), 0 0 0 7px var(--focus-glow), 0 0 26px 2px var(--focus-glow); }
+.dir-luminous .ns-button[aria-pressed=true] { background-color: var(--btn-pressed-glass); box-shadow: inset 0 1px 0 var(--btn-rim-top), var(--glow-soft); }
 .dir-luminous .ns-button[aria-pressed=true]::before { padding: 1.5px; background: conic-gradient(from var(--lx-angle), var(--prism-ring)); }
-.dir-luminous .ns-button:disabled { background: var(--bg-surface-subtle); color: var(--fg-muted); box-shadow: none; scale: 1; cursor: not-allowed; }
+.dir-luminous .ns-button:disabled { background-color: var(--btn-glass); background-image: none; color: var(--fg-muted); box-shadow: none; scale: 1; cursor: not-allowed; }
 .dir-luminous .ns-button:disabled::before { opacity: 0.45; }
 .dir-luminous .ns-button:disabled::after { content: none; }
 .dir-luminous .ns-toast { box-shadow: var(--shadow-overlay); }
-.dir-luminous .ns-toast .ns-button { background: transparent; box-shadow: none; }
+.dir-luminous .ns-toast .ns-button { color: var(--fg-inverse); background: transparent; box-shadow: none; backdrop-filter: none; }
 .dir-luminous .ns-toast .ns-button::before { content: none; }
 
 /* Fields: opaque wells inside a chrome hairline (padding-box fill over a border-box conic) */
@@ -189,7 +217,7 @@ ${opaque('.dir-luminous .lx-opaque')}
   .dir-luminous :is(${RINGED})::before, .dir-luminous .ns-button::after, .dir-luminous :is(.lx-ambient, .lx-dust) { content: none; display: none; }
   .dir-luminous :is(${RINGED}) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
   .dir-luminous :is(${FIELDS}) { background: Field; border-color: FieldText; }
-  .dir-luminous .ns-button { background: ButtonFace; color: ButtonText; border-color: ButtonText; }
+  .dir-luminous .ns-button { background: ButtonFace; color: ButtonText; border-color: ButtonText; backdrop-filter: none; }
   .lx-chrome-text { background: none; color: CanvasText; -webkit-text-fill-color: currentColor; }
 }
 `;
@@ -211,16 +239,17 @@ export function lxFoundations({ icon }) {
       <span></span>${LUM.prismSteps.map((L) => `<span class="t-micro" style="text-align: center">L ${L}</span>`).join('')}
       ${Object.entries(ramp).map(([name, steps]) => `<span class="t-micro">${name}</span>${steps.map((v) => `<span title="${raw(v)}" style="block-size: 40px; border-radius: var(--radius-s); background: ${raw(v)}"></span>`).join('')}`).join('\n      ')}
     </div>
-    <p class="t-small t-muted" style="max-inline-size: 72ch">Decorative light comes from the whole prism; filled accents use one iso-lightness slice of it (rose → orchid → iris → azure or aqua), so a fill can shift hue without changing its contrast.</p>
+    <p class="t-small t-muted" style="max-inline-size: 72ch">Ambient light comes from the whole prism. Glass buttons carry several of its tones at once — ${LUM.light.buttons.prism.hues.join(', ')} in light; ${LUM.dark.buttons.prism.hues.join(', ')} in dark — all at one lightness, so they can drift without changing contrast. Small solid fills (checkboxes, switches, steps) keep an iso-lightness slice.</p>
     <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
       ${['light', 'dark'].map((s) => panel(s, `
-        <p class="t-micro">${label(s)} · prism fills</p>
+        <p class="t-micro">${label(s)} · glass buttons</p>
         <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
-          <button type="button" class="ns-button" data-variant="primary">Rest</button>
+          <button type="button" class="ns-button">Clear glass</button>
+          <button type="button" class="ns-button" data-variant="primary">Prism glass</button>
           <button type="button" class="ns-button" data-variant="primary" data-demo="hover">Hover</button>
           <button type="button" class="ns-button" data-variant="primary" data-demo="active">Pressed</button>
         </div>
-        <p class="t-small t-muted">Text on every stop: ≥ ${r(s, 'fg-on-accent on prism fill (rest')}:1 at rest and hover, ≥ ${r(s, 'fg-on-accent on prism fill (active')}:1 pressed.</p>`)).join('\n      ')}
+        <p class="t-small t-muted">Label on prism glass ≥ ${r(s, 'fg-default on prism glass button (up')}:1 with up to three tones overlapping, over any surface, ambient light or glass; clear glass ≥ ${r(s, 'fg-default on neutral glass button')}:1.</p>`)).join('\n      ')}
     </div>
   </section>`;
 
@@ -268,7 +297,7 @@ export function lxFoundations({ icon }) {
           <p class="t-small">Dialogs, over the scrim. Body text ≥ ${r(s, 'fg-default on modal')}:1; muted ≥ ${r(s, 'fg-muted on modal')}:1.</p>
         </div>`, '; min-block-size: 440px')).join('\n      ')}
     </div>
-    <p class="t-small t-muted" style="max-inline-size: 76ch">Glass is a tint over a blurred, range-compressed backdrop (<code class="t-code">contrast()</code> and <code class="t-code">brightness()</code> in the backdrop filter), plus a faint sheen and a prism fringe at the edge. The checker composites it over white, black and every fill in the palette, reading the filter both ways engines apply it, and keeps the worst result.</p>
+    <p class="t-small t-muted" style="max-inline-size: 76ch">Glass is a tint over a blurred, range-compressed backdrop (<code class="t-code">contrast()</code> and <code class="t-code">brightness()</code> in the backdrop filter), plus a faint sheen and a prism fringe at the edge. The checker composites it over white, black and every fill in the palette, reading the filter both ways engines apply it, and keeps the worst result. Buttons are a lighter, clearer pane: verified over surfaces, ambient light and glass — on photography they sit on a glass panel.</p>
   </section>`;
 
   const motion = `
@@ -276,7 +305,7 @@ export function lxFoundations({ icon }) {
     <div class="section-head"><h2 class="t-h2">Light that moves</h2><p class="t-micro">≤ 320 ms · on interaction only · press Play to try</p></div>
     <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px">
       ${[
-        ['Prism slide', '<button type="button" class="ns-button" data-variant="primary">Continue</button>', 'Hover slides the fill along the prism. Contrast is the same at every point.'],
+        ['Colour drift', '<button type="button" class="ns-button" data-variant="primary">Continue</button>', 'Hover drifts the tones inside the glass. They share one lightness, so the label’s contrast holds throughout.'],
         ['Chrome glint', '<button type="button" class="ns-button">Save for later</button>', 'The rim’s reflection turns as the pointer arrives, and again on focus.'],
         ['Glow', '<button type="button" class="ns-button" data-variant="primary" data-demo="hover">Hovered</button>', 'A diffuse prism glow rises beneath. It never carries meaning on its own.'],
         ['Sparks', '<button type="button" class="ns-button" data-variant="primary" data-demo="hover" data-size="lg">Place order</button>', 'A few specks of light drift across the edge of a filled button. Never over text, never looping.'],

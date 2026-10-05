@@ -774,34 +774,37 @@ ${['loom', 'instrument', 'chroma'].map(col).join('\n')}
 }
 
 // ---------------------------------------------------------------- canvas.json
+// Two pages: the direction in progress on its own, and the Phase 1 set (cover + three rows) for reference.
 const rowGap = 120, titleSpace = 300;
+const pages = [{ id: 'luminous', name: 'C2 · Chroma Luminous' }, { id: 'phase-1', name: 'Phase 1 · three directions' }];
 const boards = {};
 const order = [];
 const notes = {};
-boards['Main.dc.html'] = { x: 0, y: 0, w: files['Main.dc.html'].w, h: files['Main.dc.html'].h, title: files['Main.dc.html'].title };
-order.push('Main.dc.html');
-let y = files['Main.dc.html'].h + rowGap + titleSpace;
-// The direction in progress goes first; the Phase 1 directions follow for comparison.
-for (const d of ['luminous', 'loom', 'instrument', 'chroma']) {
+const placeRow = (d, y, page) => {
   const t = DIRS[d];
   const row = [`${fileOf(t)}-Foundations.dc.html`, `${fileOf(t)}-Components.dc.html`, `${fileOf(t)}-Checkout.dc.html`];
   let x = 0, maxH = 0;
   for (const f of row) {
-    boards[f] = { x, y, w: files[f].w, h: files[f].h, title: files[f].title, ...(files[f].interactive ? { is_interactive: true } : {}) };
+    boards[f] = { x, y, w: files[f].w, h: files[f].h, title: files[f].title, page, ...(files[f].interactive ? { is_interactive: true } : {}) };
     order.push(f);
     x += files[f].w + 80;
     maxH = Math.max(maxH, files[f].h);
   }
-  notes[`row-${d}`] = { x: 0, y: y - 260, text: `${t.letter} · ${t.name} — ${t.tagline.toLowerCase()}`, kind: 'title1', w: 240, maxW: x - 80 };
-  y += maxH + rowGap + titleSpace;
-}
+  notes[`row-${d}`] = { x: 0, y: y - 260, text: `${t.letter} · ${t.name} — ${t.tagline.toLowerCase()}`, kind: 'title1', w: 240, maxW: x - 80, page };
+  return y + maxH + rowGap + titleSpace;
+};
+placeRow('luminous', titleSpace, 'luminous');
+boards['Main.dc.html'] = { x: 0, y: 0, w: files['Main.dc.html'].w, h: files['Main.dc.html'].h, title: files['Main.dc.html'].title, page: 'phase-1' };
+order.push('Main.dc.html');
+let y = files['Main.dc.html'].h + rowGap + titleSpace;
+for (const d of ['loom', 'instrument', 'chroma']) y = placeRow(d, y, 'phase-1');
 const canvas = {
   v: 3,
   attachments: {}, // added by the canvas editor; kept so republishing doesn't fight it
   createdOnFiles: { v: 1, at: '2026-10-04T22:01:56Z' }, // the published canvas's marker — never change it
-  title: 'never-ui — three directions',
-  launch: { view: 'canvas' },
-  pages: [],
+  title: 'never-ui — design directions',
+  launch: { view: 'canvas', page: 'luminous' },
+  pages,
   boards, order, notes,
   designSystems: [],
 };

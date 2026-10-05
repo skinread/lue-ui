@@ -137,6 +137,15 @@ export const luminous = {
     glass: { tint: [0.995, 0.004, 290], filter: { contrast: 0.65, brightness: 1.12 }, overlay: 0.84, modal: 0.8, sheen: 0 },
     scrim: { col: [0.22, 0.03, 285], alpha: 0.36 },
     ambient: { L: 0.80, C: 0.12, alpha: 0.28 },
+    // Glass buttons: a clear frosted pane; primaries add drifting multi-tone light (iridescent blobs) at one lightness.
+    buttons: {
+      filter: { contrast: 0.7, brightness: 1.06 },
+      neutral: { tint: [0.995, 0.004, 290], alpha: 0.5 },
+      prism: { base: 0.3, baseActive: 0.48, L: 0.82, C: 0.12, alpha: 0.42, hues: ['aqua', 'citron', 'rose', 'mint', 'orchid'] },
+      danger: { tint: [0.86, 0.07, 18], alpha: 0.6 },
+      pressed: { tint: [0.94, 0.035, 310], alpha: 0.75 },
+      sheen: 0.35,
+    },
   },
   dark: {
     accent: {
@@ -149,6 +158,14 @@ export const luminous = {
     glass: { tint: [0.205, 0.026, 285], filter: { contrast: 0.75, brightness: 0.6 }, overlay: 0.84, modal: 0.72, sheen: 0.04 },
     scrim: { col: [0.08, 0.02, 285], alpha: 0.6 },
     ambient: { L: 0.68, C: 0.14, alpha: 0.2 },
+    buttons: {
+      filter: { contrast: 0.75, brightness: 0.72 },
+      neutral: { tint: [0.26, 0.03, 285], alpha: 0.5 },
+      prism: { base: 0.3, baseActive: 0.46, L: 0.5, C: 0.13, alpha: 0.36, hues: ['aqua', 'amber', 'rose', 'mint', 'orchid'] },
+      danger: { tint: [0.44, 0.12, 18], alpha: 0.6 },
+      pressed: { tint: [0.30, 0.07, 305], alpha: 0.75 },
+      sheen: 0.06,
+    },
   },
 };
 
@@ -162,6 +179,10 @@ const maxChroma = (L, h) => {
 };
 export const prismRamp = () => Object.fromEntries(Object.entries(luminous.prism).map(([name, h]) =>
   [name, luminous.prismSteps.map((L) => [L, +Math.min(luminous.prismChroma, 0.9 * maxChroma(L, h)).toFixed(3), h])]));
+export const buttonBlobs = (s) => luminous[s].buttons.prism.hues.map((n) => {
+  const { L, C } = luminous[s].buttons.prism, h = luminous.prism[n];
+  return [L, +Math.min(C, 0.9 * maxChroma(L, h)).toFixed(3), h];
+});
 export const ambientGlows = (s) => Object.values(luminous.prism).map((h) =>
   [luminous[s].ambient.L, +Math.min(luminous[s].ambient.C, 0.9 * maxChroma(luminous[s].ambient.L, h)).toFixed(3), h]);
 
@@ -217,6 +238,43 @@ export function evaluateLuminous(s) {
     worst(`focus-ring on ${tier} glass`, [col['focus-ring']], glass, 3);
     worst(`chrome boundary on ${tier} glass`, chrome, glass, 3);
   }
+
+  // Glass buttons sit on system surfaces, ambient light or glass — never straight on photography (put them on a glass
+  // panel there). Outside glass they blur their own backdrop; inside glass they don't (a glass parent is a backdrop
+  // root), so both the raw and the filtered readings are checked.
+  const B = X.buttons;
+  const glassAll = ['overlay', 'modal'].flatMap((tier) => backdrops.flatMap((b) => glassOver(s, tier, b)));
+  const btnBackdrops = [col['bg-canvas'], col['bg-surface'], col['bg-surface-subtle'], ...glows, ...doubled, ...glassAll]
+    .flatMap((b) => [b, ...filtered(b, B.filter)]);
+  const sheen = (c) => (s === 'dark' ? over(WHITE, B.sheen, c) : c); // a white sheen only hurts light text
+  const pane = (tint, alpha) => btnBackdrops.map((b) => sheen(over(oklch(...tint), alpha, b)));
+  const neutral = pane(B.neutral.tint, B.neutral.alpha);
+  const blobs = buttonBlobs(s).map((c) => oklch(...c));
+  const prismPanes = (baseAlpha) => {
+    const bases = btnBackdrops.map((b) => over(oklch(...B.neutral.tint), baseAlpha, b));
+    const out = [];
+    for (const base of bases) {
+      out.push(sheen(base));
+      for (const a of blobs) {
+        const one = over(a, B.prism.alpha, base);
+        out.push(sheen(one));
+        for (const b2 of blobs) {
+          const two = over(b2, B.prism.alpha, one);
+          out.push(sheen(two));
+          for (const c3 of blobs) out.push(sheen(over(c3, B.prism.alpha, two)));
+        }
+      }
+    }
+    return out;
+  };
+  worst('fg-default on neutral glass button', [col['fg-default']], neutral, 4.5);
+  worst('fg-default on prism glass button (up to 3 tones)', [col['fg-default']], prismPanes(B.prism.base), 4.5);
+  worst('fg-default on prism glass button, pressed', [col['fg-default']], prismPanes(B.prism.baseActive), 4.5);
+  worst('fg-default on danger glass button', [col['fg-default']], pane(B.danger.tint, B.danger.alpha), 4.5);
+  worst('fg-default on pressed toggle', [col['fg-default']], pane(B.pressed.tint, B.pressed.alpha), 4.5);
+  worst('fg-muted on disabled glass button (advisory)', [col['fg-muted']], neutral, 3);
+  worst('fg-accent on quiet button hover (neutral glass)', [col['fg-accent']], neutral, 4.5);
+  worst('fg-critical ring vs canvas and glass', [col['fg-critical']], [col['bg-canvas'], col['bg-surface'], ...glassAll], 3);
   return { rows, chrome, accentRest, accentActive };
 }
 
