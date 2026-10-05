@@ -1,6 +1,8 @@
 # Naming
 
-> **Status:** Round 2 shortlist for decision · 2026-10-05 · round 1 didn't land
+> **Status:** Round 3 riff for reaction · 2026-10-05 · rounds 1 and 2 didn't land
+> **The project is private and never published** (user's rule, 2026-10-05), so registry availability below is
+> information, not a requirement — unless the user says otherwise. Clashes with well-known names still matter.
 > `never-ui` is a working title. This page proposes replacements and records what is free to claim.
 
 ## What the name has to do
@@ -11,7 +13,47 @@
 - Be easy to say and spell, and give a short CSS prefix (2–3 letters) that doesn't collide with legacy `--vui-*`
   variables or read as "Tailwind" (`tw-`).
 
-## Round 2 — light, prism and glass
+## Round 3 — prismatic, chroma, lumination
+
+The user asked to riff on three themes: *prismatic*, *chroma* and *lumination*.
+
+| Theme | Name | The story | Clash |
+| --- | --- | --- | --- |
+| Chroma | **Isochroma** | "Equal colour." The button tones share one lightness, so contrast never moves — and everyone gets the same access. It names the system's actual technique. | None found |
+| Chroma | **Chromalume** | Colour and light; reads like a luxury lighting atelier. | Mild — Chromalume steel alloys; close to Sondheim's *Chromolume* |
+| Chroma | **Chromalis** | Chroma as a constellation or species name. | Mild — a Wolf-Gordon wallcovering collection, a moth |
+| Chroma | **Aurachrome** | An aura of light around a chrome rim. | Mild — a French theatre company, a nail-art trend |
+| Light | **Lumiris** | Light plus Iris — goddess of the rainbow, and the part of the eye that lets light in. Light, rainbow and sight. | Mild — several small companies |
+| Light | **Lumachroma** | Luma and chroma, the two halves of every colour signal: hold luma steady for legibility, let chroma dance. | Mild — a Swiss projection group, a music project |
+| Light | **Lucentia** | From *lucent*: glowing, translucent. | Mild — a research group, a cardiac-imaging company |
+| Light | **Luminelle** | Light, made soft and luxurious. | Mild — small skincare brands, a game creature |
+| Prismatic | **Prismara** | A made-up word with a jewel-like sound, like "tiara". | Mild — a jewellery brand, a studio; echoes Prisma |
+| Prismatic | **Dichro** | Dichroic glass shifts colour with the viewing angle, like the drifting button tones. | Mild — glass-art slang, a band |
+| Prismatic | **Prismel** | A small prism. | Mild — an OCaml graphics framework |
+| Prismatic | **Iridesce** | The verb for shimmering with rainbow colour. | None, but too ordinary a word |
+
+**Leading:** Isochroma (no clash found at all, and the strongest story), Lumiris, Chromalume. The *chroma* names keep
+the earlier caveat: they sit near chroma.js and Chroma DB, and "Chrom-" can read as Chromium-only.
+
+**Ruled out for serious clashes:** Panchroma (Polymaker's Panchroma filament line), Lumachrome (META's LumaChrome
+banknote film, Lumachrome photo prints), Prismalux (an Italian LED lighting company, Thorlux's Prismalux fitting),
+Prismalume (Holophane's Prismalume fittings), Prismatica (a live npm product and Prismatica AI, near Lady Gaga's
+*Chromatica*), Chromara (Chromara Beauty), Kromalux (sounds like ChromaLuxe and Chromalux), Opalume (Fagerhult street
+lights, Kokomo art glass).
+
+### Round 3 availability
+
+Checked 2026-10-05 (npm package and scope; GitHub through the authenticated API after the anonymous limit ran out).
+The web checks were quick searches, not trademark searches.
+
+| Name | npm package | npm scope | GitHub |
+| --- | --- | --- | --- |
+| isochroma, chromalume, chromalis, aurachrome | free | free | free |
+| lumiris, lumachroma, prismara, dichro, luminelle, prismel | free | free | taken |
+| lucentia | free | taken (publishes a package) | taken |
+| iridesce | free | taken (empty user scope) | taken |
+
+## Round 2 — light, prism and glass (not chosen)
 
 Round 1's weaving and kerb names didn't connect. Round 2 follows the chosen look, **C2 · Chroma Luminous** (chrome,
 glass, a prism of subdued neon), and keeps the mission in the story. The thread: white light holds every colour, and
