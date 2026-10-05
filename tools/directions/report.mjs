@@ -1,20 +1,23 @@
-import { directions, evaluate, evaluateLuminous } from './palettes.mjs';
+import { directions, evaluate, evaluateLuminous, evaluateLuminousMore } from './palettes.mjs';
 import { toHex } from './contrast.mjs';
 const fmt = (c) => `oklch(${+c.L.toFixed(3)} ${+c.C.toFixed(3)} ${c.h})`;
 const NAMES = { loom: 'A. Loom', instrument: 'B. Instrument', chroma: 'C. Chroma', luminous: 'C2. Chroma Luminous' };
 const out = { values: {}, md: [] };
 for (const [dir, schemes] of Object.entries(directions)) {
   out.values[dir] = {};
-  const md = ['<details>', `<summary><strong>${NAMES[dir] ?? dir}</strong> — values and contrast (light · dark)</summary>`, '', '| Token | Light | Dark |', '| --- | --- | --- |'];
-  const L = evaluate(schemes.light), D = evaluate(schemes.dark);
+  const names = Object.keys(schemes);
+  const label = (n) => n.replace('-more', ' (more contrast)').replace(/^./, (c) => c.toUpperCase());
+  const ev = Object.fromEntries(names.map((n) => [n, evaluate(schemes[n], n.endsWith('-more'))]));
+  const md = ['<details>', `<summary><strong>${NAMES[dir] ?? dir}</strong> — values and contrast (${names.join(' · ')})</summary>`, '',
+    `| Token | ${names.map(label).join(' | ')} |`, `| --- |${names.map(() => ' --- |').join('')}`];
   for (const k of Object.keys(schemes.light)) {
-    md.push(`| \`${k}\` | \`${fmt(L.col[k])}\` ${toHex(L.col[k])} | \`${fmt(D.col[k])}\` ${toHex(D.col[k])} |`);
-    out.values[dir][k] = { light: fmt(L.col[k]), dark: fmt(D.col[k]), lightHex: toHex(L.col[k]), darkHex: toHex(D.col[k]) };
+    md.push(`| \`${k}\` | ${names.map((n) => `\`${fmt(ev[n].col[k])}\` ${toHex(ev[n].col[k])}`).join(' | ')} |`);
+    out.values[dir][k] = Object.fromEntries(names.flatMap((n) => [[n, fmt(ev[n].col[k])], [`${n}Hex`, toHex(ev[n].col[k])]]));
   }
-  md.push('', '| Pair | Min | Light | Dark |', '| --- | --- | --- | --- |');
-  L.rows.forEach((r, i) => {
-    const d = D.rows[i];
-    md.push(`| \`${r.fg}\` on \`${r.bg}\` | ${r.min}:1 | ${r.ratio.toFixed(2)} (Lc ${Math.abs(r.lc).toFixed(0)}) | ${d.ratio.toFixed(2)} (Lc ${Math.abs(d.lc).toFixed(0)}) |`);
+  md.push('', `| Pair | Min | ${names.map(label).join(' | ')} |`, `| --- | --- |${names.map(() => ' --- |').join('')}`);
+  ev[names[0]].rows.forEach((r, i) => {
+    const mins = [...new Set(names.map((n) => ev[n].rows[i].min))].join(' · ');
+    md.push(`| \`${r.fg}\` on \`${r.bg}\` | ${mins}:1 | ${names.map((n) => `${ev[n].rows[i].ratio.toFixed(2)} (Lc ${Math.abs(ev[n].rows[i].lc).toFixed(0)})`).join(' | ')} |`);
   });
   md.push('', '</details>');
   out.md.push(md.join('\n'));
@@ -22,6 +25,13 @@ for (const [dir, schemes] of Object.entries(directions)) {
 {
   const L = evaluateLuminous('light').rows, D = evaluateLuminous('dark').rows;
   const md = ['<details>', '<summary><strong>C2. Chroma Luminous</strong> — prism, chrome and glass rules (light · dark)</summary>', '', 'Worst case over every backdrop (white, black, canvas, surface, inverse, text, prism fills, ambient light), with both readings of the backdrop filter.', '', '| Rule | Min | Light | Dark |', '| --- | --- | --- | --- |'];
+  L.forEach((r, i) => md.push(`| ${r.what} | ${r.min}:1 | ${r.ratio.toFixed(2)} | ${D[i].ratio.toFixed(2)} |`));
+  md.push('', '</details>');
+  out.md.push(md.join('\n'));
+}
+{
+  const L = evaluateLuminousMore('light-more').rows, D = evaluateLuminousMore('dark-more').rows;
+  const md = ['<details>', '<summary><strong>C2. Chroma Luminous</strong> — increased-contrast rules (light-more · dark-more)</summary>', '', 'Glass is opaque and chrome is one solid line in these contexts, so only the flat pairs above and these rules apply.', '', '| Rule | Min | Light (more) | Dark (more) |', '| --- | --- | --- | --- |'];
   L.forEach((r, i) => md.push(`| ${r.what} | ${r.min}:1 | ${r.ratio.toFixed(2)} | ${D[i].ratio.toFixed(2)} |`));
   md.push('', '</details>');
   out.md.push(md.join('\n'));

@@ -299,8 +299,9 @@ Score each direction 1–5:
 ## Appendix — seeded palettes and contrast matrices
 
 Generated 2026-10-05 by a dependency-free script (OKLCH → sRGB → WCAG 2.x ratio; APCA Lc in brackets, advisory).
-Values shown are after sRGB gamut mapping. All 288 palette pairs pass (4 palettes × light and dark × 36), and all 76
-Chroma Luminous prism, chrome, glass, glass-button, multi-tone, satin and metal rules pass.
+Values shown are after sRGB gamut mapping. All 360 palette pairs pass (4 palettes × light and dark × 36, plus C2's
+`dark-more` and `light-more` at raised minimums — text 7:1, boundaries 4.5:1), and all 86 Chroma Luminous prism,
+chrome, glass, glass-button, multi-tone, satin, metal and increased-contrast rules pass.
 
 <details>
 <summary><strong>A. Loom</strong> — values and contrast (light · dark)</summary>
@@ -522,75 +523,75 @@ Chroma Luminous prism, chrome, glass, glass-button, multi-tone, satin and metal 
 </details>
 
 <details>
-<summary><strong>C2. Chroma Luminous</strong> — values and contrast (light · dark)</summary>
+<summary><strong>C2. Chroma Luminous</strong> — values and contrast (light · dark · dark-more · light-more)</summary>
 
-| Token | Light | Dark |
-| --- | --- | --- |
-| `bg-canvas` | `oklch(0.978 0.007 290)` #f7f7fc | `oklch(0.155 0.02 285)` #0b0b14 |
-| `bg-surface` | `oklch(0.993 0.003 290)` #fdfcff | `oklch(0.195 0.024 285)` #14131f |
-| `bg-surface-subtle` | `oklch(0.952 0.012 290)` #efeef7 | `oklch(0.235 0.026 285)` #1d1c2a |
-| `fg-default` | `oklch(0.215 0.03 285)` #181727 | `oklch(0.955 0.008 290)` #f0eff5 |
-| `fg-muted` | `oklch(0.455 0.03 285)` #555567 | `oklch(0.78 0.02 290)` #b7b5c4 |
-| `border-subtle` | `oklch(0.895 0.012 285)` #dbdbe4 | `oklch(0.31 0.022 285)` #2f2f3b |
-| `border-strong` | `oklch(0.56 0.016 275)` #71747e | `oklch(0.64 0.016 275)` #898c96 |
-| `bg-accent` | `oklch(0.82 0.1 318)` #e0b0ee | `oklch(0.5 0.13 318)` #814893 |
-| `bg-accent-hover` | `oklch(0.79 0.1 318)` #d6a6e4 | `oklch(0.53 0.13 318)` #8a509c |
-| `bg-accent-active` | `oklch(0.76 0.1 318)` #cc9ddb | `oklch(0.46 0.13 318)` #753c86 |
-| `bg-accent-subtle` | `oklch(0.94 0.035 310)` #f2e5fd | `oklch(0.3 0.07 305)` #36244a |
-| `fg-accent` | `oklch(0.48 0.19 312)` #802fa9 | `oklch(0.82 0.11 312)` #dcaff8 |
-| `fg-on-accent` | `oklch(0.215 0.03 285)` #181727 | `oklch(0.955 0.008 290)` #f0eff5 |
-| `focus-ring` | `oklch(0.46 0.2 285)` #5437c0 | `oklch(0.86 0.13 195)` #4aebeb |
-| `bg-critical` | `oklch(0.52 0.19 18)` #bd1f3d | `oklch(0.74 0.14 18)` #f68389 |
-| `fg-on-critical` | `oklch(0.99 0.004 290)` #fcfbfe | `oklch(0.17 0.03 18)` #1b0a0a |
-| `fg-critical` | `oklch(0.5 0.18 20)` #b32035 | `oklch(0.78 0.129 18)` #ff9498 |
-| `bg-critical-subtle` | `oklch(0.955 0.022 15)` #ffeaeb | `oklch(0.29 0.07 15)` #481a20 |
-| `fg-warning` | `oklch(0.52 0.11 70)` #915c08 | `oklch(0.86 0.12 80)` #fac871 |
-| `bg-warning-subtle` | `oklch(0.958 0.044 85)` #fff0d0 | `oklch(0.29 0.05 80)` #38280a |
-| `fg-success` | `oklch(0.48 0.1 165)` #036f4f | `oklch(0.83 0.12 165)` #73e0b4 |
-| `bg-success-subtle` | `oklch(0.955 0.035 165)` #dcf8ea | `oklch(0.28 0.05 165)` #0a3123 |
-| `fg-info` | `oklch(0.48 0.121 245)` #00629d | `oklch(0.8 0.1 240)` #80c7f8 |
-| `bg-info-subtle` | `oklch(0.955 0.023 245)` #e4f2ff | `oklch(0.28 0.05 240)` #0e2c3f |
-| `bg-inverse` | `oklch(0.215 0.03 285)` #181727 | `oklch(0.955 0.008 290)` #f0eff5 |
-| `fg-inverse` | `oklch(0.978 0.007 290)` #f7f7fc | `oklch(0.2 0.025 285)` #151421 |
+| Token | Light | Dark | Dark (more contrast) | Light (more contrast) |
+| --- | --- | --- | --- | --- |
+| `bg-canvas` | `oklch(0.978 0.007 290)` #f7f7fc | `oklch(0.155 0.02 285)` #0b0b14 | `oklch(0.13 0.018 285)` #07060e | `oklch(0.995 0.002 290)` #fdfdff |
+| `bg-surface` | `oklch(0.993 0.003 290)` #fdfcff | `oklch(0.195 0.024 285)` #14131f | `oklch(0.17 0.02 285)` #0e0e18 | `oklch(1 0 0)` #ffffff |
+| `bg-surface-subtle` | `oklch(0.952 0.012 290)` #efeef7 | `oklch(0.235 0.026 285)` #1d1c2a | `oklch(0.21 0.022 285)` #171722 | `oklch(0.955 0.01 290)` #f0eff7 |
+| `fg-default` | `oklch(0.215 0.03 285)` #181727 | `oklch(0.955 0.008 290)` #f0eff5 | `oklch(0.985 0.004 290)` #fafafd | `oklch(0.15 0.025 285)` #0a0a15 |
+| `fg-muted` | `oklch(0.455 0.03 285)` #555567 | `oklch(0.78 0.02 290)` #b7b5c4 | `oklch(0.88 0.014 290)` #d7d6e0 | `oklch(0.33 0.03 285)` #343344 |
+| `border-subtle` | `oklch(0.895 0.012 285)` #dbdbe4 | `oklch(0.31 0.022 285)` #2f2f3b | `oklch(0.42 0.02 285)` #4c4c58 | `oklch(0.72 0.012 285)` #a3a4ac |
+| `border-strong` | `oklch(0.56 0.016 275)` #71747e | `oklch(0.64 0.016 275)` #898c96 | `oklch(0.74 0.014 275)` #a8aab4 | `oklch(0.42 0.016 275)` #4a4d56 |
+| `bg-accent` | `oklch(0.82 0.1 318)` #e0b0ee | `oklch(0.5 0.13 318)` #814893 | `oklch(0.42 0.13 318)` #69317a | `oklch(0.86 0.09 318)` #eabff8 |
+| `bg-accent-hover` | `oklch(0.79 0.1 318)` #d6a6e4 | `oklch(0.53 0.13 318)` #8a509c | `oklch(0.45 0.13 318)` #723983 | `oklch(0.83 0.09 318)` #e0b5ee |
+| `bg-accent-active` | `oklch(0.76 0.1 318)` #cc9ddb | `oklch(0.46 0.13 318)` #753c86 | `oklch(0.39 0.13 318)` #612871 | `oklch(0.8 0.09 318)` #d6ace4 |
+| `bg-accent-subtle` | `oklch(0.94 0.035 310)` #f2e5fd | `oklch(0.3 0.07 305)` #36244a | `oklch(0.25 0.06 305)` #281938 | `oklch(0.93 0.04 310)` #f0e1fc |
+| `fg-accent` | `oklch(0.48 0.19 312)` #802fa9 | `oklch(0.82 0.11 312)` #dcaff8 | `oklch(0.88 0.081 312)` #eac9ff | `oklch(0.38 0.17 312)` #601581 |
+| `fg-on-accent` | `oklch(0.215 0.03 285)` #181727 | `oklch(0.955 0.008 290)` #f0eff5 | `oklch(0.985 0.004 290)` #fafafd | `oklch(0.15 0.025 285)` #0a0a15 |
+| `focus-ring` | `oklch(0.46 0.2 285)` #5437c0 | `oklch(0.86 0.13 195)` #4aebeb | `oklch(0.9 0.12 195)` #6cf7f7 | `oklch(0.34 0.18 285)` #37138e |
+| `bg-critical` | `oklch(0.52 0.19 18)` #bd1f3d | `oklch(0.74 0.14 18)` #f68389 | `oklch(0.45 0.16 18)` #9a1c32 | `oklch(0.42 0.169 20)` #930023 |
+| `fg-on-critical` | `oklch(0.99 0.004 290)` #fcfbfe | `oklch(0.17 0.03 18)` #1b0a0a | `oklch(0.985 0.004 290)` #fafafd | `oklch(1 0 0)` #ffffff |
+| `fg-critical` | `oklch(0.5 0.18 20)` #b32035 | `oklch(0.78 0.129 18)` #ff9498 | `oklch(0.85 0.082 18)` #ffb9ba | `oklch(0.4 0.16 22)` #8a021c |
+| `bg-critical-subtle` | `oklch(0.955 0.022 15)` #ffeaeb | `oklch(0.29 0.07 15)` #481a20 | `oklch(0.24 0.06 15)` #361116 | `oklch(0.955 0.022 15)` #ffeaeb |
+| `fg-warning` | `oklch(0.52 0.11 70)` #915c08 | `oklch(0.86 0.12 80)` #fac871 | `oklch(0.9 0.108 85)` #ffd988 | `oklch(0.4 0.09 65)` #683c00 |
+| `bg-warning-subtle` | `oklch(0.958 0.044 85)` #fff0d0 | `oklch(0.29 0.05 80)` #38280a | `oklch(0.24 0.045 80)` #2a1c03 | `oklch(0.958 0.04 85)` #fef0d3 |
+| `fg-success` | `oklch(0.48 0.1 165)` #036f4f | `oklch(0.83 0.12 165)` #73e0b4 | `oklch(0.88 0.11 165)` #8defc5 | `oklch(0.38 0.08 165)` #004f38 |
+| `bg-success-subtle` | `oklch(0.955 0.035 165)` #dcf8ea | `oklch(0.28 0.05 165)` #0a3123 | `oklch(0.23 0.045 165)` #032318 | `oklch(0.955 0.03 165)` #dff7eb |
+| `fg-info` | `oklch(0.48 0.121 245)` #00629d | `oklch(0.8 0.1 240)` #80c7f8 | `oklch(0.87 0.071 240)` #aadbff | `oklch(0.38 0.108 250)` #004479 |
+| `bg-info-subtle` | `oklch(0.955 0.023 245)` #e4f2ff | `oklch(0.28 0.05 240)` #0e2c3f | `oklch(0.23 0.045 240)` #051f30 | `oklch(0.955 0.023 245)` #e4f2ff |
+| `bg-inverse` | `oklch(0.215 0.03 285)` #181727 | `oklch(0.955 0.008 290)` #f0eff5 | `oklch(0.985 0.004 290)` #fafafd | `oklch(0.15 0.025 285)` #0a0a15 |
+| `fg-inverse` | `oklch(0.978 0.007 290)` #f7f7fc | `oklch(0.2 0.025 285)` #151421 | `oklch(0.15 0.02 285)` #0a0a13 | `oklch(0.995 0.002 290)` #fdfdff |
 
-| Pair | Min | Light | Dark |
-| --- | --- | --- | --- |
-| `fg-default` on `bg-canvas` | 7:1 | 16.49 (Lc 100) | 17.15 (Lc 98) |
-| `fg-default` on `bg-surface` | 7:1 | 17.23 (Lc 103) | 16.06 (Lc 97) |
-| `fg-default` on `bg-surface-subtle` | 7:1 | 15.26 (Lc 95) | 14.66 (Lc 96) |
-| `fg-default` on `bg-accent-subtle` | 7:1 | 14.61 (Lc 92) | 12.25 (Lc 94) |
-| `fg-default` on `bg-critical-subtle` | 7:1 | 15.31 (Lc 95) | 12.73 (Lc 94) |
-| `fg-default` on `bg-warning-subtle` | 7:1 | 15.56 (Lc 96) | 12.42 (Lc 94) |
-| `fg-default` on `bg-success-subtle` | 7:1 | 15.63 (Lc 96) | 12.52 (Lc 94) |
-| `fg-default` on `bg-info-subtle` | 7:1 | 15.47 (Lc 96) | 12.71 (Lc 94) |
-| `fg-muted` on `bg-canvas` | 4.5:1 | 6.87 (Lc 81) | 9.74 (Lc 63) |
-| `fg-muted` on `bg-surface` | 4.5:1 | 7.18 (Lc 84) | 9.12 (Lc 63) |
-| `fg-muted` on `bg-surface-subtle` | 4.5:1 | 6.36 (Lc 76) | 8.33 (Lc 62) |
-| `fg-accent` on `bg-canvas` | 4.5:1 | 6.80 (Lc 80) | 10.79 (Lc 69) |
-| `fg-accent` on `bg-surface` | 4.5:1 | 7.10 (Lc 83) | 10.11 (Lc 68) |
-| `fg-accent` on `bg-accent-subtle` | 4.5:1 | 6.02 (Lc 72) | 7.71 (Lc 65) |
-| `fg-on-accent` on `bg-accent` | 4.5:1 | 9.71 (Lc 69) | 5.62 (Lc 77) |
-| `fg-on-accent` on `bg-accent-hover` | 4.5:1 | 8.76 (Lc 63) | 4.94 (Lc 73) |
-| `fg-on-accent` on `bg-accent-active` | 4.5:1 | 7.88 (Lc 58) | 6.68 (Lc 81) |
-| `border-strong` on `bg-canvas` | 3:1 | 4.37 (Lc 68) | 5.81 (Lc 40) |
-| `border-strong` on `bg-surface` | 3:1 | 4.57 (Lc 71) | 5.44 (Lc 40) |
-| `focus-ring` on `bg-canvas` | 3:1 | 7.31 (Lc 82) | 13.43 (Lc 82) |
-| `focus-ring` on `bg-surface` | 3:1 | 7.64 (Lc 85) | 12.58 (Lc 81) |
-| `focus-ring` on `bg-surface-subtle` | 3:1 | 6.77 (Lc 77) | 11.48 (Lc 80) |
-| `fg-on-critical` on `bg-critical` | 4.5:1 | 5.92 (Lc 82) | 7.84 (Lc 56) |
-| `fg-critical` on `bg-canvas` | 4.5:1 | 6.19 (Lc 77) | 9.26 (Lc 61) |
-| `fg-critical` on `bg-surface` | 4.5:1 | 6.47 (Lc 80) | 8.67 (Lc 60) |
-| `fg-critical` on `bg-critical-subtle` | 4.5:1 | 5.75 (Lc 72) | 6.87 (Lc 57) |
-| `fg-warning` on `bg-canvas` | 4.5:1 | 5.29 (Lc 73) | 12.67 (Lc 78) |
-| `fg-warning` on `bg-surface` | 4.5:1 | 5.53 (Lc 76) | 11.87 (Lc 77) |
-| `fg-warning` on `bg-warning-subtle` | 4.5:1 | 4.99 (Lc 70) | 9.18 (Lc 74) |
-| `fg-success` on `bg-canvas` | 4.5:1 | 5.81 (Lc 76) | 12.18 (Lc 76) |
-| `fg-success` on `bg-surface` | 4.5:1 | 6.08 (Lc 79) | 11.41 (Lc 75) |
-| `fg-success` on `bg-success-subtle` | 4.5:1 | 5.51 (Lc 72) | 8.89 (Lc 72) |
-| `fg-info` on `bg-canvas` | 4.5:1 | 6.08 (Lc 77) | 10.62 (Lc 68) |
-| `fg-info` on `bg-surface` | 4.5:1 | 6.36 (Lc 80) | 9.95 (Lc 67) |
-| `fg-info` on `bg-info-subtle` | 4.5:1 | 5.71 (Lc 73) | 7.87 (Lc 64) |
-| `fg-inverse` on `bg-inverse` | 7:1 | 16.49 (Lc 102) | 15.91 (Lc 96) |
+| Pair | Min | Light | Dark | Dark (more contrast) | Light (more contrast) |
+| --- | --- | --- | --- | --- | --- |
+| `fg-default` on `bg-canvas` | 7:1 | 16.49 (Lc 100) | 17.15 (Lc 98) | 19.27 (Lc 104) | 19.43 (Lc 105) |
+| `fg-default` on `bg-surface` | 7:1 | 17.23 (Lc 103) | 16.06 (Lc 97) | 18.34 (Lc 104) | 19.71 (Lc 106) |
+| `fg-default` on `bg-surface-subtle` | 7:1 | 15.26 (Lc 95) | 14.66 (Lc 96) | 17.01 (Lc 103) | 17.26 (Lc 97) |
+| `fg-default` on `bg-accent-subtle` | 7:1 | 14.61 (Lc 92) | 12.25 (Lc 94) | 15.59 (Lc 102) | 15.86 (Lc 91) |
+| `fg-default` on `bg-critical-subtle` | 7:1 | 15.31 (Lc 95) | 12.73 (Lc 94) | 16.06 (Lc 102) | 17.15 (Lc 96) |
+| `fg-default` on `bg-warning-subtle` | 7:1 | 15.56 (Lc 96) | 12.42 (Lc 94) | 15.80 (Lc 102) | 17.44 (Lc 97) |
+| `fg-default` on `bg-success-subtle` | 7:1 | 15.63 (Lc 96) | 12.52 (Lc 94) | 15.94 (Lc 102) | 17.48 (Lc 98) |
+| `fg-default` on `bg-info-subtle` | 7:1 | 15.47 (Lc 96) | 12.71 (Lc 94) | 16.10 (Lc 103) | 17.34 (Lc 97) |
+| `fg-muted` on `bg-canvas` | 4.5 · 7:1 | 6.87 (Lc 81) | 9.74 (Lc 63) | 13.99 (Lc 82) | 12.12 (Lc 97) |
+| `fg-muted` on `bg-surface` | 4.5 · 7:1 | 7.18 (Lc 84) | 9.12 (Lc 63) | 13.31 (Lc 82) | 12.30 (Lc 98) |
+| `fg-muted` on `bg-surface-subtle` | 4.5 · 7:1 | 6.36 (Lc 76) | 8.33 (Lc 62) | 12.35 (Lc 81) | 10.77 (Lc 89) |
+| `fg-accent` on `bg-canvas` | 4.5 · 7:1 | 6.80 (Lc 80) | 10.79 (Lc 69) | 13.67 (Lc 81) | 10.81 (Lc 93) |
+| `fg-accent` on `bg-surface` | 4.5 · 7:1 | 7.10 (Lc 83) | 10.11 (Lc 68) | 13.00 (Lc 81) | 10.97 (Lc 94) |
+| `fg-accent` on `bg-accent-subtle` | 4.5 · 7:1 | 6.02 (Lc 72) | 7.71 (Lc 65) | 11.05 (Lc 79) | 8.82 (Lc 80) |
+| `fg-on-accent` on `bg-accent` | 4.5 · 7:1 | 9.71 (Lc 69) | 5.62 (Lc 77) | 8.67 (Lc 91) | 12.48 (Lc 77) |
+| `fg-on-accent` on `bg-accent-hover` | 4.5 · 7:1 | 8.76 (Lc 63) | 4.94 (Lc 73) | 7.62 (Lc 89) | 11.30 (Lc 72) |
+| `fg-on-accent` on `bg-accent-active` | 4.5 · 7:1 | 7.88 (Lc 58) | 6.68 (Lc 81) | 9.83 (Lc 94) | 10.20 (Lc 67) |
+| `border-strong` on `bg-canvas` | 3 · 4.5:1 | 4.37 (Lc 68) | 5.81 (Lc 40) | 8.72 (Lc 56) | 8.35 (Lc 88) |
+| `border-strong` on `bg-surface` | 3 · 4.5:1 | 4.57 (Lc 71) | 5.44 (Lc 40) | 8.29 (Lc 56) | 8.48 (Lc 89) |
+| `focus-ring` on `bg-canvas` | 3 · 4.5:1 | 7.31 (Lc 82) | 13.43 (Lc 82) | 15.60 (Lc 90) | 12.59 (Lc 97) |
+| `focus-ring` on `bg-surface` | 3 · 4.5:1 | 7.64 (Lc 85) | 12.58 (Lc 81) | 14.84 (Lc 89) | 12.78 (Lc 98) |
+| `focus-ring` on `bg-surface-subtle` | 3 · 4.5:1 | 6.77 (Lc 77) | 11.48 (Lc 80) | 13.77 (Lc 89) | 11.19 (Lc 89) |
+| `fg-on-critical` on `bg-critical` | 4.5 · 7:1 | 5.92 (Lc 82) | 7.84 (Lc 56) | 7.76 (Lc 88) | 9.25 (Lc 93) |
+| `fg-critical` on `bg-canvas` | 4.5 · 7:1 | 6.19 (Lc 77) | 9.26 (Lc 61) | 12.34 (Lc 75) | 9.87 (Lc 90) |
+| `fg-critical` on `bg-surface` | 4.5 · 7:1 | 6.47 (Lc 80) | 8.67 (Lc 60) | 11.73 (Lc 74) | 10.01 (Lc 91) |
+| `fg-critical` on `bg-critical-subtle` | 4.5 · 7:1 | 5.75 (Lc 72) | 6.87 (Lc 57) | 10.28 (Lc 73) | 8.71 (Lc 81) |
+| `fg-warning` on `bg-canvas` | 4.5 · 7:1 | 5.29 (Lc 73) | 12.67 (Lc 78) | 14.88 (Lc 86) | 9.30 (Lc 90) |
+| `fg-warning` on `bg-surface` | 4.5 · 7:1 | 5.53 (Lc 76) | 11.87 (Lc 77) | 14.16 (Lc 86) | 9.43 (Lc 91) |
+| `fg-warning` on `bg-warning-subtle` | 4.5 · 7:1 | 4.99 (Lc 70) | 9.18 (Lc 74) | 12.20 (Lc 84) | 8.34 (Lc 83) |
+| `fg-success` on `bg-canvas` | 4.5 · 7:1 | 5.81 (Lc 76) | 12.18 (Lc 76) | 14.65 (Lc 85) | 9.47 (Lc 91) |
+| `fg-success` on `bg-surface` | 4.5 · 7:1 | 6.08 (Lc 79) | 11.41 (Lc 75) | 13.93 (Lc 85) | 9.61 (Lc 92) |
+| `fg-success` on `bg-success-subtle` | 4.5 · 7:1 | 5.51 (Lc 72) | 8.89 (Lc 72) | 12.11 (Lc 83) | 8.52 (Lc 84) |
+| `fg-info` on `bg-canvas` | 4.5 · 7:1 | 6.08 (Lc 77) | 10.62 (Lc 68) | 13.73 (Lc 81) | 9.87 (Lc 92) |
+| `fg-info` on `bg-surface` | 4.5 · 7:1 | 6.36 (Lc 80) | 9.95 (Lc 67) | 13.06 (Lc 81) | 10.02 (Lc 93) |
+| `fg-info` on `bg-info-subtle` | 4.5 · 7:1 | 5.71 (Lc 73) | 7.87 (Lc 64) | 11.47 (Lc 79) | 8.81 (Lc 84) |
+| `fg-inverse` on `bg-inverse` | 7:1 | 16.49 (Lc 102) | 15.91 (Lc 96) | 18.86 (Lc 103) | 19.43 (Lc 107) |
 
 </details>
 
@@ -639,5 +640,20 @@ Worst case over every backdrop (white, black, canvas, surface, inverse, text, pr
 | fg-muted on satin | 4.5:1 | 5.52 | 5.41 |
 | fg-accent on satin | 4.5:1 | 5.46 | 6.00 |
 | fg-default on liquid metal (avatars, tiles) | 4.5:1 | 14.74 | 10.73 |
+
+</details>
+
+<details>
+<summary><strong>C2. Chroma Luminous</strong> — increased-contrast rules (light-more · dark-more)</summary>
+
+Glass is opaque and chrome is one solid line in these contexts, so only the flat pairs above and these rules apply.
+
+| Rule | Min | Light (more) | Dark (more) |
+| --- | --- | --- | --- |
+| fg-on-accent on multi-tone fill (marks, step numbers) | 7:1 | 12.46 | 7.77 |
+| fg-on-accent on multi-tone fill (active) | 7:1 | 10.86 | 9.25 |
+| switch bead (on) vs multi-tone track | 4.5:1 | 11.46 | 7.77 |
+| fg-default on opaque button (surface) | 7:1 | 19.71 | 18.34 |
+| fg-default on opaque primary (accent-subtle) | 7:1 | 15.86 | 15.59 |
 
 </details>

@@ -155,7 +155,7 @@ const DIRS = {
     tags: ['Chrome hairlines', 'Liquid glass', 'Prismatic neon', 'Light that moves'],
     fonts: LX_FONTS,
     fontNames: ['Bricolage Grotesque — display and headings, light', 'Figtree — body', 'Spline Sans Mono — micro-labels and code'],
-    H: { foundations: 7000, components: 2560, checkout: 1240 },
+    H: { foundations: 7700, components: 2560, checkout: 1240 },
     interactive: true,
     vars: {
       '--font-display': "'Bricolage Grotesque', system-ui, sans-serif",
@@ -179,7 +179,7 @@ const DIRS = {
       '--btn-primary-border': 'transparent', '--btn-danger-border': 'transparent',
     },
     shadows: lxShadows,
-    extra: { light: lxVars('light'), dark: lxVars('dark') },
+    extra: { light: lxVars('light'), dark: lxVars('dark'), 'light-more': lxVars('light-more'), 'dark-more': lxVars('dark-more') },
     motion: ['Dance — 320 ms ease-out, on interaction only', 'Fills slide along an iso-lightness prism; chrome glints round the rim; glow rises', 'Instant and still under reduced motion; opaque under reduced transparency'],
     signature: 'A chrome hairline that catches the light as you move, over glass that refracts a quiet prism. Selected and on states trade chrome for prism. Light moves only when you do.',
     sig: LX_CSS,
@@ -198,7 +198,15 @@ function tokenCss(d) {
     const ex = Object.entries(t.extra[s] || {}).map(([k, v]) => `  ${k}: ${v};`).join('\n');
     return `.dir-${d}[data-scheme=${s}], .dir-${d} [data-scheme=${s}] {\n  color-scheme: ${s};\n${cols}\n${ex}\n  --shadow-raised: ${t.shadows[s].raised};\n  --shadow-overlay: ${t.shadows[s].overlay};\n}`;
   };
-  return `.dir-${d} {\n${base}\n}\n${scheme('light')}\n${scheme('dark')}\n${t.sig}`;
+  // Increased-contrast contexts (C2): the -more palette on an element that carries both attributes.
+  const more = (s) => {
+    const b = s.replace('-more', '');
+    const cols = COLOR_KEYS.map((k) => `  --${k}: ${fmt(resolved[d][s][k])};`).join('\n');
+    const ex = Object.entries(t.extra[s] || {}).map(([k, v]) => `  ${k}: ${v};`).join('\n');
+    return `.dir-${d}[data-scheme=${b}][data-contrast=more], .dir-${d} [data-scheme=${b}][data-contrast=more] {\n  color-scheme: ${b};\n${cols}\n${ex}\n  --shadow-raised: ${t.shadows[b].raised};\n  --shadow-overlay: ${t.shadows[b].overlay};\n}`;
+  };
+  const moreBlocks = PAL[d]['dark-more'] ? `\n${more('dark-more')}\n${more('light-more')}` : '';
+  return `.dir-${d} {\n${base}\n}\n${scheme('light')}\n${scheme('dark')}${moreBlocks}\n${t.sig}`;
 }
 
 const COMPONENT_CSS = `

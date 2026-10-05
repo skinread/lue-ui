@@ -115,6 +115,34 @@ export const directions = {
       'fg-info': [0.80, 0.10, 240], 'bg-info-subtle': [0.28, 0.05, 240],
       'bg-inverse': [0.955, 0.008, 290], 'fg-inverse': [0.20, 0.025, 285],
     },
+    // Increased contrast (prefers-contrast: more, [data-contrast="more"]): every text pair 7:1, every boundary 4.5:1.
+    // Glass turns opaque and chrome becomes one solid line, so only flat pairs and the multi-tone fills apply.
+    'dark-more': {
+      'bg-canvas': [0.13, 0.018, 285], 'bg-surface': [0.17, 0.02, 285], 'bg-surface-subtle': [0.21, 0.022, 285],
+      'fg-default': [0.985, 0.004, 290], 'fg-muted': [0.88, 0.014, 290],
+      'border-subtle': [0.42, 0.02, 285], 'border-strong': [0.74, 0.014, 275],
+      'bg-accent': [0.42, 0.13, 318], 'bg-accent-hover': [0.45, 0.13, 318], 'bg-accent-active': [0.39, 0.13, 318],
+      'bg-accent-subtle': [0.25, 0.06, 305], 'fg-accent': [0.88, 0.09, 312], 'fg-on-accent': [0.985, 0.004, 290],
+      'focus-ring': [0.9, 0.12, 195],
+      'bg-critical': [0.45, 0.16, 18], 'fg-on-critical': [0.985, 0.004, 290], 'fg-critical': [0.85, 0.11, 18], 'bg-critical-subtle': [0.24, 0.06, 15],
+      'fg-warning': [0.9, 0.11, 85], 'bg-warning-subtle': [0.24, 0.045, 80],
+      'fg-success': [0.88, 0.11, 165], 'bg-success-subtle': [0.23, 0.045, 165],
+      'fg-info': [0.87, 0.09, 240], 'bg-info-subtle': [0.23, 0.045, 240],
+      'bg-inverse': [0.985, 0.004, 290], 'fg-inverse': [0.15, 0.02, 285],
+    },
+    'light-more': {
+      'bg-canvas': [0.995, 0.002, 290], 'bg-surface': [1, 0, 0], 'bg-surface-subtle': [0.955, 0.01, 290],
+      'fg-default': [0.15, 0.025, 285], 'fg-muted': [0.33, 0.03, 285],
+      'border-subtle': [0.72, 0.012, 285], 'border-strong': [0.42, 0.016, 275],
+      'bg-accent': [0.86, 0.09, 318], 'bg-accent-hover': [0.83, 0.09, 318], 'bg-accent-active': [0.80, 0.09, 318],
+      'bg-accent-subtle': [0.93, 0.04, 310], 'fg-accent': [0.38, 0.17, 312], 'fg-on-accent': [0.15, 0.025, 285],
+      'focus-ring': [0.34, 0.18, 285],
+      'bg-critical': [0.42, 0.17, 20], 'fg-on-critical': [1, 0, 0], 'fg-critical': [0.40, 0.16, 22], 'bg-critical-subtle': [0.955, 0.025, 15],
+      'fg-warning': [0.40, 0.09, 65], 'bg-warning-subtle': [0.958, 0.04, 85],
+      'fg-success': [0.38, 0.09, 165], 'bg-success-subtle': [0.955, 0.03, 165],
+      'fg-info': [0.38, 0.12, 250], 'bg-info-subtle': [0.955, 0.025, 245],
+      'bg-inverse': [0.15, 0.025, 285], 'fg-inverse': [0.995, 0.002, 290],
+    },
   },
 };
 
@@ -179,6 +207,9 @@ export const luminous = {
   },
 };
 
+luminous['dark-more'] = { ...luminous.dark, accent: { L: 0.42, Lactive: 0.38, C: 0.12, hues: ['aqua', 'mint', 'amber', 'rose', 'orchid'] }, beadOn: [0.985, 0.004, 285] };
+luminous['light-more'] = { ...luminous.light, accent: { L: 0.86, Lactive: 0.82, C: 0.09, hues: ['aqua', 'mint', 'citron', 'rose', 'orchid'] }, beadOn: [0.2, 0.015, 285] };
+
 const maxChroma = (L, h) => {
   let lo = 0, hi = 0.4;
   for (let i = 0; i < 30; i++) {
@@ -209,6 +240,24 @@ function glassOver(s, tier, backdrop) {
     const tinted = over(oklch(...g.tint), g[tier], fb);
     return g.sheen ? over(WHITE, g.sheen, tinted) : tinted;
   });
+}
+
+export function evaluateLuminousMore(s) {
+  const col = Object.fromEntries(Object.entries(directions.luminous[s]).map(([k, v]) => [k, oklch(...v)]));
+  const fills = (Lkey) => tones(s, 'accent', Lkey).map((c) => oklch(...c));
+  const withMids = (t) => [...t, ...t.slice(1).map((c, i) => over(c, 0.5, t[i]))];
+  const rows = [];
+  const worst = (what, fgs, bgs, min) => {
+    let lo = Infinity;
+    for (const f of fgs) for (const b of bgs) lo = Math.min(lo, contrast(f, b));
+    rows.push({ what, ratio: lo, min, pass: lo >= min });
+  };
+  worst('fg-on-accent on multi-tone fill (marks, step numbers)', [col['fg-on-accent']], withMids(fills('L')), 7);
+  worst('fg-on-accent on multi-tone fill (active)', [col['fg-on-accent']], withMids(fills('Lactive')), 7);
+  worst('switch bead (on) vs multi-tone track', [oklch(...luminous[s].beadOn)], withMids(fills('L')), 4.5);
+  worst('fg-default on opaque button (surface)', [col['fg-default']], [col['bg-surface']], 7);
+  worst('fg-default on opaque primary (accent-subtle)', [col['fg-default']], [col['bg-accent-subtle']], 7);
+  return { rows };
 }
 
 export function evaluateLuminous(s) {
@@ -320,13 +369,18 @@ export const pairs = [
   ['fg-inverse', ['bg-inverse'], 7],
 ];
 
-export function evaluate(palette) {
+// In increased-contrast contexts text pairs rise to 7:1 and boundaries (border-strong, focus-ring) to 4.5:1.
+const BOUNDARIES = new Set(['border-strong', 'focus-ring']);
+export const minFor = (fg, min, more) => (more ? (BOUNDARIES.has(fg) ? Math.max(min, 4.5) : Math.max(min, 7)) : min);
+
+export function evaluate(palette, more = false) {
   const col = Object.fromEntries(Object.entries(palette).map(([k, v]) => [k, oklch(...v)]));
   const rows = [];
   for (const [fg, bgs, min] of pairs) {
     for (const bg of bgs) {
       const r = contrast(col[fg], col[bg]);
-      rows.push({ fg, bg, min, ratio: r, pass: r >= min, lc: apca(col[fg], col[bg]) });
+      const m = minFor(fg, min, more);
+      rows.push({ fg, bg, min: m, ratio: r, pass: r >= m, lc: apca(col[fg], col[bg]) });
     }
   }
   const advisory = { 'bg-accent vs bg-canvas': contrast(col['bg-accent'], col['bg-canvas']) };
@@ -337,12 +391,18 @@ export function evaluate(palette) {
 if (import.meta.url === `file://${process.argv[1]}`) {
   for (const [dir, schemes] of Object.entries(directions)) {
     for (const [scheme, palette] of Object.entries(schemes)) {
-      const { rows, advisory, mapped } = evaluate(palette);
+      const { rows, advisory, mapped } = evaluate(palette, scheme.endsWith('-more'));
       const fails = rows.filter((r) => !r.pass);
       const minMargin = Math.min(...rows.map((r) => r.ratio / r.min));
       console.log(`${dir}/${scheme}: ${rows.length} pairs, ${fails.length} fail, tightest margin ×${minMargin.toFixed(2)}, accent-vs-canvas ${advisory['bg-accent vs bg-canvas'].toFixed(2)}${mapped.length ? ', gamut-mapped: ' + mapped.join(',') : ''}`);
       for (const f of fails) console.log(`   FAIL ${f.fg} on ${f.bg}: ${f.ratio.toFixed(2)} < ${f.min}`);
     }
+  }
+  for (const s of ['light-more', 'dark-more']) {
+    const { rows } = evaluateLuminousMore(s);
+    const fails = rows.filter((r) => !r.pass);
+    console.log(`luminous/${s} opaque · multi-tone: ${rows.length} rules, ${fails.length} fail, tightest margin ×${Math.min(...rows.map((r) => r.ratio / r.min)).toFixed(2)}`);
+    for (const r of rows) if (!r.pass || process.argv.includes('--all')) console.log(`   ${r.pass ? 'ok  ' : 'FAIL'} ${r.what}: ${r.ratio.toFixed(2)} (min ${r.min})`);
   }
   for (const s of ['light', 'dark']) {
     const { rows } = evaluateLuminous(s);

@@ -17,7 +17,7 @@ export const LX_FONTS = 'family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..10
 export function lxVars(s) {
   const X = LUM[s];
   const P = PAL.luminous[s];
-  const dark = s === 'dark';
+  const dark = s.startsWith('dark');
   const [c0, c1, c2, c3, c4] = X.chrome.map((v) => mapped(v));
   const disp = X.dispersion.map((v) => mapped(v));
   const metal = X.metal.map((v) => mapped(v));
@@ -126,11 +126,15 @@ const opaque = (scope) => `
 ${scope} :is(${GLASS}, .ns-dialog) { background-color: var(--bg-surface); background-image: none; backdrop-filter: none; }
 ${scope} :is(${RINGED})::before { background: var(--border-strong); }
 ${scope} :is(${FIELDS}) { background: var(--field-bg); border-color: var(--border-strong); }
-${scope} .ns-button { backdrop-filter: none; background-color: var(--bg-surface); }
+${scope} .ns-check:checked, ${scope} .ns-switch:checked { background: linear-gradient(135deg, var(--accent-stops)) padding-box, linear-gradient(var(--fg-default), var(--fg-default)) border-box; }
+${scope} .ns-radio:checked { background: radial-gradient(circle, var(--fg-on-accent) 0 3.5px, transparent 4px) padding-box, linear-gradient(135deg, var(--accent-stops)) padding-box, linear-gradient(var(--fg-default), var(--fg-default)) border-box; }
+${scope} :is(.ns-input, .ns-check, .ns-radio)[aria-invalid=true] { border-color: var(--fg-critical); box-shadow: inset 0 0 0 1px var(--fg-critical); }
+${scope} .ns-button { backdrop-filter: none; background-color: var(--bg-surface); background-image: none; }
+${scope} .ns-button[aria-pressed=true]::before { padding: 2px; background: var(--fg-default); }
 ${scope} .ns-button:where([data-variant=primary]) { background-color: var(--bg-accent-subtle); background-image: none; }
 ${scope} .ns-button:where([data-variant=danger]) { background-color: var(--bg-critical-subtle); }
 ${scope} .ns-button:where([data-variant=quiet]) { background-color: transparent; }
-${scope} :is(.lx-ambient, .lx-dust) { display: none; }`;
+${scope} :is(.lx-ambient, .lx-dust, .lx-satin) { display: none; }`;
 
 export const LX_CSS = `
 @property --lx-angle { syntax: '<angle>'; inherits: true; initial-value: 0deg; }
@@ -367,6 +371,8 @@ export const LX_CSS = `
 @supports not (backdrop-filter: blur(1px)) {${opaque('.dir-luminous')}
 }
 ${opaque('.dir-luminous .lx-opaque')}
+/* Increased-contrast contexts are opaque too */
+${opaque('.dir-luminous [data-contrast=more]')}
 @media (forced-colors: active) {
   .dir-luminous :is(${RINGED})::before, .dir-luminous .ns-button::after, .dir-luminous :is(.lx-ambient, .lx-dust) { content: none; display: none; }
   .dir-luminous :is(${RINGED}) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
@@ -377,6 +383,40 @@ ${opaque('.dir-luminous .lx-opaque')}
 `;
 
 // ---------------------------------------------------------------- foundations sections
+// The increased-contrast themes, side by side (dark-more first, as dark is primary).
+function moreContrastSection(icon) {
+  const keys = ['bg-canvas', 'fg-default', 'fg-muted', 'fg-accent', 'border-strong', 'focus-ring'];
+  const r = (s, fg, bg) => contrast(oklch(...PAL.luminous[s][fg]), oklch(...PAL.luminous[s][bg])).toFixed(1);
+  const panel = (s) => {
+    const base = s.replace('-more', '');
+    return `<div class="scheme" data-scheme="${base}" data-contrast="more" style="display: grid; gap: 18px; align-content: start; padding: 28px; border-radius: 24px; border: 1px solid var(--border-strong)">
+        <p class="t-micro">${base === 'dark' ? 'Obsidian' : 'Pearl'} · more contrast</p>
+        <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px">
+          ${keys.map((k) => `<div style="display: grid; gap: 4px"><span style="block-size: 34px; border-radius: var(--radius-xs); background: var(--${k}); border: 1px solid var(--border-strong)"></span><span class="t-micro" style="letter-spacing: 0.02em; text-transform: none">${k.replace('bg-', '').replace('fg-', '')}${k === 'bg-canvas' ? '' : ` ${r(s, k, 'bg-canvas')}:1`}</span></div>`).join('')}
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
+          <button type="button" class="ns-button" data-variant="primary">Continue</button>
+          <button type="button" class="ns-button">Cancel</button>
+          <button type="button" class="ns-button" aria-pressed="true">${icon('check')}<span>On</span></button>
+          <a class="ns-link" href="#">A link in running text</a>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center">
+          <input class="ns-input" style="inline-size: 170px" value="Opaque field" aria-label="Field, ${s}" />
+          <label class="ns-choice"><input class="ns-check" type="checkbox" checked="checked" /><span>Checked</span></label>
+          <label class="ns-choice"><input class="ns-radio" type="radio" name="mc-${s}" checked="checked" /><span>Chosen</span></label>
+          <label class="ns-choice"><input class="ns-switch" type="checkbox" role="switch" checked="checked" /><span>On</span></label>
+        </div>
+        <p class="t-small t-muted">Muted text ${r(s, 'fg-muted', 'bg-canvas')}:1 · boundary ${r(s, 'border-strong', 'bg-canvas')}:1 · focus ${r(s, 'focus-ring', 'bg-canvas')}:1. Glass is opaque, chrome is one solid line, satin and ambient light are off.</p>
+      </div>`;
+  };
+  return `
+  <section style="display: grid; gap: 20px">
+    <div class="section-head"><h2 class="t-h2">Increased contrast</h2><p class="t-micro">prefers-contrast: more · data-contrast="more"</p></div>
+    <p class="t-small t-muted" style="max-inline-size: 76ch">Every text pair reaches 7:1 and every boundary 4.5:1 (all 72 pairs pass, plus the multi-tone fills at 7:1). The look keeps its type, shape and prism tones; the glass, chrome reflection, satin and ambient light step aside.</p>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">${panel('dark-more')}${panel('light-more')}</div>
+  </section>`;
+}
+
 export function lxFoundations({ icon }) {
   const rules = { light: evaluateLuminous('light').rows, dark: evaluateLuminous('dark').rows };
   const r = (s, what) => rules[s].find((x) => x.what.startsWith(what)).ratio.toFixed(1);
@@ -500,5 +540,5 @@ export function lxFoundations({ icon }) {
     </div>
   </section>`;
 
-  return { afterColour: prism + chrome + glass + materialsSection(), beforeSignature: motion + fallbacks };
+  return { afterColour: moreContrastSection(icon) + prism + chrome + glass + materialsSection(), beforeSignature: motion + fallbacks };
 }
