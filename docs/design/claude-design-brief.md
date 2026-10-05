@@ -117,11 +117,12 @@ Added in Pass 2 for C2; every rule is checked by `tools/directions/palettes.mjs`
   canvas, surfaces and worst-case glass. Glints that are fainter are decoration and carry no meaning.
 - **Fills that change hue keep their lightness.** Interactive colour shifts move tones that share one lightness, and
   every tone — up to three overlapping — meets the text minimum, so contrast never changes mid-animation.
-- **Glass buttons are verified where they live:** over canvas, surfaces, ambient light and worst-case glass. On
+- **Glass buttons are verified where they live:** over canvas, surfaces, satin, ambient light and worst-case glass. On
   photography they sit on a glass panel (verified over white and black) — never straight on the image.
 - **Light moves only when the user does.** Slides, glints, glows and sparks answer hover, press and focus, last
   ≤ 320 ms and never loop. Sparks never sit over text. Under reduced motion every duration is 0 s.
-- **Ambient light is checked where text can sit on it,** including where two glows overlap.
+- **Ambient light and satin are checked where text can sit on them,** including where two glows overlap and across
+  every satin fold. The dispersion band in chrome is part of the boundary, so each of its stops reaches 3:1.
 - **Forced colours removes the decoration** — chrome, glow, sparks, ambient light — and transparent borders appear.
 - **Performance:** `backdrop-filter` on overlays, cards, sticky bars and buttons (a small 10 px blur), never on fields
   or choice controls. Buttons inside a glass parent don't blur again — the parent is a backdrop root, and it saves a
@@ -147,6 +148,9 @@ direction mirror in right-to-left layouts.
    - Disclosure / accordion, toast, alert.
 3. **One composed screen: "Checkout details".** A delivery-details form with an error summary listing two problems,
    an order-summary card with item rows, and a "Remove this item?" dialog open over it. Generic content only.
+   *For C2 (2026-10-05): portfolio and editorial screens instead — a block library of heroes and content blocks, a
+   portfolio home page and a journal article; the checkout remains as the forms example. Blocks are listed in the
+   [component inventory](./components.md#content-blocks--portfolio-and-editorial-pass-2).*
 
 ## 6. Tokens to fill
 
@@ -246,7 +250,16 @@ palette towards a subdued, futuristic, prismatic neon, and see where it leads.
   glow rises, and a few sparks drift across the edge of primaries.
 - **Ambient light:** a wide, softly feathered band of refracted prism light and two soft orbs, behind content in
   brand areas and composed screens; never a wash, and contrast-checked where text sits on it.
-- **Icons:** Phosphor (MIT), light or regular weight to match the hairlines (to confirm).
+- **Metal and light (round 3, 2026-10-05):** from reference images of a polished-metal, thick-glass app icon — the
+  *material qualities*, not the icon. Forms with volume; light that disperses into a short spectrum (amber → citron
+  → mint → aqua → azure) where it meets the lower edge of chrome; buttons as thicker glass with light pooling at their
+  base; liquid-metal icon tiles and avatars (pearl in light, graphite in dark); satin folds behind heroes; a glass
+  prism and a glass orb as hero objects; warm-to-cool diffuse ambient light. Colour appears as light, never as paint.
+- **Icons:** Phosphor (MIT), light or regular weight to match the hairlines (to confirm); feature icons sit in metal
+  tiles with chrome-gradient strokes.
+- **Composed screens:** the focus moved from commerce to **portfolio and editorial sites** — a block library, a
+  portfolio home page and a journal article (fluid boards that reflow to one column). The checkout stays as the forms
+  example.
 - **Open questions:** a more extended display face if light Bricolage isn't luxurious enough; whether dark is the
   default scheme (the composed screen opens in dark); how far to push Display P3 for the neon.
 
@@ -277,8 +290,8 @@ Score each direction 1–5:
 ## Appendix — seeded palettes and contrast matrices
 
 Generated 2026-10-05 by a dependency-free script (OKLCH → sRGB → WCAG 2.x ratio; APCA Lc in brackets, advisory).
-Values shown are after sRGB gamut mapping. All 288 palette pairs pass (4 palettes × light and dark × 36), and all 62
-Chroma Luminous prism, chrome, glass and glass-button rules pass.
+Values shown are after sRGB gamut mapping. All 288 palette pairs pass (4 palettes × light and dark × 36), and all 72
+Chroma Luminous prism, chrome, glass, glass-button, satin and metal rules pass.
 
 <details>
 <summary><strong>A. Loom</strong> — values and contrast (light · dark)</summary>
@@ -610,5 +623,10 @@ Worst case over every backdrop (white, black, canvas, surface, inverse, text, pr
 | fg-muted on disabled glass button (advisory) | 3:1 | 5.67 | 4.21 |
 | fg-accent on quiet button hover (neutral glass) | 4.5:1 | 5.61 | 4.66 |
 | fg-critical ring vs canvas and glass | 3:1 | 4.54 | 5.39 |
+| dispersion band of the chrome boundary | 3:1 | 3.25 | 5.34 |
+| fg-default on satin | 7:1 | 13.24 | 9.53 |
+| fg-muted on satin | 4.5:1 | 5.52 | 5.41 |
+| fg-accent on satin | 4.5:1 | 5.46 | 6.00 |
+| fg-default on liquid metal (avatars, tiles) | 4.5:1 | 14.74 | 10.73 |
 
 </details>

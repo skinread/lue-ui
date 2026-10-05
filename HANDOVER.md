@@ -20,8 +20,10 @@
 - **Git workflow (user's decision, 2026-10-05):** commit as you go on `develop`, in logical units. No feature branches.
   Don't push unless asked.
 - **The Claude Design canvas** has two pages: **C2 · Chroma Luminous** (opens first) and **Phase 1 · three
-  directions**. The user likes C2's direction and its prism hues (2026-10-05); the second round made buttons frosted
-  glass with multi-tone primaries and the ambient light more diffuse.
+  directions**. The user likes C2's direction and its prism hues (2026-10-05). Round 2 made buttons frosted glass
+  with multi-tone primaries and the ambient light more diffuse. Round 3 added metal-and-light materials (dispersion
+  at chrome's lower edge, thicker glass, metal tiles, satin, a glass prism and orb) and moved the composed screens
+  from commerce to portfolio and editorial: a block library, a portfolio home and a journal article.
 
 ## What exists
 
@@ -50,8 +52,8 @@
 - **B · Instrument** — precise, technical. Graphite with one signal orange, Instrument Sans with Martian Mono,
   hairlines and tick marks. The orange fill is 2.75:1 against the canvas, so filled buttons carry an ink border.
 - **C · Chroma** — expressive. Fuchsia and lime, Bricolage Grotesque with Figtree, pills and colour fields.
-- **Contrast:** all 288 declared pairs (36 × 4 palettes × light/dark) pass WCAG 2.x, and all 62 Luminous prism,
-  chrome, glass, glass-button and ambient-light rules pass. Glass is checked worst-case — over white, black and every fill, through
+- **Contrast:** all 288 declared pairs (36 × 4 palettes × light/dark) pass WCAG 2.x, and all 72 Luminous prism,
+  chrome, glass, glass-button, ambient-light, satin and metal rules pass. Glass is checked worst-case — over white, black and every fill, through
   the scrim for modals, reading the backdrop filter both ways.
 - **Not visually verified.** The Design type asks agents not to screenshot canvases unless the user asks. If a board
   looks clipped, raise its height in `tools/directions/build-canvas.mjs` and republish.
