@@ -1,6 +1,6 @@
 # Claude Design brief
 
-> **Status:** v0.2 · Pass 2 · 2026-10-05 — Chroma chosen and evolving as **C2 · Chroma Luminous** ([§7](#c2-chroma-luminous--luminous--luxurious--prismatic))
+> **Status:** v0.3 · Pass 2 · 2026-10-05 — **C2 · Chroma Luminous** locked ([ADR-0009](../architecture/adr/0009-visual-direction-chroma-luminous.md), [§7](#c2-chroma-luminous--luminous--luxurious--prismatic))
 > **For:** Claude Design sessions — first three visual directions, then the chosen direction codified as a Design System.
 > **Art direction:** Sean Kinread. **Name:** Lue UI ([ADR-0008](../architecture/adr/0008-name-lue-ui.md)).
 
@@ -242,11 +242,10 @@ palette towards a subdued, futuristic, prismatic neon, and see where it leads.
 - **Glass:** two tiers. *Overlay* (menus, popovers, cards, sticky bars) and *modal* (dialogs, over a scrim): a tint
   over `blur(22px) saturate(1.6)` with `contrast()` and `brightness()` compressing the backdrop's range, a faint
   sheen, a prism fringe at the edge, and soft coloured depth. Squircle corners via `corner-shape` as an enhancement.
-- **Type:** a **wider, more luxurious display face on trial** (2026-10-05): every C2 board has a *Display face*
-  Tweak — **Anybody** at an expanded width (128) by default, with Archivo Expanded, Unbounded and the earlier Bricolage
-  Grotesque to compare, all light (300) and all SIL OFL. Wide faces are set smaller (×0.76–0.8) with looser tracking so
-  headlines don't wrap badly. Figtree for body, Spline Sans Mono for uppercase micro-labels tracked wide. Chrome
-  lettering (gradient-clipped text) for the display wordmark only, with a forced-colours fallback.
+- **Type:** **Bricolage Grotesque** at a light 300 weight and full optical size for display and headings (decided
+  2026-10-05, after a trial of wider faces — Anybody, Archivo and Unbounded expanded — that lacked personality),
+  Figtree for body, Spline Sans Mono for uppercase micro-labels tracked wide. Chrome lettering (gradient-clipped text)
+  for the display wordmark only, with a forced-colours fallback.
 - **Shape:** pills for buttons, tags and toasts; radii 8 / 12 / 20 / 28 px; 1 px hairlines replace Chroma's 2 px
   borders.
 - **Space and density:** balanced, a little airier than Chroma.
@@ -264,8 +263,8 @@ palette towards a subdued, futuristic, prismatic neon, and see where it leads.
 - **Composed screens:** the focus moved from commerce to **portfolio and editorial sites** — a block library, a
   portfolio home page and a journal article (fluid boards that reflow to one column). The checkout stays as the forms
   example.
-- **Decided 2026-10-05:** multi-tone small controls; dark as the primary scheme; Phosphor regular. **Open:** which
-  display face wins the trial — then the look is locked in ADR-0009.
+- **Decided 2026-10-05 and locked in [ADR-0009](../architecture/adr/0009-visual-direction-chroma-luminous.md):**
+  multi-tone small controls; dark as the primary scheme; Phosphor regular; Bricolage Grotesque for headings.
 
 #### Future exploration
 

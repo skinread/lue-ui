@@ -72,13 +72,13 @@
 | Licence | MIT (already in the repo). |
 | Git | Commit as you go on `develop`; no feature branches; no push unless asked (2026-10-05). |
 | Direction | Continue with **Chroma**, evolved as C2 · Chroma Luminous (2026-10-05). Glass is allowed only when verified; the brief's creative mandate and non-negotiables were revised to match. |
-| C2 details (2026-10-05) | Multi-tone fills on checkboxes, radios, switches and steps · **dark is the primary scheme** · Phosphor icons, regular weight · a wider display face on trial (Tweak on every C2 board; Anybody expanded by default) · wider neon spectrum parked as future exploration. |
+| C2 details (2026-10-05) | Multi-tone fills on checkboxes, radios, switches and steps · **dark is the primary scheme** · Phosphor icons, regular weight · **Bricolage Grotesque** for headings (wider faces tried and rejected) · wider neon spectrum parked as future exploration. **Locked in [ADR-0009](docs/architecture/adr/0009-visual-direction-chroma-luminous.md).** |
 | Approved with the plan | Native CSS core with Tailwind only as a generated bridge · WCAG 2.2 AA + 2.4.13 AAA focus + 44px targets under `(any-pointer: coarse)` · Baseline "newly available" fidelity floor · DTCG 2025.10 tokens via Terrazzo · pnpm workspace from Pass 3 · lockstep versions · open-licensed fonts and icons. |
 
 ## Waiting on the user
 
-1. **Pick the display face** from the Tweak on the C2 boards (Anybody expanded, Archivo expanded, Unbounded, or the
-   earlier Bricolage). Then lock the look in ADR-0009 (visual direction).
+1. ~~Pick the display face~~ — Bricolage Grotesque; the look is locked in ADR-0009. Further canvas feedback is still
+   welcome as refinements.
 2. **npm scope** — an empty npm user scope `lue-ui` already exists. Is it the user's? If not, use `@lueui/*`. Then the
    user creates the npm and GitHub organisations (outward-facing; not for an agent to do unasked).
 3. **[ADR-0004](docs/architecture/adr/0004-support-floors.md) inclusion exception** — a ~2 KB conditional invokers

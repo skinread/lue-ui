@@ -24,6 +24,7 @@ Read in this order the first time; every later document traces back to the first
 | [ADR-0006](architecture/adr/0006-licence-and-governance.md) | MIT licence and open governance |
 | [ADR-0007](architecture/adr/0007-package-layout-and-ownership.md) | Package layout, versioning, element ↔ framework ownership |
 | [ADR-0008](architecture/adr/0008-name-lue-ui.md) | The name Lue UI and its identifiers (`lue`, `lue-ui`, `@lue-ui/*`, `LueUI`) |
+| [ADR-0009](architecture/adr/0009-visual-direction-chroma-luminous.md) | The visual direction: C2 · Chroma Luminous — chrome, glass, colour as light |
 
 ## Design — what
 

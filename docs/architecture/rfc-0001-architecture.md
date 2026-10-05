@@ -5,7 +5,7 @@
 > [0002](./adr/0002-native-css-core-tailwind-bridge.md) · [0003](./adr/0003-dtcg-tokens-with-terrazzo.md) ·
 > [0004](./adr/0004-support-floors.md) · [0005](./adr/0005-three-engine-testing-and-a11y-gates.md) ·
 > [0006](./adr/0006-licence-and-governance.md) · [0007](./adr/0007-package-layout-and-ownership.md) ·
-> [0008](./adr/0008-name-lue-ui.md)
+> [0008](./adr/0008-name-lue-ui.md) · [0009](./adr/0009-visual-direction-chroma-luminous.md)
 > **Name:** Lue UI — CSS prefix `lue`, npm scope `@lue-ui/*` (provisional), global `LueUI`.
 
 ## Summary
