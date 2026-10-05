@@ -8,22 +8,10 @@ import { materialsSection } from './luminous-pages.mjs';
 const raw = ([L, C, h], a) => `oklch(${+L.toFixed(3)} ${+C.toFixed(3)} ${+(+h).toFixed(1)}${a == null ? '' : ` / ${a}`})`;
 const mapped = (v, a) => { const c = oklch(...v); return raw([c.L, c.C, c.h], a); };
 
-// ---------------------------------------------------------------- display face (a Tweak on every C2 board)
-// Wider, more luxurious faces on trial (2026-10-05). Each carries its width axis, tracking and a size scale, because a
-// wide face at Bricolage's sizes would wrap headlines badly. All are SIL OFL.
-export const DISPLAY_FACES = {
-  'Anybody, expanded': { family: "'Anybody', 'Archivo', system-ui, sans-serif", fvs: "'wdth' 128", ls: '-0.012em', lsHeading: '-0.006em', scale: 0.78, headingScale: 0.9 },
-  'Archivo, expanded': { family: "'Archivo', system-ui, sans-serif", fvs: "'wdth' 125", ls: '-0.018em', lsHeading: '-0.01em', scale: 0.8, headingScale: 0.92 },
-  Unbounded: { family: "'Unbounded', system-ui, sans-serif", fvs: 'normal', ls: '-0.02em', lsHeading: '-0.01em', scale: 0.76, headingScale: 0.88 },
-  'Bricolage (previous)': { family: "'Bricolage Grotesque', system-ui, sans-serif", fvs: "'wdth' 100, 'opsz' 96", ls: '-0.035em', lsHeading: '-0.025em', scale: 1, headingScale: 1 },
-};
-export const DISPLAY_DEFAULT = 'Anybody, expanded';
-export const DISPLAY_FONTS = 'family=Anybody:ital,wdth,wght@0,50..150,100..900;1,50..150,100..900&family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Unbounded:wght@200..900&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Figtree:ital,wght@0,300..900;1,300..900&family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap';
-export const displayProp = { display: { editor: 'enum', options: Object.keys(DISPLAY_FACES), default: DISPLAY_DEFAULT, section: 'Type' } };
-// Formatted with spaces so no "}}" ever appears in the artboard source.
-export const displayLogic = `const F = ${JSON.stringify(DISPLAY_FACES, null, 1)};\n    const f = F[this.props.display] || F[${JSON.stringify(DISPLAY_DEFAULT)}];`;
-export const displayReturn = 'fontDisplay: f.family, fvsDisplay: f.fvs, lsDisplay: f.ls, lsHeading: f.lsHeading, displayScale: f.scale, headingScale: f.headingScale';
-export const DISPLAY_STYLE = '--font-display: {{fontDisplay}}; --fvs-display: {{fvsDisplay}}; --ls-display: {{lsDisplay}}; --ls-heading: {{lsHeading}}; --display-scale: {{displayScale}}; --heading-scale: {{headingScale}}';
+// ---------------------------------------------------------------- type
+// Bricolage Grotesque for display and headings (chosen 2026-10-05 after a trial of wider faces), Figtree for body,
+// Spline Sans Mono for micro-labels and code. All SIL OFL.
+export const LX_FONTS = 'family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Figtree:ital,wght@0,300..900;1,300..900&family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap';
 
 // ---------------------------------------------------------------- per-scheme custom properties
 export function lxVars(s) {
