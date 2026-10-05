@@ -89,6 +89,34 @@ on Safari older than 26.2), 2 use an opt-in behaviour, and 2 use a custom elemen
 | Tree | `<ns-tree>` (APG tree view) |
 | Steps | `<ol>` + `aria-current="step"` |
 
+## Content blocks — portfolio and editorial (Pass 2)
+
+Added 2026-10-05, when the user moved the focus from commerce to portfolio and blog sites. Blocks are **compositions**
+of the components above, shipped as documented HTML recipes first (React adapters render the same markup). Each is
+drawn on the C2 canvas.
+
+| Block | Structure | Pattern | JS | Depends on / fallback |
+| --- | --- | --- | --- | --- |
+| Site header | `<header>` + `<nav aria-label="Main">` + list of links, `aria-current="page"` | Disclosure navigation on small screens | none | Sticky glass bar; `scroll-padding-top` keeps focused targets clear of it (WCAG 2.4.11); opaque without `backdrop-filter` |
+| Hero — statement | `<section aria-labelledby>`: kicker, `<h1>`, lede, up to two actions | — | none | Satin background is decorative (`aria-hidden` SVG); text contrast is checked against its lightest and darkest folds; flat canvas fallback |
+| Hero — split | Statement hero + `<figure>` (`<img alt>`, or decorative media with empty `alt`) | — | none | Stacks through a container query |
+| Hero — article | `<header>` inside `<article>`: kicker, `<h1>`, dek, byline with `<time datetime>` | — | none | — |
+| Feature grid | `<ul>` of items: icon tile (decorative), `<h3>`, `<p>` | — | none | `repeat(auto-fit, minmax(min(…, 100%), 1fr))` |
+| Project card | `<article>`: `<h3><a>` stretched over the card, media, tag list | Card (Tier 2) | none | One link per card; tags stay outside the stretched link's text |
+| Post list item | `<article>`: kicker, `<h3><a>`, excerpt, `<time datetime>` | — | none | — |
+| Quote | `<figure>` + `<blockquote>` + `<figcaption>` | — | none | — |
+| Pull quote | `<aside aria-hidden="true">` repeating a line from the body | — | none | Hidden from assistive tech because the line is already read in the body |
+| Media + text | `<section>` + `<figure>` + text column | — | none | Container query stacks it |
+| Timeline | `<ol>` of `<li>` with `<time datetime>` | — | none | — |
+| Table of contents | `<nav aria-label="On this page">` + `<ol>` of in-page links | — | none | Current-section highlight via scroll-state queries as PE |
+| Code block | `<figure>` + `<pre tabindex="0"><code>` + caption naming the language | — | none (copy button opt-in) | `tabindex="0"` so a scrolling block is reachable by keyboard (WCAG 2.1.1) |
+| Figure | `<figure>` + `<img alt>` + `<figcaption>` | — | none | — |
+| Author card | `<aside aria-label="About the author">`: avatar, name, short bio, links | — | none | Avatar from Tier 2 |
+| Newsletter / CTA band | `<section>` + `<form>`: label, email input, button | — | none | Field + validation from Tier 1 |
+| Tag filter | Group of toggle buttons (`aria-pressed`), or links when filtering is a navigation | Button (toggle) | opt-in | Without JS: links to filtered URLs |
+| Site footer | `<footer>` + `<nav aria-label="Footer">` | — | none | — |
+| Icon tile | Decorative `<span>` with inline SVG, `aria-hidden="true"`; meaning lives in the adjacent text | — | none | Forced colours: the tile drops its material and keeps a border |
+
 ## Contract format (draft)
 
 Every component ships a machine-readable contract. **This format is a draft:** Pass 3 hand-writes the keyboard tests
