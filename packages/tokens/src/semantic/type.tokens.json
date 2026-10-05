@@ -1,0 +1,481 @@
+{
+  "$description": "Type: families, weights, the fluid scale (steps −2 … 5), leading, tracking and text styles.",
+  "font": {
+    "family": {
+      "display": {
+        "$type": "fontFamily",
+        "$value": [
+          "Bricolage Grotesque",
+          "system-ui",
+          "sans-serif"
+        ],
+        "$description": "Display and headings (SIL OFL; light 300, full optical size)."
+      },
+      "body": {
+        "$type": "fontFamily",
+        "$value": [
+          "Figtree",
+          "system-ui",
+          "sans-serif"
+        ],
+        "$description": "Body text, labels and controls (SIL OFL)."
+      },
+      "mono": {
+        "$type": "fontFamily",
+        "$value": [
+          "Spline Sans Mono",
+          "ui-monospace",
+          "monospace"
+        ],
+        "$description": "Code, and uppercase micro-labels (SIL OFL)."
+      }
+    },
+    "weight": {
+      "light": {
+        "$type": "fontWeight",
+        "$value": 300,
+        "$description": "Display."
+      },
+      "regular": {
+        "$type": "fontWeight",
+        "$value": 400,
+        "$description": "Body."
+      },
+      "heading": {
+        "$type": "fontWeight",
+        "$value": 480,
+        "$description": "Headings 1–4."
+      },
+      "label": {
+        "$type": "fontWeight",
+        "$value": 600,
+        "$description": "Labels, buttons, micro-labels."
+      }
+    },
+    "size": {
+      "step-minus-2": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0.75,
+          "unit": "rem"
+        },
+        "$description": "Type step −2: 12 px at 360, 12 px at 1280.",
+        "$extensions": {
+          "lue": {
+            "fluid": {
+              "min": {
+                "value": 0.75,
+                "unit": "rem"
+              },
+              "minViewport": 360,
+              "maxViewport": 1280
+            }
+          }
+        }
+      },
+      "step-minus-1": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0.9375,
+          "unit": "rem"
+        },
+        "$description": "Type step −1: 14 px at 360, 15 px at 1280.",
+        "$extensions": {
+          "lue": {
+            "fluid": {
+              "min": {
+                "value": 0.875,
+                "unit": "rem"
+              },
+              "minViewport": 360,
+              "maxViewport": 1280
+            }
+          }
+        }
+      },
+      "step-0": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1.0625,
+          "unit": "rem"
+        },
+        "$description": "Type step 0: 16 px at 360, 17 px at 1280. Body; never below 16 px.",
+        "$extensions": {
+          "lue": {
+            "fluid": {
+              "min": {
+                "value": 1,
+                "unit": "rem"
+              },
+              "minViewport": 360,
+              "maxViewport": 1280
+            }
+          }
+        }
+      },
+      "step-1": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1.1875,
+          "unit": "rem"
+        },
+        "$description": "Type step 1: 17.5 px at 360, 19 px at 1280.",
+        "$extensions": {
+          "lue": {
+            "fluid": {
+              "min": {
+                "value": 1.0938,
+                "unit": "rem"
+              },
+              "minViewport": 360,
+              "maxViewport": 1280
+            }
+          }
+        }
+      },
+      "step-2": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1.5,
+          "unit": "rem"
+        },
+        "$description": "Type step 2: 20 px at 360, 24 px at 1280.",
+        "$extensions": {
+          "lue": {
+            "fluid": {
+              "min": {
+                "value": 1.25,
+                "unit": "rem"
+              },
+              "minViewport": 360,
+              "maxViewport": 1280
+            }
+          }
+        }
+      },
+      "step-3": {
+        "$type": "dimension",
+        "$value": {
+          "value": 2,
+          "unit": "rem"
+        },
+        "$description": "Type step 3: 24 px at 360, 32 px at 1280.",
+        "$extensions": {
+          "lue": {
+            "fluid": {
+              "min": {
+                "value": 1.5,
+                "unit": "rem"
+              },
+              "minViewport": 360,
+              "maxViewport": 1280
+            }
+          }
+        }
+      },
+      "step-4": {
+        "$type": "dimension",
+        "$value": {
+          "value": 2.875,
+          "unit": "rem"
+        },
+        "$description": "Type step 4: 30 px at 360, 46 px at 1280.",
+        "$extensions": {
+          "lue": {
+            "fluid": {
+              "min": {
+                "value": 1.875,
+                "unit": "rem"
+              },
+              "minViewport": 360,
+              "maxViewport": 1280
+            }
+          }
+        }
+      },
+      "step-5": {
+        "$type": "dimension",
+        "$value": {
+          "value": 5.25,
+          "unit": "rem"
+        },
+        "$description": "Type step 5: 44 px at 360, 84 px at 1280.",
+        "$extensions": {
+          "lue": {
+            "fluid": {
+              "min": {
+                "value": 2.75,
+                "unit": "rem"
+              },
+              "minViewport": 360,
+              "maxViewport": 1280
+            }
+          }
+        }
+      }
+    },
+    "leading": {
+      "display": {
+        "$type": "number",
+        "$value": 0.98,
+        "$description": "Line height for display."
+      },
+      "heading-1": {
+        "$type": "number",
+        "$value": 1.04,
+        "$description": "Heading 1."
+      },
+      "heading-2": {
+        "$type": "number",
+        "$value": 1.1,
+        "$description": "Heading 2."
+      },
+      "heading-3": {
+        "$type": "number",
+        "$value": 1.2,
+        "$description": "Heading 3."
+      },
+      "heading-4": {
+        "$type": "number",
+        "$value": 1.3,
+        "$description": "Heading 4 and labels."
+      },
+      "body": {
+        "$type": "number",
+        "$value": 1.6,
+        "$description": "Body text (≥ 1.5)."
+      },
+      "small": {
+        "$type": "number",
+        "$value": 1.5,
+        "$description": "Small text."
+      }
+    },
+    "tracking": {
+      "display": {
+        "$type": "number",
+        "$value": -0.035,
+        "$description": "Letter spacing for display, in em.",
+        "$extensions": {
+          "lue": {
+            "unit": "em"
+          }
+        }
+      },
+      "heading": {
+        "$type": "number",
+        "$value": -0.02,
+        "$description": "Letter spacing for headings, in em.",
+        "$extensions": {
+          "lue": {
+            "unit": "em"
+          }
+        }
+      },
+      "micro": {
+        "$type": "number",
+        "$value": 0.16,
+        "$description": "Letter spacing for uppercase micro-labels, in em.",
+        "$extensions": {
+          "lue": {
+            "unit": "em"
+          }
+        }
+      }
+    }
+  },
+  "text": {
+    "display": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.display}",
+        "fontSize": "{font.size.step-5}",
+        "fontWeight": "{font.weight.light}",
+        "lineHeight": "{font.leading.display}",
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "Hero and page display.",
+      "$extensions": {
+        "lue": {
+          "letterSpacingEm": -0.035,
+          "fontVariationSettings": "'opsz' 96"
+        }
+      }
+    },
+    "heading-1": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.display}",
+        "fontSize": "{font.size.step-4}",
+        "fontWeight": "{font.weight.heading}",
+        "lineHeight": "{font.leading.heading-1}",
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "Page title.",
+      "$extensions": {
+        "lue": {
+          "letterSpacingEm": -0.02
+        }
+      }
+    },
+    "heading-2": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.display}",
+        "fontSize": "{font.size.step-3}",
+        "fontWeight": "{font.weight.heading}",
+        "lineHeight": "{font.leading.heading-2}",
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "Section heading.",
+      "$extensions": {
+        "lue": {
+          "letterSpacingEm": -0.02
+        }
+      }
+    },
+    "heading-3": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.display}",
+        "fontSize": "{font.size.step-2}",
+        "fontWeight": "{font.weight.heading}",
+        "lineHeight": "{font.leading.heading-3}",
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "Subsection heading.",
+      "$extensions": {
+        "lue": {
+          "letterSpacingEm": -0.02
+        }
+      }
+    },
+    "heading-4": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.display}",
+        "fontSize": "{font.size.step-1}",
+        "fontWeight": "{font.weight.heading}",
+        "lineHeight": "{font.leading.heading-4}",
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "Minor heading.",
+      "$extensions": {
+        "lue": {
+          "letterSpacingEm": -0.02
+        }
+      }
+    },
+    "body": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.body}",
+        "fontSize": "{font.size.step-0}",
+        "fontWeight": "{font.weight.regular}",
+        "lineHeight": "{font.leading.body}",
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "Running text, 45–75 characters per line.",
+      "$extensions": {
+        "lue": {
+          "letterSpacingEm": 0
+        }
+      }
+    },
+    "body-sm": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.body}",
+        "fontSize": "{font.size.step-minus-1}",
+        "fontWeight": "{font.weight.regular}",
+        "lineHeight": "{font.leading.small}",
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "Hints and secondary detail.",
+      "$extensions": {
+        "lue": {
+          "letterSpacingEm": 0
+        }
+      }
+    },
+    "label": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.body}",
+        "fontSize": "{font.size.step-0}",
+        "fontWeight": "{font.weight.label}",
+        "lineHeight": "{font.leading.heading-4}",
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "Form labels and buttons.",
+      "$extensions": {
+        "lue": {
+          "letterSpacingEm": 0
+        }
+      }
+    },
+    "caption": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.mono}",
+        "fontSize": "{font.size.step-minus-2}",
+        "fontWeight": "{font.weight.label}",
+        "lineHeight": "{font.leading.small}",
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "Uppercase micro-labels (never running text).",
+      "$extensions": {
+        "lue": {
+          "letterSpacingEm": 0.16,
+          "textTransform": "uppercase"
+        }
+      }
+    },
+    "code": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.mono}",
+        "fontSize": "{font.size.step-minus-1}",
+        "fontWeight": "{font.weight.regular}",
+        "lineHeight": "{font.leading.body}",
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "Code.",
+      "$extensions": {
+        "lue": {
+          "letterSpacingEm": 0
+        }
+      }
+    }
+  }
+}

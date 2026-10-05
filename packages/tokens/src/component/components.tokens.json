@@ -1,0 +1,47 @@
+{
+  "$description": "A few documented component knobs, defaulting to semantic tokens.",
+  "button": {
+    "radius": {
+      "$type": "dimension",
+      "$value": "{radius.full}",
+      "$description": "Button corner radius."
+    },
+    "height": {
+      "$type": "dimension",
+      "$value": "{size.control.md}",
+      "$description": "Default button height."
+    }
+  },
+  "field": {
+    "radius": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "Text input and select radius."
+    }
+  },
+  "dialog": {
+    "radius": {
+      "$type": "dimension",
+      "$value": "{radius.l}",
+      "$description": "Dialog radius."
+    },
+    "max-inline-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 28.75,
+        "unit": "rem"
+      },
+      "$description": "Dialog maximum width."
+    }
+  },
+  "card": {
+    "radius": {
+      "$type": "dimension",
+      "$value": "{radius.l}",
+      "$description": "Card radius."
+    }
+  }
+}

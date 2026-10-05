@@ -1,0 +1,112 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/resolver.json",
+  "version": "2025.10",
+  "name": "Lue UI",
+  "description": "Lue UI tokens. One theme modifier with four contexts (scheme × contrast; dark is primary) and a density modifier.",
+  "sets": {
+    "foundation": {
+      "description": "Primitives and context-free semantic tokens.",
+      "sources": [
+        {
+          "$ref": "primitive/color.tokens.json"
+        },
+        {
+          "$ref": "semantic/type.tokens.json"
+        },
+        {
+          "$ref": "semantic/dimension.tokens.json"
+        },
+        {
+          "$ref": "semantic/motion.tokens.json"
+        },
+        {
+          "$ref": "component/components.tokens.json"
+        }
+      ]
+    }
+  },
+  "modifiers": {
+    "theme": {
+      "description": "Colour scheme and contrast. -more contexts reuse their scheme's materials, which turn opaque in CSS.",
+      "contexts": {
+        "dark": [
+          {
+            "$ref": "semantic/material.dark.tokens.json"
+          },
+          {
+            "$ref": "semantic/color.dark.tokens.json"
+          }
+        ],
+        "light": [
+          {
+            "$ref": "semantic/material.light.tokens.json"
+          },
+          {
+            "$ref": "semantic/color.light.tokens.json"
+          }
+        ],
+        "dark-more": [
+          {
+            "$ref": "semantic/material.dark.tokens.json"
+          },
+          {
+            "$ref": "semantic/color.dark-more.tokens.json"
+          }
+        ],
+        "light-more": [
+          {
+            "$ref": "semantic/material.light.tokens.json"
+          },
+          {
+            "$ref": "semantic/color.light-more.tokens.json"
+          }
+        ]
+      },
+      "default": "dark"
+    },
+    "density": {
+      "description": "Component density.",
+      "contexts": {
+        "compact": [
+          {
+            "density": {
+              "$type": "number",
+              "$value": 0.75,
+              "$description": "Multiplier for a component's internal padding and gaps; never scales type or targets."
+            }
+          }
+        ],
+        "default": [
+          {
+            "density": {
+              "$type": "number",
+              "$value": 1,
+              "$description": "Multiplier for a component's internal padding and gaps; never scales type or targets."
+            }
+          }
+        ],
+        "comfortable": [
+          {
+            "density": {
+              "$type": "number",
+              "$value": 1.25,
+              "$description": "Multiplier for a component's internal padding and gaps; never scales type or targets."
+            }
+          }
+        ]
+      },
+      "default": "default"
+    }
+  },
+  "resolutionOrder": [
+    {
+      "$ref": "#/sets/foundation"
+    },
+    {
+      "$ref": "#/modifiers/theme"
+    },
+    {
+      "$ref": "#/modifiers/density"
+    }
+  ]
+}

@@ -210,6 +210,12 @@ export const luminous = {
 luminous['dark-more'] = { ...luminous.dark, accent: { L: 0.42, Lactive: 0.38, C: 0.12, hues: ['aqua', 'mint', 'amber', 'rose', 'orchid'] }, beadOn: [0.985, 0.004, 285] };
 luminous['light-more'] = { ...luminous.light, accent: { L: 0.86, Lactive: 0.82, C: 0.09, hues: ['aqua', 'mint', 'citron', 'rose', 'orchid'] }, beadOn: [0.2, 0.015, 285] };
 
+// The chrome ring as conic stops: [source, angle]. c0–c4 index `chrome`, d0–d4 index `dispersion` (the lower edge).
+export const CHROME_ORDER = [['c0', 0], ['c3', 38], ['c1', 64], ['c0', 104], ['c2', 140], ['d0', 158], ['d1', 168], ['d2', 178],
+  ['d3', 188], ['d4', 198], ['c4', 220], ['c3', 248], ['c0', 286], ['c1', 320], ['c0', 360]];
+export const chromeStops = (s) => CHROME_ORDER.map(([ref, deg]) =>
+  [luminous[s][ref[0] === 'c' ? 'chrome' : 'dispersion'][+ref.slice(1)], deg]);
+
 const maxChroma = (L, h) => {
   let lo = 0, hi = 0.4;
   for (let i = 0; i < 30; i++) {

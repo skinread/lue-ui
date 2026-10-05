@@ -1,0 +1,1451 @@
+{
+  "$description": "C2 · Chroma Luminous materials, light. Decoration: every piece has an opaque fallback (prefers-reduced-transparency, prefers-contrast: more, no backdrop-filter) and is removed in forced colours.",
+  "$extensions": {
+    "lue": {
+      "scheme": "light"
+    }
+  },
+  "material": {
+    "glass": {
+      "overlay": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.995,
+            0.003,
+            290
+          ],
+          "hex": "#fdfdff",
+          "alpha": 0.84
+        },
+        "$description": "Overlay glass tint: menus, popovers, cards, sticky bars. Checked worst-case over white, black and every fill."
+      },
+      "modal": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.995,
+            0.003,
+            290
+          ],
+          "hex": "#fdfdff",
+          "alpha": 0.8
+        },
+        "$description": "Modal glass tint: dialogs, over the scrim."
+      },
+      "blur": {
+        "$type": "dimension",
+        "$value": {
+          "value": 22,
+          "unit": "px"
+        },
+        "$description": "Backdrop blur for overlay and modal glass."
+      },
+      "saturate": {
+        "$type": "number",
+        "$value": 1.6,
+        "$description": "Backdrop saturate() for glass."
+      },
+      "contrast": {
+        "$type": "number",
+        "$value": 0.65,
+        "$description": "Backdrop contrast() that compresses the range behind glass, so text stays legible."
+      },
+      "brightness": {
+        "$type": "number",
+        "$value": 1.12,
+        "$description": "Backdrop brightness() for glass."
+      },
+      "sheen": {
+        "$type": "number",
+        "$value": 0,
+        "$description": "Alpha of the white sheen on glass (0 = none)."
+      }
+    },
+    "button": {
+      "tint": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.995,
+            0.003,
+            290
+          ],
+          "hex": "#fdfdff",
+          "alpha": 0.5
+        },
+        "$description": "Clear glass button."
+      },
+      "prism-base": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.995,
+            0.003,
+            290
+          ],
+          "hex": "#fdfdff",
+          "alpha": 0.3
+        },
+        "$description": "Base pane of a prism (primary) button."
+      },
+      "prism-base-active": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.995,
+            0.003,
+            290
+          ],
+          "hex": "#fdfdff",
+          "alpha": 0.48
+        },
+        "$description": "Base pane of a pressed primary button."
+      },
+      "danger": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.86,
+            0.07,
+            18
+          ],
+          "hex": "#fcbfc0",
+          "alpha": 0.6
+        },
+        "$description": "Destructive glass button."
+      },
+      "pressed": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.94,
+            0.035,
+            310
+          ],
+          "hex": "#f2e5fd",
+          "alpha": 0.75
+        },
+        "$description": "Pressed toggle button."
+      },
+      "blur": {
+        "$type": "dimension",
+        "$value": {
+          "value": 10,
+          "unit": "px"
+        },
+        "$description": "Backdrop blur for buttons outside a glass parent."
+      },
+      "saturate": {
+        "$type": "number",
+        "$value": 1.8,
+        "$description": "Backdrop saturate() for buttons."
+      },
+      "contrast": {
+        "$type": "number",
+        "$value": 0.7,
+        "$description": "Backdrop contrast() for buttons."
+      },
+      "brightness": {
+        "$type": "number",
+        "$value": 1.06,
+        "$description": "Backdrop brightness() for buttons."
+      },
+      "sheen": {
+        "$type": "number",
+        "$value": 0.35,
+        "$description": "Alpha of the white sheen at the top of a button."
+      }
+    },
+    "iridescence": {
+      "1": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.82,
+            0.12,
+            205
+          ],
+          "hex": "#4ddae9",
+          "alpha": 0.42
+        },
+        "$description": "Prism tone 1 of a primary button (aqua). Tones share one lightness, so they can drift without changing contrast."
+      },
+      "2": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.82,
+            0.12,
+            118
+          ],
+          "hex": "#bdcf72",
+          "alpha": 0.42
+        },
+        "$description": "Prism tone 2 of a primary button (citron). Tones share one lightness, so they can drift without changing contrast."
+      },
+      "3": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.82,
+            0.099,
+            0
+          ],
+          "hex": "#faa9c1",
+          "alpha": 0.42
+        },
+        "$description": "Prism tone 3 of a primary button (rose). Tones share one lightness, so they can drift without changing contrast."
+      },
+      "4": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.82,
+            0.12,
+            168
+          ],
+          "hex": "#6bddb5",
+          "alpha": 0.42
+        },
+        "$description": "Prism tone 4 of a primary button (mint). Tones share one lightness, so they can drift without changing contrast."
+      },
+      "5": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.82,
+            0.12,
+            318
+          ],
+          "hex": "#e5abf7",
+          "alpha": 0.42
+        },
+        "$description": "Prism tone 5 of a primary button (orchid). Tones share one lightness, so they can drift without changing contrast."
+      }
+    },
+    "ambient": {
+      "rose": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.112,
+            0
+          ],
+          "hex": "#f99fbb",
+          "alpha": 0.28
+        },
+        "$description": "Ambient rose light behind content (checked where text can sit on it, also doubled)."
+      },
+      "orchid": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.12,
+            318
+          ],
+          "hex": "#dea5f0",
+          "alpha": 0.28
+        },
+        "$description": "Ambient orchid light behind content (checked where text can sit on it, also doubled)."
+      },
+      "iris": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.095,
+            285
+          ],
+          "hex": "#b7b5f9",
+          "alpha": 0.28
+        },
+        "$description": "Ambient iris light behind content (checked where text can sit on it, also doubled)."
+      },
+      "azure": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.094,
+            250
+          ],
+          "hex": "#8fc3f8",
+          "alpha": 0.28
+        },
+        "$description": "Ambient azure light behind content (checked where text can sit on it, also doubled)."
+      },
+      "aqua": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.12,
+            205
+          ],
+          "hex": "#44d4e2",
+          "alpha": 0.28
+        },
+        "$description": "Ambient aqua light behind content (checked where text can sit on it, also doubled)."
+      },
+      "mint": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.12,
+            168
+          ],
+          "hex": "#64d6af",
+          "alpha": 0.28
+        },
+        "$description": "Ambient mint light behind content (checked where text can sit on it, also doubled)."
+      },
+      "citron": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.12,
+            118
+          ],
+          "hex": "#b7c86b",
+          "alpha": 0.28
+        },
+        "$description": "Ambient citron light behind content (checked where text can sit on it, also doubled)."
+      },
+      "amber": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.12,
+            72
+          ],
+          "hex": "#edb161",
+          "alpha": 0.28
+        },
+        "$description": "Ambient amber light behind content (checked where text can sit on it, also doubled)."
+      }
+    },
+    "satin": {
+      "0": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.985,
+            0.004,
+            285
+          ],
+          "hex": "#fafafd"
+        },
+        "$description": "Satin fold 0. Hero text is checked against every fold."
+      },
+      "1": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.935,
+            0.014,
+            70
+          ],
+          "hex": "#f0e8e0"
+        },
+        "$description": "Satin fold 1. Hero text is checked against every fold."
+      },
+      "2": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.95,
+            0.012,
+            300
+          ],
+          "hex": "#efedf6"
+        },
+        "$description": "Satin fold 2. Hero text is checked against every fold."
+      },
+      "3": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.905,
+            0.012,
+            280
+          ],
+          "hex": "#dedfe8"
+        },
+        "$description": "Satin fold 3. Hero text is checked against every fold."
+      },
+      "4": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.97,
+            0.008,
+            40
+          ],
+          "hex": "#faf3f1"
+        },
+        "$description": "Satin fold 4. Hero text is checked against every fold."
+      },
+      "5": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            1,
+            0,
+            0
+          ],
+          "hex": "#ffffff"
+        },
+        "$description": "Satin highlight ridge."
+      }
+    },
+    "chrome": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.006,
+              265
+            ],
+            "hex": "#737478"
+          },
+          "position": 0
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.29,
+              0.014,
+              290
+            ],
+            "hex": "#2b2a32"
+          },
+          "position": 0.106
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.38,
+              0.012,
+              285
+            ],
+            "hex": "#414249"
+          },
+          "position": 0.178
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.006,
+              265
+            ],
+            "hex": "#737478"
+          },
+          "position": 0.289
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.51,
+              0.005,
+              240
+            ],
+            "hex": "#646669"
+          },
+          "position": 0.389
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.12,
+              72
+            ],
+            "hex": "#9f6700"
+          },
+          "position": 0.439
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.55,
+              0.128,
+              118
+            ],
+            "hex": "#6c7b00"
+          },
+          "position": 0.467
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.109,
+              168
+            ],
+            "hex": "#008262"
+          },
+          "position": 0.494
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.092,
+              205
+            ],
+            "hex": "#007e88"
+          },
+          "position": 0.522
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.52,
+              0.13,
+              250
+            ],
+            "hex": "#1f6cb0"
+          },
+          "position": 0.55
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.545,
+              0.008,
+              270
+            ],
+            "hex": "#6e7075"
+          },
+          "position": 0.611
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.29,
+              0.014,
+              290
+            ],
+            "hex": "#2b2a32"
+          },
+          "position": 0.689
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.006,
+              265
+            ],
+            "hex": "#737478"
+          },
+          "position": 0.794
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.38,
+              0.012,
+              285
+            ],
+            "hex": "#414249"
+          },
+          "position": 0.889
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.006,
+              265
+            ],
+            "hex": "#737478"
+          },
+          "position": 1
+        }
+      ],
+      "$description": "The chrome hairline as conic stops (position = turn). Every stop is a 3:1 boundary; the band near 0.5 is the dispersion."
+    },
+    "dispersion": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.12,
+              72
+            ],
+            "hex": "#9f6700"
+          },
+          "position": 0
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.55,
+              0.128,
+              118
+            ],
+            "hex": "#6c7b00"
+          },
+          "position": 0.25
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.109,
+              168
+            ],
+            "hex": "#008262"
+          },
+          "position": 0.5
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.092,
+              205
+            ],
+            "hex": "#007e88"
+          },
+          "position": 0.75
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.52,
+              0.13,
+              250
+            ],
+            "hex": "#1f6cb0"
+          },
+          "position": 1
+        }
+      ],
+      "$description": "Dispersed light at the lower edge of chrome: amber → citron → mint → aqua → azure."
+    },
+    "prism-fill": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.82,
+              0.1,
+              205
+            ],
+            "hex": "#6cd7e3"
+          },
+          "position": 0
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.82,
+              0.1,
+              168
+            ],
+            "hex": "#7fd9b8"
+          },
+          "position": 0.25
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.82,
+              0.1,
+              118
+            ],
+            "hex": "#becd82"
+          },
+          "position": 0.5
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.82,
+              0.099,
+              0
+            ],
+            "hex": "#faa9c1"
+          },
+          "position": 0.75
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.82,
+              0.1,
+              318
+            ],
+            "hex": "#e0b0ee"
+          },
+          "position": 1
+        }
+      ],
+      "$description": "Multi-tone fill for small controls (checkbox, radio, switch, steps)."
+    },
+    "prism-fill-active": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.77,
+              0.1,
+              205
+            ],
+            "hex": "#5ac7d2"
+          },
+          "position": 0
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.77,
+              0.1,
+              168
+            ],
+            "hex": "#6fc9a8"
+          },
+          "position": 0.25
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.77,
+              0.1,
+              118
+            ],
+            "hex": "#aebd72"
+          },
+          "position": 0.5
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.77,
+              0.1,
+              0
+            ],
+            "hex": "#e999b1"
+          },
+          "position": 0.75
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.77,
+              0.1,
+              318
+            ],
+            "hex": "#cfa0de"
+          },
+          "position": 1
+        }
+      ],
+      "$description": "Multi-tone fill, pressed."
+    },
+    "prism-ring": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.083,
+              205
+            ],
+            "hex": "#207c86"
+          },
+          "position": 0
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.098,
+              168
+            ],
+            "hex": "#218164"
+          },
+          "position": 0.2
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.113,
+              118
+            ],
+            "hex": "#69771c"
+          },
+          "position": 0.4
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.12,
+              0
+            ],
+            "hex": "#a54d6c"
+          },
+          "position": 0.6
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.12,
+              318
+            ],
+            "hex": "#8b569b"
+          },
+          "position": 0.8
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.083,
+              205
+            ],
+            "hex": "#207c86"
+          },
+          "position": 1
+        }
+      ],
+      "$description": "Multi-tone ring that replaces chrome on selected and on states; a 3:1 boundary."
+    },
+    "metal": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              1,
+              0,
+              0
+            ],
+            "hex": "#ffffff"
+          },
+          "position": 0
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.955,
+              0.006,
+              285
+            ],
+            "hex": "#eff0f4"
+          },
+          "position": 0.46
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.985,
+              0.004,
+              285
+            ],
+            "hex": "#fafafd"
+          },
+          "position": 0.62
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.94,
+              0.008,
+              285
+            ],
+            "hex": "#eaeaf0"
+          },
+          "position": 1
+        }
+      ],
+      "$description": "Liquid metal for icon tiles and avatars."
+    },
+    "bead-on": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.3,
+          0.015,
+          285
+        ],
+        "hex": "#2d2d35"
+      },
+      "$description": "Switch thumb when on (3:1 against the multi-tone track)."
+    },
+    "spark": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          1,
+          0,
+          0
+        ],
+        "hex": "#ffffff",
+        "alpha": 0.95
+      },
+      "$description": "Specks of light that drift along primaries on hover. Never over text."
+    }
+  },
+  "shadow": {
+    "raised": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.3,
+              0.03,
+              285
+            ],
+            "hex": "#2c2c3c",
+            "alpha": 0.05
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 1,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4,
+              0.12,
+              318
+            ],
+            "hex": "#622e71",
+            "alpha": 0.3
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 16,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 40,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -18,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.55,
+              0.1,
+              230
+            ],
+            "hex": "#1e7ca1",
+            "alpha": 0.24
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 10,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 30,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -16,
+            "unit": "px"
+          }
+        }
+      ],
+      "$description": "Cards and raised surfaces."
+    },
+    "overlay": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.3,
+              0.03,
+              285
+            ],
+            "hex": "#2c2c3c",
+            "alpha": 0.06
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 2,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 4,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4,
+              0.14,
+              318
+            ],
+            "hex": "#652777",
+            "alpha": 0.4
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 30,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 70,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -24,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.55,
+              0.1,
+              220
+            ],
+            "hex": "#007e9a",
+            "alpha": 0.32
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 18,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 50,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -22,
+            "unit": "px"
+          }
+        }
+      ],
+      "$description": "Menus, dialogs and other overlays."
+    },
+    "control": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.3,
+              0.03,
+              285
+            ],
+            "hex": "#2c2c3c",
+            "alpha": 0.08
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 2,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4,
+              0.06,
+              285
+            ],
+            "hex": "#444367",
+            "alpha": 0.18
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 4,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 12,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -6,
+            "unit": "px"
+          }
+        }
+      ],
+      "$description": "Resting depth under buttons."
+    },
+    "fringe": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.78,
+              0.1,
+              205
+            ],
+            "hex": "#5ecad6",
+            "alpha": 0.45
+          },
+          "offsetX": {
+            "value": 1,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 0,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          },
+          "inset": true
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.74,
+              0.13,
+              355
+            ],
+            "hex": "#ea86af",
+            "alpha": 0.32
+          },
+          "offsetX": {
+            "value": -1,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": -1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 0,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          },
+          "inset": true
+        }
+      ],
+      "$description": "Prism fringe inside the edge of glass (inset)."
+    },
+    "glow": {
+      "rest": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.5,
+                0.19,
+                318
+              ],
+              "hex": "#8e32a7",
+              "alpha": 0.45
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 8,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 22,
+              "unit": "px"
+            },
+            "spread": {
+              "value": -12,
+              "unit": "px"
+            }
+          }
+        ],
+        "$description": "Diffuse prism glow under a primary at rest."
+      },
+      "hover": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.5,
+                0.19,
+                318
+              ],
+              "hex": "#8e32a7",
+              "alpha": 0.5
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 12,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 30,
+              "unit": "px"
+            },
+            "spread": {
+              "value": -10,
+              "unit": "px"
+            }
+          },
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.55,
+                0.126,
+                240
+              ],
+              "hex": "#0079b3",
+              "alpha": 0.45
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 10,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 28,
+              "unit": "px"
+            },
+            "spread": {
+              "value": -12,
+              "unit": "px"
+            }
+          }
+        ],
+        "$description": "Glow under a hovered primary."
+      },
+      "soft": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.5,
+                0.15,
+                290
+              ],
+              "hex": "#644fb1",
+              "alpha": 0.35
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 10,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 26,
+              "unit": "px"
+            },
+            "spread": {
+              "value": -12,
+              "unit": "px"
+            }
+          }
+        ],
+        "$description": "Glow under a hovered neutral button."
+      },
+      "critical": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.52,
+                0.19,
+                18
+              ],
+              "hex": "#bd1f3d",
+              "alpha": 0.45
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 10,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 26,
+              "unit": "px"
+            },
+            "spread": {
+              "value": -12,
+              "unit": "px"
+            }
+          }
+        ],
+        "$description": "Glow under a hovered destructive button."
+      }
+    }
+  }
+}

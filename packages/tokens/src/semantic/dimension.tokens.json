@@ -1,0 +1,360 @@
+{
+  "$description": "Space, size, radius, border, focus and layering.",
+  "space": {
+    "3xs": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.2813,
+        "unit": "rem"
+      },
+      "$description": "Space 3xs: 4 px at 360, 4.5 px at 1280.",
+      "$extensions": {
+        "lue": {
+          "fluid": {
+            "min": {
+              "value": 0.25,
+              "unit": "rem"
+            },
+            "minViewport": 360,
+            "maxViewport": 1280
+          }
+        }
+      }
+    },
+    "2xs": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5625,
+        "unit": "rem"
+      },
+      "$description": "Space 2xs: 8 px at 360, 9 px at 1280.",
+      "$extensions": {
+        "lue": {
+          "fluid": {
+            "min": {
+              "value": 0.5,
+              "unit": "rem"
+            },
+            "minViewport": 360,
+            "maxViewport": 1280
+          }
+        }
+      }
+    },
+    "xs": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.8438,
+        "unit": "rem"
+      },
+      "$description": "Space xs: 12 px at 360, 13.5 px at 1280.",
+      "$extensions": {
+        "lue": {
+          "fluid": {
+            "min": {
+              "value": 0.75,
+              "unit": "rem"
+            },
+            "minViewport": 360,
+            "maxViewport": 1280
+          }
+        }
+      }
+    },
+    "s": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.125,
+        "unit": "rem"
+      },
+      "$description": "Space s: 16 px at 360, 18 px at 1280.",
+      "$extensions": {
+        "lue": {
+          "fluid": {
+            "min": {
+              "value": 1,
+              "unit": "rem"
+            },
+            "minViewport": 360,
+            "maxViewport": 1280
+          }
+        }
+      }
+    },
+    "m": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.6875,
+        "unit": "rem"
+      },
+      "$description": "Space m: 24 px at 360, 27 px at 1280.",
+      "$extensions": {
+        "lue": {
+          "fluid": {
+            "min": {
+              "value": 1.5,
+              "unit": "rem"
+            },
+            "minViewport": 360,
+            "maxViewport": 1280
+          }
+        }
+      }
+    },
+    "l": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2.25,
+        "unit": "rem"
+      },
+      "$description": "Space l: 32 px at 360, 36 px at 1280.",
+      "$extensions": {
+        "lue": {
+          "fluid": {
+            "min": {
+              "value": 2,
+              "unit": "rem"
+            },
+            "minViewport": 360,
+            "maxViewport": 1280
+          }
+        }
+      }
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 3.375,
+        "unit": "rem"
+      },
+      "$description": "Space xl: 48 px at 360, 54 px at 1280.",
+      "$extensions": {
+        "lue": {
+          "fluid": {
+            "min": {
+              "value": 3,
+              "unit": "rem"
+            },
+            "minViewport": 360,
+            "maxViewport": 1280
+          }
+        }
+      }
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4.5,
+        "unit": "rem"
+      },
+      "$description": "Space 2xl: 64 px at 360, 72 px at 1280.",
+      "$extensions": {
+        "lue": {
+          "fluid": {
+            "min": {
+              "value": 4,
+              "unit": "rem"
+            },
+            "minViewport": 360,
+            "maxViewport": 1280
+          }
+        }
+      }
+    },
+    "3xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 6.75,
+        "unit": "rem"
+      },
+      "$description": "Space 3xl: 96 px at 360, 108 px at 1280.",
+      "$extensions": {
+        "lue": {
+          "fluid": {
+            "min": {
+              "value": 6,
+              "unit": "rem"
+            },
+            "minViewport": 360,
+            "maxViewport": 1280
+          }
+        }
+      }
+    }
+  },
+  "size": {
+    "target-min": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$description": "Minimum interactive target; 44 px under (any-pointer: coarse).",
+      "$extensions": {
+        "lue": {
+          "coarse": {
+            "value": 44,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "control": {
+      "sm": {
+        "$type": "dimension",
+        "$value": {
+          "value": 2.5,
+          "unit": "rem"
+        },
+        "$description": "Small control height."
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": {
+          "value": 3.125,
+          "unit": "rem"
+        },
+        "$description": "Default control height."
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": {
+          "value": 3.75,
+          "unit": "rem"
+        },
+        "$description": "Large control height."
+      }
+    },
+    "icon": {
+      "sm": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1,
+          "unit": "rem"
+        },
+        "$description": "Small icon (scales with text in CSS)."
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1.25,
+          "unit": "rem"
+        },
+        "$description": "Default icon."
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1.5,
+          "unit": "rem"
+        },
+        "$description": "Large icon."
+      }
+    },
+    "measure": {
+      "$type": "number",
+      "$value": 66,
+      "$description": "Measure for running text, in ch.",
+      "$extensions": {
+        "lue": {
+          "unit": "ch"
+        }
+      }
+    }
+  },
+  "radius": {
+    "none": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$description": "Square."
+    },
+    "xs": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "Checkboxes, chips."
+    },
+    "s": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "$description": "Small surfaces."
+    },
+    "m": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "Menus, alerts, media."
+    },
+    "l": {
+      "$type": "dimension",
+      "$value": {
+        "value": 28,
+        "unit": "px"
+      },
+      "$description": "Cards, dialogs (squircle as an enhancement)."
+    },
+    "full": {
+      "$type": "dimension",
+      "$value": {
+        "value": 9999,
+        "unit": "px"
+      },
+      "$description": "Pills: buttons, tags, toasts."
+    }
+  },
+  "border": {
+    "width": {
+      "thin": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1,
+          "unit": "px"
+        },
+        "$description": "Hairlines: chrome, fields, dividers."
+      },
+      "thick": {
+        "$type": "dimension",
+        "$value": {
+          "value": 2,
+          "unit": "px"
+        },
+        "$description": "Emphasis: error summary, selected outlines in more contrast."
+      }
+    }
+  },
+  "focus": {
+    "width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$description": "Focus outline width (minimum)."
+    },
+    "offset": {
+      "$type": "dimension",
+      "$value": {
+        "value": 3,
+        "unit": "px"
+      },
+      "$description": "Focus outline offset."
+    }
+  },
+  "layer": {
+    "sticky": {
+      "$type": "number",
+      "$value": 10,
+      "$description": "z-index for sticky page furniture. Overlays use the top layer instead."
+    }
+  }
+}

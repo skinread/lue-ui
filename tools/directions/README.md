@@ -8,11 +8,13 @@ Output goes to `out/` (gitignored).
 | Script | What it does | Run |
 | --- | --- | --- |
 | `contrast.mjs` | OKLCH → sRGB (gamut-mapped) → WCAG 2.x ratio, plus APCA Lc (advisory). Run directly, it prints the lightness bands used in [tokens.md](../../docs/design/tokens.md#contrast-by-construction) | `node contrast.mjs` |
-| `palettes.mjs` | The seeded palettes (4 directions × light/dark), the 12 pair rules (36 checks per scheme), and Luminous's prism, chrome, glass, glass-button, ambient-light, satin and metal rules (36 per scheme). Prints pass/fail and the tightest margin; `--all` lists every Luminous rule | `node palettes.mjs` |
+| `palettes.mjs` | The seeded palettes (4 directions × light/dark), the 12 pair rules (36 checks per scheme, raised minimums in C2's `-more` contexts), and Luminous's prism, chrome, glass, glass-button, ambient-light, satin and metal rules (36 per scheme). Prints pass/fail and the tightest margin; `--all` lists every Luminous rule | `node palettes.mjs` |
 | `report.mjs` | Writes `out/palette-values.json` and `out/palette-report.md` — the brief's appendix, already in `<details>` blocks | `node report.mjs` |
 | `luminous-canvas.mjs` | Luminous's per-scheme custom properties, its CSS (chrome ring, glass, prism slide, sparks, fallbacks) and its extra Foundations sections. Imported by `build-canvas.mjs` | — |
 | `luminous-pages.mjs` | Luminous's materials (satin folds, glass prism and orb, metal icon tiles, media art) and its fluid boards: block library, portfolio home, journal article | — |
 | `build-canvas.mjs` | Generates the 16 artboards and `canvas.json` into `out/canvas/project/` | `node build-canvas.mjs` |
+| `tokens.mjs` | Writes the DTCG 2025.10 token source for C2 into `packages/tokens/src/` (12 files: colour per theme context, materials per scheme, type, dimension, motion, components, resolver) | `node tokens.mjs` |
+| `check-tokens.mjs` | Checks that source: `$type` and `$description` on every token, aliases resolve, every declared pair passes in all four contexts, body ≥ 16 px. Exits non-zero on failure | `node check-tokens.mjs` |
 
 ## Changing a direction
 
@@ -23,6 +25,7 @@ Output goes to `out/` (gitignored).
 3. `node report.mjs`, then replace everything after the appendix intro of
    [the brief](../../docs/design/claude-design-brief.md) with `out/palette-report.md`.
 4. `node build-canvas.mjs`, then republish (below).
+5. For C2: `node tokens.mjs && node check-tokens.mjs` to refresh the token source, and commit it with the change.
 
 ## Republishing the canvas
 

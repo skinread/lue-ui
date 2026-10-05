@@ -1,7 +1,7 @@
 // C2 · Chroma Luminous — the pieces of the canvas a flat palette can't express: chrome hairlines, glass tiers,
 // the prism fill that slides on interaction, sparks, ambient prism light, and the fallbacks that switch them off.
 // Imported by build-canvas.mjs. Values come from palettes.mjs, where every rule here is contrast-checked.
-import { directions as PAL, luminous as LUM, evaluateLuminous, prismRamp, ambientGlows, buttonBlobs, tones } from './palettes.mjs';
+import { directions as PAL, luminous as LUM, evaluateLuminous, prismRamp, ambientGlows, buttonBlobs, tones, chromeStops } from './palettes.mjs';
 import { oklch, contrast } from './contrast.mjs';
 import { materialsSection } from './luminous-pages.mjs';
 
@@ -44,7 +44,7 @@ export function lxVars(s) {
     '--btn-rim-bottom': dark ? 'oklch(1 0 0 / 0.05)' : 'oklch(1 0 0 / 0.45)',
     ...irid,
     // Chrome with a short band of dispersed light at its lower edge (around 180°), like light through thick glass.
-    '--chrome-stops': `${c0} 0deg, ${c3} 38deg, ${c1} 64deg, ${c0} 104deg, ${c2} 140deg, ${disp[0]} 158deg, ${disp[1]} 168deg, ${disp[2]} 178deg, ${disp[3]} 188deg, ${disp[4]} 198deg, ${c4} 220deg, ${c3} 248deg, ${c0} 286deg, ${c1} 320deg, ${c0} 360deg`,
+    '--chrome-stops': chromeStops(s).map(([v, deg]) => `${mapped(v)} ${deg}deg`).join(', '),
     ...Object.fromEntries([c0, c1, c2, c3, c4].map((c, i) => [`--c${i}`, c])),
     ...Object.fromEntries(disp.map((c, i) => [`--disp-${i + 1}`, c])),
     ...Object.fromEntries(satin.map((c, i) => [`--satin-${i}`, c])),

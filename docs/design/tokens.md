@@ -1,6 +1,6 @@
 # Token specification
 
-> **Status:** Draft v0.1 · Phase 1 · 2026-10-05
+> **Status:** v0.2 · Pass 2 · 2026-10-05 — values filled for C2 · Chroma Luminous in [`packages/tokens/src`](../../packages/tokens/README.md)
 > **Decision:** [ADR-0003](../architecture/adr/0003-dtcg-tokens-with-terrazzo.md) · **Architecture:**
 > [RFC-0001 §3](../architecture/rfc-0001-architecture.md#3-tokens-and-theming)
 > Names use the prefix `lue` ([ADR-0008](../architecture/adr/0008-name-lue-ui.md)). Values are chosen in Claude Design (Pass 2); this page fixes the *structure*.
@@ -19,20 +19,34 @@
 
 ```
 packages/tokens/src/
-├── primitive/            # ramps and raw scales — never public CSS
-│   ├── color.tokens.json
-│   ├── dimension.tokens.json
-│   ├── typography.tokens.json
-│   └── motion.tokens.json
-├── semantic/             # the public CSS API
-│   ├── color.light.tokens.json      # one file per context where values differ
-│   ├── color.dark.tokens.json
-│   ├── color.light-more.tokens.json
+├── primitive/
+│   └── color.tokens.json              # neutral ramp + eight-hue prism — never public CSS
+├── semantic/                          # the public CSS API
+│   ├── color.dark.tokens.json         # one file per theme context, literal values, contrast pairs
+│   ├── color.light.tokens.json
 │   ├── color.dark-more.tokens.json
-│   ├── space.tokens.json  size.tokens.json  type.tokens.json  …
-├── component/            # a few documented knobs per component
-└── resolver.json         # sets + modifiers: brand × scheme × contrast × density
+│   ├── color.light-more.tokens.json
+│   ├── material.dark.tokens.json      # C2 materials and shadows, per scheme
+│   ├── material.light.tokens.json
+│   ├── type.tokens.json  dimension.tokens.json  motion.tokens.json
+├── component/
+│   └── components.tokens.json         # a few documented knobs
+└── lue.resolver.json                  # DTCG resolver: theme (4 contexts) × density
 ```
+
+Generated in Pass 2 by `tools/directions/tokens.mjs` and checked by `check-tokens.mjs` (see the
+[package README](../../packages/tokens/README.md)). Raw scales for type and space live directly in the semantic files,
+because they're fluid and have no separate primitive step.
+
+**Resolver.** DTCG 2025.10 modifiers are independent, but colour depends on scheme *and* contrast together, so one
+`theme` modifier carries four contexts — `dark` (default), `light`, `dark-more`, `light-more` — each pulling its scheme's
+material file and its own colour file. `density` is a second modifier. A `brand` modifier will join them when there's a
+second brand.
+
+**Extensions.** `$extensions.lue` carries what DTCG can't express yet: `pairs` (contrast pairs, below), `fluid` (the
+360 px size of a fluid dimension, for the `clamp()` the build emits), `unit: "em"` / `"ch"` for numbers that are
+relative lengths, `letterSpacingEm` and `fontVariationSettings` on text styles, `coarse` (the 44 px target), and `css`
+(a preferred CSS value such as a `linear()` easing).
 
 A token in the source:
 
@@ -69,7 +83,7 @@ A token in the source:
 
 | Slot | Values |
 | --- | --- |
-| category | `color`, `space`, `size`, `radius`, `border`, `shadow`, `font`, `text`, `motion`, `focus` |
+| category | `color`, `space`, `size`, `radius`, `border`, `shadow`, `font`, `text`, `motion`, `focus`, `material` |
 | property (colour) | `bg`, `fg`, `border`, `focus`, `overlay` |
 | role | `canvas`, `surface`, `default`, `muted`, `accent`, `critical`, `warning`, `success`, `info`, `neutral`, `inverse`, `on-{role}` |
 | emphasis | `subtle`, *(default)*, `strong` |
@@ -174,10 +188,32 @@ preference still wins. Design tools list dark first. (The example below shows th
 }
 ```
 
+## Materials (C2 · Chroma Luminous)
+
+Lue UI's look needs tokens a flat palette can't express. They're **decoration with an opaque fallback** — glass turns
+opaque, chrome becomes `border-strong`, satin and ambient light switch off under `prefers-reduced-transparency`,
+`prefers-contrast: more`, `[data-contrast="more"]` or without `backdrop-filter`, and forced colours removes them.
+
+| Token group | Type | What it is |
+| --- | --- | --- |
+| `material.glass.{overlay, modal}` · `.blur` `.saturate` `.contrast` `.brightness` `.sheen` | color (alpha), dimension, number | Glass tints and the backdrop filter that compresses the range behind them |
+| `material.button.{tint, prism-base, prism-base-active, danger, pressed}` + filter numbers | color, dimension, number | Glass buttons |
+| `material.iridescence.1…5` | color (alpha) | The five prism tones that drift inside a primary button |
+| `material.chrome` · `material.dispersion` | gradient | The 1 px chrome ring as conic stops (position = turn), with the dispersion band at its lower edge |
+| `material.prism-fill` · `-active` · `material.prism-ring` | gradient | Multi-tone fills for small controls, and the ring for selected and on states |
+| `material.metal` · `material.satin.0…5` · `material.ambient.<hue>` | gradient, color | Liquid-metal tiles, satin folds, ambient prism light |
+| `material.bead-on` · `material.spark` | color | Switch thumb when on; specks of light on primaries |
+| `shadow.{raised, overlay, control, fringe}` · `shadow.glow.{rest, hover, soft, critical}` | shadow | Depth, the prism fringe (inset) and diffuse glows |
+
+Every material that text or a boundary depends on has a worst-case rule in `tools/directions/palettes.mjs` (glass over
+white, black and every fill; tones up to three deep; satin folds; ambient light doubled) — 86 rules, all passing on
+2026-10-05. They move into the Pass 3 contrast gate.
+
 ## Space and density
 
 - **Fluid space scale** in `rem` with a small viewport-relative term (never pure viewport units):
-  `3xs · 2xs · xs · s · m · l · xl · 2xl · 3xl` — multiples 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6 of the base step.
+  `3xs · 2xs · xs · s · m · l · xl · 2xl · 3xl` — multiples 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6 of the base step, which
+  is **16 px at 360 and 18 px at 1280** (so `m` runs 24 → 27 px, `3xl` 96 → 108 px).
 - **One-up pairs** (`s-m`, `m-l`, …) interpolate between neighbouring steps for gaps that should grow with space.
 - **Density** multiplies a component's *internal* padding and gaps only:
   `padding-block: calc(var(--lue-space-xs) * var(--lue-density));`. It never scales type and never shrinks a target
@@ -198,7 +234,16 @@ preference still wins. Design tools list dark first. (The example below shows th
   overrides (`size-adjust`, `ascent-override`) and `font-size-adjust` to avoid layout shift.
 - **Families:** `--lue-font-family-body`, `--lue-font-family-display`, `--lue-font-family-mono`.
 - **Fluid type scale:** steps `-2 … 5`, body at step `0` with a **minimum of 1rem (16px)**; sizes are
-  `clamp(min-rem, rem + viewport term, max-rem)` at page level and may use `cqi` inside components.
+  `clamp(min-rem, rem + viewport term, max-rem)` at page level and may use `cqi` inside components. C2 values (px at
+  360 → 1280):
+
+  | Step | −2 | −1 | 0 | 1 | 2 | 3 | 4 | 5 |
+  | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+  | Size | 12 → 12 | 14 → 15 | 16 → 17 | 17.5 → 19 | 20 → 24 | 24 → 32 | 30 → 46 | 44 → 84 |
+  | Use | micro-label | small | body | heading 4 | heading 3 | heading 2 | heading 1 | display |
+
+- **C2 families:** Bricolage Grotesque (display and headings, light 300, `opsz` 96), Figtree (body), Spline Sans Mono
+  (code and uppercase micro-labels tracked 0.16 em). Display tracking −0.035 em, headings −0.02 em.
 - **Line height:** body ≥ 1.5; headings 1.1–1.25; expressed unitless.
 - **Measure:** `--lue-measure: 66ch` for running text.
 - **Text styles** are DTCG composite `typography` tokens: `display`, `heading-1…4`, `body`, `body-sm`, `label`,

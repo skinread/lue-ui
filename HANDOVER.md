@@ -55,8 +55,9 @@
 - **B · Instrument** — precise, technical. Graphite with one signal orange, Instrument Sans with Martian Mono,
   hairlines and tick marks. The orange fill is 2.75:1 against the canvas, so filled buttons carry an ink border.
 - **C · Chroma** — expressive. Fuchsia and lime, Bricolage Grotesque with Figtree, pills and colour fields.
-- **Contrast:** all 288 declared pairs (36 × 4 palettes × light/dark) pass WCAG 2.x, and all 76 Luminous prism,
-  chrome, glass, glass-button, multi-tone, ambient-light, satin and metal rules pass. Glass is checked worst-case — over white, black and every fill, through
+- **Contrast:** all 360 declared pairs pass WCAG 2.x (36 × 4 palettes × light/dark, plus C2's `dark-more` and
+  `light-more` at raised minimums), and all 86 Luminous prism, chrome, glass, glass-button, multi-tone, ambient-light,
+  satin, metal and increased-contrast rules pass. Glass is checked worst-case — over white, black and every fill, through
   the scrim for modals, reading the backdrop filter both ways.
 - **Not visually verified.** The Design type asks agents not to screenshot canvases unless the user asks. If a board
   looks clipped, raise its height in `tools/directions/build-canvas.mjs` and republish.
@@ -88,32 +89,36 @@ Lower-priority open questions are listed at the end of [RFC-0001](docs/architect
 
 ## Next: Pass 2 — codify the chosen direction
 
-1. ~~Read the canvas and its comments; summarise the art direction.~~ Done 2026-10-05: the direction came in chat
-   (C2 · Chroma Luminous). Keep reading comments on the canvas each session — the user may art-direct there.
-2. **Iterate C2 with the user:** edit `tools/directions/` (`palettes.mjs`, `luminous-canvas.mjs`, `DIRS.luminous` in
-   `build-canvas.mjs`) and republish only changed boards, following its README. When the user is happy, **lock it in
-   ADR-0009 (visual direction)** — and, once settled, archive or remove the Phase 1 rows if the user wants.
-3. **Design the increased-contrast themes** (`light-more`, `dark-more`): every text pair ≥ 7:1 and every boundary
-   ≥ 4.5:1. Add them to `palettes.mjs` and keep 0 fails. For C2, glass is opaque and chrome is a solid line in these
-   themes.
-4. **Fill the full token set** from [tokens.md](docs/design/tokens.md): type steps −2…5 at 360 px and 1280 px, space
-   `3xs`–`3xl`, radius, border, elevation per scheme, motion, focus, sizes.
-5. **Create the Claude Design "Design System" artifact** — private, never shared within the organisation, built with
-   `lue` names. Run Artifact `quickstart` with intent `other`, then publish
-   with the Design System `type_url` and a title, and no files. Follow the instructions in the create result, and read
-   its reference pages (format, craft, cover, from-code) before writing anything:
+Done on 2026-10-05:
+
+- ~~Read the canvas and its comments; summarise the art direction~~ — the direction came in chat. Keep reading
+  comments on the canvas each session; the user may art-direct there.
+- ~~Iterate C2 and lock it~~ — four rounds, locked in [ADR-0009](docs/architecture/adr/0009-visual-direction-chroma-luminous.md).
+  Refinements are still welcome: edit `tools/directions/` and republish only changed boards (its README).
+- ~~Increased-contrast themes~~ — `dark-more` and `light-more` in `palettes.mjs`: text 7:1, boundaries 4.5:1; glass
+  opaque, chrome solid. Shown on the C2 Foundations board.
+- ~~Full token set~~ and ~~mirror into the repo~~ — `tools/directions/tokens.mjs` writes DTCG 2025.10 JSON to
+  [`packages/tokens/src/`](packages/tokens/README.md) (224 tokens, four theme contexts, resolver), and
+  `check-tokens.mjs` passes. Re-run both after any palette change.
+- ~~Name~~ — Lue UI ([ADR-0008](docs/architecture/adr/0008-name-lue-ui.md)).
+
+Remaining:
+
+1. **Create the Claude Design "Design System" artifact** — private, never shared within the organisation, built with
+   `lue` names. Run Artifact `quickstart` with intent `other`, then publish with the Design System `type_url` and a
+   title, and no files. Follow the instructions in the create result, and read its reference pages (format, craft,
+   cover, from-code) before writing anything:
    - files live under `project/`;
    - a brand-book `README.md`;
-   - `tokens.json` in its **list** shape, with themes `light`, `dark`, `light-more` and `dark-more`, and literal
-     `oklch()` values (no `var()`, `color-mix()` or named colours);
-   - per component, `components/<Comp>/README.md` and a `preview.html` whose line 1 is a `@dsCard` comment;
-   - `components/bundle.css` and the fonts;
+   - `tokens.json` in its **list** shape, with themes `dark`, `light`, `dark-more`, `light-more` (primary first), and
+     literal `oklch()` values (no `var()`, `color-mix()` or named colours) — convert from `packages/tokens/src`, not by
+     hand;
+   - per component and content block, `components/<Comp>/README.md` and a `preview.html` whose line 1 is a `@dsCard`
+     comment;
+   - `components/bundle.css` and the fonts — **ask the user before downloading** the Bricolage Grotesque, Figtree and
+     Spline Sans Mono files (state source and size);
    - the `design-system.json` index, written **last**.
-6. **Mirror the values into the repo** as DTCG 2025.10 JSON under `packages/tokens/src/`, using the layout in
-   tokens.md. This is JSON only; the Terrazzo build arrives in Pass 3. The contrast matrix must stay green.
-7. ~~Name~~ — done: Lue UI ([ADR-0008](docs/architecture/adr/0008-name-lue-ui.md)). Build the Claude Design System with
-   `lue` names from the start; the remaining steps are in "Once a name is chosen" in
-   [naming.md](docs/foundations/naming.md).
+2. **Archive the Phase 1 page** on the canvas if the user wants it gone (it's regenerable from the repo).
 
 ## Then: Pass 3 — tracer bullet
 

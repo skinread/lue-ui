@@ -1,0 +1,591 @@
+{
+  "$description": "Semantic colour, light. Literal values only (no aliases into another context).",
+  "$extensions": {
+    "lue": {
+      "context": "light",
+      "scheme": "light",
+      "contrast": "standard",
+      "rule": "Pair minimums as declared."
+    }
+  },
+  "color": {
+    "bg": {
+      "canvas": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.978,
+            0.007,
+            290
+          ],
+          "hex": "#f7f7fc"
+        },
+        "$description": "Page background."
+      },
+      "surface": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.993,
+            0.003,
+            290
+          ],
+          "hex": "#fdfcff"
+        },
+        "$description": "Opaque cards, menus, dialogs and popovers — and the fallback for every glass surface."
+      },
+      "surface-subtle": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.952,
+            0.012,
+            290
+          ],
+          "hex": "#efeef7"
+        },
+        "$description": "Wells, input fills and table stripes."
+      },
+      "accent": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.82,
+            0.1,
+            318
+          ],
+          "hex": "#e0b0ee"
+        },
+        "$description": "Solid fallback for prism fills: selected states and small controls."
+      },
+      "accent-hover": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.79,
+            0.1,
+            318
+          ],
+          "hex": "#d6a6e4"
+        },
+        "$description": "Solid prism fallback, hovered."
+      },
+      "accent-active": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.76,
+            0.1,
+            318
+          ],
+          "hex": "#cc9ddb"
+        },
+        "$description": "Solid prism fallback, pressed."
+      },
+      "accent-subtle": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.94,
+            0.035,
+            310
+          ],
+          "hex": "#f2e5fd"
+        },
+        "$description": "Accent tint behind text; pressed toggles; the opaque primary button."
+      },
+      "critical": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.52,
+            0.19,
+            18
+          ],
+          "hex": "#bd1f3d"
+        },
+        "$description": "Solid destructive fill."
+      },
+      "critical-subtle": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.955,
+            0.022,
+            15
+          ],
+          "hex": "#ffeaeb"
+        },
+        "$description": "Error backgrounds."
+      },
+      "warning-subtle": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.958,
+            0.044,
+            85
+          ],
+          "hex": "#fff0d0"
+        },
+        "$description": "Warning backgrounds."
+      },
+      "success-subtle": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.955,
+            0.035,
+            165
+          ],
+          "hex": "#dcf8ea"
+        },
+        "$description": "Success backgrounds."
+      },
+      "info-subtle": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.955,
+            0.023,
+            245
+          ],
+          "hex": "#e4f2ff"
+        },
+        "$description": "Information backgrounds."
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.215,
+            0.03,
+            285
+          ],
+          "hex": "#181727"
+        },
+        "$description": "Toasts and tooltips."
+      }
+    },
+    "fg": {
+      "default": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.215,
+            0.03,
+            285
+          ],
+          "hex": "#181727"
+        },
+        "$description": "Body text and icons on canvas, surfaces, glass and satin.",
+        "$extensions": {
+          "lue": {
+            "pairs": [
+              {
+                "on": "{color.bg.canvas}",
+                "min": 7
+              },
+              {
+                "on": "{color.bg.surface}",
+                "min": 7
+              },
+              {
+                "on": "{color.bg.surface-subtle}",
+                "min": 7
+              },
+              {
+                "on": "{color.bg.accent-subtle}",
+                "min": 7
+              },
+              {
+                "on": "{color.bg.critical-subtle}",
+                "min": 7
+              },
+              {
+                "on": "{color.bg.warning-subtle}",
+                "min": 7
+              },
+              {
+                "on": "{color.bg.success-subtle}",
+                "min": 7
+              },
+              {
+                "on": "{color.bg.info-subtle}",
+                "min": 7
+              }
+            ]
+          }
+        }
+      },
+      "muted": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.455,
+            0.03,
+            285
+          ],
+          "hex": "#555567"
+        },
+        "$description": "Secondary text and hints.",
+        "$extensions": {
+          "lue": {
+            "pairs": [
+              {
+                "on": "{color.bg.canvas}",
+                "min": 4.5
+              },
+              {
+                "on": "{color.bg.surface}",
+                "min": 4.5
+              },
+              {
+                "on": "{color.bg.surface-subtle}",
+                "min": 4.5
+              }
+            ]
+          }
+        }
+      },
+      "accent": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.48,
+            0.19,
+            312
+          ],
+          "hex": "#802fa9"
+        },
+        "$description": "Links and accent text.",
+        "$extensions": {
+          "lue": {
+            "pairs": [
+              {
+                "on": "{color.bg.canvas}",
+                "min": 4.5
+              },
+              {
+                "on": "{color.bg.surface}",
+                "min": 4.5
+              },
+              {
+                "on": "{color.bg.accent-subtle}",
+                "min": 4.5
+              }
+            ]
+          }
+        }
+      },
+      "on-accent": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.215,
+            0.03,
+            285
+          ],
+          "hex": "#181727"
+        },
+        "$description": "Marks and text on prism fills (check marks, radio dots, step numbers).",
+        "$extensions": {
+          "lue": {
+            "pairs": [
+              {
+                "on": "{color.bg.accent}",
+                "min": 4.5
+              },
+              {
+                "on": "{color.bg.accent-hover}",
+                "min": 4.5
+              },
+              {
+                "on": "{color.bg.accent-active}",
+                "min": 4.5
+              }
+            ]
+          }
+        }
+      },
+      "on-critical": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.99,
+            0.004,
+            290
+          ],
+          "hex": "#fcfbfe"
+        },
+        "$description": "Text on the solid destructive fill.",
+        "$extensions": {
+          "lue": {
+            "pairs": [
+              {
+                "on": "{color.bg.critical}",
+                "min": 4.5
+              }
+            ]
+          }
+        }
+      },
+      "critical": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.5,
+            0.18,
+            20
+          ],
+          "hex": "#b32035"
+        },
+        "$description": "Error text and icons, and invalid field boundaries.",
+        "$extensions": {
+          "lue": {
+            "pairs": [
+              {
+                "on": "{color.bg.canvas}",
+                "min": 4.5
+              },
+              {
+                "on": "{color.bg.surface}",
+                "min": 4.5
+              },
+              {
+                "on": "{color.bg.critical-subtle}",
+                "min": 4.5
+              }
+            ]
+          }
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.52,
+            0.11,
+            70
+          ],
+          "hex": "#915c08"
+        },
+        "$description": "Warning text and icons.",
+        "$extensions": {
+          "lue": {
+            "pairs": [
+              {
+                "on": "{color.bg.canvas}",
+                "min": 4.5
+              },
+              {
+                "on": "{color.bg.surface}",
+                "min": 4.5
+              },
+              {
+                "on": "{color.bg.warning-subtle}",
+                "min": 4.5
+              }
+            ]
+          }
+        }
+      },
+      "success": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.48,
+            0.1,
+            165
+          ],
+          "hex": "#036f4f"
+        },
+        "$description": "Success text and icons.",
+        "$extensions": {
+          "lue": {
+            "pairs": [
+              {
+                "on": "{color.bg.canvas}",
+                "min": 4.5
+              },
+              {
+                "on": "{color.bg.surface}",
+                "min": 4.5
+              },
+              {
+                "on": "{color.bg.success-subtle}",
+                "min": 4.5
+              }
+            ]
+          }
+        }
+      },
+      "info": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.48,
+            0.121,
+            245
+          ],
+          "hex": "#00629d"
+        },
+        "$description": "Information text and icons.",
+        "$extensions": {
+          "lue": {
+            "pairs": [
+              {
+                "on": "{color.bg.canvas}",
+                "min": 4.5
+              },
+              {
+                "on": "{color.bg.surface}",
+                "min": 4.5
+              },
+              {
+                "on": "{color.bg.info-subtle}",
+                "min": 4.5
+              }
+            ]
+          }
+        }
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.978,
+            0.007,
+            290
+          ],
+          "hex": "#f7f7fc"
+        },
+        "$description": "Text on inverse surfaces.",
+        "$extensions": {
+          "lue": {
+            "pairs": [
+              {
+                "on": "{color.bg.inverse}",
+                "min": 7
+              }
+            ]
+          }
+        }
+      }
+    },
+    "border": {
+      "subtle": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.895,
+            0.012,
+            285
+          ],
+          "hex": "#dbdbe4"
+        },
+        "$description": "Decorative dividers. Carries no contrast requirement."
+      },
+      "strong": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.56,
+            0.016,
+            275
+          ],
+          "hex": "#71747e"
+        },
+        "$description": "Boundaries that identify a control, and the solid fallback for chrome.",
+        "$extensions": {
+          "lue": {
+            "pairs": [
+              {
+                "on": "{color.bg.canvas}",
+                "min": 3
+              },
+              {
+                "on": "{color.bg.surface}",
+                "min": 3
+              }
+            ]
+          }
+        }
+      }
+    },
+    "focus": {
+      "ring": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.46,
+            0.2,
+            285
+          ],
+          "hex": "#5437c0"
+        },
+        "$description": "The :focus-visible outline, on every background it can meet.",
+        "$extensions": {
+          "lue": {
+            "pairs": [
+              {
+                "on": "{color.bg.canvas}",
+                "min": 3
+              },
+              {
+                "on": "{color.bg.surface}",
+                "min": 3
+              },
+              {
+                "on": "{color.bg.surface-subtle}",
+                "min": 3
+              }
+            ]
+          }
+        }
+      }
+    },
+    "overlay": {
+      "scrim": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.22,
+            0.03,
+            285
+          ],
+          "hex": "#191928",
+          "alpha": 0.36
+        },
+        "$description": "The modal ::backdrop. Modal glass is checked through it."
+      }
+    }
+  }
+}
