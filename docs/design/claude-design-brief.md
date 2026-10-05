@@ -1,6 +1,6 @@
 # Claude Design brief
 
-> **Status:** v0.1 · Phase 1 · 2026-10-05
+> **Status:** v0.2 · Pass 2 · 2026-10-05 — Chroma chosen and evolving as **C2 · Chroma Luminous** ([§7](#c2-chroma-luminous--luminous--luxurious--prismatic))
 > **For:** Claude Design sessions — first three visual directions, then the chosen direction codified as a Design System.
 > **Art direction:** Sean Kinread. **Working name:** `never-ui` (placeholder; see [naming](../foundations/naming.md)).
 
@@ -31,24 +31,26 @@ resistance — by building with the web platform, not on top of it*
 - **Original.** Not derived from, or reminiscent of, any existing design system.
 - **Distinctive at a glance, calm in use.** Personality in type, shape, rhythm and one signature detail; restraint in
   everyday UI.
-- **Honest materials.** The web's own materials — text, borders, outlines, flat colour, real focus rings. No fake
-  depth, no glass behind text.
+- **Honest materials, verified.** The web's own materials — text, borders, outlines, colour, real focus rings.
+  Translucency and reflective depth are allowed (C2 builds on them), but only when they're verified: glass must pass
+  contrast over its worst possible backdrop and turn opaque when the user asks for less transparency
+  ([§4](#glass-chrome-and-light)).
 - **Accessibility is visible.** Focus rings, error states and target sizes are designed with the same care as the
   primary button. They're part of the brand.
-- **Avoid:** blue-to-purple gradients · glass effects behind text · emoji as icons · left-border "accent" cards ·
+- **Avoid:** blue-to-purple gradients · unverified glass behind text · emoji as icons · left-border "accent" cards ·
   neon-on-black dashboards · generic SaaS heroes · default-font-plus-indigo looks · faceless stock illustration.
 
 ## 3. Personality axes
 
-| Axis | ← | → | Loom | Instrument | Chroma |
-| --- | --- | --- | --- | --- | --- |
-| Temperature | warm | cool | warm | cool | neutral |
-| Energy | calm | lively | calm | steady | lively |
-| Shape | soft | crisp | soft | crisp | round |
-| Colour | quiet | vivid | quiet | one signal | vivid |
-| Type voice | editorial | functional | editorial | functional | expressive |
-| Density | airy | compact | airy | compact | balanced |
-| Motion | gentle | snappy | gentle | snappy | springy |
+| Axis | ← | → | Loom | Instrument | Chroma | Chroma Luminous |
+| --- | --- | --- | --- | --- | --- | --- |
+| Temperature | warm | cool | warm | cool | neutral | cool |
+| Energy | calm | lively | calm | steady | lively | calm at rest, alive to touch |
+| Shape | soft | crisp | soft | crisp | round | round, hairline-edged |
+| Colour | quiet | vivid | quiet | one signal | vivid | prismatic, subdued |
+| Type voice | editorial | functional | editorial | functional | expressive | refined |
+| Density | airy | compact | airy | compact | balanced | balanced, airy |
+| Motion | gentle | snappy | gentle | snappy | springy | gliding |
 
 ## 4. Non-negotiables
 
@@ -101,6 +103,25 @@ The core look uses Baseline CSS only: flat colour, borders, outlines, radii, sha
 `corner-shape` squircles, `text-box` trimming, Display P3 colour, scroll-driven effects — are allowed only with a
 defined fallback. No visual state may need JavaScript.
 
+### Glass, chrome and light
+
+Added in Pass 2 for C2; every rule is checked by `tools/directions/palettes.mjs`.
+
+- **Glass carries text only at verified contrast.** Each glass tier is composited over white, black and every fill in
+  the palette — through the scrim for modals, with the backdrop filter read both ways engines apply it — and the
+  worst result must still meet the text minimums above.
+- **Glass steps aside.** Under `prefers-reduced-transparency: reduce`, `prefers-contrast: more`, or where
+  `backdrop-filter` is missing, glass turns opaque and chrome becomes one solid steel line.
+- **Chrome that identifies a control is a real boundary.** Every stop of the hairline gradient reaches 3:1 against
+  canvas, surfaces and worst-case glass. Glints that are fainter are decoration and carry no meaning.
+- **Fills that change hue keep their lightness.** Interactive colour shifts move along an iso-lightness gradient whose
+  every stop meets the text minimum, so contrast never changes mid-animation.
+- **Light moves only when the user does.** Slides, glints, glows and sparks answer hover, press and focus, last
+  ≤ 320 ms and never loop. Sparks never sit over text. Under reduced motion every duration is 0 s.
+- **Ambient light is checked where text can sit on it,** including where two glows overlap.
+- **Forced colours removes the decoration** — chrome, glow, sparks, ambient light — and transparent borders appear.
+- **Performance:** `backdrop-filter` only on overlays, cards and sticky bars; never on every control.
+
 ### Icons
 
 Open licence (MIT or ISC); 24 px grid; stroke weight matched to the text beside it; `currentColor`; icons that imply
@@ -134,7 +155,7 @@ Names follow [tokens](./tokens.md). Each direction proposes values for:
 - **Elevation** — `raised`, `overlay`, per scheme. **Motion** — durations and easings.
 - **Focus** — width, offset, colour. **Size** — control heights (sm/md/lg), target minimum.
 
-## 7. The three directions
+## 7. The directions
 
 Seeded palettes below are **verified**: all 36 declared pairs pass in light and dark for every direction (216 checks;
 see the appendix). They are starting points, not final values.
@@ -185,6 +206,40 @@ see the appendix). They are starting points, not final values.
 - **Signature:** large flat colour fields behind section content, and display type that uses its width axis.
 - **Icons:** Phosphor (MIT), bold weight.
 
+### C2. Chroma Luminous — luminous · luxurious · prismatic
+
+> Light, caught in chrome and glass.
+
+**Art direction (2026-10-05):** continue with Chroma, made more luminous and luxurious. Playing on the *chrome* in
+Chroma, UI elements get sleek, highly reflective chrome-silver outlines, almost hairline. Borrow the qualities of
+liquid-glass interfaces — a delicate, diffuse, slightly prismatic and rounded depth — without copying any vendor's
+components. Colours gently dance as elements are used; any glitter or glow is very subtle and refined. Expand the
+palette towards a subdued, futuristic, prismatic neon, and see where it leads.
+
+- **Colour:** pearl (light) and obsidian (dark) neutrals at hue 285–290. An expanded **prism** of eight hues — rose,
+  orchid, iris, azure, aqua, mint, citron, amber — ramped at subdued-neon chroma. Filled accents are one
+  iso-lightness slice of it: rose → orchid → iris → azure at L 0.50 with pearl text in light; rose → orchid → iris →
+  aqua at L 0.80 with obsidian text in dark. Focus is iris in light and aqua in dark.
+- **Chrome:** a 1 px conic-gradient hairline on controls and surfaces — gunmetal on pearl, bright silver on
+  obsidian. Its reflection turns as the pointer arrives and on focus. **Selected and on states trade chrome for
+  prism** — the signature.
+- **Glass:** two tiers. *Overlay* (menus, popovers, cards, sticky bars) and *modal* (dialogs, over a scrim): a tint
+  over `blur(22px) saturate(1.6)` with `contrast()` and `brightness()` compressing the backdrop's range, a faint
+  sheen, a prism fringe at the edge, and soft coloured depth. Squircle corners via `corner-shape` as an enhancement.
+- **Type:** Bricolage Grotesque at a light 300 weight and full optical size for display, Figtree for body, Spline Sans
+  Mono for uppercase micro-labels tracked wide. Chrome lettering (gradient-clipped text) for the display wordmark
+  only, with a forced-colours fallback.
+- **Shape:** pills for buttons, tags and toasts; radii 8 / 12 / 20 / 28 px; 1 px hairlines replace Chroma's 2 px
+  borders.
+- **Space and density:** balanced, a little airier than Chroma.
+- **Motion:** 320 ms ease-out on interaction only — the prism fill slides, the chrome glints, a diffuse glow rises,
+  and a few sparks drift across the edge of filled buttons.
+- **Ambient light:** refracted prism bands and soft orbs behind content in brand areas and composed screens; never a
+  wash, and contrast-checked where text sits on it.
+- **Icons:** Phosphor (MIT), light or regular weight to match the hairlines (to confirm).
+- **Open questions:** a more extended display face if light Bricolage isn't luxurious enough; whether dark is the
+  default scheme (the composed screen opens in dark); how far to push Display P3 for the neon.
+
 ## 8. How we'll judge
 
 Score each direction 1–5:
@@ -203,7 +258,8 @@ Score each direction 1–5:
 
 1. **Now:** one canvas with three direction boards — foundations, component sheet, composed screen — in light and
    dark.
-2. **Art direction:** comments on the canvas; revise or blend.
+2. **Art direction:** comments on the canvas; revise or blend. *2026-10-05: Chroma chosen and evolved into C2 ·
+   Chroma Luminous, the first row on the canvas.*
 3. **Pass 2:** the chosen direction becomes a Claude Design **Design System**: brand-book README, `tokens.json` with
    `light`, `dark`, `light-more` and `dark-more` themes, type, spacing, radius, shadow, component guidelines, and
    static HTML + CSS previews. Values are then mirrored into the DTCG source, and the contrast matrix must stay green.
@@ -211,7 +267,8 @@ Score each direction 1–5:
 ## Appendix — seeded palettes and contrast matrices
 
 Generated 2026-10-05 by a dependency-free script (OKLCH → sRGB → WCAG 2.x ratio; APCA Lc in brackets, advisory).
-Values shown are after sRGB gamut mapping. All 216 pairs pass.
+Values shown are after sRGB gamut mapping. All 288 palette pairs pass (4 palettes × light and dark × 36), and all 46
+Chroma Luminous prism, chrome and glass rules pass.
 
 <details>
 <summary><strong>A. Loom</strong> — values and contrast (light · dark)</summary>
@@ -429,5 +486,111 @@ Values shown are after sRGB gamut mapping. All 216 pairs pass.
 | `fg-info` on `bg-surface` | 4.5:1 | 6.60 (Lc 82) | 8.96 (Lc 63) |
 | `fg-info` on `bg-info-subtle` | 4.5:1 | 5.80 (Lc 73) | 7.32 (Lc 60) |
 | `fg-inverse` on `bg-inverse` | 7:1 | 16.68 (Lc 103) | 15.68 (Lc 95) |
+
+</details>
+
+<details>
+<summary><strong>C2. Chroma Luminous</strong> — values and contrast (light · dark)</summary>
+
+| Token | Light | Dark |
+| --- | --- | --- |
+| `bg-canvas` | `oklch(0.978 0.007 290)` #f7f7fc | `oklch(0.155 0.02 285)` #0b0b14 |
+| `bg-surface` | `oklch(0.993 0.003 290)` #fdfcff | `oklch(0.195 0.024 285)` #14131f |
+| `bg-surface-subtle` | `oklch(0.952 0.012 290)` #efeef7 | `oklch(0.235 0.026 285)` #1d1c2a |
+| `fg-default` | `oklch(0.215 0.03 285)` #181727 | `oklch(0.955 0.008 290)` #f0eff5 |
+| `fg-muted` | `oklch(0.455 0.03 285)` #555567 | `oklch(0.78 0.02 290)` #b7b5c4 |
+| `border-subtle` | `oklch(0.895 0.012 285)` #dbdbe4 | `oklch(0.31 0.022 285)` #2f2f3b |
+| `border-strong` | `oklch(0.56 0.016 275)` #71747e | `oklch(0.64 0.016 275)` #898c96 |
+| `bg-accent` | `oklch(0.5 0.19 318)` #8e32a7 | `oklch(0.8 0.115 312)` #d7a8f4 |
+| `bg-accent-hover` | `oklch(0.5 0.19 318)` #8e32a7 | `oklch(0.8 0.115 312)` #d7a8f4 |
+| `bg-accent-active` | `oklch(0.44 0.18 318)` #792291 | `oklch(0.86 0.09 312)` #e5c0fc |
+| `bg-accent-subtle` | `oklch(0.94 0.035 310)` #f2e5fd | `oklch(0.3 0.07 305)` #36244a |
+| `fg-accent` | `oklch(0.48 0.19 312)` #802fa9 | `oklch(0.82 0.11 312)` #dcaff8 |
+| `fg-on-accent` | `oklch(0.99 0.004 290)` #fcfbfe | `oklch(0.17 0.03 290)` #0f0d1c |
+| `focus-ring` | `oklch(0.46 0.2 285)` #5437c0 | `oklch(0.86 0.13 195)` #4aebeb |
+| `bg-critical` | `oklch(0.52 0.19 18)` #bd1f3d | `oklch(0.74 0.14 18)` #f68389 |
+| `fg-on-critical` | `oklch(0.99 0.004 290)` #fcfbfe | `oklch(0.17 0.03 18)` #1b0a0a |
+| `fg-critical` | `oklch(0.5 0.18 20)` #b32035 | `oklch(0.78 0.129 18)` #ff9498 |
+| `bg-critical-subtle` | `oklch(0.955 0.022 15)` #ffeaeb | `oklch(0.29 0.07 15)` #481a20 |
+| `fg-warning` | `oklch(0.52 0.11 70)` #915c08 | `oklch(0.86 0.12 80)` #fac871 |
+| `bg-warning-subtle` | `oklch(0.958 0.044 85)` #fff0d0 | `oklch(0.29 0.05 80)` #38280a |
+| `fg-success` | `oklch(0.48 0.1 165)` #036f4f | `oklch(0.83 0.12 165)` #73e0b4 |
+| `bg-success-subtle` | `oklch(0.955 0.035 165)` #dcf8ea | `oklch(0.28 0.05 165)` #0a3123 |
+| `fg-info` | `oklch(0.48 0.121 245)` #00629d | `oklch(0.8 0.1 240)` #80c7f8 |
+| `bg-info-subtle` | `oklch(0.955 0.023 245)` #e4f2ff | `oklch(0.28 0.05 240)` #0e2c3f |
+| `bg-inverse` | `oklch(0.215 0.03 285)` #181727 | `oklch(0.955 0.008 290)` #f0eff5 |
+| `fg-inverse` | `oklch(0.978 0.007 290)` #f7f7fc | `oklch(0.2 0.025 285)` #151421 |
+
+| Pair | Min | Light | Dark |
+| --- | --- | --- | --- |
+| `fg-default` on `bg-canvas` | 7:1 | 16.49 (Lc 100) | 17.15 (Lc 98) |
+| `fg-default` on `bg-surface` | 7:1 | 17.23 (Lc 103) | 16.06 (Lc 97) |
+| `fg-default` on `bg-surface-subtle` | 7:1 | 15.26 (Lc 95) | 14.66 (Lc 96) |
+| `fg-default` on `bg-accent-subtle` | 7:1 | 14.61 (Lc 92) | 12.25 (Lc 94) |
+| `fg-default` on `bg-critical-subtle` | 7:1 | 15.31 (Lc 95) | 12.73 (Lc 94) |
+| `fg-default` on `bg-warning-subtle` | 7:1 | 15.56 (Lc 96) | 12.42 (Lc 94) |
+| `fg-default` on `bg-success-subtle` | 7:1 | 15.63 (Lc 96) | 12.52 (Lc 94) |
+| `fg-default` on `bg-info-subtle` | 7:1 | 15.47 (Lc 96) | 12.71 (Lc 94) |
+| `fg-muted` on `bg-canvas` | 4.5:1 | 6.87 (Lc 81) | 9.74 (Lc 63) |
+| `fg-muted` on `bg-surface` | 4.5:1 | 7.18 (Lc 84) | 9.12 (Lc 63) |
+| `fg-muted` on `bg-surface-subtle` | 4.5:1 | 6.36 (Lc 76) | 8.33 (Lc 62) |
+| `fg-accent` on `bg-canvas` | 4.5:1 | 6.80 (Lc 80) | 10.79 (Lc 69) |
+| `fg-accent` on `bg-surface` | 4.5:1 | 7.10 (Lc 83) | 10.11 (Lc 68) |
+| `fg-accent` on `bg-accent-subtle` | 4.5:1 | 6.02 (Lc 72) | 7.71 (Lc 65) |
+| `fg-on-accent` on `bg-accent` | 4.5:1 | 6.47 (Lc 85) | 9.85 (Lc 66) |
+| `fg-on-accent` on `bg-accent-hover` | 4.5:1 | 6.47 (Lc 85) | 9.85 (Lc 66) |
+| `fg-on-accent` on `bg-accent-active` | 4.5:1 | 8.34 (Lc 91) | 12.17 (Lc 77) |
+| `border-strong` on `bg-canvas` | 3:1 | 4.37 (Lc 68) | 5.81 (Lc 40) |
+| `border-strong` on `bg-surface` | 3:1 | 4.57 (Lc 71) | 5.44 (Lc 40) |
+| `focus-ring` on `bg-canvas` | 3:1 | 7.31 (Lc 82) | 13.43 (Lc 82) |
+| `focus-ring` on `bg-surface` | 3:1 | 7.64 (Lc 85) | 12.58 (Lc 81) |
+| `focus-ring` on `bg-surface-subtle` | 3:1 | 6.77 (Lc 77) | 11.48 (Lc 80) |
+| `fg-on-critical` on `bg-critical` | 4.5:1 | 5.92 (Lc 82) | 7.84 (Lc 56) |
+| `fg-critical` on `bg-canvas` | 4.5:1 | 6.19 (Lc 77) | 9.26 (Lc 61) |
+| `fg-critical` on `bg-surface` | 4.5:1 | 6.47 (Lc 80) | 8.67 (Lc 60) |
+| `fg-critical` on `bg-critical-subtle` | 4.5:1 | 5.75 (Lc 72) | 6.87 (Lc 57) |
+| `fg-warning` on `bg-canvas` | 4.5:1 | 5.29 (Lc 73) | 12.67 (Lc 78) |
+| `fg-warning` on `bg-surface` | 4.5:1 | 5.53 (Lc 76) | 11.87 (Lc 77) |
+| `fg-warning` on `bg-warning-subtle` | 4.5:1 | 4.99 (Lc 70) | 9.18 (Lc 74) |
+| `fg-success` on `bg-canvas` | 4.5:1 | 5.81 (Lc 76) | 12.18 (Lc 76) |
+| `fg-success` on `bg-surface` | 4.5:1 | 6.08 (Lc 79) | 11.41 (Lc 75) |
+| `fg-success` on `bg-success-subtle` | 4.5:1 | 5.51 (Lc 72) | 8.89 (Lc 72) |
+| `fg-info` on `bg-canvas` | 4.5:1 | 6.08 (Lc 77) | 10.62 (Lc 68) |
+| `fg-info` on `bg-surface` | 4.5:1 | 6.36 (Lc 80) | 9.95 (Lc 67) |
+| `fg-info` on `bg-info-subtle` | 4.5:1 | 5.71 (Lc 73) | 7.87 (Lc 64) |
+| `fg-inverse` on `bg-inverse` | 7:1 | 16.49 (Lc 102) | 15.91 (Lc 96) |
+
+</details>
+
+<details>
+<summary><strong>C2. Chroma Luminous</strong> — prism, chrome and glass rules (light · dark)</summary>
+
+Worst case over every backdrop (white, black, canvas, surface, inverse, text, prism fills, ambient light), with both readings of the backdrop filter.
+
+| Rule | Min | Light | Dark |
+| --- | --- | --- | --- |
+| fg-on-accent on prism fill (rest + hover) | 4.5:1 | 5.84 | 9.67 |
+| fg-on-accent on prism fill (active) | 4.5:1 | 7.56 | 11.95 |
+| chrome boundary on canvas/surfaces | 3:1 | 4.04 | 4.96 |
+| fg-default on neutral button sheen | 7:1 | 15.54 | 13.05 |
+| chrome boundary vs neutral button outside (canvas) | 3:1 | 4.36 | 5.80 |
+| fg-default on ambient prism light | 7:1 | 13.96 | 12.92 |
+| fg-muted on ambient prism light | 4.5:1 | 5.82 | 7.34 |
+| fg-accent on ambient prism light | 4.5:1 | 5.75 | 8.13 |
+| fg-default on overlapping ambient light | 7:1 | 12.28 | 9.20 |
+| fg-muted on overlapping ambient light | 4.5:1 | 5.12 | 5.22 |
+| fg-accent on overlapping ambient light | 4.5:1 | 5.06 | 5.79 |
+| fg-default on overlay glass (worst backdrop) | 7:1 | 12.92 | 9.98 |
+| fg-muted on overlay glass | 4.5:1 | 5.38 | 5.67 |
+| fg-accent on overlay glass | 4.5:1 | 5.33 | 6.28 |
+| fg-critical on overlay glass | 4.5:1 | 4.85 | 5.39 |
+| focus-ring on overlay glass | 3:1 | 5.73 | 7.82 |
+| chrome boundary on overlay glass | 3:1 | 3.42 | 3.38 |
+| fg-default on modal glass (worst backdrop) | 7:1 | 12.10 | 10.66 |
+| fg-muted on modal glass | 4.5:1 | 5.04 | 6.05 |
+| fg-accent on modal glass | 4.5:1 | 4.99 | 6.71 |
+| fg-critical on modal glass | 4.5:1 | 4.54 | 5.76 |
+| focus-ring on modal glass | 3:1 | 5.36 | 8.35 |
+| chrome boundary on modal glass | 3:1 | 3.20 | 3.61 |
 
 </details>
