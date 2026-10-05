@@ -1,6 +1,6 @@
 # Naming
 
-> **Status:** Shortlist for decision · 2026-10-05
+> **Status:** Round 2 shortlist for decision · 2026-10-05 · round 1 didn't land
 > `never-ui` is a working title. This page proposes replacements and records what is free to claim.
 
 ## What the name has to do
@@ -11,7 +11,48 @@
 - Be easy to say and spell, and give a short CSS prefix (2–3 letters) that doesn't collide with legacy `--vui-*`
   variables or read as "Tailwind" (`tw-`).
 
-## Shortlist
+## Round 2 — light, prism and glass
+
+Round 1's weaving and kerb names didn't connect. Round 2 follows the chosen look, **C2 · Chroma Luminous** (chrome,
+glass, a prism of subdued neon), and keeps the mission in the story. The thread: white light holds every colour, and
+a prism shows them all — nothing added, nobody left out.
+
+| Name | The story | Prefix |
+| --- | --- | --- |
+| **Prismway** | Light through a prism takes the path of least time (Fermat's principle). The system makes accessible, standard markup the path of least resistance — the mission, almost word for word. | `pw` |
+| **Clearprism** | A clear prism adds no colour of its own; it reveals what's already in the light. The system adds little, shows what the platform already gives, and includes everyone. | `cp` |
+| **Everyhue** | Every hue is already in white light. A system that leaves no one out, named for the palette it wears. | `evh` |
+| **Plainlight** | Plain HTML in plain daylight, nothing hidden — and daylight already holds every colour. | `pl` |
+| **Fullhue** | The full range of hue and of people; a shorter cousin of Everyhue. | `fh` |
+
+**Leading candidates: Prismway** (the strongest mission story) **and Clearprism** (the strongest platform story).
+Everyhue tells the inclusion story most directly.
+
+### Round 2 availability
+
+Checked 2026-10-05 the same way as round 1. An npm scope that answers 200 with `{}` is an existing (empty) user
+scope, so it counts as taken. Prismway, Clearprism and Everyhue were re-checked by hand.
+
+| Name | npm package | npm scope | GitHub |
+| --- | --- | --- | --- |
+| prismway | free | free | free |
+| clearprism | free | free | free |
+| everyhue | free | free | free |
+| plainlight | free | free | free |
+| fullhue | free | free | free |
+| huewise, clearhue, allspectra, lucentry, prismset, hueway, spectrawise | free | free | free |
+| prismkit | free | free | free — but close to PrismJS and Prisma, and "kit" is generic |
+| chromawork | free | free | free — but clashes with chroma.js and the Chroma vector database, and "Chrom-" reads as Chromium-only |
+| lightwell | free | free | **taken** (an organisation since 2012) |
+| everhue, prismline | free | free | **taken** by near-empty 2026 accounts (`-ui` organisation free) |
+| prismwork, lumenwork, dichroic, allhue, clearsight | free | free | **taken** |
+
+Also ruled out in round 2 (npm or GitHub taken): plainsight, whitelight, silverpoint, clearcoat, halation, nacre,
+opaline, sightline, fullspectrum (also too close to Adobe Spectrum), glasswork, specular, refract, lightfast,
+brightline, allcolour, prismwise, clearpane, whiteprism, openprism, prismlight, truehue, opalith, prismfold,
+chromaline, everylight, prismpath, lightwise, glassway, huekit, lumenkit.
+
+## Round 1 — weave and kerb (not chosen)
 
 | Name | The story | Prefix |
 | --- | --- | --- |
@@ -26,7 +67,7 @@
 (grids, even rhythm, woven texture) for the Claude Design directions. Kerbcut tells the accessibility story most
 directly.
 
-## Availability
+### Round 1 availability
 
 Checked 2026-10-05 against `registry.npmjs.org` (package, and the org endpoint `/-/org/<name>/package`) and
 `api.github.com/users/<name>` (covers users and organisations).
