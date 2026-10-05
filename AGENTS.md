@@ -13,7 +13,9 @@ primary reference for agents working in this repo.
   see its [README](tools/directions/README.md).
 - Don't scaffold packages, add `package.json` files or install tooling until Pass 3 begins
   ([RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-pass-3)).
-- Don't commit or push unless asked.
+- **Git:** work directly on `develop`, no feature branches. Commit as you go, in logical units with conventional
+  messages (`docs:`, `feat(tools):`, `chore:`). `main` holds only the initial commit. There's no remote; don't push
+  unless asked.
 
 ## Read first
 

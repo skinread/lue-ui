@@ -7,9 +7,11 @@
 
 - **Phase 1 (foundations and design kickoff) is complete and paused for the user's review.** There is no library code,
   by design.
-- **Repo:** `/Volumes/Code/never-ui/never-ui` — the git root is the *nested* folder. Branch `main`, one initial commit
-  (MIT `LICENSE`, `.gitignore`, `.gitattributes`), no remote.
-- **Everything from Phase 1 is uncommitted.** The user hasn't asked for a commit — don't commit or push unless asked.
+- **Repo:** `/Volumes/Code/never-ui` (the git root). `main` holds only the initial commit (MIT `LICENSE`,
+  `.gitignore`, `.gitattributes`); all work happens on **`develop`**, where Phase 1 was committed on 2026-10-05. No
+  remote.
+- **Git workflow (user's decision, 2026-10-05):** commit as you go on `develop`, in logical units. No feature branches.
+  Don't push unless asked.
 - **A Claude Design canvas with three visual directions** is published and waiting for the user's art direction.
 
 ## What exists
