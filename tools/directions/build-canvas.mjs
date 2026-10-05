@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { directions as PAL, evaluate } from './palettes.mjs';
 import { contrast } from './contrast.mjs';
+import { lxVars, lxShadows, LX_CSS, lxFoundations } from './luminous-canvas.mjs';
 
 // Output: <this folder>/out/canvas (gitignored), or a folder passed as the first argument.
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -147,7 +148,44 @@ const DIRS = {
 .dir-chroma .ns-button { font-family: var(--font-display); font-variation-settings: 'wdth' 90; letter-spacing: -0.005em; }
 `,
   },
+  luminous: {
+    letter: 'C2', name: 'Chroma Luminous', file: 'Luminous', tagline: 'Luminous · luxurious · prismatic',
+    motto: 'Light, caught in chrome and glass.',
+    tags: ['Chrome hairlines', 'Liquid glass', 'Prismatic neon', 'Light that moves'],
+    fonts: 'family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Figtree:ital,wght@0,300..900;1,300..900&family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap',
+    fontNames: ['Bricolage Grotesque — display, light', 'Figtree — body', 'Spline Sans Mono — micro-labels and code'],
+    H: { foundations: 6000, components: 2560, checkout: 1240 },
+    interactive: true,
+    vars: {
+      '--font-display': "'Bricolage Grotesque', system-ui, sans-serif",
+      '--font-body': "'Figtree', system-ui, sans-serif",
+      '--font-mono': "'Spline Sans Mono', ui-monospace, monospace",
+      '--fs-display': '78px', '--lh-display': '0.98', '--fw-display': '300', '--ls-display': '-0.035em',
+      '--fvs-display': "'wdth' 100, 'opsz' 96",
+      '--fs-h1': '46px', '--lh-h1': '1.04', '--fs-h2': '32px', '--lh-h2': '1.1', '--fs-h3': '24px', '--lh-h3': '1.2',
+      '--fs-h4': '19px', '--lh-h4': '1.3', '--fw-heading': '480',
+      '--fs-body': '17px', '--lh-body': '1.6', '--fs-small': '15px', '--fs-label': '16px', '--fw-label': '600',
+      '--fs-code': '14px', '--fs-micro': '12px', '--ls-micro': '0.16em', '--tt-micro': 'uppercase', '--micro-font': 'var(--font-mono)',
+      '--radius-xs': '8px', '--radius-s': '12px', '--radius-m': '20px', '--radius-l': '28px', '--radius-full': '999px',
+      '--radius-button': '999px', '--radius-field': '16px', '--radius-tag': '999px', '--radius-switch': '999px', '--radius-toast': '999px',
+      '--size-control-sm': '40px', '--size-control-md': '50px', '--size-control-lg': '60px',
+      '--btn-pad': '26px', '--btn-border-w': '1px', '--field-pad': '18px', '--field-border-w': '1px',
+      '--space-3xs': '4px', '--space-2xs': '8px', '--space-xs': '12px', '--space-s': '18px', '--space-m': '28px',
+      '--space-l': '40px', '--space-xl': '56px', '--space-2xl': '80px', '--space-3xl': '112px',
+      '--focus-w': '2px', '--focus-offset': '3px', '--focus-offset-field': '3px',
+      '--focus-halo': 'none',
+      '--dur-fast': '160ms', '--dur-moderate': '240ms', '--ease': 'linear(0, 0.4 12%, 0.84 28%, 1.03 45%, 1.04 55%, 1.01 75%, 1)',
+      '--btn-primary-border': 'transparent', '--btn-danger-border': 'transparent',
+    },
+    shadows: lxShadows,
+    extra: { light: lxVars('light'), dark: lxVars('dark') },
+    motion: ['Dance — 320 ms ease-out, on interaction only', 'Fills slide along an iso-lightness prism; chrome glints round the rim; glow rises', 'Instant and still under reduced motion; opaque under reduced transparency'],
+    signature: 'A chrome hairline that catches the light as you move, over glass that refracts a quiet prism. Selected and on states trade chrome for prism. Light moves only when you do.',
+    sig: LX_CSS,
+  },
 };
+const fileOf = (t) => t.file ?? t.name;
+const sizeOf = (t, k, dflt) => t.H?.[k] ?? dflt;
 
 // ---------------------------------------------------------------- CSS
 const COLOR_KEYS = Object.keys(PAL.loom.light);
@@ -299,7 +337,7 @@ const icon = (n) => `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">${
 const componentSheet = (d, s) => {
   const id = `${d}-${s}`;
   return `
-<div class="scheme" data-scheme="${s}" style="display: grid; gap: 44px; padding: 44px 48px 56px; border-radius: 20px; border: 1px solid var(--border-subtle)">
+<div class="scheme${d === 'luminous' ? ' lx-stage' : ''}" data-scheme="${s}" style="display: grid; gap: 44px; padding: 44px 48px 56px; border-radius: 20px; border: 1px solid var(--border-subtle)">${d === 'luminous' ? '<div class="lx-ambient" aria-hidden="true"></div>' : ''}
   <div style="display: flex; justify-content: space-between; align-items: baseline"><p class="t-micro">${s === 'light' ? 'Light' : 'Dark'}</p><p class="t-micro">color-scheme: ${s}</p></div>
 
   <section style="display: grid; gap: 16px">
@@ -484,20 +522,28 @@ const files = {};
 // Foundations
 for (const d of Object.keys(DIRS)) {
   const t = DIRS[d];
-  const W = 1200, H = 3150;
+  const W = 1200, H = sizeOf(t, 'foundations', 3150);
+  const lx = d === 'luminous' ? lxFoundations({ icon }) : { afterColour: '', beforeSignature: '' };
   const scale = [['3xs', '--space-3xs'], ['2xs', '--space-2xs'], ['xs', '--space-xs'], ['s', '--space-s'], ['m', '--space-m'], ['l', '--space-l'], ['xl', '--space-xl'], ['2xl', '--space-2xl'], ['3xl', '--space-3xl']];
   const body = `
 <div class="board dir-${d}" data-scheme="light" style="width: ${W}px; min-height: ${H}px; display: grid; align-content: start; gap: 56px; padding: 64px 72px 80px">
-  <header style="display: grid; gap: 18px">
+  ${d === 'luminous' ? `<header class="scheme lx-stage" data-scheme="dark" style="display: grid; gap: 20px; margin: -64px -72px 0; padding: 72px 72px 64px">
+    <div class="lx-ambient" aria-hidden="true"></div>
+    <div class="lx-dust" aria-hidden="true" style="position: absolute; inset-block: 0; inset-inline-end: 0; inline-size: 34%; z-index: -1"></div>
+    <p class="t-micro">Direction ${t.letter} · foundations · evolves C · Chroma</p>
+    <h1 class="t-display"><span class="lx-chrome-text">${t.name}</span></h1>
+    <p class="t-h3" style="font-weight: 300; max-inline-size: 30ch">${t.motto}</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px">${t.tags.map((x) => `<span class="ns-tag">${x}</span>`).join('')}</div>
+  </header>` : `<header style="display: grid; gap: 18px">
     ${d === 'loom' ? '<div class="band" style="block-size: 14px; border-radius: 999px"></div>' : ''}${d === 'instrument' ? '<div class="ticks"></div>' : ''}
     <p class="t-micro">Direction ${t.letter} · foundations</p>
     <h1 class="t-display">${d === 'chroma' ? `<span class="hl">${t.name}</span>` : t.name}</h1>
     <p class="t-h3" style="font-weight: 400; max-inline-size: 30ch">${t.motto}</p>
     <div style="display: flex; flex-wrap: wrap; gap: 8px">${t.tags.map((x) => `<span class="ns-tag">${x}</span>`).join('')}<span class="ns-tag">${t.tagline}</span></div>
-  </header>
+  </header>`}
 
   <section style="display: grid; gap: 20px">
-    <div class="section-head"><h2 class="t-h2">Colour</h2><p class="t-micro">WCAG 2.x ratios · all 72 declared pairs pass</p></div>
+    <div class="section-head"><h2 class="t-h2">Colour</h2><p class="t-micro">WCAG 2.x ratios · all 72 declared pairs pass${d === 'luminous' ? ' · plus 46 glass, chrome and prism rules' : ''}</p></div>
     ${['light', 'dark'].map((s) => `
     <div class="scheme" data-scheme="${s}" style="display: grid; gap: 14px; padding: 28px; border-radius: 18px; border: 1px solid var(--border-subtle)">
       <p class="t-micro">${s === 'light' ? 'Light' : 'Dark'}</p>
@@ -506,7 +552,7 @@ ${swatchGrid(d, s)}
       </div>
     </div>`).join('')}
   </section>
-
+${lx.afterColour}
   <section style="display: grid; gap: 20px">
     <div class="section-head"><h2 class="t-h2">Type</h2><p class="t-micro">${t.fontNames.join(' · ')}</p></div>
     <div style="display: grid; gap: 18px">
@@ -566,19 +612,20 @@ ${swatchGrid(d, s)}
     </div>
   </section>
 
-  <section style="display: grid; gap: 10px">
+${lx.beforeSignature ? `${lx.beforeSignature}
+` : ''}  <section style="display: grid; gap: 10px">
     <div class="section-head"><h2 class="t-h3">Signature</h2><p class="t-micro">what makes it ownable</p></div>
     <p class="t-body" style="max-inline-size: 70ch">${t.signature}</p>
   </section>
 </div>`;
-  files[`${t.name}-Foundations.dc.html`] = { w: W, h: H, title: `${t.letter} · ${t.name} — foundations`,
+  files[`${fileOf(t)}-Foundations.dc.html`] = { w: W, h: H, title: `${t.letter} · ${t.name} — foundations`, interactive: !!t.interactive,
     html: page(`${t.name} — foundations`, t.fonts, [d], body, { $preview: { width: W, height: H } }) };
 }
 
 // Components
 for (const d of Object.keys(DIRS)) {
   const t = DIRS[d];
-  const W = 1440, H = 2400;
+  const W = 1440, H = sizeOf(t, 'components', 2400);
   const body = `
 <div class="board dir-${d}" data-scheme="light" style="width: ${W}px; min-height: ${H}px; display: grid; align-content: start; gap: 32px; padding: 56px 56px 72px">
   <header style="display: flex; justify-content: space-between; align-items: end; gap: 24px">
@@ -590,17 +637,18 @@ ${componentSheet(d, 'light')}
 ${componentSheet(d, 'dark')}
   </div>
 </div>`;
-  files[`${t.name}-Components.dc.html`] = { w: W, h: H, title: `${t.letter} · ${t.name} — components`,
+  files[`${fileOf(t)}-Components.dc.html`] = { w: W, h: H, title: `${t.letter} · ${t.name} — components`, interactive: !!t.interactive,
     html: page(`${t.name} — components`, t.fonts, [d], body, { $preview: { width: W, height: H } }) };
 }
 
 // Checkout (composed screen), with dark + dialog tweaks
 for (const d of Object.keys(DIRS)) {
   const t = DIRS[d];
-  const W = 1280, H = 1240;
+  const W = 1280, H = sizeOf(t, 'checkout', 1240);
+  const lum = d === 'luminous';
   const body = `
-<div class="board dir-${d}" data-scheme="{{scheme}}" style="width: ${W}px; min-height: ${H}px; position: relative; display: grid; align-content: start">
-  <header style="display: flex; justify-content: space-between; align-items: center; padding: 22px 56px; border-block-end: 1px solid var(--border-subtle); background: var(--bg-surface)">
+<div class="board dir-${d}${lum ? ' lx-stage' : ''}" data-scheme="{{scheme}}" style="width: ${W}px; min-height: ${H}px; position: relative; display: grid; align-content: start">${lum ? '\n  <div class="lx-ambient" aria-hidden="true"></div>' : ''}
+  <header${lum ? ' class="lx-glass"' : ''} style="display: flex; justify-content: space-between; align-items: center; padding: 22px 56px; ${lum ? 'border-radius: 0; box-shadow: none' : 'border-block-end: 1px solid var(--border-subtle); background: var(--bg-surface)'}">
     <p class="t-h4" style="font-family: var(--font-display)">[Store name]</p>
     <ol class="ns-steps" aria-label="Checkout progress">
       <li><span class="num">1</span>Cart</li>
@@ -668,16 +716,17 @@ for (const d of Object.keys(DIRS)) {
     </div>
   </sc-if>
 </div>`;
-  files[`${t.name}-Checkout.dc.html`] = { w: W, h: H, title: `${t.letter} · ${t.name} — checkout`, interactive: false,
+  const darkDefault = lum;
+  files[`${fileOf(t)}-Checkout.dc.html`] = { w: W, h: H, title: `${t.letter} · ${t.name} — checkout`, interactive: !!t.interactive,
     html: page(`${t.name} — checkout details`, t.fonts, [d], body,
-      { dark: { editor: 'boolean', default: false }, dialog: { editor: 'boolean', default: false }, $preview: { width: W, height: H } },
-      `return { scheme: this.props.dark ? 'dark' : 'light', showDialog: !!this.props.dialog };`) };
+      { dark: { editor: 'boolean', default: darkDefault }, dialog: { editor: 'boolean', default: false }, $preview: { width: W, height: H } },
+      `return { scheme: ${darkDefault ? '(this.props.dark ?? true)' : 'this.props.dark'} ? 'dark' : 'light', showDialog: !!this.props.dialog };`) };
 }
 
 // Main — the three directions side by side
 {
   const W = 1500, H = 1060;
-  const allFonts = Object.values(DIRS).map((t) => t.fonts.replace('&display=swap', '')).join('&') + '&display=swap';
+  const allFonts = ['loom', 'instrument', 'chroma'].map((d) => DIRS[d].fonts.replace('&display=swap', '')).join('&') + '&display=swap';
   const col = (d) => {
     const t = DIRS[d];
     const chips = ['bg-canvas', 'bg-surface-subtle', 'fg-default', 'bg-accent', 'bg-accent-subtle', 'bg-critical'];
@@ -732,21 +781,23 @@ const notes = {};
 boards['Main.dc.html'] = { x: 0, y: 0, w: files['Main.dc.html'].w, h: files['Main.dc.html'].h, title: files['Main.dc.html'].title };
 order.push('Main.dc.html');
 let y = files['Main.dc.html'].h + rowGap + titleSpace;
-for (const d of Object.keys(DIRS)) {
+// The direction in progress goes first; the Phase 1 directions follow for comparison.
+for (const d of ['luminous', 'loom', 'instrument', 'chroma']) {
   const t = DIRS[d];
-  const row = [`${t.name}-Foundations.dc.html`, `${t.name}-Components.dc.html`, `${t.name}-Checkout.dc.html`];
+  const row = [`${fileOf(t)}-Foundations.dc.html`, `${fileOf(t)}-Components.dc.html`, `${fileOf(t)}-Checkout.dc.html`];
   let x = 0, maxH = 0;
   for (const f of row) {
-    boards[f] = { x, y, w: files[f].w, h: files[f].h, title: files[f].title };
+    boards[f] = { x, y, w: files[f].w, h: files[f].h, title: files[f].title, ...(files[f].interactive ? { is_interactive: true } : {}) };
     order.push(f);
     x += files[f].w + 80;
     maxH = Math.max(maxH, files[f].h);
   }
-  notes[`row-${d}`] = { x: 0, y: y - 260, text: `${t.letter} · ${t.name} — ${t.tagline.toLowerCase()}`, kind: 'title1', maxW: x - 80 };
+  notes[`row-${d}`] = { x: 0, y: y - 260, text: `${t.letter} · ${t.name} — ${t.tagline.toLowerCase()}`, kind: 'title1', w: 240, maxW: x - 80 };
   y += maxH + rowGap + titleSpace;
 }
 const canvas = {
   v: 3,
+  attachments: {}, // added by the canvas editor; kept so republishing doesn't fight it
   createdOnFiles: { v: 1, at: '2026-10-04T22:01:56Z' }, // the published canvas's marker — never change it
   title: 'never-ui — three directions',
   launch: { view: 'canvas' },

@@ -148,7 +148,7 @@ export const luminous = {
     neutral: [[0.275, 0.026, 285], [0.215, 0.024, 285]],
     glass: { tint: [0.205, 0.026, 285], filter: { contrast: 0.75, brightness: 0.6 }, overlay: 0.84, modal: 0.72, sheen: 0.04 },
     scrim: { col: [0.08, 0.02, 285], alpha: 0.6 },
-    ambient: { L: 0.70, C: 0.14, alpha: 0.24 },
+    ambient: { L: 0.68, C: 0.14, alpha: 0.2 },
   },
 };
 
@@ -191,6 +191,9 @@ export function evaluateLuminous(s) {
   const accentRest = X.accent.rest.map((c) => oklch(...c));
   const accentActive = X.accent.active.map((c) => oklch(...c));
   const glows = ambientGlows(s).map((c) => over(oklch(...c), X.ambient.alpha, col['bg-canvas']));
+  // Ambient layers can overlap (an orb over the refracted band), so text may sit on two glows at once.
+  const doubled = ambientGlows(s).flatMap((a) => ambientGlows(s).map((b) =>
+    over(oklch(...a), X.ambient.alpha, over(oklch(...b), X.ambient.alpha, col['bg-canvas']))));
 
   worst('fg-on-accent on prism fill (rest + hover)', [col['fg-on-accent']], accentRest, 4.5);
   worst('fg-on-accent on prism fill (active)', [col['fg-on-accent']], accentActive, 4.5);
@@ -200,6 +203,9 @@ export function evaluateLuminous(s) {
   worst('fg-default on ambient prism light', [col['fg-default']], glows, 7);
   worst('fg-muted on ambient prism light', [col['fg-muted']], glows, 4.5);
   worst('fg-accent on ambient prism light', [col['fg-accent']], glows, 4.5);
+  worst('fg-default on overlapping ambient light', [col['fg-default']], doubled, 7);
+  worst('fg-muted on overlapping ambient light', [col['fg-muted']], doubled, 4.5);
+  worst('fg-accent on overlapping ambient light', [col['fg-accent']], doubled, 4.5);
 
   const backdrops = [WHITE, BLACK, col['bg-canvas'], col['bg-surface'], col['bg-inverse'], col['fg-default'], ...accentRest, ...glows];
   for (const tier of ['overlay', 'modal']) {
