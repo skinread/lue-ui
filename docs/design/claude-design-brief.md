@@ -115,13 +115,17 @@ Added in Pass 2 for C2; every rule is checked by `tools/directions/palettes.mjs`
   steel line. In forced colours, glass gets an opaque `Canvas` background and no backdrop filter.
 - **Chrome that identifies a control is a real boundary.** Every stop of the hairline gradient reaches 3:1 against
   canvas, surfaces and worst-case glass. Glints that are fainter are decoration and carry no meaning.
-- **Fills that change hue keep their lightness.** Interactive colour shifts move along an iso-lightness gradient whose
-  every stop meets the text minimum, so contrast never changes mid-animation.
+- **Fills that change hue keep their lightness.** Interactive colour shifts move tones that share one lightness, and
+  every tone — up to three overlapping — meets the text minimum, so contrast never changes mid-animation.
+- **Glass buttons are verified where they live:** over canvas, surfaces, ambient light and worst-case glass. On
+  photography they sit on a glass panel (verified over white and black) — never straight on the image.
 - **Light moves only when the user does.** Slides, glints, glows and sparks answer hover, press and focus, last
   ≤ 320 ms and never loop. Sparks never sit over text. Under reduced motion every duration is 0 s.
 - **Ambient light is checked where text can sit on it,** including where two glows overlap.
 - **Forced colours removes the decoration** — chrome, glow, sparks, ambient light — and transparent borders appear.
-- **Performance:** `backdrop-filter` only on overlays, cards and sticky bars; never on every control.
+- **Performance:** `backdrop-filter` on overlays, cards, sticky bars and buttons (a small 10 px blur), never on fields
+  or choice controls. Buttons inside a glass parent don't blur again — the parent is a backdrop root, and it saves a
+  pass.
 
 ### Icons
 
@@ -218,9 +222,14 @@ components. Colours gently dance as elements are used; any glitter or glow is ve
 palette towards a subdued, futuristic, prismatic neon, and see where it leads.
 
 - **Colour:** pearl (light) and obsidian (dark) neutrals at hue 285–290. An expanded **prism** of eight hues — rose,
-  orchid, iris, azure, aqua, mint, citron, amber — ramped at subdued-neon chroma. Filled accents are one
-  iso-lightness slice of it: rose → orchid → iris → azure at L 0.50 with pearl text in light; rose → orchid → iris →
-  aqua at L 0.80 with obsidian text in dark. Focus is iris in light and aqua in dark.
+  orchid, iris, azure, aqua, mint, citron, amber — ramped at subdued-neon chroma (the user likes these hues). Small
+  solid fills (checkboxes, switches, steps) keep one iso-lightness slice of it. Focus is iris in light and aqua in
+  dark.
+- **Buttons (revised 2026-10-05):** frosted glass panes, more transparent than solid fills. Neutral buttons are
+  clear glass; primaries carry several prism tones at one lightness — aqua, citron, rose, mint and orchid in light
+  (pastel, with obsidian text); aqua, amber, rose, mint and orchid in dark (jewel tones, with pearl text) — which drift
+  on hover. Danger is rose-tinted glass in a solid critical ring. This replaces the rose → orchid → iris → azure fill,
+  which read as a blue-to-purple gradient.
 - **Chrome:** a 1 px conic-gradient hairline on controls and surfaces — gunmetal on pearl, bright silver on
   obsidian. Its reflection turns as the pointer arrives and on focus. **Selected and on states trade chrome for
   prism** — the signature.
@@ -233,10 +242,10 @@ palette towards a subdued, futuristic, prismatic neon, and see where it leads.
 - **Shape:** pills for buttons, tags and toasts; radii 8 / 12 / 20 / 28 px; 1 px hairlines replace Chroma's 2 px
   borders.
 - **Space and density:** balanced, a little airier than Chroma.
-- **Motion:** 320 ms ease-out on interaction only — the prism fill slides, the chrome glints, a diffuse glow rises,
-  and a few sparks drift across the edge of filled buttons.
-- **Ambient light:** refracted prism bands and soft orbs behind content in brand areas and composed screens; never a
-  wash, and contrast-checked where text sits on it.
+- **Motion:** 320 ms ease-out on interaction only — the tones inside a primary drift, the chrome glints, a diffuse
+  glow rises, and a few sparks drift across the edge of primaries.
+- **Ambient light:** a wide, softly feathered band of refracted prism light and two soft orbs, behind content in
+  brand areas and composed screens; never a wash, and contrast-checked where text sits on it.
 - **Icons:** Phosphor (MIT), light or regular weight to match the hairlines (to confirm).
 - **Open questions:** a more extended display face if light Bricolage isn't luxurious enough; whether dark is the
   default scheme (the composed screen opens in dark); how far to push Display P3 for the neon.
@@ -268,8 +277,8 @@ Score each direction 1–5:
 ## Appendix — seeded palettes and contrast matrices
 
 Generated 2026-10-05 by a dependency-free script (OKLCH → sRGB → WCAG 2.x ratio; APCA Lc in brackets, advisory).
-Values shown are after sRGB gamut mapping. All 288 palette pairs pass (4 palettes × light and dark × 36), and all 46
-Chroma Luminous prism, chrome and glass rules pass.
+Values shown are after sRGB gamut mapping. All 288 palette pairs pass (4 palettes × light and dark × 36), and all 62
+Chroma Luminous prism, chrome, glass and glass-button rules pass.
 
 <details>
 <summary><strong>A. Loom</strong> — values and contrast (light · dark)</summary>
@@ -593,5 +602,13 @@ Worst case over every backdrop (white, black, canvas, surface, inverse, text, pr
 | fg-critical on modal glass | 4.5:1 | 4.54 | 5.76 |
 | focus-ring on modal glass | 3:1 | 5.36 | 8.35 |
 | chrome boundary on modal glass | 3:1 | 3.20 | 3.61 |
+| fg-default on neutral glass button | 4.5:1 | 13.62 | 7.41 |
+| fg-default on prism glass button (up to 3 tones) | 4.5:1 | 9.86 | 4.87 |
+| fg-default on prism glass button, pressed | 4.5:1 | 10.06 | 5.05 |
+| fg-default on danger glass button | 4.5:1 | 10.83 | 5.82 |
+| fg-default on pressed toggle | 4.5:1 | 13.48 | 8.51 |
+| fg-muted on disabled glass button (advisory) | 3:1 | 5.67 | 4.21 |
+| fg-accent on quiet button hover (neutral glass) | 4.5:1 | 5.61 | 4.66 |
+| fg-critical ring vs canvas and glass | 3:1 | 4.54 | 5.39 |
 
 </details>

@@ -19,8 +19,9 @@
   the docs (README, [ADR-0006](docs/architecture/adr/0006-licence-and-governance.md)) is waiting on the user.
 - **Git workflow (user's decision, 2026-10-05):** commit as you go on `develop`, in logical units. No feature branches.
   Don't push unless asked.
-- **The Claude Design canvas** holds C2 first, then the three Phase 1 directions for comparison. Waiting on the user's
-  reaction to C2.
+- **The Claude Design canvas** has two pages: **C2 · Chroma Luminous** (opens first) and **Phase 1 · three
+  directions**. The user likes C2's direction and its prism hues (2026-10-05); the second round made buttons frosted
+  glass with multi-tone primaries and the ambient light more diffuse.
 
 ## What exists
 
@@ -39,17 +40,18 @@
 - **Layout:** a cover board (`Main`, Phase 1's three directions), then one row per direction: `<Name>-Foundations`,
   `<Name>-Components` (light and dark side by side) and `<Name>-Checkout` (a composed "Checkout details" screen with
   Tweaks for `dark` and `dialog`).
-- **C2 · Chroma Luminous** (row 1, files `Luminous-*`, interactive — press Play to try hover, press and focus). Pearl
-  and obsidian neutrals; an eight-hue prism; filled accents as an iso-lightness prism gradient that slides on hover;
-  1 px chrome rings (gunmetal on pearl, silver on obsidian) that glint; two glass tiers; sparks; ambient prism light.
+- **C2 · Chroma Luminous** (its own page, files `Luminous-*`, interactive — press Play to try hover, press and
+  focus). Pearl and obsidian neutrals; an eight-hue prism; frosted glass buttons whose primaries carry five prism
+  tones at one lightness that drift on hover; 1 px chrome rings (gunmetal on pearl, silver on obsidian) that glint;
+  two glass tiers; sparks; diffuse ambient prism light.
   Selected and on states trade chrome for prism. Foundations adds Prism, Chrome, Glass, Light that moves and fallback
   sections. The checkout opens in dark.
 - **A · Loom** — calm, tactile, warm. Spruce accent, Besley with Atkinson Hyperlegible Next, stitched edges.
 - **B · Instrument** — precise, technical. Graphite with one signal orange, Instrument Sans with Martian Mono,
   hairlines and tick marks. The orange fill is 2.75:1 against the canvas, so filled buttons carry an ink border.
 - **C · Chroma** — expressive. Fuchsia and lime, Bricolage Grotesque with Figtree, pills and colour fields.
-- **Contrast:** all 288 declared pairs (36 × 4 palettes × light/dark) pass WCAG 2.x, and all 46 Luminous prism,
-  chrome, glass and ambient-light rules pass. Glass is checked worst-case — over white, black and every fill, through
+- **Contrast:** all 288 declared pairs (36 × 4 palettes × light/dark) pass WCAG 2.x, and all 62 Luminous prism,
+  chrome, glass, glass-button and ambient-light rules pass. Glass is checked worst-case — over white, black and every fill, through
   the scrim for modals, reading the backdrop filter both ways.
 - **Not visually verified.** The Design type asks agents not to screenshot canvases unless the user asks. If a board
   looks clipped, raise its height in `tools/directions/build-canvas.mjs` and republish.
