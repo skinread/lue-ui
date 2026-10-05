@@ -73,6 +73,27 @@ export function apca(text, bg) {
   return out * 100;
 }
 
+// ---------------------------------------------------------------- compositing (glass, scrims, glows)
+// Browsers composite in gamma-encoded sRGB, so blends are done on encoded channels.
+const gammaDecode = (x) => (x <= 0.04045 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4));
+export const fromEncoded = (enc) => ({ lin: enc.map((v) => gammaDecode(Math.min(1, Math.max(0, v)))) });
+export const encoded = (col) => col.lin.map(gammaEncode);
+export const WHITE = { lin: [1, 1, 1] };
+export const BLACK = { lin: [0, 0, 0] };
+
+// `top` at `alpha` over `bottom` (source-over).
+export function over(top, alpha, bottom) {
+  const t = encoded(top), b = encoded(bottom);
+  return fromEncoded(t.map((v, i) => alpha * v + (1 - alpha) * b[i]));
+}
+
+// backdrop-filter contrast(c) then brightness(b). Engines differ on whether filter functions run on linear or
+// encoded values, so return both readings; callers keep the worse one.
+export function filtered(col, { contrast: c = 1, brightness: br = 1 } = {}) {
+  const f = (v) => Math.min(1, Math.max(0, (c * v + (1 - c) / 2) * br));
+  return [{ lin: col.lin.map(f) }, fromEncoded(encoded(col).map(f))];
+}
+
 // For neutral (C=0) colours: OKLab L where WCAG contrast against bgL equals target.
 export function neutralLForContrast(bgL, target, darker = true) {
   const Ybg = bgL ** 3;

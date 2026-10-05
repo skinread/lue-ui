@@ -1,4 +1,4 @@
-import { oklch, contrast, apca, toHex } from './contrast.mjs';
+import { oklch, contrast, apca, toHex, over, filtered, inGamut, oklabToLinearSrgb, oklchToOklab, WHITE, BLACK } from './contrast.mjs';
 
 // [L, C, h]
 export const directions = {
@@ -86,7 +86,133 @@ export const directions = {
       'bg-inverse': [0.95, 0.01, 340], 'fg-inverse': [0.20, 0.025, 320],
     },
   },
+  // C2 · Chroma Luminous (Pass 2): pearl and obsidian neutrals (hue 285–290), an orchid accent that is the middle of
+  // an iso-lightness prism gradient (see `luminous` below), aqua focus in dark, iris focus in light.
+  luminous: {
+    light: {
+      'bg-canvas': [0.978, 0.007, 290], 'bg-surface': [0.993, 0.003, 290], 'bg-surface-subtle': [0.952, 0.012, 290],
+      'fg-default': [0.215, 0.03, 285], 'fg-muted': [0.455, 0.03, 285],
+      'border-subtle': [0.895, 0.012, 285], 'border-strong': [0.56, 0.016, 275],
+      'bg-accent': [0.50, 0.19, 318], 'bg-accent-hover': [0.50, 0.19, 318], 'bg-accent-active': [0.44, 0.18, 318],
+      'bg-accent-subtle': [0.94, 0.035, 310], 'fg-accent': [0.48, 0.19, 312], 'fg-on-accent': [0.99, 0.004, 290],
+      'focus-ring': [0.46, 0.2, 285],
+      'bg-critical': [0.52, 0.19, 18], 'fg-on-critical': [0.99, 0.004, 290], 'fg-critical': [0.50, 0.18, 20], 'bg-critical-subtle': [0.955, 0.025, 15],
+      'fg-warning': [0.52, 0.11, 70], 'bg-warning-subtle': [0.958, 0.045, 85],
+      'fg-success': [0.48, 0.10, 165], 'bg-success-subtle': [0.955, 0.035, 165],
+      'fg-info': [0.48, 0.13, 245], 'bg-info-subtle': [0.955, 0.028, 245],
+      'bg-inverse': [0.215, 0.03, 285], 'fg-inverse': [0.978, 0.007, 290],
+    },
+    dark: {
+      'bg-canvas': [0.155, 0.02, 285], 'bg-surface': [0.195, 0.024, 285], 'bg-surface-subtle': [0.235, 0.026, 285],
+      'fg-default': [0.955, 0.008, 290], 'fg-muted': [0.78, 0.02, 290],
+      'border-subtle': [0.31, 0.022, 285], 'border-strong': [0.64, 0.016, 275],
+      'bg-accent': [0.80, 0.115, 312], 'bg-accent-hover': [0.80, 0.115, 312], 'bg-accent-active': [0.86, 0.09, 312],
+      'bg-accent-subtle': [0.30, 0.07, 305], 'fg-accent': [0.82, 0.11, 312], 'fg-on-accent': [0.17, 0.03, 290],
+      'focus-ring': [0.86, 0.13, 195],
+      'bg-critical': [0.74, 0.14, 18], 'fg-on-critical': [0.17, 0.03, 18], 'fg-critical': [0.78, 0.13, 18], 'bg-critical-subtle': [0.29, 0.07, 15],
+      'fg-warning': [0.86, 0.12, 80], 'bg-warning-subtle': [0.29, 0.05, 80],
+      'fg-success': [0.83, 0.12, 165], 'bg-success-subtle': [0.28, 0.05, 165],
+      'fg-info': [0.80, 0.10, 240], 'bg-info-subtle': [0.28, 0.05, 240],
+      'bg-inverse': [0.955, 0.008, 290], 'fg-inverse': [0.20, 0.025, 285],
+    },
+  },
 };
+
+// ---------------------------------------------------------------- Chroma Luminous: prism, chrome, glass
+// Everything a flat palette can't express. Each piece carries its own contrast rule, checked by evaluateLuminous().
+export const luminous = {
+  // The expanded palette: eight prism hues, ramped at "subdued neon" chroma (90% of the sRGB maximum, capped).
+  prism: { rose: 0, orchid: 318, iris: 285, azure: 250, aqua: 205, mint: 168, citron: 118, amber: 72 },
+  prismSteps: [0.92, 0.84, 0.76, 0.66, 0.56, 0.46, 0.36],
+  prismChroma: 0.16,
+  light: {
+    // Filled accents are an iso-lightness gradient: hover slides along it, so text contrast never changes.
+    accent: {
+      rest: [[0.50, 0.17, 355], [0.50, 0.19, 318], [0.49, 0.18, 288], [0.50, 0.13, 252]],
+      active: [[0.44, 0.16, 355], [0.44, 0.18, 318], [0.43, 0.17, 288], [0.44, 0.12, 252]],
+    },
+    // Gunmetal chrome: on a pearl ground every stop stays dark enough to be a 3:1 control boundary.
+    chrome: [[0.56, 0.006, 265], [0.38, 0.012, 285], [0.51, 0.005, 240], [0.29, 0.014, 290], [0.545, 0.008, 270]],
+    neutral: [[0.998, 0.002, 290], [0.958, 0.011, 290]],
+    glass: { tint: [0.995, 0.004, 290], filter: { contrast: 0.65, brightness: 1.12 }, overlay: 0.84, modal: 0.8, sheen: 0 },
+    scrim: { col: [0.22, 0.03, 285], alpha: 0.36 },
+    ambient: { L: 0.80, C: 0.12, alpha: 0.28 },
+  },
+  dark: {
+    accent: {
+      rest: [[0.80, 0.11, 355], [0.80, 0.115, 318], [0.79, 0.11, 288], [0.81, 0.10, 215]],
+      active: [[0.86, 0.085, 355], [0.86, 0.09, 318], [0.85, 0.085, 288], [0.87, 0.08, 215]],
+    },
+    // Bright silver with a darker horizon band; every stop clears 3:1 against obsidian.
+    chrome: [[0.97, 0.004, 270], [0.74, 0.012, 275], [0.64, 0.016, 285], [0.89, 0.008, 250], [0.70, 0.014, 280]],
+    neutral: [[0.275, 0.026, 285], [0.215, 0.024, 285]],
+    glass: { tint: [0.205, 0.026, 285], filter: { contrast: 0.75, brightness: 0.6 }, overlay: 0.84, modal: 0.72, sheen: 0.04 },
+    scrim: { col: [0.08, 0.02, 285], alpha: 0.6 },
+    ambient: { L: 0.70, C: 0.14, alpha: 0.24 },
+  },
+};
+
+const maxChroma = (L, h) => {
+  let lo = 0, hi = 0.4;
+  for (let i = 0; i < 30; i++) {
+    const mid = (lo + hi) / 2;
+    if (inGamut(oklabToLinearSrgb(oklchToOklab(L, mid, h)))) lo = mid; else hi = mid;
+  }
+  return lo;
+};
+export const prismRamp = () => Object.fromEntries(Object.entries(luminous.prism).map(([name, h]) =>
+  [name, luminous.prismSteps.map((L) => [L, +Math.min(luminous.prismChroma, 0.9 * maxChroma(L, h)).toFixed(3), h])]));
+export const ambientGlows = (s) => Object.values(luminous.prism).map((h) =>
+  [luminous[s].ambient.L, +Math.min(luminous[s].ambient.C, 0.9 * maxChroma(luminous[s].ambient.L, h)).toFixed(3), h]);
+
+// Glass over a backdrop: (scrim) → backdrop-filter (both readings) → tint at alpha → sheen. Returns both readings.
+function glassOver(s, tier, backdrop) {
+  const g = luminous[s].glass;
+  const scrim = luminous[s].scrim;
+  const b = tier === 'modal' ? over(oklch(...scrim.col), scrim.alpha, backdrop) : backdrop;
+  return filtered(b, g.filter).map((fb) => {
+    const tinted = over(oklch(...g.tint), g[tier], fb);
+    return g.sheen ? over(WHITE, g.sheen, tinted) : tinted;
+  });
+}
+
+export function evaluateLuminous(s) {
+  const P = directions.luminous[s];
+  const X = luminous[s];
+  const col = Object.fromEntries(Object.entries(P).map(([k, v]) => [k, oklch(...v)]));
+  const rows = [];
+  const check = (what, fg, bg, min) => { const r = contrast(fg, bg); rows.push({ what, ratio: r, min, pass: r >= min }); };
+  const worst = (what, fgs, bgs, min) => {
+    let lo = Infinity;
+    for (const f of fgs) for (const b of bgs) lo = Math.min(lo, contrast(f, b));
+    rows.push({ what, ratio: lo, min, pass: lo >= min });
+  };
+  const chrome = X.chrome.map((c) => oklch(...c));
+  const accentRest = X.accent.rest.map((c) => oklch(...c));
+  const accentActive = X.accent.active.map((c) => oklch(...c));
+  const glows = ambientGlows(s).map((c) => over(oklch(...c), X.ambient.alpha, col['bg-canvas']));
+
+  worst('fg-on-accent on prism fill (rest + hover)', [col['fg-on-accent']], accentRest, 4.5);
+  worst('fg-on-accent on prism fill (active)', [col['fg-on-accent']], accentActive, 4.5);
+  worst('chrome boundary on canvas/surfaces', chrome, [col['bg-canvas'], col['bg-surface'], col['bg-surface-subtle']], 3);
+  worst('fg-default on neutral button sheen', [col['fg-default']], X.neutral.map((c) => oklch(...c)), 7);
+  worst('chrome boundary vs neutral button outside (canvas)', chrome, [col['bg-canvas']], 3);
+  worst('fg-default on ambient prism light', [col['fg-default']], glows, 7);
+  worst('fg-muted on ambient prism light', [col['fg-muted']], glows, 4.5);
+  worst('fg-accent on ambient prism light', [col['fg-accent']], glows, 4.5);
+
+  const backdrops = [WHITE, BLACK, col['bg-canvas'], col['bg-surface'], col['bg-inverse'], col['fg-default'], ...accentRest, ...glows];
+  for (const tier of ['overlay', 'modal']) {
+    const glass = backdrops.flatMap((b) => glassOver(s, tier, b));
+    worst(`fg-default on ${tier} glass (worst backdrop)`, [col['fg-default']], glass, 7);
+    worst(`fg-muted on ${tier} glass`, [col['fg-muted']], glass, 4.5);
+    worst(`fg-accent on ${tier} glass`, [col['fg-accent']], glass, 4.5);
+    worst(`fg-critical on ${tier} glass`, [col['fg-critical']], glass, 4.5);
+    worst(`focus-ring on ${tier} glass`, [col['focus-ring']], glass, 3);
+    worst(`chrome boundary on ${tier} glass`, chrome, glass, 3);
+  }
+  return { rows, chrome, accentRest, accentActive };
+}
 
 export const pairs = [
   ['fg-default', ['bg-canvas', 'bg-surface', 'bg-surface-subtle', 'bg-accent-subtle', 'bg-critical-subtle', 'bg-warning-subtle', 'bg-success-subtle', 'bg-info-subtle'], 7],
@@ -126,5 +252,12 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       console.log(`${dir}/${scheme}: ${rows.length} pairs, ${fails.length} fail, tightest margin ×${minMargin.toFixed(2)}, accent-vs-canvas ${advisory['bg-accent vs bg-canvas'].toFixed(2)}${mapped.length ? ', gamut-mapped: ' + mapped.join(',') : ''}`);
       for (const f of fails) console.log(`   FAIL ${f.fg} on ${f.bg}: ${f.ratio.toFixed(2)} < ${f.min}`);
     }
+  }
+  for (const s of ['light', 'dark']) {
+    const { rows } = evaluateLuminous(s);
+    const fails = rows.filter((r) => !r.pass);
+    const minMargin = Math.min(...rows.map((r) => r.ratio / r.min));
+    console.log(`luminous/${s} prism · chrome · glass: ${rows.length} rules, ${fails.length} fail, tightest margin ×${minMargin.toFixed(2)}`);
+    for (const r of rows) if (!r.pass || process.argv.includes('--all')) console.log(`   ${r.pass ? 'ok  ' : 'FAIL'} ${r.what}: ${r.ratio.toFixed(2)} (min ${r.min})`);
   }
 }
