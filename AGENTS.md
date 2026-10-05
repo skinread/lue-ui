@@ -8,7 +8,8 @@ primary reference for agents working in this repo.
 
 ## Current state
 
-- **Phase 1 — foundations and design kickoff. Documentation only; no library code yet.**
+- **Pass 2 — codifying the chosen visual direction, C2 · Chroma Luminous. Documentation and design tooling only; no
+  library code yet.**
 - `tools/directions/` holds dependency-free design scripts (contrast checks, the Claude Design canvas generator) —
   see its [README](tools/directions/README.md).
 - Don't scaffold packages, add `package.json` files or install tooling until Pass 3 begins
