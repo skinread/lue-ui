@@ -110,8 +110,9 @@ Added in Pass 2 for C2; every rule is checked by `tools/directions/palettes.mjs`
 - **Glass carries text only at verified contrast.** Each glass tier is composited over white, black and every fill in
   the palette — through the scrim for modals, with the backdrop filter read both ways engines apply it — and the
   worst result must still meet the text minimums above.
-- **Glass steps aside.** Under `prefers-reduced-transparency: reduce`, `prefers-contrast: more`, or where
-  `backdrop-filter` is missing, glass turns opaque and chrome becomes one solid steel line.
+- **Glass steps aside.** Under `prefers-reduced-transparency: reduce` (Chromium only so far), `prefers-contrast: more`,
+  `[data-contrast="more"]`, or where `backdrop-filter` is missing, glass turns opaque and chrome becomes one solid
+  steel line. In forced colours, glass gets an opaque `Canvas` background and no backdrop filter.
 - **Chrome that identifies a control is a real boundary.** Every stop of the hairline gradient reaches 3:1 against
   canvas, surfaces and worst-case glass. Glints that are fainter are decoration and carry no meaning.
 - **Fills that change hue keep their lightness.** Interactive colour shifts move along an iso-lightness gradient whose

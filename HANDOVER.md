@@ -1,18 +1,23 @@
-# Handover — never-ui, end of Phase 1
+# Handover — never-ui, Pass 2 in progress
 
-> Written 2026-10-05 when the Phase 1 session closed. A fresh session should read this file, then
-> [AGENTS.md](AGENTS.md), then [mission and principles](docs/foundations/mission-and-principles.md).
+> Written 2026-10-05 when Phase 1 closed; updated the same day as Pass 2 began. A fresh session should read this file,
+> then [AGENTS.md](AGENTS.md), then [mission and principles](docs/foundations/mission-and-principles.md).
 
 ## Where things stand
 
-- **Phase 1 (foundations and design kickoff) is complete and paused for the user's review.** There is no library code,
-  by design.
+- **Phase 1 (foundations and design kickoff) is complete.** There is no library code, by design.
+- **Pass 2 has started.** The user chose **Chroma** and asked for a more luminous, luxurious evolution: **C2 · Chroma
+  Luminous** (chrome hairlines, liquid-glass depth, a subdued prismatic-neon palette, light that moves on
+  interaction). It's the first row on the canvas and recorded in the
+  [brief](docs/design/claude-design-brief.md#c2-chroma-luminous--luminous--luxurious--prismatic). It is still
+  being explored — not yet locked, so no ADR yet.
 - **Repo:** `/Volumes/Code/never-ui` (the git root). `main` holds only the initial commit (MIT `LICENSE`,
   `.gitignore`, `.gitattributes`); all work happens on **`develop`**, where Phase 1 was committed on 2026-10-05. No
   remote.
 - **Git workflow (user's decision, 2026-10-05):** commit as you go on `develop`, in logical units. No feature branches.
   Don't push unless asked.
-- **A Claude Design canvas with three visual directions** is published and waiting for the user's art direction.
+- **The Claude Design canvas** holds C2 first, then the three Phase 1 directions for comparison. Waiting on the user's
+  reaction to C2.
 
 ## What exists
 
@@ -28,13 +33,21 @@
 
 <https://claude.ai/artifact/9DKJGmK7kPdEt2giN4qDgP> — private until the user shares it.
 
-- **Layout:** a cover board (`Main`), then one row per direction: `<Name>-Foundations`, `<Name>-Components` (light and
-  dark side by side) and `<Name>-Checkout` (a composed "Checkout details" screen with Tweaks for `dark` and `dialog`).
+- **Layout:** a cover board (`Main`, Phase 1's three directions), then one row per direction: `<Name>-Foundations`,
+  `<Name>-Components` (light and dark side by side) and `<Name>-Checkout` (a composed "Checkout details" screen with
+  Tweaks for `dark` and `dialog`).
+- **C2 · Chroma Luminous** (row 1, files `Luminous-*`, interactive — press Play to try hover, press and focus). Pearl
+  and obsidian neutrals; an eight-hue prism; filled accents as an iso-lightness prism gradient that slides on hover;
+  1 px chrome rings (gunmetal on pearl, silver on obsidian) that glint; two glass tiers; sparks; ambient prism light.
+  Selected and on states trade chrome for prism. Foundations adds Prism, Chrome, Glass, Light that moves and fallback
+  sections. The checkout opens in dark.
 - **A · Loom** — calm, tactile, warm. Spruce accent, Besley with Atkinson Hyperlegible Next, stitched edges.
 - **B · Instrument** — precise, technical. Graphite with one signal orange, Instrument Sans with Martian Mono,
   hairlines and tick marks. The orange fill is 2.75:1 against the canvas, so filled buttons carry an ink border.
 - **C · Chroma** — expressive. Fuchsia and lime, Bricolage Grotesque with Figtree, pills and colour fields.
-- **Contrast:** all 216 declared pairs (36 × 3 directions × light/dark) pass WCAG 2.x.
+- **Contrast:** all 288 declared pairs (36 × 4 palettes × light/dark) pass WCAG 2.x, and all 46 Luminous prism,
+  chrome, glass and ambient-light rules pass. Glass is checked worst-case — over white, black and every fill, through
+  the scrim for modals, reading the backdrop filter both ways.
 - **Not visually verified.** The Design type asks agents not to screenshot canvases unless the user asks. If a board
   looks clipped, raise its height in `tools/directions/build-canvas.mjs` and republish.
 
@@ -47,13 +60,17 @@
 | Claude Design flow | Claude seeds directions, the user art-directs, then Claude codifies the pick as a Design System artifact. |
 | Repo | A new, empty repo instead of taking over tw-variants-ui. |
 | Licence | MIT (already in the repo). |
+| Git | Commit as you go on `develop`; no feature branches; no push unless asked (2026-10-05). |
+| Direction | Continue with **Chroma**, evolved as C2 · Chroma Luminous (2026-10-05). Glass is allowed only when verified; the brief's creative mandate and non-negotiables were revised to match. |
 | Approved with the plan | Native CSS core with Tailwind only as a generated bridge · WCAG 2.2 AA + 2.4.13 AAA focus + 44px targets under `(any-pointer: coarse)` · Baseline "newly available" fidelity floor · DTCG 2025.10 tokens via Terrazzo · pnpm workspace from Pass 3 · lockstep versions · open-licensed fonts and icons. |
 
 ## Waiting on the user
 
-1. **Direction** — pick one, or a blend, through comments on the canvas.
-2. **Name** — [shortlist](docs/foundations/naming.md); favourites Evenweave and Kerbcut. Both are free on npm (package
-   and scope) and GitHub; trademarks and domains aren't checked yet.
+1. **Reaction to C2 · Chroma Luminous** — what to push, pull back or change. Open questions in the brief: a more
+   extended display face, whether dark is the default scheme, how far to push Display P3, the icon weight.
+2. **Name** — round 1 didn't land. [Round 2](docs/foundations/naming.md#round-2--light-prism-and-glass) follows the
+   luminous look: Prismway and Clearprism lead, then Everyhue, Plainlight and Fullhue — all free on npm (package and
+   scope) and GitHub; trademarks and domains aren't checked yet.
 3. **[ADR-0004](docs/architecture/adr/0004-support-floors.md) inclusion exception** — a ~2 KB conditional invokers
    polyfill plus a `closedby` fallback, so buttons still open dialogs on Safari older than 26.2 (e.g. iOS 18).
 
@@ -61,11 +78,14 @@ Lower-priority open questions are listed at the end of [RFC-0001](docs/architect
 
 ## Next: Pass 2 — codify the chosen direction
 
-1. **Read the canvas and its comments** (Artifact `read`; ArtifactComments `read`). Summarise the art direction back
-   to the user and confirm before building on it.
-2. **Revise the directions if asked:** edit `tools/directions/` and republish, following its README.
+1. ~~Read the canvas and its comments; summarise the art direction.~~ Done 2026-10-05: the direction came in chat
+   (C2 · Chroma Luminous). Keep reading comments on the canvas each session — the user may art-direct there.
+2. **Iterate C2 with the user:** edit `tools/directions/` (`palettes.mjs`, `luminous-canvas.mjs`, `DIRS.luminous` in
+   `build-canvas.mjs`) and republish only changed boards, following its README. When the user is happy, **lock it in
+   ADR-0008 (visual direction)** — and, once settled, archive or remove the Phase 1 rows if the user wants.
 3. **Design the increased-contrast themes** (`light-more`, `dark-more`): every text pair ≥ 7:1 and every boundary
-   ≥ 4.5:1. Add them to `palettes.mjs` and keep 0 fails.
+   ≥ 4.5:1. Add them to `palettes.mjs` and keep 0 fails. For C2, glass is opaque and chrome is a solid line in these
+   themes.
 4. **Fill the full token set** from [tokens.md](docs/design/tokens.md): type steps −2…5 at 360 px and 1280 px, space
    `3xs`–`3xl`, radius, border, elevation per scheme, motion, focus, sizes.
 5. **Create the Claude Design "Design System" artifact.** Run Artifact `quickstart` with intent `other`, then publish
@@ -96,6 +116,10 @@ Follow [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-
 
 ## Things to know
 
+- **Glass and chrome platform notes** (checked 2026-10-05) are in
+  [platform capabilities](docs/foundations/platform-capabilities.md#glass-chrome-and-light), with two new CSS traps.
+  The canvas mockup registers `--lx-angle` with `inherits: true` so `::before` rings can read it; the library should
+  instead animate on the pseudo-element with `inherits: false` and literal angles.
 - **The research is a snapshot from 2026-10-03** (Chrome 154, Firefox 157, Safari 27). Re-check anything marked
   *Limited* before relying on it.
 - **CSS traps:** no non-Baseline function inside a custom property; no `light-dark()` in token custom properties
