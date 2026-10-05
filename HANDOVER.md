@@ -55,8 +55,8 @@
 - **B · Instrument** — precise, technical. Graphite with one signal orange, Instrument Sans with Martian Mono,
   hairlines and tick marks. The orange fill is 2.75:1 against the canvas, so filled buttons carry an ink border.
 - **C · Chroma** — expressive. Fuchsia and lime, Bricolage Grotesque with Figtree, pills and colour fields.
-- **Contrast:** all 288 declared pairs (36 × 4 palettes × light/dark) pass WCAG 2.x, and all 72 Luminous prism,
-  chrome, glass, glass-button, ambient-light, satin and metal rules pass. Glass is checked worst-case — over white, black and every fill, through
+- **Contrast:** all 288 declared pairs (36 × 4 palettes × light/dark) pass WCAG 2.x, and all 76 Luminous prism,
+  chrome, glass, glass-button, multi-tone, ambient-light, satin and metal rules pass. Glass is checked worst-case — over white, black and every fill, through
   the scrim for modals, reading the backdrop filter both ways.
 - **Not visually verified.** The Design type asks agents not to screenshot canvases unless the user asks. If a board
   looks clipped, raise its height in `tools/directions/build-canvas.mjs` and republish.
@@ -72,12 +72,13 @@
 | Licence | MIT (already in the repo). |
 | Git | Commit as you go on `develop`; no feature branches; no push unless asked (2026-10-05). |
 | Direction | Continue with **Chroma**, evolved as C2 · Chroma Luminous (2026-10-05). Glass is allowed only when verified; the brief's creative mandate and non-negotiables were revised to match. |
+| C2 details (2026-10-05) | Multi-tone fills on checkboxes, radios, switches and steps · **dark is the primary scheme** · Phosphor icons, regular weight · a wider display face on trial (Tweak on every C2 board; Anybody expanded by default) · wider neon spectrum parked as future exploration. |
 | Approved with the plan | Native CSS core with Tailwind only as a generated bridge · WCAG 2.2 AA + 2.4.13 AAA focus + 44px targets under `(any-pointer: coarse)` · Baseline "newly available" fidelity floor · DTCG 2025.10 tokens via Terrazzo · pnpm workspace from Pass 3 · lockstep versions · open-licensed fonts and icons. |
 
 ## Waiting on the user
 
-1. **Reaction to C2 · Chroma Luminous** — what to push, pull back or change. Open questions in the brief: a more
-   extended display face, whether dark is the default scheme, how far to push Display P3, the icon weight.
+1. **Pick the display face** from the Tweak on the C2 boards (Anybody expanded, Archivo expanded, Unbounded, or the
+   earlier Bricolage). Then lock the look in ADR-0009 (visual direction).
 2. **npm scope** — an empty npm user scope `lue-ui` already exists. Is it the user's? If not, use `@lueui/*`. Then the
    user creates the npm and GitHub organisations (outward-facing; not for an agent to do unasked).
 3. **[ADR-0004](docs/architecture/adr/0004-support-floors.md) inclusion exception** — a ~2 KB conditional invokers
@@ -91,7 +92,7 @@ Lower-priority open questions are listed at the end of [RFC-0001](docs/architect
    (C2 · Chroma Luminous). Keep reading comments on the canvas each session — the user may art-direct there.
 2. **Iterate C2 with the user:** edit `tools/directions/` (`palettes.mjs`, `luminous-canvas.mjs`, `DIRS.luminous` in
    `build-canvas.mjs`) and republish only changed boards, following its README. When the user is happy, **lock it in
-   ADR-0008 (visual direction)** — and, once settled, archive or remove the Phase 1 rows if the user wants.
+   ADR-0009 (visual direction)** — and, once settled, archive or remove the Phase 1 rows if the user wants.
 3. **Design the increased-contrast themes** (`light-more`, `dark-more`): every text pair ≥ 7:1 and every boundary
    ≥ 4.5:1. Add them to `palettes.mjs` and keep 0 fails. For C2, glass is opaque and chrome is a solid line in these
    themes.

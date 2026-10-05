@@ -227,8 +227,10 @@ palette towards a subdued, futuristic, prismatic neon, and see where it leads.
 
 - **Colour:** pearl (light) and obsidian (dark) neutrals at hue 285–290. An expanded **prism** of eight hues — rose,
   orchid, iris, azure, aqua, mint, citron, amber — ramped at subdued-neon chroma (the user likes these hues). Small
-  solid fills (checkboxes, switches, steps) keep one iso-lightness slice of it. Focus is iris in light and aqua in
-  dark.
+  controls (checkboxes, radios, switches, step numbers) use **multi-tone fills** at one lightness: pastel aqua, mint,
+  citron, rose and orchid with obsidian marks in light; jewel aqua, mint, amber, rose and orchid with pearl marks in
+  dark. Selected and on states trade chrome for a multi-tone ring dark (or light) enough to stay a 3:1 boundary.
+  Focus is iris in light and aqua in dark. **Dark is the primary scheme** (2026-10-05).
 - **Buttons (revised 2026-10-05):** frosted glass panes, more transparent than solid fills. Neutral buttons are
   clear glass; primaries carry several prism tones at one lightness — aqua, citron, rose, mint and orchid in light
   (pastel, with obsidian text); aqua, amber, rose, mint and orchid in dark (jewel tones, with pearl text) — which drift
@@ -240,9 +242,11 @@ palette towards a subdued, futuristic, prismatic neon, and see where it leads.
 - **Glass:** two tiers. *Overlay* (menus, popovers, cards, sticky bars) and *modal* (dialogs, over a scrim): a tint
   over `blur(22px) saturate(1.6)` with `contrast()` and `brightness()` compressing the backdrop's range, a faint
   sheen, a prism fringe at the edge, and soft coloured depth. Squircle corners via `corner-shape` as an enhancement.
-- **Type:** Bricolage Grotesque at a light 300 weight and full optical size for display, Figtree for body, Spline Sans
-  Mono for uppercase micro-labels tracked wide. Chrome lettering (gradient-clipped text) for the display wordmark
-  only, with a forced-colours fallback.
+- **Type:** a **wider, more luxurious display face on trial** (2026-10-05): every C2 board has a *Display face*
+  Tweak — **Anybody** at an expanded width (128) by default, with Archivo Expanded, Unbounded and the earlier Bricolage
+  Grotesque to compare, all light (300) and all SIL OFL. Wide faces are set smaller (×0.76–0.8) with looser tracking so
+  headlines don't wrap badly. Figtree for body, Spline Sans Mono for uppercase micro-labels tracked wide. Chrome
+  lettering (gradient-clipped text) for the display wordmark only, with a forced-colours fallback.
 - **Shape:** pills for buttons, tags and toasts; radii 8 / 12 / 20 / 28 px; 1 px hairlines replace Chroma's 2 px
   borders.
 - **Space and density:** balanced, a little airier than Chroma.
@@ -255,13 +259,19 @@ palette towards a subdued, futuristic, prismatic neon, and see where it leads.
   → mint → aqua → azure) where it meets the lower edge of chrome; buttons as thicker glass with light pooling at their
   base; liquid-metal icon tiles and avatars (pearl in light, graphite in dark); satin folds behind heroes; a glass
   prism and a glass orb as hero objects; warm-to-cool diffuse ambient light. Colour appears as light, never as paint.
-- **Icons:** Phosphor (MIT), light or regular weight to match the hairlines (to confirm); feature icons sit in metal
-  tiles with chrome-gradient strokes.
+- **Icons:** Phosphor (MIT), **regular weight** (decided 2026-10-05); feature icons sit in metal tiles with
+  chrome-gradient strokes.
 - **Composed screens:** the focus moved from commerce to **portfolio and editorial sites** — a block library, a
   portfolio home page and a journal article (fluid boards that reflow to one column). The checkout stays as the forms
   example.
-- **Open questions:** a more extended display face if light Bricolage isn't luxurious enough; whether dark is the
-  default scheme (the composed screen opens in dark); how far to push Display P3 for the neon.
+- **Decided 2026-10-05:** multi-tone small controls; dark as the primary scheme; Phosphor regular. **Open:** which
+  display face wins the trial — then the look is locked in ADR-0009.
+
+#### Future exploration
+
+- **Neon spectrum.** Push the prism further into wide-gamut neon (Display P3) inside `@media (color-gamut: p3)`, with
+  sRGB fallbacks and contrast checked in both. Parked by the user on 2026-10-05 — not needed yet. (Also a sticky on
+  the canvas.)
 
 ## 8. How we'll judge
 
@@ -290,8 +300,8 @@ Score each direction 1–5:
 ## Appendix — seeded palettes and contrast matrices
 
 Generated 2026-10-05 by a dependency-free script (OKLCH → sRGB → WCAG 2.x ratio; APCA Lc in brackets, advisory).
-Values shown are after sRGB gamut mapping. All 288 palette pairs pass (4 palettes × light and dark × 36), and all 72
-Chroma Luminous prism, chrome, glass, glass-button, satin and metal rules pass.
+Values shown are after sRGB gamut mapping. All 288 palette pairs pass (4 palettes × light and dark × 36), and all 76
+Chroma Luminous prism, chrome, glass, glass-button, multi-tone, satin and metal rules pass.
 
 <details>
 <summary><strong>A. Loom</strong> — values and contrast (light · dark)</summary>
@@ -524,12 +534,12 @@ Chroma Luminous prism, chrome, glass, glass-button, satin and metal rules pass.
 | `fg-muted` | `oklch(0.455 0.03 285)` #555567 | `oklch(0.78 0.02 290)` #b7b5c4 |
 | `border-subtle` | `oklch(0.895 0.012 285)` #dbdbe4 | `oklch(0.31 0.022 285)` #2f2f3b |
 | `border-strong` | `oklch(0.56 0.016 275)` #71747e | `oklch(0.64 0.016 275)` #898c96 |
-| `bg-accent` | `oklch(0.5 0.19 318)` #8e32a7 | `oklch(0.8 0.115 312)` #d7a8f4 |
-| `bg-accent-hover` | `oklch(0.5 0.19 318)` #8e32a7 | `oklch(0.8 0.115 312)` #d7a8f4 |
-| `bg-accent-active` | `oklch(0.44 0.18 318)` #792291 | `oklch(0.86 0.09 312)` #e5c0fc |
+| `bg-accent` | `oklch(0.82 0.1 318)` #e0b0ee | `oklch(0.5 0.13 318)` #814893 |
+| `bg-accent-hover` | `oklch(0.79 0.1 318)` #d6a6e4 | `oklch(0.53 0.13 318)` #8a509c |
+| `bg-accent-active` | `oklch(0.76 0.1 318)` #cc9ddb | `oklch(0.46 0.13 318)` #753c86 |
 | `bg-accent-subtle` | `oklch(0.94 0.035 310)` #f2e5fd | `oklch(0.3 0.07 305)` #36244a |
 | `fg-accent` | `oklch(0.48 0.19 312)` #802fa9 | `oklch(0.82 0.11 312)` #dcaff8 |
-| `fg-on-accent` | `oklch(0.99 0.004 290)` #fcfbfe | `oklch(0.17 0.03 290)` #0f0d1c |
+| `fg-on-accent` | `oklch(0.215 0.03 285)` #181727 | `oklch(0.955 0.008 290)` #f0eff5 |
 | `focus-ring` | `oklch(0.46 0.2 285)` #5437c0 | `oklch(0.86 0.13 195)` #4aebeb |
 | `bg-critical` | `oklch(0.52 0.19 18)` #bd1f3d | `oklch(0.74 0.14 18)` #f68389 |
 | `fg-on-critical` | `oklch(0.99 0.004 290)` #fcfbfe | `oklch(0.17 0.03 18)` #1b0a0a |
@@ -560,9 +570,9 @@ Chroma Luminous prism, chrome, glass, glass-button, satin and metal rules pass.
 | `fg-accent` on `bg-canvas` | 4.5:1 | 6.80 (Lc 80) | 10.79 (Lc 69) |
 | `fg-accent` on `bg-surface` | 4.5:1 | 7.10 (Lc 83) | 10.11 (Lc 68) |
 | `fg-accent` on `bg-accent-subtle` | 4.5:1 | 6.02 (Lc 72) | 7.71 (Lc 65) |
-| `fg-on-accent` on `bg-accent` | 4.5:1 | 6.47 (Lc 85) | 9.85 (Lc 66) |
-| `fg-on-accent` on `bg-accent-hover` | 4.5:1 | 6.47 (Lc 85) | 9.85 (Lc 66) |
-| `fg-on-accent` on `bg-accent-active` | 4.5:1 | 8.34 (Lc 91) | 12.17 (Lc 77) |
+| `fg-on-accent` on `bg-accent` | 4.5:1 | 9.71 (Lc 69) | 5.62 (Lc 77) |
+| `fg-on-accent` on `bg-accent-hover` | 4.5:1 | 8.76 (Lc 63) | 4.94 (Lc 73) |
+| `fg-on-accent` on `bg-accent-active` | 4.5:1 | 7.88 (Lc 58) | 6.68 (Lc 81) |
 | `border-strong` on `bg-canvas` | 3:1 | 4.37 (Lc 68) | 5.81 (Lc 40) |
 | `border-strong` on `bg-surface` | 3:1 | 4.57 (Lc 71) | 5.44 (Lc 40) |
 | `focus-ring` on `bg-canvas` | 3:1 | 7.31 (Lc 82) | 13.43 (Lc 82) |
@@ -592,8 +602,9 @@ Worst case over every backdrop (white, black, canvas, surface, inverse, text, pr
 
 | Rule | Min | Light | Dark |
 | --- | --- | --- | --- |
-| fg-on-accent on prism fill (rest + hover) | 4.5:1 | 5.84 | 9.67 |
-| fg-on-accent on prism fill (active) | 4.5:1 | 7.56 | 11.95 |
+| fg-on-accent on multi-tone fill (marks, step numbers) | 4.5:1 | 9.65 | 5.01 |
+| fg-on-accent on multi-tone fill (active) | 4.5:1 | 8.11 | 5.97 |
+| switch bead (on) vs multi-tone track | 3:1 | 7.50 | 4.94 |
 | chrome boundary on canvas/surfaces | 3:1 | 4.04 | 4.96 |
 | fg-default on neutral button sheen | 7:1 | 15.54 | 13.05 |
 | chrome boundary vs neutral button outside (canvas) | 3:1 | 4.36 | 5.80 |
@@ -623,6 +634,7 @@ Worst case over every backdrop (white, black, canvas, surface, inverse, text, pr
 | fg-muted on disabled glass button (advisory) | 3:1 | 5.67 | 4.21 |
 | fg-accent on quiet button hover (neutral glass) | 4.5:1 | 5.61 | 4.66 |
 | fg-critical ring vs canvas and glass | 3:1 | 4.54 | 5.39 |
+| multi-tone ring (selected, on) as a boundary | 3:1 | 3.31 | 5.61 |
 | dispersion band of the chrome boundary | 3:1 | 3.25 | 5.34 |
 | fg-default on satin | 7:1 | 13.24 | 9.53 |
 | fg-muted on satin | 4.5:1 | 5.52 | 5.41 |

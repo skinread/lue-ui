@@ -149,13 +149,15 @@ predictable:
 | Axis | Values | How it's set | Scope |
 | --- | --- | --- | --- |
 | Brand | `default` (+ future brands) | `[data-brand="…"]` | Any subtree |
-| Scheme | `light`, `dark` | `[data-scheme]`; otherwise `prefers-color-scheme`; always sets `color-scheme` | Any subtree ("scheme islands") |
+| Scheme | `dark` (primary), `light` | `[data-scheme]`; otherwise `prefers-color-scheme`; always sets `color-scheme` | Any subtree ("scheme islands") |
 | Contrast | `standard`, `more` | `[data-contrast]` on the root; otherwise `prefers-contrast: more` | Root |
 | Density | `compact`, `default`, `comfortable` | `[data-density]` → `--lue-density` 0.75 / 1 / 1.25 | Any subtree |
 | Motion | `standard`, `reduced` | `prefers-reduced-motion` | Root |
 
 The generator emits the cross-product of brand × scheme × contrast for colour (four colour contexts per brand),
-**writing only the tokens that differ** in each block.
+**writing only the tokens that differ** in each block. **Dark is Lue UI's primary scheme** (2026-10-05): `:root` carries
+dark values and light applies under `prefers-color-scheme: light` or `[data-scheme="light"]`, so the user's OS
+preference still wins. Design tools list dark first. (The example below shows the general shape.)
 
 ```css
 @layer lue.tokens {
@@ -241,7 +243,7 @@ Rendered as `outline` on `:focus-visible` (an optional halo uses `box-shadow` an
 | `tokens.css` | `@layer lue.tokens` blocks per context, literal values | Everyone |
 | `tokens.js` + `.d.ts` | Token names → `var(--lue-…)` strings, plus resolved values per context | TypeScript, React adapters, tests |
 | `tailwind.css` | `@theme inline { --color-surface: var(--lue-color-bg-surface); … }` | Tailwind v4 users (utilities follow subtree theming because they reference our variables) |
-| `claude-design/tokens.json` | **List shape**: `color.themes` = `light`, `dark`, `light-more`, `dark-more` (primary first); each token `{ name, value: { light, dark, … }, usage }` with literal `oklch()` values; `type.groups` with px/rem sizes at a reference width (fluid range noted in usage); `spacing`, `radius`, `shadow` as `{ tokens: [...] }` | The Claude Design system |
+| `claude-design/tokens.json` | **List shape**: `color.themes` = `dark`, `light`, `dark-more`, `light-more` (primary first); each token `{ name, value: { light, dark, … }, usage }` with literal `oklch()` values; `type.groups` with px/rem sizes at a reference width (fluid range noted in usage); `spacing`, `radius`, `shadow` as `{ tokens: [...] }` | The Claude Design system |
 | `figma/*.tokens.json` | DTCG, one mode per context | Figma variables |
 
 Claude Design token names flatten our names (`color-bg-canvas`), stay within `[A-Za-z0-9][A-Za-z0-9_.-]{0,63}` and
