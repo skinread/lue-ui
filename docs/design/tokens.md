@@ -3,7 +3,7 @@
 > **Status:** Draft v0.1 · Phase 1 · 2026-10-05
 > **Decision:** [ADR-0003](../architecture/adr/0003-dtcg-tokens-with-terrazzo.md) · **Architecture:**
 > [RFC-0001 §3](../architecture/rfc-0001-architecture.md#3-tokens-and-theming)
-> Names use the placeholder prefix `ns`. Values are chosen in Claude Design (Pass 2); this page fixes the *structure*.
+> Names use the prefix `lue` ([ADR-0008](../architecture/adr/0008-name-lue-ui.md)). Values are chosen in Claude Design (Pass 2); this page fixes the *structure*.
 
 ## Rules that shape everything below
 
@@ -45,7 +45,7 @@ A token in the source:
         "$value": { "colorSpace": "oklch", "components": [0.24, 0.012, 250] },
         "$description": "Body text and icons on canvas and surface.",
         "$extensions": {
-          "ns": { "pairs": [{ "on": "{color.bg.canvas}", "min": 7 }, { "on": "{color.bg.surface}", "min": 7 }] }
+          "lue": { "pairs": [{ "on": "{color.bg.canvas}", "min": 7 }, { "on": "{color.bg.surface}", "min": 7 }] }
         }
       }
     }
@@ -58,13 +58,13 @@ A token in the source:
 | Tier | Example | Public? | Purpose |
 | --- | --- | --- | --- |
 | Primitive | `color.neutral.24`, `dimension.4` | No (JSON/TS only) | The palette and raw scales a theme draws from |
-| Semantic | `--ns-color-fg-default` | **Yes — the CSS API** | Meaning: what a value is *for* |
-| Component | `--ns-button-radius` | Yes, few | Documented knobs for one component, defaulting to semantic tokens |
+| Semantic | `--lue-color-fg-default` | **Yes — the CSS API** | Meaning: what a value is *for* |
+| Component | `--lue-button-radius` | Yes, few | Documented knobs for one component, defaulting to semantic tokens |
 
 ## Naming
 
 ```
---ns-{category}-{property}-{role}[-{emphasis}][-{state}]
+--lue-{category}-{property}-{role}[-{emphasis}][-{state}]
 ```
 
 | Slot | Values |
@@ -75,7 +75,7 @@ A token in the source:
 | emphasis | `subtle`, *(default)*, `strong` |
 | state | `hover`, `active`, `selected`, `disabled` |
 
-Component knobs: `--ns-{component}-{property}[-{variant}]`, e.g. `--ns-button-radius`, `--ns-dialog-max-inline-size`.
+Component knobs: `--lue-{component}-{property}[-{variant}]`, e.g. `--lue-button-radius`, `--lue-dialog-max-inline-size`.
 
 ## Colour
 
@@ -151,24 +151,24 @@ predictable:
 | Brand | `default` (+ future brands) | `[data-brand="…"]` | Any subtree |
 | Scheme | `light`, `dark` | `[data-scheme]`; otherwise `prefers-color-scheme`; always sets `color-scheme` | Any subtree ("scheme islands") |
 | Contrast | `standard`, `more` | `[data-contrast]` on the root; otherwise `prefers-contrast: more` | Root |
-| Density | `compact`, `default`, `comfortable` | `[data-density]` → `--ns-density` 0.75 / 1 / 1.25 | Any subtree |
+| Density | `compact`, `default`, `comfortable` | `[data-density]` → `--lue-density` 0.75 / 1 / 1.25 | Any subtree |
 | Motion | `standard`, `reduced` | `prefers-reduced-motion` | Root |
 
 The generator emits the cross-product of brand × scheme × contrast for colour (four colour contexts per brand),
 **writing only the tokens that differ** in each block.
 
 ```css
-@layer ns.tokens {
-  :root, [data-scheme="light"] { color-scheme: light; --ns-color-fg-default: oklch(0.24 0.012 250); /* … */ }
-  [data-scheme="dark"] { color-scheme: dark; --ns-color-fg-default: oklch(0.93 0.008 250); /* … */ }
+@layer lue.tokens {
+  :root, [data-scheme="light"] { color-scheme: light; --lue-color-fg-default: oklch(0.24 0.012 250); /* … */ }
+  [data-scheme="dark"] { color-scheme: dark; --lue-color-fg-default: oklch(0.93 0.008 250); /* … */ }
   @media (prefers-color-scheme: dark) {
     :root:not([data-scheme]) { color-scheme: dark; /* dark values */ }
   }
   :root[data-contrast="more"] { /* light-more values */ }
   :root[data-contrast="more"] [data-scheme="dark"], :root[data-contrast="more"][data-scheme="dark"] { /* dark-more */ }
   @media (prefers-contrast: more) { :root:not([data-contrast]) { /* light-more values */ } /* … */ }
-  [data-density="compact"] { --ns-density: 0.75; }
-  [data-density="comfortable"] { --ns-density: 1.25; }
+  [data-density="compact"] { --lue-density: 0.75; }
+  [data-density="comfortable"] { --lue-density: 1.25; }
 }
 ```
 
@@ -178,49 +178,49 @@ The generator emits the cross-product of brand × scheme × contrast for colour 
   `3xs · 2xs · xs · s · m · l · xl · 2xl · 3xl` — multiples 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6 of the base step.
 - **One-up pairs** (`s-m`, `m-l`, …) interpolate between neighbouring steps for gaps that should grow with space.
 - **Density** multiplies a component's *internal* padding and gaps only:
-  `padding-block: calc(var(--ns-space-xs) * var(--ns-density));`. It never scales type and never shrinks a target
+  `padding-block: calc(var(--lue-space-xs) * var(--lue-density));`. It never scales type and never shrinks a target
   below the minimum.
-- `--ns-density` is registered as `<number>` (inherits, initial `1`) so a bad value falls back safely.
+- `--lue-density` is registered as `<number>` (inherits, initial `1`) so a bad value falls back safely.
 
 ## Size and targets
 
 | Token | Value | Rule |
 | --- | --- | --- |
-| `--ns-size-target-min` | `24px`; `44px` under `(any-pointer: coarse)` | Every interactive element: `min-block-size` and `min-inline-size` ≥ this |
-| `--ns-size-control-sm/md/lg` | chosen in Claude Design | Control heights, always `max()`-ed with the target minimum |
-| `--ns-size-icon-sm/md/lg` | in `cap`/`em` units | Icons scale with the text they sit beside |
+| `--lue-size-target-min` | `24px`; `44px` under `(any-pointer: coarse)` | Every interactive element: `min-block-size` and `min-inline-size` ≥ this |
+| `--lue-size-control-sm/md/lg` | chosen in Claude Design | Control heights, always `max()`-ed with the target minimum |
+| `--lue-size-icon-sm/md/lg` | in `cap`/`em` units | Icons scale with the text they sit beside |
 
 ## Typography
 
 - **Fonts:** open-licensed (SIL OFL) variable fonts, self-hosted as subset `woff2`. Fallback stacks use metric
   overrides (`size-adjust`, `ascent-override`) and `font-size-adjust` to avoid layout shift.
-- **Families:** `--ns-font-family-body`, `--ns-font-family-display`, `--ns-font-family-mono`.
+- **Families:** `--lue-font-family-body`, `--lue-font-family-display`, `--lue-font-family-mono`.
 - **Fluid type scale:** steps `-2 … 5`, body at step `0` with a **minimum of 1rem (16px)**; sizes are
   `clamp(min-rem, rem + viewport term, max-rem)` at page level and may use `cqi` inside components.
 - **Line height:** body ≥ 1.5; headings 1.1–1.25; expressed unitless.
-- **Measure:** `--ns-measure: 66ch` for running text.
+- **Measure:** `--lue-measure: 66ch` for running text.
 - **Text styles** are DTCG composite `typography` tokens: `display`, `heading-1…4`, `body`, `body-sm`, `label`,
-  `caption`, `code`. `base.css` applies them to elements; `.ns-text-{style}` classes live in the utilities layer.
+  `caption`, `code`. `base.css` applies them to elements; `.lue-text-{style}` classes live in the utilities layer.
 - `text-wrap: balance` on headings; `text-wrap: pretty` and `text-box` trim as progressive enhancement.
 
 ## Radius, border and elevation
 
-- **Radius:** `--ns-radius-{none, xs, s, m, l, full}` plus component knobs (`--ns-button-radius`).
-- **Border width:** `--ns-border-width-thin` (1px), `--ns-border-width-thick` (2px).
-- **Elevation:** `--ns-shadow-{raised, overlay}`, defined per scheme (dark schemes lean on surface lightness rather
+- **Radius:** `--lue-radius-{none, xs, s, m, l, full}` plus component knobs (`--lue-button-radius`).
+- **Border width:** `--lue-border-width-thin` (1px), `--lue-border-width-thick` (2px).
+- **Elevation:** `--lue-shadow-{raised, overlay}`, defined per scheme (dark schemes lean on surface lightness rather
   than shadow). Every elevated component also has a **transparent border** so it keeps an edge in forced colours.
-- **No z-index scale.** Overlays use the top layer; the only stacking token is `--ns-layer-sticky` for sticky page
+- **No z-index scale.** Overlays use the top layer; the only stacking token is `--lue-layer-sticky` for sticky page
   furniture.
 
 ## Motion
 
 | Token | Default | Under `prefers-reduced-motion: reduce` |
 | --- | --- | --- |
-| `--ns-motion-duration-fast` | ~120 ms | `0s` |
-| `--ns-motion-duration-moderate` | ~200 ms | `0s` |
-| `--ns-motion-duration-slow` | ~320 ms | `0s` |
-| `--ns-motion-ease-standard`, `-enter`, `-exit` | cubic-bezier curves | unchanged |
-| `--ns-motion-ease-spring` | `linear()` spring | unchanged |
+| `--lue-motion-duration-fast` | ~120 ms | `0s` |
+| `--lue-motion-duration-moderate` | ~200 ms | `0s` |
+| `--lue-motion-duration-slow` | ~320 ms | `0s` |
+| `--lue-motion-ease-standard`, `-enter`, `-exit` | cubic-bezier curves | unchanged |
+| `--lue-motion-ease-spring` | `linear()` spring | unchanged |
 
 Transforms used for motion are removed under reduced motion. Exact values are chosen with the visual direction.
 
@@ -228,9 +228,9 @@ Transforms used for motion are removed under reduced motion. Exact values are ch
 
 | Token | Value |
 | --- | --- |
-| `--ns-focus-width` | `2px` (minimum; may be larger) |
-| `--ns-focus-offset` | `2px` |
-| `--ns-color-focus-ring` | per context, ≥ 3:1 against every background it can sit on |
+| `--lue-focus-width` | `2px` (minimum; may be larger) |
+| `--lue-focus-offset` | `2px` |
+| `--lue-color-focus-ring` | per context, ≥ 3:1 against every background it can sit on |
 
 Rendered as `outline` on `:focus-visible` (an optional halo uses `box-shadow` and is dropped in forced colours).
 
@@ -238,9 +238,9 @@ Rendered as `outline` on `:focus-visible` (an optional halo uses `box-shadow` an
 
 | Output | Shape | Consumer |
 | --- | --- | --- |
-| `tokens.css` | `@layer ns.tokens` blocks per context, literal values | Everyone |
-| `tokens.js` + `.d.ts` | Token names → `var(--ns-…)` strings, plus resolved values per context | TypeScript, React adapters, tests |
-| `tailwind.css` | `@theme inline { --color-surface: var(--ns-color-bg-surface); … }` | Tailwind v4 users (utilities follow subtree theming because they reference our variables) |
+| `tokens.css` | `@layer lue.tokens` blocks per context, literal values | Everyone |
+| `tokens.js` + `.d.ts` | Token names → `var(--lue-…)` strings, plus resolved values per context | TypeScript, React adapters, tests |
+| `tailwind.css` | `@theme inline { --color-surface: var(--lue-color-bg-surface); … }` | Tailwind v4 users (utilities follow subtree theming because they reference our variables) |
 | `claude-design/tokens.json` | **List shape**: `color.themes` = `light`, `dark`, `light-more`, `dark-more` (primary first); each token `{ name, value: { light, dark, … }, usage }` with literal `oklch()` values; `type.groups` with px/rem sizes at a reference width (fluid range noted in usage); `spacing`, `radius`, `shadow` as `{ tokens: [...] }` | The Claude Design system |
 | `figma/*.tokens.json` | DTCG, one mode per context | Figma variables |
 

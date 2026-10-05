@@ -1,6 +1,6 @@
-# AGENTS guide for never-ui
+# AGENTS guide for Lue UI
 
-`never-ui` (working title) is an open-source, platform-native, accessibility-first design system. This file is the
+Lue UI is an open-source, platform-native, accessibility-first design system. This file is the
 primary reference for agents working in this repo.
 
 > **Starting a new session? Read [HANDOVER.md](HANDOVER.md) first** — current state, decisions, what's waiting on the
@@ -14,9 +14,9 @@ primary reference for agents working in this repo.
   see its [README](tools/directions/README.md).
 - Don't scaffold packages, add `package.json` files or install tooling until Pass 3 begins
   ([RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-pass-3)).
-- **Private, never published (user's rule, 2026-10-05).** Keep the design system private: Claude Design artifacts stay
-  private and are never shared or published to an organisation; no public remote, no npm publishing, no public name
-  claims. Ask before anything that would make it visible to others.
+- **The Claude Design files stay private (user's rule, 2026-10-05).** The canvas and the Claude Design System are never
+  shared within the organisation or made public. The library itself is open source and will be published to npm and
+  GitHub — but creating orgs, pushing and publishing are outward-facing, so ask first.
 - **Git:** work directly on `develop`, no feature branches. Commit as you go, in logical units with conventional
   messages (`docs:`, `feat(tools):`, `chore:`). `main` holds only the initial commit. There's no remote; don't push
   unless asked.
@@ -47,7 +47,7 @@ Full map: [docs/README.md](docs/README.md).
   lowest rung that meets the accessibility contract.
 - **Core = Baseline newly available** (Chrome, Firefox, Safari). Newer features only behind `@supports` or feature
   detection, with an accessible fallback. Never put non-Baseline functions or `light-dark()` inside custom properties.
-- **CSS:** everything in `@layer ns`; specificity capped at one class (qualifiers in `:where()`); variants as
+- **CSS:** everything in `@layer lue`; specificity capped at one class (qualifiers in `:where()`); variants as
   `data-*` attributes; state only from native pseudo-classes and ARIA; logical properties only; no `!important`
   except `[hidden]`.
 - **No Shadow DOM for core components, no portals, no runtime CSS-in-JS, no Tailwind/DaisyUI in the core.**
@@ -57,10 +57,11 @@ Full map: [docs/README.md](docs/README.md).
   ([ADR-0005](docs/architecture/adr/0005-three-engine-testing-and-a11y-gates.md)).
 - **Fonts and icons** must be open-licensed (OFL, MIT, ISC) and self-hostable.
 
-## Placeholders
+## Name and identifiers
 
-`never-ui`, the CSS prefix `ns`, the npm scope `@ns/*` and the global `NS` are placeholders until a name is chosen
-([naming](docs/foundations/naming.md)).
+**Lue UI** ([ADR-0008](docs/architecture/adr/0008-name-lue-ui.md)): CSS prefix `lue`, slug `lue-ui`, npm scope `@lue-ui/*`
+(provisional — fallback `@lueui/*`), global `LueUI`. The local folder is still `never-ui`, and the canvas mockups'
+internal classes still use `ns-`; both are fine.
 
 ## Tooling (from Pass 3)
 

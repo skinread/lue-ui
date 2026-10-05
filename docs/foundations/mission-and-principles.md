@@ -1,8 +1,8 @@
 # Mission, values and principles
 
 > **Status:** Draft v0.1 · Phase 1 (foundations) · 2026-10-05
-> **Name:** `never-ui` is a placeholder until a final name is chosen — see [naming](./naming.md). The CSS prefix
-> `ns` used across these docs is a placeholder too.
+> **Name:** Lue UI, from the French *lueur* — a glimmer of light ([ADR-0008](../architecture/adr/0008-name-lue-ui.md)).
+> The CSS prefix is `lue`.
 
 Every later decision in this project — tokens, components, APIs, tooling, visual design — must trace back to
 something on this page. If a decision can't, either the decision is wrong or this page is incomplete, and we fix

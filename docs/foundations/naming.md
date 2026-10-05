@@ -1,9 +1,27 @@
 # Naming
 
-> **Status:** Round 3 riff for reaction · 2026-10-05 · rounds 1 and 2 didn't land
-> **The project is private and never published** (user's rule, 2026-10-05), so registry availability below is
-> information, not a requirement — unless the user says otherwise. Clashes with well-known names still matter.
-> `never-ui` is a working title. This page proposes replacements and records what is free to claim.
+> **Status:** Decided · 2026-10-05 — **Lue UI** ([ADR-0008](../architecture/adr/0008-name-lue-ui.md))
+> `never-ui` was the working title. This page records how the name was reached and what was free to claim.
+
+## Decision: Lue UI
+
+After three rounds the user found the name themselves while exploring French words: ***lueur***, a glimmer — a faint
+gleam of light — shortened to **Lue UI**. It fits C2 · Chroma Luminous, where colour appears as light caught at an
+edge, and *lue* ("read") is a quiet nod to legibility.
+
+| Use | Value | Checked 2026-10-05 |
+| --- | --- | --- |
+| Slug: repository, unscoped npm package, GitHub organisation | `lue-ui` | npm package free · GitHub free |
+| npm scope | `@lue-ui/*` | **An empty npm user scope `lue-ui` exists** — usable only if that account is ours; fallback `@lueui/*` (free) |
+| CSS prefix | `lue` | — |
+| JavaScript global | `LueUI` | — |
+
+Also checked: `lueur` (npm package, scope and GitHub all taken), `lue` (all taken), `lueui` (npm package and scope
+free; GitHub taken by an empty 2020 account). A web search found no product called "Lue UI"; the nearest names are
+small packages (`@lookwe/lui`, `le-ui`). Trademarks and domains aren't checked yet.
+
+The library will be published to npm and GitHub, so availability matters again. (Only the Claude Design files stay
+private — user's rule, 2026-10-05.)
 
 ## What the name has to do
 
@@ -131,7 +149,10 @@ waymark, plumbline, handhold, openweave, warpweft, weftwise.
 
 ## Once a name is chosen
 
-1. Create the npm organisation and the GitHub organisation; publish placeholder packages so they're held.
-2. Search trademarks (IP Australia, USPTO, EUIPO) and register a domain.
-3. Replace `never-ui` and the `ns` prefix across the docs and the Claude Design system.
-4. Record the decision as an ADR.
+1. ⬜ **Confirm the npm scope** (`@lue-ui` if the existing `lue-ui` npm user is ours, otherwise `@lueui`), then create
+   the npm organisation and the GitHub organisation `lue-ui`, and publish placeholder packages so they're held. *These
+   publish things, so the user does them or approves each step.*
+2. ⬜ Search trademarks (IP Australia, USPTO, EUIPO) and register a domain.
+3. ✅ Replace `never-ui` and the `ns` prefix across the docs (2026-10-05). The Claude Design System will be built with
+   `lue` from the start; the direction canvas's internal mockup classes keep `ns-`.
+4. ✅ Record the decision as an ADR — [ADR-0008](../architecture/adr/0008-name-lue-ui.md).

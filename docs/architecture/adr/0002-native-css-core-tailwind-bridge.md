@@ -17,9 +17,9 @@ customers). Many consumers will still use Tailwind.
 1. **Component CSS is authored as standard CSS** — nesting, `@layer`, custom properties — and published without
    proprietary syntax.
 2. **Lightning CSS bundles and minifies with no targets**, so nothing is lowered or rewritten.
-3. **Tailwind support is a generated bridge:** `@ns/tokens` emits a Tailwind v4 `@theme` file so utilities use the
+3. **Tailwind support is a generated bridge:** `@lue-ui/tokens` emits a Tailwind v4 `@theme` file so utilities use the
    same tokens. Tailwind users import our CSS into their components layer:
-   `@import "@ns/css" layer(components);`
+   `@import "@lue-ui/css" layer(components);`
 4. **No DaisyUI and no tailwind-variants.** React adapters map props to `data-*` attributes directly.
 
 ## Consequences

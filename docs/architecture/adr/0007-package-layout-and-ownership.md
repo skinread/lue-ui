@@ -16,12 +16,12 @@ custom element may upgrade before React hydrates.
 ### Layout
 
 ```
-never-ui/
+lue-ui/
 ├── packages/
-│   ├── tokens/      @ns/tokens    DTCG source + Terrazzo build
-│   ├── css/         @ns/css       component CSS
-│   ├── elements/    @ns/elements  light-DOM elements, controllers, IIFE
-│   └── react/       @ns/react     React 19 adapters
+│   ├── tokens/      @lue-ui/tokens    DTCG source + Terrazzo build
+│   ├── css/         @lue-ui/css       component CSS
+│   ├── elements/    @lue-ui/elements  light-DOM elements, controllers, IIFE
+│   └── react/       @lue-ui/react     React 19 adapters
 ├── apps/
 │   └── docs/        Storybook 10, llms.txt, static previews, contracts
 └── docs/            foundations, architecture, design
@@ -29,19 +29,19 @@ never-ui/
 
 - **pnpm workspace; all packages versioned in lockstep** (Changesets `fixed`).
 - **ESM only.** `types` first in every export condition; per-file builds so `'use client'` directives survive;
-  `sideEffects` declared (`["*.css"]` for `@ns/css`, `false` for `@ns/react`).
+  `sideEffects` declared (`["*.css"]` for `@lue-ui/css`, `false` for `@lue-ui/react`).
 
 ```jsonc
-// @ns/react
+// @lue-ui/react
 { ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
   "./*": { "types": "./dist/*/index.d.ts", "default": "./dist/*/index.js" } }
-// @ns/css
-{ ".": { "style": "./dist/ns.css", "default": "./dist/ns.css" },
+// @lue-ui/css
+{ ".": { "style": "./dist/lue.css", "default": "./dist/lue.css" },
   "./reset.css": "./dist/reset.css", "./base.css": "./dist/base.css",
   "./components/*.css": "./dist/components/*.css" }
-// @ns/elements
+// @lue-ui/elements
 { ".": "./dist/index.js", "./define": "./dist/define.js",
-  "./define/*": "./dist/define/*.js", "./ns.iife.js": "./dist/ns.iife.js" }
+  "./define/*": "./dist/define/*.js", "./lue.iife.js": "./dist/lue.iife.js" }
 ```
 
 ### Ownership rules (elements ↔ frameworks)
@@ -49,7 +49,7 @@ never-ui/
 1. Elements **never insert, move or remove nodes** inside framework-rendered subtrees.
 2. **No DOM writes in the constructor or `connectedCallback`** — listeners and ElementInternals only.
 3. **Every attribute an element owns is declared in its contract;** frameworks render its initial value only.
-4. **DOM-changing behaviours act only on opt-in `data-ns-*` markup.** Adapters never emit those attributes; they
+4. **DOM-changing behaviours act only on opt-in `data-lue-*` markup.** Adapters never emit those attributes; they
    implement the behaviour with state, reusing the element's pure controller.
 5. **Inputs are string attributes; outputs are native events.**
 6. **Connect/disconnect is idempotent** (`AbortController` per connection).

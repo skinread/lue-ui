@@ -7,7 +7,7 @@ Read in this order the first time; every later document traces back to the first
 | Document | What it settles |
 | --- | --- |
 | [Mission, values and principles](foundations/mission-and-principles.md) | Mission, vision, values, the 11 principles, trade-off order, non-goals, accessibility commitments |
-| [Naming](foundations/naming.md) | The shortlist to replace the `never-ui` working title, with availability |
+| [Naming](foundations/naming.md) | How the name Lue UI was reached: three rounds, availability and clash checks |
 | [Landscape and positioning](foundations/landscape-and-positioning.md) | Library survey, trends, gaps, what we follow and where we lead |
 | [Platform capabilities](foundations/platform-capabilities.md) | The browser capability matrix, support policy, CSS traps and progressive enhancement |
 
@@ -23,6 +23,7 @@ Read in this order the first time; every later document traces back to the first
 | [ADR-0005](architecture/adr/0005-three-engine-testing-and-a11y-gates.md) | Three-engine testing and failing accessibility gates |
 | [ADR-0006](architecture/adr/0006-licence-and-governance.md) | MIT licence and open governance |
 | [ADR-0007](architecture/adr/0007-package-layout-and-ownership.md) | Package layout, versioning, element ↔ framework ownership |
+| [ADR-0008](architecture/adr/0008-name-lue-ui.md) | The name Lue UI and its identifiers (`lue`, `lue-ui`, `@lue-ui/*`, `LueUI`) |
 
 ## Design — what
 
@@ -38,4 +39,5 @@ Read in this order the first time; every later document traces back to the first
 - Every platform claim links a source and states when it was checked.
 - Significant changes start as an RFC; accepted decisions become ADRs (context, decision, consequences, alternatives,
   principles served).
-- `never-ui`, the `ns` prefix and the `@ns/*` scope are placeholders until a name is chosen.
+- The system is **Lue UI** ([ADR-0008](architecture/adr/0008-name-lue-ui.md)): prefix `lue`, slug `lue-ui`, scope
+  `@lue-ui/*` (provisional), global `LueUI`.

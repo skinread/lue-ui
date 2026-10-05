@@ -1,14 +1,14 @@
 # Component inventory and contracts
 
 > **Status:** Draft v0.1 · Phase 1 · 2026-10-05
-> Placeholder prefix `ns`. Visual design comes from Claude Design; this page fixes **semantics, behaviour and
+> Prefix `lue` ([ADR-0008](../architecture/adr/0008-name-lue-ui.md)). Visual design comes from Claude Design; this page fixes **semantics, behaviour and
 > platform strategy** for every component.
 
 ## How to read the inventory
 
 - **Primitive** — the native element or attribute the component is built on.
 - **Pattern** — the WAI-ARIA Authoring Practices pattern it follows ("—" when native semantics are the whole story).
-- **JS** — `none` (works with HTML + CSS alone), `opt-in` (a delegated `data-ns-*` behaviour for the HTML path; React
+- **JS** — `none` (works with HTML + CSS alone), `opt-in` (a delegated `data-lue-*` behaviour for the HTML path; React
   uses state), `element` (a light-DOM custom element), `polyfill` (conditional, per ADR-0004).
 - **Depends on / fallback** — the Baseline features it relies on, and what happens without anything newer.
 
@@ -21,8 +21,8 @@ on Safari older than 26.2), 2 use an opt-in behaviour, and 2 use a custom elemen
 | --- | --- |
 | Tokens | [Token specification](./tokens.md) |
 | Reset and base | Opt-in `reset.css` / `base.css`: element typography, links, `:focus-visible`, `::selection`, `[hidden]`, `scroll-padding` for sticky UI (WCAG 2.4.11) |
-| Visually hidden | `.ns-visually-hidden` (and a focusable variant for skip links) |
-| Skip link | `<a class="ns-skip-link" href="#main">` — first focusable element |
+| Visually hidden | `.lue-visually-hidden` (and a focusable variant for skip links) |
+| Skip link | `<a class="lue-skip-link" href="#main">` — first focusable element |
 | Icon | Inline SVG, `aria-hidden="true"` by default, `currentColor`, sized in `cap`/`em`; direction-implying icons carry `data-mirror` |
 | Layout primitives | CSS-only, container-query aware: Stack, Cluster, Grid, Sidebar, Switcher, Center |
 
@@ -31,7 +31,7 @@ on Safari older than 26.2), 2 use an opt-in behaviour, and 2 use a custom elemen
 | Component | Primitive | Pattern | JS | Depends on / fallback |
 | --- | --- | --- | --- | --- |
 | Button | `<button type="button">` | Button | none | — |
-| Toggle button | `<button aria-pressed>` | Button (toggle) | opt-in `data-ns-toggle` | — |
+| Toggle button | `<button aria-pressed>` | Button (toggle) | opt-in `data-lue-toggle` | — |
 | Link | `<a href>` | — | none | — |
 | Field | `<label>`, hint `<p>`, error `<p>`, `aria-describedby`, `aria-invalid` | — | none | Errors rendered by the server work without JS |
 | Text input | `<input>` (correct `type`, `autocomplete`, `inputmode`) | — | none | `:user-invalid`; `field-sizing` where useful |
@@ -40,16 +40,16 @@ on Safari older than 26.2), 2 use an opt-in behaviour, and 2 use a custom elemen
 | Radio group | `<fieldset>` + `<legend>` + `<input type="radio">` | Radio group (native arrow keys) | none | — |
 | Switch | `<input type="checkbox" role="switch">` | Switch | none | Safari's `switch` attribute as PE |
 | Select | `<select>` | — (native) | none | `appearance: base-select` as PE → styled native select |
-| Form validation + error summary | Constraint validation, `<form data-ns-validate>` | — | opt-in `data-ns-validate` | Without JS: browser messages + server-rendered summary |
+| Form validation + error summary | Constraint validation, `<form data-lue-validate>` | — | opt-in `data-lue-validate` | Without JS: browser messages + server-rendered summary |
 | Dialog | `<dialog>` + `command="show-modal"` + `closedby="any"`; close with `<form method="dialog">` | Dialog (modal) | none (+ polyfill) | Invokers polyfill on Safari < 26.2; `closedby` fallback in Safari |
 | Drawer | `<dialog>` positioned to an inline/block edge | Dialog (modal) | none (+ polyfill) | As Dialog |
 | Popover | `[popover]` + `popovertarget`, anchor positioning | Disclosure (non-modal) | none | Without anchoring: browser-centred popover |
-| Menu button | `[popover]` with `role="menu"`, anchored | Menu button | element `<ns-menu>` | Keyboard model needs the element; opening works without it |
+| Menu button | `[popover]` with `role="menu"`, anchored | Menu button | element `<lue-menu>` | Keyboard model needs the element; opening works without it |
 | Toggletip | `[popover]` (`hint` as PE) | — (click-to-show help) | none | `popover="hint"` → `manual`/`auto` |
 | Disclosure | `<details>` / `<summary>` | Disclosure | none | `::details-content` animation as PE |
 | Accordion | `<details name>` group | Accordion | none | Exclusive open state is native |
 | Alert / callout | Static `<aside>`, or `role="status"`/`role="alert"` when injected | — | none | — |
-| Toast | `popover="manual"` region | — (status messages, WCAG 4.1.3) | element `<ns-toast-region>` | `ariaNotify()` → live-region fallback |
+| Toast | `popover="manual"` region | — (status messages, WCAG 4.1.3) | element `<lue-toast-region>` | `ariaNotify()` → live-region fallback |
 | Icon | Inline SVG | — | none | — |
 | Layout primitives | CSS | — | none | Container queries |
 
@@ -57,9 +57,9 @@ on Safari older than 26.2), 2 use an opt-in behaviour, and 2 use a custom elemen
 
 | Component | Primitive | Pattern | JS |
 | --- | --- | --- | --- |
-| Tabs | `<ns-tabs>` enhancing buttons + panels | Tabs | element |
-| Toolbar | `role="toolbar"` + `<ns-roving>` | Toolbar | element (deleted when `focusgroup` is Baseline) |
-| Tooltip (hover/focus) | `[popover]` + `data-ns-tooltip` | Tooltip | opt-in (Esc to dismiss, hover persistence — WCAG 1.4.13) |
+| Tabs | `<lue-tabs>` enhancing buttons + panels | Tabs | element |
+| Toolbar | `role="toolbar"` + `<lue-roving>` | Toolbar | element (deleted when `focusgroup` is Baseline) |
+| Tooltip (hover/focus) | `[popover]` + `data-lue-tooltip` | Tooltip | opt-in (Esc to dismiss, hover persistence — WCAG 1.4.13) |
 | Segmented control | Radio group, styled | Radio group | none |
 | Breadcrumb | `<nav aria-label>` + `<ol>` + `aria-current="page"` | Breadcrumb | none |
 | Pagination | `<nav>` + links + `aria-current="page"` | — | none |
@@ -80,13 +80,13 @@ on Safari older than 26.2), 2 use an opt-in behaviour, and 2 use a custom elemen
 
 | Component | Plan |
 | --- | --- |
-| Combobox / autocomplete | `<ns-combobox>` (APG combobox + listbox). Document `<input list>` + `<datalist>` as the simplest option where its limits are acceptable |
+| Combobox / autocomplete | `<lue-combobox>` (APG combobox + listbox). Document `<input list>` + `<datalist>` as the simplest option where its limits are acceptable |
 | Date input | Native `<input type="date">` first; a custom picker only with evidence |
 | Slider | `<input type="range">` styled; single-pointer alternative is inherent (WCAG 2.5.7) |
 | File upload | `<input type="file">` + a drop zone that keeps a keyboard-accessible button |
 | Data table | Sorting and selection on top of the Table component |
 | Navigation menu | Disclosure-navigation pattern (not `role="menu"`) |
-| Tree | `<ns-tree>` (APG tree view) |
+| Tree | `<lue-tree>` (APG tree view) |
 | Steps | `<ol>` + `aria-current="step"` |
 
 ## Content blocks — portfolio and editorial (Pass 2)
@@ -141,10 +141,10 @@ for the first five components, and the final schema is extracted from what those
 ### Example: Button
 
 ```html
-<button type="button" class="ns-button" data-variant="primary">Save</button>
-<button type="button" class="ns-button" aria-pressed="false" data-ns-toggle>Bold</button>
-<button type="button" class="ns-button" data-icon-only aria-label="Close">
-  <svg class="ns-button__icon" aria-hidden="true">…</svg>
+<button type="button" class="lue-button" data-variant="primary">Save</button>
+<button type="button" class="lue-button" aria-pressed="false" data-lue-toggle>Bold</button>
+<button type="button" class="lue-button" data-icon-only aria-label="Close">
+  <svg class="lue-button__icon" aria-hidden="true">…</svg>
 </button>
 ```
 
@@ -155,8 +155,8 @@ for the first five components, and the final schema is extracted from what those
   "rung": "native-element",
   "rungReason": "<button> provides the role, focusability, Enter/Space activation and form participation.",
   "anatomy": {
-    "root": { "element": "button", "class": "ns-button", "attributes": { "type": "button" } },
-    "icon": { "element": "svg", "class": "ns-button__icon", "required": false, "attributes": { "aria-hidden": "true" } }
+    "root": { "element": "button", "class": "lue-button", "attributes": { "type": "button" } },
+    "icon": { "element": "svg", "class": "lue-button__icon", "required": false, "attributes": { "aria-hidden": "true" } }
   },
   "variants": {
     "variant": { "attribute": "data-variant", "values": ["primary", "danger", "quiet"], "default": "neutral (no attribute)" },
@@ -174,11 +174,11 @@ for the first five components, and the final schema is extracted from what those
       { "keys": ["Enter"], "action": "Activate" },
       { "keys": ["Space"], "action": "Activate on release" }
     ],
-    "focus": { "indicator": ":focus-visible outline (--ns-focus-width, --ns-color-focus-ring)" },
-    "targetSize": "max(--ns-size-target-min, --ns-size-control-md)"
+    "focus": { "indicator": ":focus-visible outline (--lue-focus-width, --lue-color-focus-ring)" },
+    "targetSize": "max(--lue-size-target-min, --lue-size-control-md)"
   },
-  "ownedAttributes": { "data-ns-toggle": ["aria-pressed"] },
-  "tokens": ["--ns-color-bg-accent", "--ns-color-fg-on-accent", "--ns-button-radius", "--ns-focus-width"],
+  "ownedAttributes": { "data-lue-toggle": ["aria-pressed"] },
+  "tokens": ["--lue-color-bg-accent", "--lue-color-fg-on-accent", "--lue-button-radius", "--lue-focus-width"],
   "platform": {
     "baseline": ["button", ":focus-visible", ":where()", "@layer"],
     "enhancements": [{ "feature": "text-box", "fallback": "Padding-based optical centring" }]
@@ -191,14 +191,14 @@ for the first five components, and the final schema is extracted from what those
 ### Example: Dialog
 
 ```html
-<button type="button" class="ns-button" commandfor="confirm" command="show-modal">Delete…</button>
+<button type="button" class="lue-button" commandfor="confirm" command="show-modal">Delete…</button>
 
-<dialog id="confirm" class="ns-dialog" closedby="any" aria-labelledby="confirm-title">
-  <h2 id="confirm-title" class="ns-dialog__title">Delete this item?</h2>
-  <p class="ns-dialog__body">You can't undo this.</p>
-  <form method="dialog" class="ns-dialog__actions">
-    <button class="ns-button" value="cancel" autofocus>Cancel</button>
-    <button class="ns-button" data-variant="danger" value="delete">Delete</button>
+<dialog id="confirm" class="lue-dialog" closedby="any" aria-labelledby="confirm-title">
+  <h2 id="confirm-title" class="lue-dialog__title">Delete this item?</h2>
+  <p class="lue-dialog__body">You can't undo this.</p>
+  <form method="dialog" class="lue-dialog__actions">
+    <button class="lue-button" value="cancel" autofocus>Cancel</button>
+    <button class="lue-button" data-variant="danger" value="delete">Delete</button>
   </form>
 </dialog>
 ```
@@ -210,10 +210,10 @@ for the first five components, and the final schema is extracted from what those
   "rung": "native-attribute",
   "rungReason": "<dialog> gives modality, inertness, top layer and Esc; invoker commands open it without script; <form method=\"dialog\"> closes it with a return value.",
   "anatomy": {
-    "root": { "element": "dialog", "class": "ns-dialog", "attributes": { "closedby": "any", "aria-labelledby": "{title id}" } },
-    "title": { "element": "h2", "class": "ns-dialog__title", "required": true },
-    "body": { "element": "div|p", "class": "ns-dialog__body" },
-    "actions": { "element": "form", "class": "ns-dialog__actions", "attributes": { "method": "dialog" } }
+    "root": { "element": "dialog", "class": "lue-dialog", "attributes": { "closedby": "any", "aria-labelledby": "{title id}" } },
+    "title": { "element": "h2", "class": "lue-dialog__title", "required": true },
+    "body": { "element": "div|p", "class": "lue-dialog__body" },
+    "actions": { "element": "form", "class": "lue-dialog__actions", "attributes": { "method": "dialog" } }
   },
   "a11y": {
     "role": "dialog (implicit, modal via showModal)",

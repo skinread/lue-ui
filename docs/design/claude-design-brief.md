@@ -2,7 +2,7 @@
 
 > **Status:** v0.2 · Pass 2 · 2026-10-05 — Chroma chosen and evolving as **C2 · Chroma Luminous** ([§7](#c2-chroma-luminous--luminous--luxurious--prismatic))
 > **For:** Claude Design sessions — first three visual directions, then the chosen direction codified as a Design System.
-> **Art direction:** Sean Kinread. **Working name:** `never-ui` (placeholder; see [naming](../foundations/naming.md)).
+> **Art direction:** Sean Kinread. **Name:** Lue UI ([ADR-0008](../architecture/adr/0008-name-lue-ui.md)).
 
 ## How to use this brief
 

@@ -1,4 +1,4 @@
-# Handover — never-ui, Pass 2 in progress
+# Handover — Lue UI, Pass 2 in progress
 
 > Written 2026-10-05 when Phase 1 closed; updated the same day as Pass 2 began. A fresh session should read this file,
 > then [AGENTS.md](AGENTS.md), then [mission and principles](docs/foundations/mission-and-principles.md).
@@ -14,9 +14,12 @@
 - **Repo:** `/Volumes/Code/never-ui` (the git root). `main` holds only the initial commit (MIT `LICENSE`,
   `.gitignore`, `.gitattributes`); all work happens on **`develop`**, where Phase 1 was committed on 2026-10-05. No
   remote.
-- **Private, never published (user's rule, 2026-10-05):** the design system is always kept private. Artifacts stay
-  private and unshared; nothing is pushed publicly or published to npm. Whether this replaces the open-source plan in
-  the docs (README, [ADR-0006](docs/architecture/adr/0006-licence-and-governance.md)) is waiting on the user.
+- **Name: Lue UI** (2026-10-05, [ADR-0008](docs/architecture/adr/0008-name-lue-ui.md)) — from the French *lueur*, a
+  glimmer. Prefix `lue`, slug `lue-ui`, global `LueUI`, npm scope `@lue-ui/*` (provisional). The docs no longer use
+  `never-ui`/`ns`; the local folder keeps its old name.
+- **The Claude Design files stay private (user's rule, 2026-10-05):** the canvas and the Claude Design System are never
+  shared within the organisation or made public. The library itself is open source (MIT) and will be published to npm
+  and GitHub; design files may be published later, but never through the Claude Design System.
 - **Git workflow (user's decision, 2026-10-05):** commit as you go on `develop`, in logical units. No feature branches.
   Don't push unless asked.
 - **The Claude Design canvas** has two pages: **C2 · Chroma Luminous** (opens first) and **Phase 1 · three
@@ -75,9 +78,8 @@
 
 1. **Reaction to C2 · Chroma Luminous** — what to push, pull back or change. Open questions in the brief: a more
    extended display face, whether dark is the default scheme, how far to push Display P3, the icon weight.
-2. **Name** — round 1 didn't land. [Round 2](docs/foundations/naming.md#round-2--light-prism-and-glass) follows the
-   luminous look: Prismway and Clearprism lead, then Everyhue, Plainlight and Fullhue — all free on npm (package and
-   scope) and GitHub; trademarks and domains aren't checked yet.
+2. **npm scope** — an empty npm user scope `lue-ui` already exists. Is it the user's? If not, use `@lueui/*`. Then the
+   user creates the npm and GitHub organisations (outward-facing; not for an agent to do unasked).
 3. **[ADR-0004](docs/architecture/adr/0004-support-floors.md) inclusion exception** — a ~2 KB conditional invokers
    polyfill plus a `closedby` fallback, so buttons still open dialogs on Safari older than 26.2 (e.g. iOS 18).
 
@@ -95,7 +97,8 @@ Lower-priority open questions are listed at the end of [RFC-0001](docs/architect
    themes.
 4. **Fill the full token set** from [tokens.md](docs/design/tokens.md): type steps −2…5 at 360 px and 1280 px, space
    `3xs`–`3xl`, radius, border, elevation per scheme, motion, focus, sizes.
-5. **Create the Claude Design "Design System" artifact.** Run Artifact `quickstart` with intent `other`, then publish
+5. **Create the Claude Design "Design System" artifact** — private, never shared within the organisation, built with
+   `lue` names. Run Artifact `quickstart` with intent `other`, then publish
    with the Design System `type_url` and a title, and no files. Follow the instructions in the create result, and read
    its reference pages (format, craft, cover, from-code) before writing anything:
    - files live under `project/`;
@@ -107,8 +110,9 @@ Lower-priority open questions are listed at the end of [RFC-0001](docs/architect
    - the `design-system.json` index, written **last**.
 6. **Mirror the values into the repo** as DTCG 2025.10 JSON under `packages/tokens/src/`, using the layout in
    tokens.md. This is JSON only; the Terrazzo build arrives in Pass 3. The contrast matrix must stay green.
-7. **If a name is chosen:** write ADR-0008, replace the `never-ui` / `ns` / `@ns/*` / `NS` placeholders across the docs,
-   and follow "Once a name is chosen" in [naming.md](docs/foundations/naming.md).
+7. ~~Name~~ — done: Lue UI ([ADR-0008](docs/architecture/adr/0008-name-lue-ui.md)). Build the Claude Design System with
+   `lue` names from the start; the remaining steps are in "Once a name is chosen" in
+   [naming.md](docs/foundations/naming.md).
 
 ## Then: Pass 3 — tracer bullet
 

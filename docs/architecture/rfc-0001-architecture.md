@@ -4,8 +4,9 @@
 > **Decisions recorded in:** [ADR-0001](./adr/0001-component-model.md) ·
 > [0002](./adr/0002-native-css-core-tailwind-bridge.md) · [0003](./adr/0003-dtcg-tokens-with-terrazzo.md) ·
 > [0004](./adr/0004-support-floors.md) · [0005](./adr/0005-three-engine-testing-and-a11y-gates.md) ·
-> [0006](./adr/0006-licence-and-governance.md) · [0007](./adr/0007-package-layout-and-ownership.md)
-> **Placeholders:** `ns` (CSS prefix), `@ns/*` (npm scope) and `NS` (global) change when the name is final.
+> [0006](./adr/0006-licence-and-governance.md) · [0007](./adr/0007-package-layout-and-ownership.md) ·
+> [0008](./adr/0008-name-lue-ui.md)
+> **Name:** Lue UI — CSS prefix `lue`, npm scope `@lue-ui/*` (provisional), global `LueUI`.
 
 ## Summary
 
@@ -30,19 +31,19 @@ rich text) in the first releases.
 
 ```
                 ┌──────────────────────────────────────────────────────────────┐
-  DTCG tokens ──►  @ns/tokens  (Terrazzo: resolver → literal values per context)  │
+  DTCG tokens ──►  @lue-ui/tokens  (Terrazzo: resolver → literal values per context)  │
                 └──┬───────────────┬──────────────────┬───────────────┬────────┘
                    │ tokens.css    │ Tailwind @theme   │ Claude Design │ TS consts / Figma DTCG
                    ▼               ▼                   ▼ tokens.json   ▼
                 ┌───────────┐  (optional bridge)   ┌──────────────────────────┐
-                │  @ns/css  │◄─────────────────────┤ Claude Design system      │
+                │  @lue-ui/css  │◄─────────────────────┤ Claude Design system      │
                 │  layers   │   previews = real    │ README · tokens · cards   │
                 └─────┬─────┘   HTML + this CSS    └──────────▲───────────────┘
                       │                                        │ /design-sync
    HTML (any stack) ──┤                                        │
                       ▼                                        │
                 ┌──────────────┐  shared pure     ┌───────────┴──┐
-                │ @ns/elements │◄── controllers ──┤  @ns/react    │ RSC-safe adapters,
+                │ @lue-ui/elements │◄── controllers ──┤  @lue-ui/react    │ RSC-safe adapters,
                 │ light DOM,   │                  │  same markup  │ identical HTML
                 │ ≤ 2 KB each  │                  └──────┬────────┘
                 └──────────────┘                         │
@@ -54,10 +55,10 @@ rich text) in the first releases.
 
 | Package | Role | Ships |
 | --- | --- | --- |
-| `@ns/tokens` | DTCG source + resolver → Terrazzo | `tokens.css`, `tokens.js` + `.d.ts`, `tailwind.css` (`@theme` bridge), `claude-design/tokens.json`, `figma/*.tokens.json` |
-| `@ns/css` | All component CSS | `ns.css` (everything), `reset.css`, `base.css`, `components/*.css` |
-| `@ns/elements` | Light-DOM custom elements + delegated behaviours | ESM per element, `define` entry points, `ns.iife.js` (`window.NS`) |
-| `@ns/react` | React 19 adapters | ESM per component, `types` first |
+| `@lue-ui/tokens` | DTCG source + resolver → Terrazzo | `tokens.css`, `tokens.js` + `.d.ts`, `tailwind.css` (`@theme` bridge), `claude-design/tokens.json`, `figma/*.tokens.json` |
+| `@lue-ui/css` | All component CSS | `lue.css` (everything), `reset.css`, `base.css`, `components/*.css` |
+| `@lue-ui/elements` | Light-DOM custom elements + delegated behaviours | ESM per element, `define` entry points, `lue.iife.js` (`window.LueUI`) |
+| `@lue-ui/react` | React 19 adapters | ESM per component, `types` first |
 | `apps/docs` | Storybook 10 (react-vite) | Docs site, static previews, `llms.txt`, contracts, MCP |
 
 Layout, versioning and ownership rules: [ADR-0007](./adr/0007-package-layout-and-ownership.md).
@@ -67,33 +68,33 @@ Layout, versioning and ownership rules: [ADR-0007](./adr/0007-package-layout-and
 ### Layers
 
 ```css
-@layer ns {
+@layer lue {
   @layer reset, tokens, base, layout, components, utilities;
 }
 ```
 
-- Everything the system ships is inside `@layer ns`, so **any unlayered CSS a consumer writes wins** without
+- Everything the system ships is inside `@layer lue`, so **any unlayered CSS a consumer writes wins** without
   specificity games.
 - `reset.css` and `base.css` are **opt-in** files; `components/*.css` assume only tokens.
 - Tailwind users import into Tailwind's components layer so utilities still win:
-  `@import "@ns/css" layer(components);`
+  `@import "@lue-ui/css" layer(components);`
 
 ### Naming
 
 | Thing | Pattern | Example |
 | --- | --- | --- |
-| Component | `.ns-{component}` | `.ns-button` |
-| Part | `.ns-{component}__{part}` | `.ns-button__icon` |
-| Custom element | `<ns-{name}>` | `<ns-menu>` |
-| Public token | `--ns-{category}-{property}-{role}[-{emphasis}][-{state}]` | `--ns-color-bg-accent-strong-hover` |
+| Component | `.lue-{component}` | `.lue-button` |
+| Part | `.lue-{component}__{part}` | `.lue-button__icon` |
+| Custom element | `<lue-{name}>` | `<lue-menu>` |
+| Public token | `--lue-{category}-{property}-{role}[-{emphasis}][-{state}]` | `--lue-color-bg-accent-strong-hover` |
 | Private knob | `--_{name}` (registered, `inherits: false`) | `--_bg` |
 | Variant | `data-{variant}` on the component element, unprefixed (scoped by the class) | `data-variant="danger"`, `data-size="sm"` |
-| Behaviour opt-in | `data-ns-{behaviour}` | `data-ns-toggle`, `data-ns-validate` |
+| Behaviour opt-in | `data-lue-{behaviour}` | `data-lue-toggle`, `data-lue-validate` |
 
 ### Specificity and order
 
 - **Maximum specificity is one class (0,1,0).** Qualifiers go inside `:where()`:
-  `.ns-button:where([data-variant="danger"])`.
+  `.lue-button:where([data-variant="danger"])`.
 - **Rule order inside a component file:** base → variants → states → increased contrast → forced colours.
 - **One `!important` in the whole system:** `[hidden] { display: none !important; }` in `reset`.
 
@@ -139,7 +140,7 @@ Specified in [tokens](../design/tokens.md); decision in [ADR-0003](./adr/0003-dt
 | Scheme | `[data-scheme="light/dark"]` + `@media (prefers-color-scheme)` + `color-scheme`, **literal values** |
 | Contrast | `[data-contrast="more"]` + `@media (prefers-contrast: more)` |
 | Forced colours | Per component, system colours, transparent borders that become visible |
-| Density | `[data-density="compact/comfortable"]` → `--ns-density` multiplier used in `calc()` |
+| Density | `[data-density="compact/comfortable"]` → `--lue-density` multiplier used in `calc()` |
 | Motion | Duration tokens drop to `0s` and transforms are removed under `prefers-reduced-motion: reduce` |
 
 - **State colours** (hover, active, disabled) are **precomputed per context** so CI can contrast-test them and design
@@ -154,15 +155,15 @@ Every interactive component follows the [platform ladder](../foundations/mission
 | --- | --- | --- |
 | Open/close dialogs | `<dialog>` + `command="show-modal"`, `<form method="dialog">` to close | Invokers polyfill on Safari < 26.2 (conditional) |
 | Light dismiss for modal dialogs | `closedby="any"` | Delegated backdrop listener + `requestClose()` where `closedby` is missing |
-| Menus, popovers | `popover` + `popovertarget` / `command`, anchor positioning | `<ns-menu>` keyboard model (arrows, Home/End, typeahead, Tab closes) |
+| Menus, popovers | `popover` + `popovertarget` / `command`, anchor positioning | `<lue-menu>` keyboard model (arrows, Home/End, typeahead, Tab closes) |
 | Disclosure, accordion | `<details>`, `<details name>` | — |
 | Select | `<select>`, `appearance: base-select` as PE | — |
-| Validation | Constraint validation, `:user-invalid` | `data-ns-validate`: custom messages, `aria-invalid`, error summary, focus |
-| Toggle buttons | `<button aria-pressed>` | `data-ns-toggle` (HTML-only path) |
-| Roving focus (toolbar, tabs, radio-like groups) | `focusgroup` (Chromium only) | `<ns-roving>`, deleted when `focusgroup` is Baseline |
-| Tabs | — | `<ns-tabs>` (APG tabs) |
-| Toasts / announcements | `popover="manual"`, `ariaNotify()` | `<ns-toast-region>` (queue, pause on hover/focus, live-region fallback) |
-| Combobox (later) | — | `<ns-combobox>` (APG combobox), Tier 3 |
+| Validation | Constraint validation, `:user-invalid` | `data-lue-validate`: custom messages, `aria-invalid`, error summary, focus |
+| Toggle buttons | `<button aria-pressed>` | `data-lue-toggle` (HTML-only path) |
+| Roving focus (toolbar, tabs, radio-like groups) | `focusgroup` (Chromium only) | `<lue-roving>`, deleted when `focusgroup` is Baseline |
+| Tabs | — | `<lue-tabs>` (APG tabs) |
+| Toasts / announcements | `popover="manual"`, `ariaNotify()` | `<lue-toast-region>` (queue, pause on hover/focus, live-region fallback) |
+| Combobox (later) | — | `<lue-combobox>` (APG combobox), Tier 3 |
 
 ### Light-DOM element rules
 
@@ -172,7 +173,7 @@ Every interactive component follows the [platform ladder](../foundations/mission
    default ARIA on the host). Upgrade can happen before hydration.
 3. **Every attribute an element owns is declared in its contract;** frameworks render only its initial value and
    never change it.
-4. **Behaviours that change the DOM act only on opt-in `data-ns-*` markup.** Adapters never emit those attributes —
+4. **Behaviours that change the DOM act only on opt-in `data-lue-*` markup.** Adapters never emit those attributes —
    they implement the same behaviour with state, reusing the element's **pure controller** code.
 5. **Inputs are string attributes; outputs are native events.** Works with server rendering and any framework.
 6. **Connect/disconnect is idempotent** (one `AbortController` per connection).
@@ -235,8 +236,8 @@ Decision and detail: [ADR-0005](./adr/0005-three-engine-testing-and-a11y-gates.m
 - **AI surfaces:** `llms.txt`, a Markdown page per component, contracts as JSON, the Storybook MCP addon (manifests),
   and an MCP endpoint for tokens and contracts.
 - **Claude Design:** the Design System artifact holds the brand-book README, list-shaped `tokens.json`, component
-  guidelines (generated from contracts) and previews. Previews are **static HTML + `bundle.css` (= `@ns/css`) +
-  `bundle.js` (= the elements IIFE, `window.NS`)**, with `libraries: []` — no React needed, so Claude Design renders
+  guidelines (generated from contracts) and previews. Previews are **static HTML + `bundle.css` (= `@lue-ui/css`) +
+  `bundle.js` (= the elements IIFE, `window.LueUI`)**, with `libraries: []` — no React needed, so Claude Design renders
   production CSS. `/design-sync` appears React-centric, so this path is spiked first in Pass 3.
 - **Round trip:** tokens flow DTCG → Claude Design `tokens.json`; edits made in Claude Design come back through an
   import script as a reviewed DTCG diff, never a silent overwrite.
@@ -296,7 +297,7 @@ Decision and detail: [ADR-0005](./adr/0005-three-engine-testing-and-a11y-gates.m
 | Three-engine tests, failing a11y gates (ADR-0005) | 1 accessible · 8 Baseline · evidence over opinion |
 | MIT + public RFC/ADR process (ADR-0006) | Open by default |
 | Lockstep packages + element ownership rules (ADR-0007) | 9 one core · 7 lean |
-| `@layer ns` + one-class specificity | 4 CSS is the API |
+| `@layer lue` + one-class specificity | 4 CSS is the API |
 | State from native pseudo-classes and ARIA only | 3 standards · 4 CSS is the API |
 | Logical properties, container queries, no viewport queries in components | 6 intrinsic and resilient |
 | Per-component forced-colours and contrast styles | 5 respect settings · 1 accessible |
