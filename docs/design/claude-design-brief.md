@@ -85,7 +85,7 @@ At least 24 × 24 CSS px everywhere; 44 × 44 on touch screens; space between sm
 ### Type
 
 Body at least 16 px with line height ≥ 1.5 and a 45–75 character measure. No all-caps running text. Open-licensed
-(SIL OFL), self-hostable variable fonts; the default Latin set ≤ 120 KB.
+(SIL OFL), self-hostable variable fonts; the default Latin set ≤ 130 KB (raised from 120 KB on 2026-10-10).
 
 ### Motion
 

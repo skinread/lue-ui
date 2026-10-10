@@ -118,9 +118,10 @@ Remaining:
    - `components/bundle.css` and the fonts — **ask the user before downloading** the Bricolage Grotesque, Figtree and
      Spline Sans Mono files (state source and size). Latin woff2 sizes from Google Fonts (checked 2026-10-05):
      Bricolage with all axes 128 KB, or **75 KB without the unused width axis** (`opsz,wght@12..96,300..600`);
-     Figtree 19 KB (+ italic 20 KB, loaded only when used); Spline Sans Mono 35 KB. Bricolage + Figtree + Mono is
-     ~129 KB against the brief's 120 KB budget — **the user decides**: raise the budget, or set micro-labels in Figtree
-     and load the mono only for code (~94 KB);
+     Figtree 19 KB (+ italic 20 KB, loaded only when used); Spline Sans Mono 35 KB. **Budget raised to 130 KB**
+     (user, 2026-10-10), so the mono micro-labels stay. **Heading face still open:** Bricolage's *f* is hard to read;
+     the canvas compares Funnel Display (17 KB), Host Grotesk (19 KB), Epilogue (34 KB) and Schibsted Grotesk (45 KB,
+     400+ only) — wait for the user's pick before downloading fonts;
    - the `design-system.json` index, written **last**.
 2. **Archive the Phase 1 page** on the canvas if the user wants it gone (it's regenerable from the repo).
 

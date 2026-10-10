@@ -260,7 +260,7 @@ Decision and detail: [ADR-0005](./adr/0005-three-engine-testing-and-a11y-gates.m
 | Tier 1 CSS in total | ≤ 30 KB |
 | One element | ≤ 2 KB; all elements ≤ 8 KB |
 | One React adapter (excluding React) | ≤ 1 KB |
-| Default fonts (Latin subset, variable) | ≤ 120 KB in total |
+| Default fonts (Latin subset, variable) | ≤ 130 KB in total (raised from 120 KB by the user on 2026-10-10 to keep the mono micro-labels) |
 
 ## 10. Risks
 

@@ -53,8 +53,12 @@ fallbacks.
   hue — so it should survive a brand's hue swap. The worst-case contrast model makes translucency safe to ship.
 - **Negative:** `backdrop-filter` costs a rendering pass per glass surface, so glass is limited to overlays, cards,
   bars and buttons. Several effects (`corner-shape`, `background-clip: text` in Firefox) are enhancement-only. The
-  look depends on Bricolage, Figtree and Spline Sans Mono being self-hosted within the 120 KB Latin budget — to be
-  measured in Pass 3.
+  look depends on its three families being self-hosted within the Latin budget, **raised to 130 KB on 2026-10-10** to
+  keep the mono micro-labels (measured: Bricolage 75 KB without its unused width axis, Figtree 19 KB, Spline Sans
+  Mono 35 KB).
+- **Open (2026-10-10):** the user likes Bricolage's personality but finds its *f* hard to read. Similar faces are on
+  trial on the canvas (Heading face Tweak): Funnel Display, Host Grotesk, Epilogue, Schibsted Grotesk — all OFL and
+  all smaller than Bricolage. If one is chosen, this ADR's type row changes.
 - **Next:** increased-contrast themes (`dark-more`, `light-more`), the full token set, the private Claude Design
   System, and the DTCG token source.
 
