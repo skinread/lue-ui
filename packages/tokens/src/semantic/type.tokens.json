@@ -116,15 +116,15 @@
       "step-1": {
         "$type": "dimension",
         "$value": {
-          "value": 1.1875,
+          "value": 1.125,
           "unit": "rem"
         },
-        "$description": "Type step 1: 17.5 px at 360, 19 px at 1280.",
+        "$description": "Type step 1: 17 px at 360, 18 px at 1280.",
         "$extensions": {
           "lue": {
             "fluid": {
               "min": {
-                "value": 1.0938,
+                "value": 1.0625,
                 "unit": "rem"
               },
               "minViewport": 360,
@@ -136,15 +136,15 @@
       "step-2": {
         "$type": "dimension",
         "$value": {
-          "value": 1.5,
+          "value": 1.4375,
           "unit": "rem"
         },
-        "$description": "Type step 2: 20 px at 360, 24 px at 1280.",
+        "$description": "Type step 2: 19 px at 360, 23 px at 1280.",
         "$extensions": {
           "lue": {
             "fluid": {
               "min": {
-                "value": 1.25,
+                "value": 1.1875,
                 "unit": "rem"
               },
               "minViewport": 360,
@@ -156,15 +156,15 @@
       "step-3": {
         "$type": "dimension",
         "$value": {
-          "value": 2,
+          "value": 1.875,
           "unit": "rem"
         },
-        "$description": "Type step 3: 24 px at 360, 32 px at 1280.",
+        "$description": "Type step 3: 23 px at 360, 30 px at 1280.",
         "$extensions": {
           "lue": {
             "fluid": {
               "min": {
-                "value": 1.5,
+                "value": 1.4375,
                 "unit": "rem"
               },
               "minViewport": 360,
@@ -176,15 +176,15 @@
       "step-4": {
         "$type": "dimension",
         "$value": {
-          "value": 2.875,
+          "value": 2.75,
           "unit": "rem"
         },
-        "$description": "Type step 4: 30 px at 360, 46 px at 1280.",
+        "$description": "Type step 4: 28 px at 360, 44 px at 1280.",
         "$extensions": {
           "lue": {
             "fluid": {
               "min": {
-                "value": 1.875,
+                "value": 1.75,
                 "unit": "rem"
               },
               "minViewport": 360,
@@ -196,15 +196,15 @@
       "step-5": {
         "$type": "dimension",
         "$value": {
-          "value": 5.25,
+          "value": 5,
           "unit": "rem"
         },
-        "$description": "Type step 5: 44 px at 360, 84 px at 1280.",
+        "$description": "Type step 5: 42 px at 360, 80 px at 1280.",
         "$extensions": {
           "lue": {
             "fluid": {
               "min": {
-                "value": 2.75,
+                "value": 2.625,
                 "unit": "rem"
               },
               "minViewport": 360,

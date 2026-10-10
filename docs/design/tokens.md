@@ -239,8 +239,10 @@ white, black and every fill; tones up to three deep; satin folds; ambient light 
 
   | Step | −2 | −1 | 0 | 1 | 2 | 3 | 4 | 5 |
   | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-  | Size | 12 → 12 | 14 → 15 | 16 → 17 | 17.5 → 19 | 20 → 24 | 24 → 32 | 30 → 46 | 44 → 84 |
+  | Size | 12 → 12 | 14 → 15 | 16 → 17 | 17 → 18 | 19 → 23 | 23 → 30 | 28 → 44 | 42 → 80 |
   | Use | micro-label | small | body | heading 4 | heading 3 | heading 2 | heading 1 | display |
+
+  Steps 1–5 are set for Epilogue (×0.95 of the first proposal).
 
 - **C2 families:** Epilogue (display and headings, light 300 for display), Figtree (body), Spline Sans Mono
   (code and uppercase micro-labels tracked 0.16 em). Display tracking −0.035 em, headings −0.02 em.

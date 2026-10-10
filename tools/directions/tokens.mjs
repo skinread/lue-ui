@@ -173,7 +173,8 @@ function primitiveColor() {
 
 // Fluid sizes: $value is the 1280 px size; $extensions.lue.fluid gives the 360 px size for the clamp() the build emits.
 const fluid = (min, max, use) => tok('dimension', rem(max), use, { fluid: { min: rem(min), minViewport: 360, maxViewport: 1280 } });
-const STEPS = [['minus-2', 12, 12], ['minus-1', 14, 15], ['0', 16, 17], ['1', 17.5, 19], ['2', 20, 24], ['3', 24, 32], ['4', 30, 46], ['5', 44, 84]];
+// Steps 1–5 carry Epilogue's 0.95 scale (chosen 2026-10-10); body and small text don't.
+const STEPS = [['minus-2', 12, 12], ['minus-1', 14, 15], ['0', 16, 17], ['1', 17, 18], ['2', 19, 23], ['3', 23, 30], ['4', 28, 44], ['5', 42, 80]];
 
 function typography() {
   const family = {
