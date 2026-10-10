@@ -1,0 +1,406 @@
+/* Lue UI — component layer for the Claude Design System previews (Pass 2).
+   Conventions from RFC-0001 §2: everything in @layer lue; one class of specificity, qualifiers and states in :where();
+   variants as data-* attributes; state only from the platform; logical properties; no !important.
+   Order inside each component: base → variants → states. Increased contrast and forced colours come last, in their
+   own layers. The generated header (tokens bridge, per-theme material values) is prepended by design-system.mjs. */
+
+@layer lue.base {
+  :where(body) {
+    margin: 0;
+    background: var(--lue-color-bg-canvas);
+    color: var(--lue-color-fg-default);
+    font-family: var(--lue-font-family-body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  :where(h1, h2, h3, h4) { font-family: var(--lue-font-family-display); font-weight: 480; letter-spacing: -0.02em; line-height: 1.15; text-wrap: balance; margin: 0; }
+  :where(p) { margin: 0; text-wrap: pretty; }
+  :where(a) { color: var(--lue-color-fg-accent); text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+  :where(code, pre, kbd) { font-family: var(--lue-font-family-mono); }
+  :where(:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); }
+  :where([hidden]) { display: none; }
+}
+
+@layer lue.components {
+  /* ---------------------------------------------------------------- chrome hairline ring (shared) */
+  :where(.lue-button, .lue-card, .lue-dialog:not(:modal), .lue-menu:not([popover]), .lue-tag, .lue-alert, .lue-toast:not([popover]), .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"]) { position: relative; }
+  :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"]) {
+    border: var(--lue-border-width-thin) solid transparent; /* visible in forced colours */
+  }
+  :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before {
+    content: "";
+    position: absolute;
+    inset: calc(var(--lue-border-width-thin) * -1);
+    border-radius: inherit;
+    padding: var(--lue-border-width-thin);
+    pointer-events: none;
+    background: conic-gradient(from var(--lue-angle), var(--lue-chrome-stops));
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  }
+  .lue-chrome { border-radius: var(--lue-radius-full); }
+
+  .lue-icon { inline-size: 1.25em; block-size: 1.25em; flex: none; fill: currentColor; }
+  .lue-icon:where([data-mirror]:dir(rtl)) { scale: -1 1; }
+
+  /* ---------------------------------------------------------------- button */
+  .lue-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    min-block-size: max(var(--lue-size-target-min), var(--lue-size-control-md));
+    min-inline-size: max(var(--lue-size-target-min), var(--lue-size-control-md));
+    padding-block: 0;
+    padding-inline: calc(1.625rem * var(--lue-density));
+    border-radius: var(--lue-radius-full);
+    color: var(--lue-color-fg-default);
+    background-color: var(--lue-material-button-tint);
+    background-image: linear-gradient(180deg, var(--lue-button-sheen) 0%, transparent 52%);
+    backdrop-filter: var(--lue-button-filter);
+    box-shadow: var(--lue-button-depth), var(--lue-shadow-control);
+    font: 600 1rem/1.2 var(--lue-font-family-body);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: --lue-angle var(--lue-motion-duration-slow) var(--lue-motion-ease-standard),
+      background-position var(--lue-motion-duration-slow) var(--lue-motion-ease-standard),
+      background-color var(--lue-motion-duration-slow) var(--lue-motion-ease-standard),
+      box-shadow var(--lue-motion-duration-slow) var(--lue-motion-ease-standard),
+      scale var(--lue-motion-duration-fast) var(--lue-motion-ease-standard);
+  }
+  :where(.lue-card, .lue-dialog, .lue-menu, .lue-glass, .lue-toc, .lue-author, .lue-cta, .lue-project, .lue-post, .lue-site-header__bar) .lue-button { backdrop-filter: none; } /* a glass parent is a backdrop root */
+  .lue-button:where([data-variant="primary"]) {
+    background-color: var(--lue-material-button-prism-base);
+    background-image: linear-gradient(180deg, var(--lue-button-sheen) 0%, transparent 52%),
+      radial-gradient(closest-side, var(--lue-material-iridescence-1), transparent), radial-gradient(closest-side, var(--lue-material-iridescence-2), transparent),
+      radial-gradient(closest-side, var(--lue-material-iridescence-3), transparent), radial-gradient(closest-side, var(--lue-material-iridescence-4), transparent),
+      radial-gradient(closest-side, var(--lue-material-iridescence-5), transparent);
+    background-size: 100% 100%, 64% 190%, 56% 170%, 66% 190%, 58% 180%, 52% 170%;
+    background-position: 0 0, -6% 120%, 104% 110%, 70% 145%, 26% 150%, 50% 130%;
+    background-repeat: no-repeat;
+    box-shadow: var(--lue-button-depth), var(--lue-shadow-glow-rest);
+  }
+  .lue-button:where([data-variant="primary"])::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    translate: -8% 0;
+    background: radial-gradient(circle 1.3px at 20% 17%, var(--lue-material-spark) 0 55%, transparent), radial-gradient(circle 1px at 44% 86%, var(--lue-material-spark) 0 55%, transparent),
+      radial-gradient(circle 1.5px at 69% 14%, var(--lue-material-spark) 0 55%, transparent), radial-gradient(circle 1px at 86% 80%, var(--lue-material-spark) 0 55%, transparent);
+    transition: opacity var(--lue-motion-duration-slow) var(--lue-motion-ease-standard), translate var(--lue-motion-duration-slow) var(--lue-motion-ease-standard);
+  }
+  .lue-button:where([data-variant="danger"]) { background-color: var(--lue-material-button-danger); }
+  .lue-button:where([data-variant="danger"])::before { background: linear-gradient(var(--lue-color-fg-critical), var(--lue-color-fg-critical)); }
+  .lue-button:where([data-variant="quiet"]) { color: var(--lue-color-fg-accent); background-color: transparent; background-image: none; backdrop-filter: none; box-shadow: none; }
+  .lue-button:where([data-variant="quiet"])::before { opacity: 0; transition: opacity var(--lue-motion-duration-slow) var(--lue-motion-ease-standard); }
+  .lue-button:where([data-size="sm"]) { min-block-size: max(var(--lue-size-target-min), var(--lue-size-control-sm)); min-inline-size: max(var(--lue-size-target-min), var(--lue-size-control-sm)); padding-inline: calc(1.125rem * var(--lue-density)); font-size: 0.9375rem; }
+  .lue-button:where([data-size="lg"]) { min-block-size: var(--lue-size-control-lg); padding-inline: calc(2.125rem * var(--lue-density)); }
+  .lue-button:where([data-icon-only]) { padding-inline: 0; inline-size: var(--lue-size-control-md); }
+  .lue-button:where([data-icon-only][data-size="sm"]) { inline-size: var(--lue-size-control-sm); }
+  /* states */
+  .lue-button:where(:hover) { --lue-angle: 150deg; box-shadow: var(--lue-button-depth), var(--lue-shadow-glow-soft); }
+  .lue-button:where([data-variant="primary"]:hover) { background-position: 0 0, 30% 130%, 76% 118%, 102% 150%, -4% 140%, 60% 112%; box-shadow: var(--lue-button-depth), var(--lue-shadow-glow-hover); }
+  .lue-button:where([data-variant="primary"]:hover)::after { opacity: 1; translate: 8% 0; }
+  .lue-button:where([data-variant="danger"]:hover) { box-shadow: var(--lue-button-depth), var(--lue-shadow-glow-critical); }
+  .lue-button:where([data-variant="quiet"]:hover) { background-color: var(--lue-material-button-tint); box-shadow: none; }
+  .lue-button:where([data-variant="quiet"]:hover)::before { opacity: 1; }
+  .lue-button:where([data-variant="primary"]:active) { background-color: var(--lue-material-button-prism-base-active); background-position: 0 0, 50% 100%, 18% 118%, 82% 120%, 40% 140%, 92% 100%; scale: 0.985; }
+  .lue-button:where(:focus-visible) { --lue-angle: 220deg; outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); box-shadow: var(--lue-button-depth), 0 0 0 7px var(--lue-focus-glow), 0 0 26px 2px var(--lue-focus-glow); }
+  .lue-button:where([aria-pressed="true"]) { background-color: var(--lue-material-button-pressed); box-shadow: var(--lue-button-depth), var(--lue-shadow-glow-soft); }
+  .lue-button:where([aria-pressed="true"])::before { padding: 1.5px; background: conic-gradient(from var(--lue-angle), var(--lue-prism-ring)); }
+  .lue-button:where(:disabled, [aria-disabled="true"]) { background-color: var(--lue-material-button-tint); background-image: none; color: var(--lue-color-fg-muted); box-shadow: none; scale: 1; cursor: not-allowed; }
+  .lue-button:where(:disabled, [aria-disabled="true"])::before { opacity: 0.45; }
+  .lue-button:where(:disabled, [aria-disabled="true"])::after { content: none; }
+
+  .lue-link { color: var(--lue-color-fg-accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+  .lue-link:where(:hover) { text-decoration-thickness: 2px; }
+
+  /* ---------------------------------------------------------------- fields */
+  .lue-field { display: grid; gap: var(--lue-space-2xs); }
+  .lue-field__label { font-weight: 600; font-size: 1rem; line-height: 1.3; }
+  .lue-field__hint { font-size: 0.9375rem; color: var(--lue-color-fg-muted); }
+  .lue-field__error { display: flex; gap: 0.4em; align-items: center; color: var(--lue-color-fg-critical); font-size: 0.9375rem; font-weight: 600; }
+  .lue-input, .lue-select, .lue-textarea, .lue-checkbox, .lue-radio, .lue-switch {
+    border: var(--lue-border-width-thin) solid transparent;
+    background: linear-gradient(var(--lue-field-bg), var(--lue-field-bg)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
+    box-shadow: inset 0 1px 2px var(--lue-field-inset);
+    color: var(--lue-color-fg-default);
+    transition: --lue-angle var(--lue-motion-duration-slow) var(--lue-motion-ease-standard), box-shadow var(--lue-motion-duration-slow) var(--lue-motion-ease-standard);
+  }
+  .lue-input, .lue-select, .lue-textarea {
+    inline-size: 100%;
+    min-block-size: var(--lue-size-control-md);
+    padding-inline: calc(1.125rem * var(--lue-density));
+    border-radius: var(--lue-field-radius);
+    font: 400 1.0625rem/1.4 var(--lue-font-family-body);
+  }
+  .lue-textarea { padding-block: 0.75rem; field-sizing: content; min-block-size: 6lh; }
+  .lue-select { appearance: none; padding-inline-end: calc(1.125rem + 1.75em); }
+  .lue-select-wrap { position: relative; display: grid; }
+  .lue-select-wrap > :where(.lue-icon) { position: absolute; inset-inline-end: 1.125rem; inset-block-start: 50%; translate: 0 -50%; pointer-events: none; }
+  .lue-input:where(:hover), .lue-select:where(:hover), .lue-textarea:where(:hover), .lue-checkbox:where(:hover), .lue-radio:where(:hover), .lue-switch:where(:hover) { --lue-angle: 120deg; }
+  .lue-input:where(:focus-visible), .lue-select:where(:focus-visible), .lue-textarea:where(:focus-visible) { --lue-angle: 220deg; outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); box-shadow: inset 0 1px 2px var(--lue-field-inset), 0 0 0 7px var(--lue-focus-glow); }
+  .lue-input:where([aria-invalid="true"], :user-invalid), .lue-textarea:where([aria-invalid="true"], :user-invalid), .lue-select:where([aria-invalid="true"]) {
+    background: linear-gradient(var(--lue-field-bg), var(--lue-field-bg)) padding-box, linear-gradient(var(--lue-color-fg-critical), var(--lue-color-fg-critical)) border-box;
+    box-shadow: inset 0 0 0 1px var(--lue-color-fg-critical);
+  }
+
+  /* choices */
+  .lue-fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: var(--lue-space-2xs); min-inline-size: 0; }
+  .lue-fieldset > legend { font-weight: 600; padding: 0; margin-block-end: var(--lue-space-2xs); }
+  .lue-choice { display: flex; gap: var(--lue-space-xs); align-items: center; min-block-size: var(--lue-size-target-min); }
+  .lue-checkbox, .lue-radio { appearance: none; margin: 0; inline-size: 22px; block-size: 22px; display: inline-grid; place-content: center; flex: none; }
+  .lue-checkbox { border-radius: var(--lue-radius-xs); }
+  .lue-radio { border-radius: 50%; }
+  .lue-checkbox:where(:checked) { background: linear-gradient(135deg, var(--lue-prism-fill)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-prism-ring)) border-box; box-shadow: var(--lue-shadow-glow-rest); }
+  .lue-checkbox:where(:checked)::after { content: ""; inline-size: 11px; block-size: 6px; border-inline-start: 2.5px solid var(--lue-color-fg-on-accent); border-block-end: 2.5px solid var(--lue-color-fg-on-accent); rotate: -45deg; translate: 0 -1px; }
+  .lue-radio:where(:checked) { background: radial-gradient(circle, var(--lue-color-fg-on-accent) 0 3.5px, transparent 4px) padding-box, linear-gradient(135deg, var(--lue-prism-fill)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-prism-ring)) border-box; box-shadow: var(--lue-shadow-glow-rest); }
+  .lue-checkbox:where([aria-invalid="true"]), .lue-radio:where([aria-invalid="true"]) { background: linear-gradient(var(--lue-field-bg), var(--lue-field-bg)) padding-box, linear-gradient(var(--lue-color-fg-critical), var(--lue-color-fg-critical)) border-box; box-shadow: inset 0 0 0 1px var(--lue-color-fg-critical); }
+  .lue-checkbox:where(:focus-visible), .lue-radio:where(:focus-visible), .lue-switch:where(:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: 3px; box-shadow: 0 0 0 7px var(--lue-focus-glow); }
+  .lue-switch { appearance: none; margin: 0; inline-size: 48px; block-size: 28px; border-radius: var(--lue-radius-full); position: relative; flex: none; }
+  .lue-switch::before { content: ""; position: absolute; inset-block-start: 4px; inset-inline-start: 4px; inline-size: 18px; block-size: 18px; border-radius: 50%; background: var(--lue-bead); box-shadow: 0 0 0 1px var(--lue-bead-rim), 0 1px 3px oklch(0 0 0 / 0.3); transition: translate var(--lue-motion-duration-moderate) var(--lue-motion-ease-spring); }
+  .lue-switch:where(:checked) { background: linear-gradient(100deg, var(--lue-prism-fill)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-prism-ring)) border-box; box-shadow: var(--lue-shadow-glow-rest); }
+  .lue-switch:where(:checked)::before { translate: 20px 0; background: var(--lue-bead-on); box-shadow: 0 0 0 1px var(--lue-bead-on-rim), 0 1px 3px oklch(0 0 0 / 0.3); }
+  .lue-switch:where(:checked:dir(rtl))::before { translate: -20px 0; }
+
+  /* error summary */
+  .lue-error-summary { display: grid; gap: var(--lue-space-xs); padding: var(--lue-space-m); border: var(--lue-border-width-thin) solid var(--lue-color-fg-critical); box-shadow: inset 0 0 0 1px var(--lue-color-fg-critical); border-radius: var(--lue-radius-m); background: var(--lue-color-bg-surface); }
+  .lue-error-summary__title { display: flex; gap: 0.5em; align-items: center; color: var(--lue-color-fg-critical); font-size: 1.1875rem; }
+  .lue-error-summary ul { margin: 0; padding-inline-start: 1.25em; display: grid; gap: var(--lue-space-3xs); }
+  .lue-error-summary a { color: var(--lue-color-fg-critical); font-weight: 600; }
+
+  /* ---------------------------------------------------------------- overlays */
+  .lue-dialog { margin: auto; display: grid; gap: var(--lue-space-s); inline-size: min(100% - 2rem, var(--lue-size-dialog-max)); padding: var(--lue-space-l); border-radius: var(--lue-radius-l); color: var(--lue-color-fg-default); background-color: var(--lue-material-glass-modal); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-overlay), var(--lue-shadow-fringe); }
+  .lue-dialog:where(:not([open])) { display: none; }
+  .lue-dialog::backdrop { background: var(--lue-color-overlay-scrim); }
+  .lue-dialog__title { font-size: 1.4375rem; line-height: 1.22; }
+  .lue-dialog__body { color: var(--lue-color-fg-muted); }
+  .lue-dialog__actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: var(--lue-space-xs); margin: var(--lue-space-2xs) 0 0; }
+
+  .lue-menu { display: grid; gap: 2px; padding: var(--lue-space-3xs); inline-size: 15rem; margin: 0; border-radius: var(--lue-radius-m); color: var(--lue-color-fg-default); background-color: var(--lue-material-glass-overlay); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-overlay), var(--lue-shadow-fringe); }
+  .lue-menu__item { display: flex; align-items: center; gap: var(--lue-space-xs); min-block-size: var(--lue-size-control-sm); padding-inline: var(--lue-space-xs); border: 0; border-radius: var(--lue-radius-s); background: transparent; color: inherit; font: inherit; text-align: start; cursor: pointer; }
+  .lue-menu__item:where([data-tone="critical"]) { color: var(--lue-color-fg-critical); }
+  .lue-menu__item:where(:hover, :focus-visible) { background: var(--lue-color-bg-accent-subtle); }
+  .lue-menu__item:where(:focus-visible) { outline-offset: -2px; box-shadow: 0 0 18px -6px var(--lue-focus-glow); }
+  .lue-menu__separator { block-size: 1px; margin-block: var(--lue-space-3xs); background: linear-gradient(90deg, transparent, var(--lue-chrome-line), transparent); }
+
+  /* ---------------------------------------------------------------- feedback */
+  .lue-alert { display: grid; grid-template-columns: auto 1fr; gap: var(--lue-space-3xs) var(--lue-space-s); padding: var(--lue-space-s) var(--lue-space-m); border-radius: var(--lue-radius-m); background: var(--lue-color-bg-info-subtle); }
+  .lue-alert > :where(.lue-icon) { grid-row: span 2; color: var(--lue-color-fg-info); margin-block-start: 3px; }
+  .lue-alert:where([data-tone="warning"]) { background: var(--lue-color-bg-warning-subtle); }
+  .lue-alert:where([data-tone="warning"]) > :where(.lue-icon) { color: var(--lue-color-fg-warning); }
+  .lue-alert:where([data-tone="success"]) { background: var(--lue-color-bg-success-subtle); }
+  .lue-alert:where([data-tone="success"]) > :where(.lue-icon) { color: var(--lue-color-fg-success); }
+  .lue-alert:where([data-tone="critical"]) { background: var(--lue-color-bg-critical-subtle); }
+  .lue-alert:where([data-tone="critical"]) > :where(.lue-icon) { color: var(--lue-color-fg-critical); }
+  .lue-alert__title { font-weight: 600; }
+  .lue-alert__body { font-size: 0.9375rem; }
+
+  .lue-toast { display: flex; align-items: center; gap: var(--lue-space-s); inline-size: fit-content; max-inline-size: 100%; padding-block: var(--lue-space-2xs); padding-inline: var(--lue-space-s) var(--lue-space-2xs); border-radius: var(--lue-radius-full); background: var(--lue-color-bg-inverse); color: var(--lue-color-fg-inverse); box-shadow: var(--lue-shadow-overlay); }
+  .lue-toast :where(.lue-button) { color: var(--lue-color-fg-inverse); background: transparent; box-shadow: none; text-decoration: underline; text-underline-offset: 0.18em; min-block-size: var(--lue-size-control-sm); }
+  .lue-toast :where(.lue-button)::before { content: none; }
+
+  .lue-tag { display: inline-flex; align-items: center; min-block-size: 30px; padding-inline: var(--lue-space-xs); border-radius: var(--lue-radius-full); background-color: var(--lue-material-glass-overlay); backdrop-filter: var(--lue-glass-filter); font: 500 0.75rem/1 var(--lue-font-family-mono); letter-spacing: 0.12em; text-transform: uppercase; }
+  :where(.lue-card, .lue-dialog, .lue-menu, .lue-glass, .lue-project, .lue-post, .lue-cta, .lue-author) .lue-tag { backdrop-filter: none; }
+
+  /* disclosure */
+  .lue-disclosure { border-block-end: var(--lue-border-width-thin) solid transparent; border-image: linear-gradient(90deg, var(--lue-chrome-line), transparent) 1; }
+  .lue-disclosure > summary { display: flex; justify-content: space-between; align-items: center; gap: var(--lue-space-s); min-block-size: var(--lue-size-control-md); cursor: pointer; font-weight: 600; list-style: none; }
+  .lue-disclosure > summary::-webkit-details-marker { display: none; }
+  .lue-disclosure > summary > :where(.lue-icon) { transition: rotate var(--lue-motion-duration-moderate) var(--lue-motion-ease-standard); }
+  .lue-disclosure:where([open]) > summary > :where(.lue-icon) { rotate: 180deg; }
+  .lue-disclosure > :where(:not(summary)) { margin: 0; padding-block-end: var(--lue-space-s); color: var(--lue-color-fg-muted); }
+
+  /* ---------------------------------------------------------------- navigation */
+  .lue-steps { display: flex; flex-wrap: wrap; gap: var(--lue-space-m); list-style: none; margin: 0; padding: 0; font-size: 0.9375rem; }
+  .lue-steps > li { display: flex; align-items: center; gap: var(--lue-space-2xs); color: var(--lue-color-fg-muted); }
+  .lue-steps > li:where([aria-current="step"]) { color: var(--lue-color-fg-default); font-weight: 600; }
+  .lue-steps__num { inline-size: 26px; block-size: 26px; border-radius: 50%; display: inline-grid; place-items: center; border: 1.5px solid currentColor; font-size: 0.8125rem; font-weight: 700; }
+  .lue-steps > li:where([aria-current="step"]) > :where(.lue-steps__num) { background: linear-gradient(135deg, var(--lue-prism-fill)); color: var(--lue-color-fg-on-accent); border-color: transparent; box-shadow: var(--lue-shadow-glow-rest); }
+
+  .lue-breadcrumb > ol { display: flex; flex-wrap: wrap; gap: var(--lue-space-2xs); list-style: none; margin: 0; padding: 0; }
+  .lue-breadcrumb li + li::before { content: "/"; margin-inline-end: var(--lue-space-2xs); color: var(--lue-color-fg-muted); }
+  .lue-breadcrumb a { color: var(--lue-color-fg-muted); }
+  .lue-breadcrumb a:where([aria-current="page"]) { color: var(--lue-color-fg-default); text-decoration: none; }
+
+  .lue-pagination > ul { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; list-style: none; margin: 0; padding: 0; }
+  .lue-pagination a:where(:not(.lue-button)) { display: inline-grid; place-items: center; min-inline-size: 44px; min-block-size: 44px; border-radius: var(--lue-radius-full); color: var(--lue-color-fg-default); text-decoration: none; }
+  .lue-pagination a:where([aria-current="page"]) { background-color: var(--lue-material-button-pressed); box-shadow: var(--lue-button-depth); font-weight: 600; }
+
+  .lue-card { padding: var(--lue-space-l); border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-raised), var(--lue-shadow-fringe); }
+}
+
+@layer lue.blocks {
+  .lue-wrap { inline-size: min(100% - 2 * var(--lue-gutter), 75rem); margin-inline: auto; }
+  .lue-skip-link { position: absolute; inset-inline-start: 16px; inset-block-start: 12px; z-index: 20; translate: 0 -200%; }
+  .lue-skip-link:where(:focus-visible) { translate: 0 0; }
+  .lue-display { font-family: var(--lue-font-family-display); font-weight: 300; font-size: clamp(2.875rem, 1.5rem + 4.4vw, 6rem); line-height: 1; letter-spacing: -0.035em; text-wrap: balance; margin: 0; }
+  .lue-title { font-family: var(--lue-font-family-display); font-weight: 300; font-size: clamp(2.5rem, 1.45rem + 3.4vw, 4.75rem); line-height: 1.02; letter-spacing: -0.035em; max-inline-size: 18ch; text-wrap: balance; margin: 0; }
+  .lue-h2 { font-family: var(--lue-font-family-display); font-weight: 350; font-size: clamp(1.9rem, 1.35rem + 1.9vw, 3.1rem); line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; margin: 0; }
+  .lue-h3 { font-family: var(--lue-font-family-display); font-weight: 400; font-size: 1.4375rem; line-height: 1.18; letter-spacing: -0.02em; margin: 0; }
+  .lue-lede { font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); line-height: 1.55; color: var(--lue-color-fg-muted); max-inline-size: 46ch; text-wrap: pretty; }
+  .lue-dek { font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.5rem); line-height: 1.5; color: var(--lue-color-fg-muted); max-inline-size: 44ch; text-wrap: pretty; }
+  .lue-kicker { font: 600 0.75rem/1.4 var(--lue-font-family-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lue-color-fg-muted); }
+  .lue-actions { display: flex; flex-wrap: wrap; gap: var(--lue-space-xs); }
+  .lue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(var(--lue-grid-min, 18rem), 100%), 1fr)); gap: var(--lue-space-m); }
+  .lue-split { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(26rem, 100%), 1fr)); gap: var(--lue-space-xl); align-items: center; }
+  .lue-section { display: grid; gap: var(--lue-space-l); padding-block: var(--lue-space-2xl); }
+  .lue-section__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--lue-space-s) var(--lue-space-l); }
+
+  /* site header */
+  .lue-site-header { position: sticky; inset-block-start: var(--lue-space-s); z-index: var(--lue-layer-sticky); }
+  .lue-site-header__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; padding: 8px 8px 8px 24px; border-radius: var(--lue-radius-full); background-color: var(--lue-material-glass-overlay); backdrop-filter: var(--lue-glass-filter); }
+  .lue-site-header ul { display: flex; flex-wrap: wrap; gap: 2px; list-style: none; margin: 0; padding: 0; }
+  .lue-site-header__link { display: inline-flex; align-items: center; min-block-size: 44px; padding-inline: 16px; border-radius: var(--lue-radius-full); color: var(--lue-color-fg-default); text-decoration: none; font-weight: 500; transition: background-color var(--lue-motion-duration-slow) var(--lue-motion-ease-standard); }
+  .lue-site-header__link:where([aria-current="page"]) { background-color: var(--lue-material-button-tint); box-shadow: var(--lue-button-depth); }
+  .lue-site-header__link:where(:hover) { background-color: var(--lue-material-button-tint); }
+  .lue-wordmark { display: inline-flex; align-items: center; gap: 10px; min-block-size: 44px; font: 400 1.375rem/1 var(--lue-font-family-display); letter-spacing: -0.02em; color: var(--lue-color-fg-default); text-decoration: none; }
+  .lue-wordmark { --lue-tile-size: 34px; }
+
+  /* hero */
+  .lue-hero { position: relative; isolation: isolate; overflow: clip; padding-block: clamp(4.5rem, 10vw, 9rem) clamp(4rem, 8vw, 7.5rem); }
+  .lue-hero__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(27rem, 100%), 1fr)); gap: var(--lue-space-xl); align-items: center; }
+  .lue-hero__text { display: grid; gap: var(--lue-space-m); justify-items: start; }
+  .lue-hero:where([data-layout="center"]) :where(.lue-hero__grid) { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
+  .lue-hero:where([data-layout="center"]) :where(.lue-hero__text) { justify-items: center; }
+  .lue-hero__object { display: grid; place-items: center; }
+
+  /* article */
+  .lue-article-header { display: grid; gap: var(--lue-space-m); justify-items: start; padding-block: var(--lue-space-2xl) var(--lue-space-xl); }
+  .lue-byline { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+  .lue-figure { margin: 0; display: grid; gap: var(--lue-space-xs); }
+  .lue-figure > figcaption { font-size: 0.9375rem; color: var(--lue-color-fg-muted); }
+  .lue-toc { display: grid; gap: var(--lue-space-xs); padding: 20px; border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); backdrop-filter: var(--lue-glass-filter); }
+  .lue-toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+  .lue-toc a { display: flex; align-items: center; gap: 10px; min-block-size: 44px; padding-inline: 12px; border-radius: 14px; color: var(--lue-color-fg-muted); text-decoration: none; }
+  .lue-toc a::before { content: ""; inline-size: 6px; block-size: 6px; border-radius: 50%; background: var(--lue-color-border-strong); flex: none; }
+  .lue-toc a:where([aria-current="true"]) { color: var(--lue-color-fg-default); background-color: var(--lue-material-button-tint); }
+  .lue-toc a:where([aria-current="true"])::before { background: linear-gradient(135deg, var(--lue-prism-fill)); }
+  .lue-prose { max-inline-size: 42rem; font-size: 1.1875rem; line-height: 1.7; }
+  .lue-prose > * + * { margin-block-start: 1.15em; }
+  .lue-prose > :where(h2) { font-weight: 400; font-size: clamp(1.55rem, 1.25rem + 1vw, 2.05rem); line-height: 1.18; margin-block-start: 2.1em; scroll-margin-block-start: 6.5rem; }
+  .lue-prose :where(ul, ol) { padding-inline-start: 1.2em; display: grid; gap: 0.35em; }
+  .lue-pull { font-family: var(--lue-font-family-display); font-weight: 300; font-size: clamp(1.6rem, 1.15rem + 1.4vw, 2.4rem); line-height: 1.2; letter-spacing: -0.02em; text-align: center; text-wrap: balance; padding-block: 0.7em; border-block: var(--lue-border-width-thin) solid transparent; border-image: linear-gradient(90deg, transparent, var(--lue-chrome-line), transparent) 1; }
+  .lue-code { margin: 0; border-radius: var(--lue-radius-m); overflow: clip; background-color: var(--lue-material-glass-overlay); }
+  .lue-code > figcaption { display: flex; justify-content: space-between; gap: 12px; padding: 10px 18px; font: 500 0.75rem/1.4 var(--lue-font-family-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lue-color-fg-muted); border-block-end: var(--lue-border-width-thin) solid var(--lue-color-border-subtle); }
+  .lue-code pre { margin: 0; padding: 18px 20px; overflow-x: auto; font-size: 0.875rem; line-height: 1.7; }
+  .lue-code pre:where(:focus-visible) { outline-offset: -4px; }
+  .lue-code__token:where([data-kind="property"]) { color: var(--lue-color-fg-accent); }
+  .lue-code__token:where([data-kind="comment"]) { color: var(--lue-color-fg-muted); }
+  .lue-author { display: flex; flex-wrap: wrap; gap: 18px 22px; align-items: center; padding: 24px 28px; border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); backdrop-filter: var(--lue-glass-filter); }
+  .lue-author__text { flex: 1 1 18rem; display: grid; gap: 4px; }
+
+  /* cards and lists */
+  .lue-project { display: grid; gap: 18px; align-content: start; padding: 12px 12px 26px; border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-raised), var(--lue-shadow-fringe); transition: --lue-angle var(--lue-motion-duration-slow) var(--lue-motion-ease-standard); }
+  .lue-project__body { display: grid; gap: 10px; padding-inline: 14px; }
+  .lue-project :where(h3) a, .lue-post :where(h3) a { color: var(--lue-color-fg-default); text-decoration: none; }
+  .lue-project :where(h3) a::after, .lue-post :where(h3) a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 1; }
+  .lue-project:where(:has(a:focus-visible)), .lue-post:where(:has(a:focus-visible)) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: 4px; }
+  .lue-project :where(h3) a:where(:focus-visible), .lue-post :where(h3) a:where(:focus-visible) { outline: none; }
+  .lue-project:where(:hover), .lue-post:where(:hover) { --lue-angle: 120deg; }
+  .lue-tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; position: relative; z-index: 2; }
+  .lue-post { position: relative; display: grid; gap: 10px; align-content: start; padding-block: 26px; border-block-start: var(--lue-border-width-thin) solid transparent; border-image: linear-gradient(90deg, var(--lue-chrome-line), transparent) 1; }
+  .lue-post:where([data-variant="card"]) { padding: 12px 12px 26px; border-image: none; border-radius: var(--lue-radius-l); gap: 16px; background-color: var(--lue-material-glass-overlay); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-raised), var(--lue-shadow-fringe); }
+  .lue-post:where([data-variant="card"]) > :where(:not(.lue-media)) { margin-inline: 14px; }
+  .lue-meta { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; }
+  .lue-excerpt { color: var(--lue-color-fg-muted); max-inline-size: 60ch; }
+  .lue-feature { display: grid; gap: var(--lue-space-s); align-content: start; }
+  .lue-feature > p { color: var(--lue-color-fg-muted); }
+
+  .lue-quote { margin: 0; display: grid; gap: var(--lue-space-m); justify-items: start; max-inline-size: 64rem; }
+  .lue-quote > blockquote { margin: 0; font-family: var(--lue-font-family-display); font-weight: 300; font-size: clamp(1.7rem, 1.15rem + 1.8vw, 2.75rem); line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
+  .lue-quote > figcaption { display: flex; align-items: center; gap: 14px; }
+  .lue-quote__mark { font: 300 6rem/0.6 var(--lue-font-family-display); block-size: 0.5em; }
+
+  .lue-timeline { list-style: none; margin: 0; padding: 0; display: grid; }
+  .lue-timeline > li { display: flex; flex-wrap: wrap; gap: 6px 32px; padding-block: 22px; border-block-start: var(--lue-border-width-thin) solid transparent; border-image: linear-gradient(90deg, var(--lue-chrome-line), transparent) 1; }
+  .lue-timeline time { flex: 0 0 11rem; }
+  .lue-timeline__entry { flex: 1 1 22rem; display: grid; gap: 4px; }
+
+  .lue-cta { display: grid; gap: var(--lue-space-m); justify-items: start; padding: clamp(2rem, 6vw, 4.5rem); border-radius: calc(var(--lue-radius-l) * 1.4); background-color: var(--lue-material-glass-overlay); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-raised), var(--lue-shadow-fringe); }
+  .lue-cta > form { display: flex; flex-wrap: wrap; gap: var(--lue-space-xs); align-items: end; inline-size: 100%; max-inline-size: 40rem; }
+  .lue-cta :where(.lue-field) { flex: 1 1 16rem; }
+
+  .lue-site-footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px 32px; padding-block: 40px 64px; border-block-start: var(--lue-border-width-thin) solid transparent; border-image: linear-gradient(90deg, transparent, var(--lue-chrome-line), transparent) 1; }
+  .lue-site-footer ul { display: flex; flex-wrap: wrap; gap: 4px 20px; list-style: none; padding: 0; margin: 0; }
+  .lue-site-footer a { display: inline-flex; align-items: center; min-block-size: 44px; color: var(--lue-color-fg-muted); text-decoration: none; }
+  .lue-site-footer a:where(:hover) { color: var(--lue-color-fg-default); text-decoration: underline; }
+}
+
+@layer lue.materials {
+  .lue-glass { border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-overlay), var(--lue-shadow-fringe); }
+  .lue-glass:where([data-tier="modal"]) { background-color: var(--lue-material-glass-modal); }
+  .lue-stage { position: relative; isolation: isolate; overflow: clip; }
+  .lue-ambient { position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(62% 80% at 0% 72%, var(--lue-material-ambient-amber), transparent 76%), radial-gradient(58% 78% at 100% 64%, var(--lue-material-ambient-azure), transparent 76%),
+      radial-gradient(40% 50% at 92% 0%, var(--lue-material-ambient-orchid), transparent 74%); }
+  .lue-ambient::before { content: ""; position: absolute; inset: -12%; opacity: 0.55;
+    background: linear-gradient(116deg, transparent 4%, var(--lue-material-ambient-rose) 19%, var(--lue-material-ambient-amber) 30%, var(--lue-material-ambient-citron) 41%, var(--lue-material-ambient-mint) 52%, var(--lue-material-ambient-aqua) 63%, var(--lue-material-ambient-azure) 74%, var(--lue-material-ambient-iris) 85%, transparent 97%);
+    mask-image: radial-gradient(closest-side, #000 18%, transparent 100%); }
+  .lue-satin { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; z-index: -1; display: block; }
+  .lue-prism { inline-size: min(100%, 27.5rem); block-size: auto; display: block; overflow: visible; }
+  .lue-media { position: relative; isolation: isolate; overflow: clip; display: grid; place-items: center; aspect-ratio: 4 / 3; border-radius: calc(var(--lue-radius-l) - 8px); box-shadow: inset 0 0 0 1px var(--lue-color-border-subtle); }
+  .lue-media > svg:where(:not(.lue-satin)) { inline-size: 54%; block-size: auto; max-block-size: 82%; }
+  .lue-tile { inline-size: var(--lue-tile-size, 64px); block-size: var(--lue-tile-size, 64px); border-radius: 30%; display: inline-grid; place-items: center; flex: none; background: var(--lue-metal); box-shadow: inset 0 1px 0 var(--lue-metal-rim-top), inset 0 -1px 0 var(--lue-metal-rim-bottom), var(--lue-tile-shadow); color: var(--lue-material-chrome-1); }
+  .lue-tile:where([data-size="lg"]) { --lue-tile-size: 112px; }
+  .lue-tile > svg { inline-size: 54%; block-size: 54%; }
+  .lue-avatar { inline-size: 44px; block-size: 44px; border-radius: 50%; display: inline-grid; place-items: center; flex: none; background: var(--lue-metal); box-shadow: inset 0 1px 0 var(--lue-metal-rim-top), inset 0 -1px 0 var(--lue-metal-rim-bottom), var(--lue-tile-shadow); font: 500 0.9375rem/1 var(--lue-font-family-display); color: var(--lue-color-fg-default); overflow: hidden; }
+  .lue-avatar:where([data-size="lg"]) { inline-size: 72px; block-size: 72px; font-size: 1.375rem; }
+  .lue-avatar > img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+  .lue-chrome-text { color: var(--lue-color-fg-default); }
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    .lue-chrome-text { background: linear-gradient(180deg, var(--lue-chrome-text)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  }
+  @supports (corner-shape: squircle) {
+    .lue-card, .lue-glass, .lue-project, .lue-dialog { corner-shape: squircle; border-radius: calc(var(--lue-radius-l) * 1.7); }
+    .lue-tile { corner-shape: squircle; border-radius: 44%; }
+  }
+}
+
+/* Increased contrast, reduced transparency, no backdrop-filter: glass goes opaque, chrome is one solid line, light
+   and satin switch off. In the Design System the -more themes carry this; in the library, data-contrast="more". */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-glass, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"], .lue-site-header__bar),
+  :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-glass, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"], .lue-site-header__bar) {
+    background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none;
+  }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before { background: var(--lue-color-border-strong); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-input, .lue-select, .lue-textarea, .lue-checkbox, .lue-radio, .lue-switch) { background: var(--lue-field-bg); border-color: var(--lue-color-border-strong); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-checkbox:checked, .lue-switch:checked) { background: linear-gradient(135deg, var(--lue-prism-fill)) padding-box, linear-gradient(var(--lue-color-fg-default), var(--lue-color-fg-default)) border-box; }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-radio:checked) { background: radial-gradient(circle, var(--lue-color-fg-on-accent) 0 3.5px, transparent 4px) padding-box, linear-gradient(135deg, var(--lue-prism-fill)) padding-box, linear-gradient(var(--lue-color-fg-default), var(--lue-color-fg-default)) border-box; }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-input, .lue-checkbox, .lue-radio)[aria-invalid="true"] { border-color: var(--lue-color-fg-critical); box-shadow: inset 0 0 0 1px var(--lue-color-fg-critical); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button) { backdrop-filter: none; background-color: var(--lue-color-bg-surface); background-image: none; }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[data-variant="primary"]) { background-color: var(--lue-color-bg-accent-subtle); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[data-variant="danger"]) { background-color: var(--lue-color-bg-critical-subtle); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[data-variant="quiet"]) { background-color: transparent; }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[aria-pressed="true"])::before { padding: 2px; background: var(--lue-color-fg-default); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-ambient, .lue-satin) { display: none; }
+
+  @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+    :where(.lue-glass, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"], .lue-site-header__bar) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+    :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before { background: var(--lue-color-border-strong); }
+    :where(.lue-button) { backdrop-filter: none; background-image: none; }
+    :where(.lue-ambient, .lue-satin) { display: none; }
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    :where(.lue-glass, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"], .lue-site-header__bar) { background-color: var(--lue-color-bg-surface); background-image: none; }
+  }
+
+  @media (forced-colors: active) {
+    :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before,
+    :where(.lue-button)::after, :where(.lue-ambient, .lue-satin) { content: none; display: none; }
+    :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"]) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
+    :where(.lue-input, .lue-select, .lue-textarea, .lue-checkbox, .lue-radio, .lue-switch) { background: Field; border-color: FieldText; }
+    :where(.lue-checkbox:checked, .lue-radio:checked, .lue-switch:checked) { background: SelectedItem; }
+    :where(.lue-button) { background: ButtonFace; color: ButtonText; border-color: ButtonText; }
+    :where(.lue-chrome-text) { background: none; color: CanvasText; -webkit-text-fill-color: currentColor; }
+    :where(.lue-tile, .lue-avatar) { background: Canvas; border: 1px solid CanvasText; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :where(.lue-button)::after { transition: none; }
+  }
+}

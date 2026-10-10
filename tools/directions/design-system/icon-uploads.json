@@ -1,0 +1,95 @@
+{
+ "_note": "Asset uploads in the private Lue UI Claude Design System (https://claude.ai/artifact/Er8XMd9VquWgK1q1ZrdCWe), uploaded 2026-10-10. Pass to design-system.mjs with --uploads.",
+ "app-window.svg": {
+  "blob": "3aa3b0dc693b8fdab6e615233174b400",
+  "size": 308
+ },
+ "arrow-left.svg": {
+  "blob": "6005ff7545223599dec070999f91198b",
+  "size": 254
+ },
+ "arrow-right.svg": {
+  "blob": "034b814dcd64e586cf29d7940222b4ba",
+  "size": 251
+ },
+ "caret-down.svg": {
+  "blob": "7fa04e77e9dc2d84e280889afdab00f3",
+  "size": 220
+ },
+ "check.svg": {
+  "blob": "14627d603845d43502bfa916f86cc218",
+  "size": 221
+ },
+ "code.svg": {
+  "blob": "d159fa9214cfdeb247d3eaf0c26fdbd8",
+  "size": 457
+ },
+ "copy.svg": {
+  "blob": "68e96421603690a7189c6aa2fbab7aac",
+  "size": 285
+ },
+ "dots-three.svg": {
+  "blob": "319729bfb257058e84f0751c2c143a38",
+  "size": 243
+ },
+ "envelope-simple.svg": {
+  "blob": "7c2aec5736c151146d34d8ad6a55c44e",
+  "size": 288
+ },
+ "info.svg": {
+  "blob": "272c5385d9247f742f09acd888caeb53",
+  "size": 354
+ },
+ "list.svg": {
+  "blob": "cccd42f8e5e28a91cfc4aef1ee3419a1",
+  "size": 259
+ },
+ "magnifying-glass.svg": {
+  "blob": "5089e662d2a2459372ae0cc91e9f1386",
+  "size": 249
+ },
+ "pencil-simple.svg": {
+  "blob": "a188feae85a04879ab8523314cc0e73c",
+  "size": 354
+ },
+ "person-arms-spread.svg": {
+  "blob": "9a2e212b943b85c0517c1d880166345a",
+  "size": 741
+ },
+ "plus.svg": {
+  "blob": "25bc6c5c190f08b3002a75effa46e370",
+  "size": 218
+ },
+ "sparkle.svg": {
+  "blob": "2070d636309888f6e0b85c0b7695982f",
+  "size": 672
+ },
+ "stack.svg": {
+  "blob": "2401ecbd165ed96738bb0c18ddad690b",
+  "size": 489
+ },
+ "text-b.svg": {
+  "blob": "33432f4d86c6e421806c51aa0044c4a1",
+  "size": 265
+ },
+ "trash.svg": {
+  "blob": "26bbfe51efd61f10515f412521d2d841",
+  "size": 397
+ },
+ "triangle.svg": {
+  "blob": "ba29a94593aaed52cce722c9977127c3",
+  "size": 456
+ },
+ "warning-circle.svg": {
+  "blob": "0c0115fe6f188c6e46225e19f7699ade",
+  "size": 300
+ },
+ "warning.svg": {
+  "blob": "6c12e922f0f1e8b00a1b18293538d98b",
+  "size": 549
+ },
+ "x.svg": {
+  "blob": "81a010f16f002d422668aaca2a892a0a",
+  "size": 290
+ }
+}
