@@ -14,6 +14,7 @@ Output goes to `out/` (gitignored).
 | `luminous-pages.mjs` | Luminous's materials (satin folds, glass prism and orb, metal icon tiles, media art) and its fluid boards: block library, portfolio home, journal article | — |
 | `build-canvas.mjs` | Generates the 16 artboards and `canvas.json` into `out/canvas/project/` | `node build-canvas.mjs` |
 | `tokens.mjs` | Writes the DTCG 2025.10 token source for C2 into `packages/tokens/src/` (12 files: colour per theme context, materials per scheme, type, dimension, motion, components, resolver) | `node tokens.mjs` |
+| `design-system.mjs` | Builds the **private** Claude Design System into `out/design-system/project/`: `tokens.json` (list shape) from `packages/tokens/src`, `components/bundle.css` (a generated per-theme header + `design-system/components.css`), the brand book (`design-system/README.md`), 44 component cards and previews (`design-system/components.mjs`), the cover, fonts and the icon records (`design-system/icon-uploads.json`) | `node design-system.mjs --uploads design-system/icon-uploads.json --created 2026-10-10T…` |
 | `check-tokens.mjs` | Checks that source: `$type` and `$description` on every token, aliases resolve, every declared pair passes in all four contexts, body ≥ 16 px. Exits non-zero on failure | `node check-tokens.mjs` |
 
 ## Changing a direction
@@ -70,3 +71,17 @@ shares it.
 - A registered `@property` that a `::before` must read needs `inherits: true` — pseudo-elements don't inherit
   non-inherited properties from their host.
 - The Design type asks agents not to screenshot or re-verify a canvas unless the user asks.
+
+## The Claude Design System (private)
+
+<https://claude.ai/artifact/Er8XMd9VquWgK1q1ZrdCWe> — **never share it within the organisation or make it public**
+(the user's rule). It is built from this repository; edit the sources, not the artifact's files.
+
+1. **Read it first** (Artifact `read` of `project/design-system.json` and any file you'll change): people can edit it
+   on the page, and the type asks you to start from what's there.
+2. `node tokens.mjs && node check-tokens.mjs` if tokens changed, then
+   `node design-system.mjs --uploads design-system/icon-uploads.json --created <the index's createdOnFiles.at>`.
+3. **Publish only changed files** to its `url` with `root` = `out/design-system`; send `project/design-system.json`
+   only when its own keys change (title, an asset record, `lastChange`), and last.
+4. New icons are **uploads**: Artifact `publish` with `asset: true`, then add `{blob, size}` to `icon-uploads.json`.
+5. The type asks agents not to render-check unless the user asks.

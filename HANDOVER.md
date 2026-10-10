@@ -1,12 +1,12 @@
-# Handover — Lue UI, Pass 2 in progress
+# Handover — Lue UI, Pass 2 complete
 
-> Written 2026-10-05 when Phase 1 closed; updated the same day as Pass 2 began. A fresh session should read this file,
+> Written 2026-10-05 when Phase 1 closed; updated through Pass 2, which completed on 2026-10-10. A fresh session should read this file,
 > then [AGENTS.md](AGENTS.md), then [mission and principles](docs/foundations/mission-and-principles.md).
 
 ## Where things stand
 
 - **Phase 1 (foundations and design kickoff) is complete.** There is no library code, by design.
-- **Pass 2 has started.** The user chose **Chroma** and asked for a more luminous, luxurious evolution: **C2 · Chroma
+- **Pass 2 is complete (2026-10-10).** The user chose **Chroma** and asked for a more luminous, luxurious evolution: **C2 · Chroma
   Luminous** (chrome hairlines, liquid-glass depth, a subdued prismatic-neon palette, light that moves on
   interaction). It's the first row on the canvas and recorded in the
   [brief](docs/design/claude-design-brief.md#c2-chroma-luminous--luminous--luxurious--prismatic). It is still
@@ -87,7 +87,7 @@
 
 Lower-priority open questions are listed at the end of [RFC-0001](docs/architecture/rfc-0001-architecture.md#open-questions).
 
-## Next: Pass 2 — codify the chosen direction
+## Pass 2 — codify the chosen direction (complete)
 
 Done on 2026-10-05:
 
@@ -102,10 +102,17 @@ Done on 2026-10-05:
   `check-tokens.mjs` passes. Re-run both after any palette change.
 - ~~Name~~ — Lue UI ([ADR-0008](docs/architecture/adr/0008-name-lue-ui.md)).
 
+- ~~Create the Claude Design "Design System" artifact~~ — done 2026-10-10:
+  <https://claude.ai/artifact/Er8XMd9VquWgK1q1ZrdCWe> (**private; never share it within the organisation**). Built by
+  `tools/directions/design-system.mjs` from the token source: `tokens.json` (84 colours × 4 themes, dark first), a
+  brand-book README, `bundle.css` (`@layer lue`, one-class specificity — the seed of `@lue-ui/css`), 44 component and
+  block cards with live HTML previews, a cover, the fonts and 23 Phosphor icons. How to rebuild and republish: the
+  [tools README](tools/directions/README.md#the-claude-design-system-private). Not render-checked.
+
 Remaining:
 
-1. **Create the Claude Design "Design System" artifact** — private, never shared within the organisation, built with
-   `lue` names. Run Artifact `quickstart` with intent `other`, then publish with the Design System `type_url` and a
+1. *(Done — kept for the record.)* **Create the Claude Design "Design System" artifact** — private, never shared
+   within the organisation, built with `lue` names. Run Artifact `quickstart` with intent `other`, then publish with the Design System `type_url` and a
    title, and no files. Follow the instructions in the create result, and read its reference pages (format, craft,
    cover, from-code) before writing anything:
    - files live under `project/`;

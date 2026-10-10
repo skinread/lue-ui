@@ -8,8 +8,9 @@ primary reference for agents working in this repo.
 
 ## Current state
 
-- **Pass 2 — codifying the chosen visual direction, C2 · Chroma Luminous. Documentation and design tooling only; no
-  library code yet.**
+- **Pass 2 is complete (2026-10-10):** the C2 · Chroma Luminous look is locked (ADR-0009), the DTCG token source is in
+  `packages/tokens/src`, and the private Claude Design System is built. **No library code yet** — Pass 3 starts only
+  when the user says so.
 - `tools/directions/` holds dependency-free design scripts (contrast checks, the Claude Design canvas generator) —
   see its [README](tools/directions/README.md).
 - Don't scaffold packages, add `package.json` files or install tooling until Pass 3 begins
