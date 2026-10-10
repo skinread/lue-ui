@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { directions as PAL, evaluate } from './palettes.mjs';
 import { contrast } from './contrast.mjs';
-import { lxVars, lxShadows, LX_CSS, lxFoundations, LX_FONTS, FACE_STYLE, faceProp, faceLogic, faceReturn } from './luminous-canvas.mjs';
+import { lxVars, lxShadows, LX_CSS, lxFoundations, LX_FONTS } from './luminous-canvas.mjs';
 import { blocksBoard, portfolioBoard, articleBoard } from './luminous-pages.mjs';
 
 // Output: <this folder>/out/canvas (gitignored), or a folder passed as the first argument.
@@ -154,15 +154,15 @@ const DIRS = {
     motto: 'Light, caught in chrome and glass.',
     tags: ['Chrome hairlines', 'Liquid glass', 'Prismatic neon', 'Light that moves'],
     fonts: LX_FONTS,
-    fontNames: ['Headings: Bricolage Grotesque (Tweak “heading” compares Funnel Display, Host Grotesk, Epilogue, Schibsted Grotesk)', 'Figtree — body', 'Spline Sans Mono — micro-labels and code'],
+    fontNames: ['Epilogue — display and headings, light', 'Figtree — body', 'Spline Sans Mono — micro-labels and code'],
     H: { foundations: 7700, components: 2560, checkout: 1240 },
     interactive: true,
     vars: {
-      '--font-display': "'Bricolage Grotesque', system-ui, sans-serif",
+      '--font-display': "'Epilogue', system-ui, sans-serif", '--display-scale': '0.95', '--heading-scale': '0.95',
       '--font-body': "'Figtree', system-ui, sans-serif",
       '--font-mono': "'Spline Sans Mono', ui-monospace, monospace",
       '--fs-display': 'calc(78px * var(--display-scale, 1))', '--lh-display': '0.98', '--fw-display': '300', '--ls-display': '-0.035em', '--ls-heading': '-0.02em',
-      '--fvs-display': "'wdth' 100, 'opsz' 96",
+      '--fvs-display': 'normal',
       '--fs-h1': 'calc(46px * var(--heading-scale, 1))', '--lh-h1': '1.04', '--fs-h2': 'calc(32px * var(--heading-scale, 1))', '--lh-h2': '1.1', '--fs-h3': 'calc(24px * var(--heading-scale, 1))', '--lh-h3': '1.2',
       '--fs-h4': 'calc(19px * var(--heading-scale, 1))', '--lh-h4': '1.3', '--fw-heading': '480',
       '--fs-body': '17px', '--lh-body': '1.6', '--fs-small': '15px', '--fs-label': '16px', '--fw-label': '600',
@@ -535,7 +535,7 @@ for (const d of Object.keys(DIRS)) {
   const lx = d === 'luminous' ? lxFoundations({ icon }) : { afterColour: '', beforeSignature: '' };
   const scale = [['3xs', '--space-3xs'], ['2xs', '--space-2xs'], ['xs', '--space-xs'], ['s', '--space-s'], ['m', '--space-m'], ['l', '--space-l'], ['xl', '--space-xl'], ['2xl', '--space-2xl'], ['3xl', '--space-3xl']];
   const body = `
-<div class="board dir-${d}" data-scheme="${d === 'luminous' ? 'dark' : 'light'}" style="width: ${W}px; min-height: ${H}px; display: grid; align-content: start; gap: 56px; padding: 64px 72px 80px${d === 'luminous' ? `; ${FACE_STYLE}` : ''}">
+<div class="board dir-${d}" data-scheme="${d === 'luminous' ? 'dark' : 'light'}" style="width: ${W}px; min-height: ${H}px; display: grid; align-content: start; gap: 56px; padding: 64px 72px 80px">
   ${d === 'luminous' ? `<header class="scheme lx-stage" data-scheme="dark" style="display: grid; gap: 20px; margin: -64px -72px 0; padding: 72px 72px 64px">
     <div class="lx-ambient" aria-hidden="true"></div>
     <div class="lx-dust" aria-hidden="true" style="position: absolute; inset-block: 0; inset-inline-end: 0; inline-size: 34%; z-index: -1"></div>
@@ -567,9 +567,7 @@ ${lx.afterColour}
     <div style="display: grid; gap: 18px">
       <p class="t-display">Made for everyone</p>
       <p class="t-h1">Heading one — clear, calm checkout</p>
-      <p class="t-h2">Heading two — delivery details</p>${d === 'luminous' ? `
-      <p class="t-h1" style="font-weight: 300">Fine-tuned for focus: effortless, fluid, refined</p>
-      <p class="t-h3">Of fifty different fonts, find the friendliest f</p>` : ''}
+      <p class="t-h2">Heading two — delivery details</p>
       <p class="t-h3">Heading three — order summary</p>
       <p class="t-h4">Heading four — payment</p>
       <p class="t-body" style="max-inline-size: 66ch">Make accessible, standards-based interfaces the path of least resistance — by building with the web platform, not on top of it. Body text holds 7:1 contrast on every surface and a comfortable measure.</p>
@@ -630,9 +628,7 @@ ${lx.beforeSignature ? `${lx.beforeSignature}
   </section>
 </div>`;
   files[`${fileOf(t)}-Foundations.dc.html`] = { w: W, h: H, title: `${t.letter} · ${t.name} — foundations`, interactive: !!t.interactive,
-    html: d === 'luminous'
-      ? page(`${t.name} — foundations`, t.fonts, [d], body, { ...faceProp, $preview: { width: W, height: H } }, `${faceLogic}\n    return { ${faceReturn} };`)
-      : page(`${t.name} — foundations`, t.fonts, [d], body, { $preview: { width: W, height: H } }) };
+    html: page(`${t.name} — foundations`, t.fonts, [d], body, { $preview: { width: W, height: H } }) };
 }
 
 // Components
@@ -640,7 +636,7 @@ for (const d of Object.keys(DIRS)) {
   const t = DIRS[d];
   const W = 1440, H = sizeOf(t, 'components', 2400);
   const body = `
-<div class="board dir-${d}" data-scheme="${d === 'luminous' ? 'dark' : 'light'}" style="width: ${W}px; min-height: ${H}px; display: grid; align-content: start; gap: 32px; padding: 56px 56px 72px${d === 'luminous' ? `; ${FACE_STYLE}` : ''}">
+<div class="board dir-${d}" data-scheme="${d === 'luminous' ? 'dark' : 'light'}" style="width: ${W}px; min-height: ${H}px; display: grid; align-content: start; gap: 32px; padding: 56px 56px 72px">
   <header style="display: flex; justify-content: space-between; align-items: end; gap: 24px">
     <div style="display: grid; gap: 8px"><p class="t-micro">${d === 'luminous' ? 'Lue UI · direction' : 'Direction'} ${t.letter} · components</p><h1 class="t-h1">${t.name} — Tier 1 sheet</h1></div>
     <p class="t-small t-muted" style="max-inline-size: 46ch">Real elements: buttons, inputs with labels, fieldsets, a dialog with a method="dialog" form. States drawn: hover, active, focus, disabled, pressed, invalid.</p>
@@ -650,9 +646,7 @@ ${(d === 'luminous' ? ['dark', 'light'] : ['light', 'dark']).map((s) => componen
   </div>
 </div>`;
   files[`${fileOf(t)}-Components.dc.html`] = { w: W, h: H, title: `${t.letter} · ${t.name} — components`, interactive: !!t.interactive,
-    html: d === 'luminous'
-      ? page(`${t.name} — components`, t.fonts, [d], body, { ...faceProp, $preview: { width: W, height: H } }, `${faceLogic}\n    return { ${faceReturn} };`)
-      : page(`${t.name} — components`, t.fonts, [d], body, { $preview: { width: W, height: H } }) };
+    html: page(`${t.name} — components`, t.fonts, [d], body, { $preview: { width: W, height: H } }) };
 }
 
 // Checkout (composed screen), with dark + dialog tweaks
@@ -661,7 +655,7 @@ for (const d of Object.keys(DIRS)) {
   const W = 1280, H = sizeOf(t, 'checkout', 1240);
   const lum = d === 'luminous';
   const body = `
-<div class="board dir-${d}${lum ? ' lx-stage' : ''}" data-scheme="{{scheme}}" style="width: ${W}px; min-height: ${H}px; position: relative; display: grid; align-content: start${lum ? `; ${FACE_STYLE}` : ''}">${lum ? '\n  <div class="lx-ambient" aria-hidden="true"></div>' : ''}
+<div class="board dir-${d}${lum ? ' lx-stage' : ''}" data-scheme="{{scheme}}" style="width: ${W}px; min-height: ${H}px; position: relative; display: grid; align-content: start">${lum ? '\n  <div class="lx-ambient" aria-hidden="true"></div>' : ''}
   <header${lum ? ' class="lx-glass"' : ''} style="display: flex; justify-content: space-between; align-items: center; padding: 22px 56px; ${lum ? 'border-radius: 0; box-shadow: none' : 'border-block-end: 1px solid var(--border-subtle); background: var(--bg-surface)'}">
     <p class="t-h4" style="font-family: var(--font-display)">[Store name]</p>
     <ol class="ns-steps" aria-label="Checkout progress">
@@ -733,8 +727,8 @@ for (const d of Object.keys(DIRS)) {
   const darkDefault = lum;
   files[`${fileOf(t)}-Checkout.dc.html`] = { w: W, h: H, title: `${t.letter} · ${t.name} — checkout`, interactive: !!t.interactive,
     html: page(`${t.name} — checkout details`, t.fonts, [d], body,
-      { dark: { editor: 'boolean', default: darkDefault }, dialog: { editor: 'boolean', default: false }, ...(lum ? faceProp : {}), $preview: { width: W, height: H } },
-      `${lum ? `${faceLogic}\n    ` : ''}return { ${lum ? `${faceReturn}, ` : ''}scheme: ${darkDefault ? '(this.props.dark ?? true)' : 'this.props.dark'} ? 'dark' : 'light', showDialog: !!this.props.dialog };`) };
+      { dark: { editor: 'boolean', default: darkDefault }, dialog: { editor: 'boolean', default: false }, $preview: { width: W, height: H } },
+      `return { scheme: ${darkDefault ? '(this.props.dark ?? true)' : 'this.props.dark'} ? 'dark' : 'light', showDialog: !!this.props.dialog };`) };
 }
 
 // C2 pages: fluid boards (expand: fill) for portfolio and editorial sites, each with a dark tweak
@@ -747,8 +741,8 @@ for (const d of Object.keys(DIRS)) {
   ]) {
     files[`Luminous-${f}.dc.html`] = { w: 1440, h: H, title: `${t.letter} · ${t.name} — ${label}`, interactive: true, expand: 'fill',
       html: page(`${t.name} — ${label}`, t.fonts, ['luminous'], build({ icon }),
-        { dark: { editor: 'boolean', default: dark }, ...faceProp, $preview: { width: 1440, height: H } },
-        `${faceLogic}\n    return { ${faceReturn}, scheme: ${dark ? '(this.props.dark ?? true)' : 'this.props.dark'} ? 'dark' : 'light' };`) };
+        { dark: { editor: 'boolean', default: dark }, $preview: { width: 1440, height: H } },
+        `return { scheme: ${dark ? '(this.props.dark ?? true)' : 'this.props.dark'} ? 'dark' : 'light' };`) };
   }
 }
 

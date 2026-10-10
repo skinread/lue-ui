@@ -177,7 +177,7 @@ const STEPS = [['minus-2', 12, 12], ['minus-1', 14, 15], ['0', 16, 17], ['1', 17
 
 function typography() {
   const family = {
-    display: tok('fontFamily', ['Bricolage Grotesque', 'system-ui', 'sans-serif'], 'Display and headings (SIL OFL; light 300, full optical size).'),
+    display: tok('fontFamily', ['Epilogue', 'system-ui', 'sans-serif'], 'Display and headings (SIL OFL; light 300 for display).'),
     body: tok('fontFamily', ['Figtree', 'system-ui', 'sans-serif'], 'Body text, labels and controls (SIL OFL).'),
     mono: tok('fontFamily', ['Spline Sans Mono', 'ui-monospace', 'monospace'], 'Code, and uppercase micro-labels (SIL OFL).'),
   };
@@ -201,7 +201,7 @@ function typography() {
     letterSpacing: px(0),
   }, use, { letterSpacingEm: em, ...extra });
   const text = {
-    display: style('display', '5', 'light', '{font.leading.display}', -0.035, 'Hero and page display.', { fontVariationSettings: "'opsz' 96" }),
+    display: style('display', '5', 'light', '{font.leading.display}', -0.035, 'Hero and page display.'),
     'heading-1': style('display', '4', 'heading', '{font.leading.heading-1}', -0.02, 'Page title.'),
     'heading-2': style('display', '3', 'heading', '{font.leading.heading-2}', -0.02, 'Section heading.'),
     'heading-3': style('display', '2', 'heading', '{font.leading.heading-3}', -0.02, 'Subsection heading.'),

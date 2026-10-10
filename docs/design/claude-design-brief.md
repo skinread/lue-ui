@@ -242,9 +242,9 @@ palette towards a subdued, futuristic, prismatic neon, and see where it leads.
 - **Glass:** two tiers. *Overlay* (menus, popovers, cards, sticky bars) and *modal* (dialogs, over a scrim): a tint
   over `blur(22px) saturate(1.6)` with `contrast()` and `brightness()` compressing the backdrop's range, a faint
   sheen, a prism fringe at the edge, and soft coloured depth. Squircle corners via `corner-shape` as an enhancement.
-- **Type:** **Bricolage Grotesque** at a light 300 weight and full optical size for display and headings (decided
-  2026-10-05, after a trial of wider faces — Anybody, Archivo and Unbounded expanded — that lacked personality),
-  Figtree for body, Spline Sans Mono for uppercase micro-labels tracked wide. Chrome lettering (gradient-clipped text)
+- **Type:** **Epilogue** at a light 300 weight for display and headings (decided 2026-10-10, after Bricolage Grotesque
+  — whose *f* was hard to read — was compared with Funnel Display, Host Grotesk and Schibsted Grotesk; wider faces had
+  been tried and rejected on 2026-10-05), Figtree for body, Spline Sans Mono for uppercase micro-labels tracked wide. Chrome lettering (gradient-clipped text)
   for the display wordmark only, with a forced-colours fallback.
 - **Shape:** pills for buttons, tags and toasts; radii 8 / 12 / 20 / 28 px; 1 px hairlines replace Chroma's 2 px
   borders.
@@ -264,7 +264,7 @@ palette towards a subdued, futuristic, prismatic neon, and see where it leads.
   portfolio home page and a journal article (fluid boards that reflow to one column). The checkout stays as the forms
   example.
 - **Decided 2026-10-05 and locked in [ADR-0009](../architecture/adr/0009-visual-direction-chroma-luminous.md):**
-  multi-tone small controls; dark as the primary scheme; Phosphor regular; Bricolage Grotesque for headings.
+  multi-tone small controls; dark as the primary scheme; Phosphor regular; Epilogue for headings (2026-10-10).
 
 #### Future exploration
 

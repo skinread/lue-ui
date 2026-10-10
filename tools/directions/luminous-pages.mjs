@@ -3,8 +3,6 @@
 // Imported by build-canvas.mjs and luminous-canvas.mjs. All colours come from custom properties, so every piece follows
 // the board's scheme.
 
-import { FACE_STYLE } from './luminous-canvas.mjs';
-
 let uid = 0;
 const nid = (p) => `${p}${++uid}`;
 const stop = (offset, v, opacity) => `<stop offset="${offset}" style="stop-color: var(${v})${opacity == null ? '' : `; stop-opacity: ${opacity}`}"></stop>`;
@@ -266,7 +264,7 @@ export function lxBlocks({ icon }) {
 
 // ---------------------------------------------------------------- boards
 const shell = (inner) => `
-<div class="board dir-luminous lx-stage" data-scheme="{{scheme}}" style="display: grid; align-content: start; ${FACE_STYLE}">
+<div class="board dir-luminous lx-stage" data-scheme="{{scheme}}" style="display: grid; align-content: start">
   <div class="lx-ambient" aria-hidden="true"></div>
 ${inner}
 </div>`;

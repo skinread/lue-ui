@@ -18,7 +18,8 @@ Chroma and art-directed four rounds on 2026-10-05:
    the composed screens from commerce to portfolio and editorial sites.
 4. **Details:** multi-tone small controls, dark as the default, Phosphor regular, the wider neon spectrum parked, and —
    after a trial of wider faces (Anybody, Archivo, Unbounded) that lacked personality — Bricolage Grotesque for
-   headings.
+   headings. On 2026-10-10 the user found Bricolage's *f* hard to read, compared four similar faces on the canvas and
+   chose **Epilogue**.
 
 The brief's earlier mandate ("no fake depth, no glass behind text") conflicted with round 1, so it was revised to allow
 glass only where it's verified.
@@ -38,7 +39,7 @@ the values live in `tools/directions/palettes.mjs` until the token pipeline exis
 | Buttons | Frosted glass. Primaries carry five prism tones at one lightness that drift on hover; light pools at the lower edge. |
 | Small controls | Multi-tone fills at one lightness: pastel with obsidian marks in light, jewel with pearl marks in dark. |
 | Materials | Liquid-metal icon tiles and avatars, satin folds behind heroes, a glass prism and orb as hero objects, diffuse warm-to-cool ambient light. |
-| Type | **Bricolage Grotesque** (light, full optical size) for display and headings · **Figtree** for body · **Spline Sans Mono** for uppercase micro-labels and code. All SIL OFL. |
+| Type | **Epilogue** (light 300 for display, set at 0.95 of the scale) for display and headings · **Figtree** for body · **Spline Sans Mono** for uppercase micro-labels and code. All SIL OFL. |
 | Icons | **Phosphor**, regular weight (MIT). |
 | Shape | Pills for buttons, tags and toasts; radii 8 / 12 / 20 / 28 px; squircle corners via `corner-shape` as an enhancement. |
 | Motion | 320 ms ease-out, on interaction only: tones drift, chrome glints, glow rises, sparks drift along primaries. Nothing loops; reduced motion is instant. |
@@ -54,11 +55,8 @@ fallbacks.
 - **Negative:** `backdrop-filter` costs a rendering pass per glass surface, so glass is limited to overlays, cards,
   bars and buttons. Several effects (`corner-shape`, `background-clip: text` in Firefox) are enhancement-only. The
   look depends on its three families being self-hosted within the Latin budget, **raised to 130 KB on 2026-10-10** to
-  keep the mono micro-labels (measured: Bricolage 75 KB without its unused width axis, Figtree 19 KB, Spline Sans
-  Mono 35 KB).
-- **Open (2026-10-10):** the user likes Bricolage's personality but finds its *f* hard to read. Similar faces are on
-  trial on the canvas (Heading face Tweak): Funnel Display, Host Grotesk, Epilogue, Schibsted Grotesk — all OFL and
-  all smaller than Bricolage. If one is chosen, this ADR's type row changes.
+  keep the mono micro-labels. With Epilogue the default Latin set measures about **88 KB** (Epilogue 34 KB, Figtree
+  19 KB, Spline Sans Mono 35 KB; Google Fonts, 2026-10-10), well inside it.
 - **Next:** increased-contrast themes (`dark-more`, `light-more`), the full token set, the private Claude Design
   System, and the DTCG token source.
 
@@ -69,3 +67,5 @@ fallbacks.
 - **C · Chroma as first drawn** (vivid fuchsia and lime, flat colour fields) — evolved rather than kept.
 - **Wider display faces** (Anybody expanded, Archivo expanded, Unbounded) — tried on the canvas; not enough
   personality.
+- **Bricolage Grotesque** — the right personality, but its *f* was hard to read. **Funnel Display, Host Grotesk and
+  Schibsted Grotesk** were compared alongside Epilogue (2026-10-10).

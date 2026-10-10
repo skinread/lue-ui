@@ -5,11 +5,11 @@
       "display": {
         "$type": "fontFamily",
         "$value": [
-          "Bricolage Grotesque",
+          "Epilogue",
           "system-ui",
           "sans-serif"
         ],
-        "$description": "Display and headings (SIL OFL; light 300, full optical size)."
+        "$description": "Display and headings (SIL OFL; light 300 for display)."
       },
       "body": {
         "$type": "fontFamily",
@@ -300,8 +300,7 @@
       "$description": "Hero and page display.",
       "$extensions": {
         "lue": {
-          "letterSpacingEm": -0.035,
-          "fontVariationSettings": "'opsz' 96"
+          "letterSpacingEm": -0.035
         }
       }
     },

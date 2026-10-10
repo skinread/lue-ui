@@ -9,23 +9,10 @@ const raw = ([L, C, h], a) => `oklch(${+L.toFixed(3)} ${+C.toFixed(3)} ${+(+h).t
 const mapped = (v, a) => { const c = oklch(...v); return raw([c.L, c.C, c.h], a); };
 
 // ---------------------------------------------------------------- type
-// Bricolage Grotesque for display and headings (chosen 2026-10-05), Figtree for body, Spline Sans Mono for micro-labels
-// and code. All SIL OFL. On 2026-10-10 the user liked Bricolage's personality but found its 'f' hard to read, so a
-// Heading face Tweak compares similar characterful grotesques; Bricolage stays the default until one is chosen.
-export const HEADING_FACES = {
-  'Bricolage Grotesque': { family: "'Bricolage Grotesque', system-ui, sans-serif", fvs: "'wdth' 100, 'opsz' 96", ls: '-0.035em', lsHeading: '-0.02em', scale: 1 },
-  'Funnel Display': { family: "'Funnel Display', system-ui, sans-serif", fvs: 'normal', ls: '-0.03em', lsHeading: '-0.015em', scale: 1 },
-  'Host Grotesk': { family: "'Host Grotesk', system-ui, sans-serif", fvs: 'normal', ls: '-0.03em', lsHeading: '-0.015em', scale: 0.98 },
-  Epilogue: { family: "'Epilogue', system-ui, sans-serif", fvs: 'normal', ls: '-0.035em', lsHeading: '-0.02em', scale: 0.95 },
-  'Schibsted Grotesk (400+)': { family: "'Schibsted Grotesk', system-ui, sans-serif", fvs: 'normal', ls: '-0.03em', lsHeading: '-0.015em', scale: 0.96 },
-};
-export const HEADING_DEFAULT = 'Bricolage Grotesque';
-export const LX_FONTS = 'family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Funnel+Display:wght@300..800&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&family=Figtree:ital,wght@0,300..900;1,300..900&family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap';
-export const faceProp = { heading: { editor: 'enum', options: Object.keys(HEADING_FACES), default: HEADING_DEFAULT, section: 'Type' } };
-// Spaced JSON, so no "}}" ever lands in the artboard source.
-export const faceLogic = `const F = ${JSON.stringify(HEADING_FACES, null, 1)};\n    const f = F[this.props.heading] || F[${JSON.stringify(HEADING_DEFAULT)}];`;
-export const faceReturn = 'fontDisplay: f.family, fvsDisplay: f.fvs, lsDisplay: f.ls, lsHeading: f.lsHeading, displayScale: f.scale, headingScale: f.scale';
-export const FACE_STYLE = '--font-display: {{fontDisplay}}; --fvs-display: {{fvsDisplay}}; --ls-display: {{lsDisplay}}; --ls-heading: {{lsHeading}}; --display-scale: {{displayScale}}; --heading-scale: {{headingScale}}';
+// Epilogue for display and headings (chosen 2026-10-10: Bricolage Grotesque had the personality but a hard-to-read 'f';
+// Funnel Display, Host Grotesk and Schibsted Grotesk were also compared). Figtree for body, Spline Sans Mono for
+// micro-labels and code. All SIL OFL.
+export const LX_FONTS = 'family=Epilogue:ital,wght@0,100..900;1,100..900&family=Figtree:ital,wght@0,300..900;1,300..900&family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap';
 
 // ---------------------------------------------------------------- per-scheme custom properties
 export function lxVars(s) {

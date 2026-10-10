@@ -73,13 +73,13 @@
 | Licence | MIT (already in the repo). |
 | Git | Commit as you go on `develop`; no feature branches; no push unless asked (2026-10-05). |
 | Direction | Continue with **Chroma**, evolved as C2 · Chroma Luminous (2026-10-05). Glass is allowed only when verified; the brief's creative mandate and non-negotiables were revised to match. |
-| C2 details (2026-10-05) | Multi-tone fills on checkboxes, radios, switches and steps · **dark is the primary scheme** · Phosphor icons, regular weight · **Bricolage Grotesque** for headings (wider faces tried and rejected) · wider neon spectrum parked as future exploration. **Locked in [ADR-0009](docs/architecture/adr/0009-visual-direction-chroma-luminous.md).** |
+| C2 details (2026-10-05) | Multi-tone fills on checkboxes, radios, switches and steps · **dark is the primary scheme** · Phosphor icons, regular weight · **Epilogue** for headings (2026-10-10; wider faces and Bricolage Grotesque tried and rejected) · wider neon spectrum parked as future exploration. **Locked in [ADR-0009](docs/architecture/adr/0009-visual-direction-chroma-luminous.md).** |
 | Approved with the plan | Native CSS core with Tailwind only as a generated bridge · WCAG 2.2 AA + 2.4.13 AAA focus + 44px targets under `(any-pointer: coarse)` · Baseline "newly available" fidelity floor · DTCG 2025.10 tokens via Terrazzo · pnpm workspace from Pass 3 · lockstep versions · open-licensed fonts and icons. |
 
 ## Waiting on the user
 
-1. ~~Pick the display face~~ — Bricolage Grotesque; the look is locked in ADR-0009. Further canvas feedback is still
-   welcome as refinements.
+1. ~~Pick the display face~~ — Epilogue (2026-10-10); the look is locked in ADR-0009. Further canvas feedback is
+   still welcome as refinements.
 2. **npm scope** — an empty npm user scope `lue-ui` already exists. Is it the user's? If not, use `@lueui/*`. Then the
    user creates the npm and GitHub organisations (outward-facing; not for an agent to do unasked).
 3. **[ADR-0004](docs/architecture/adr/0004-support-floors.md) inclusion exception** — a ~2 KB conditional invokers
@@ -115,13 +115,10 @@ Remaining:
      hand;
    - per component and content block, `components/<Comp>/README.md` and a `preview.html` whose line 1 is a `@dsCard`
      comment;
-   - `components/bundle.css` and the fonts — **ask the user before downloading** the Bricolage Grotesque, Figtree and
-     Spline Sans Mono files (state source and size). Latin woff2 sizes from Google Fonts (checked 2026-10-05):
-     Bricolage with all axes 128 KB, or **75 KB without the unused width axis** (`opsz,wght@12..96,300..600`);
-     Figtree 19 KB (+ italic 20 KB, loaded only when used); Spline Sans Mono 35 KB. **Budget raised to 130 KB**
-     (user, 2026-10-10), so the mono micro-labels stay. **Heading face still open:** Bricolage's *f* is hard to read;
-     the canvas compares Funnel Display (17 KB), Host Grotesk (19 KB), Epilogue (34 KB) and Schibsted Grotesk (45 KB,
-     400+ only) — wait for the user's pick before downloading fonts;
+   - `components/bundle.css` and the fonts — **ask the user before downloading** the Epilogue, Figtree and Spline
+     Sans Mono files (state source and size). Latin variable woff2 from Google Fonts (2026-10-10): Epilogue 34 KB,
+     Figtree 19 KB (+ italic 20 KB, loaded only when used), Spline Sans Mono 35 KB — about 88 KB, inside the 130 KB
+     budget (raised by the user on 2026-10-10);
    - the `design-system.json` index, written **last**.
 2. **Archive the Phase 1 page** on the canvas if the user wants it gone (it's regenerable from the repo).
 

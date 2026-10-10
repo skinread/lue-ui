@@ -242,7 +242,7 @@ white, black and every fill; tones up to three deep; satin folds; ambient light 
   | Size | 12 → 12 | 14 → 15 | 16 → 17 | 17.5 → 19 | 20 → 24 | 24 → 32 | 30 → 46 | 44 → 84 |
   | Use | micro-label | small | body | heading 4 | heading 3 | heading 2 | heading 1 | display |
 
-- **C2 families:** Bricolage Grotesque (display and headings, light 300, `opsz` 96), Figtree (body), Spline Sans Mono
+- **C2 families:** Epilogue (display and headings, light 300 for display), Figtree (body), Spline Sans Mono
   (code and uppercase micro-labels tracked 0.16 em). Display tracking −0.035 em, headings −0.02 em.
 - **Line height:** body ≥ 1.5; headings 1.1–1.25; expressed unitless.
 - **Measure:** `--lue-measure: 66ch` for running text.
