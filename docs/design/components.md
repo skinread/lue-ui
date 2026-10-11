@@ -9,11 +9,11 @@
 - **Primitive** — the native element or attribute the component is built on.
 - **Pattern** — the WAI-ARIA Authoring Practices pattern it follows ("—" when native semantics are the whole story).
 - **JS** — `none` (works with HTML + CSS alone), `opt-in` (a delegated `data-lue-*` behaviour for the HTML path; React
-  uses state), `element` (a light-DOM custom element), `polyfill` (conditional, per ADR-0004).
+  uses state), `element` (a light-DOM custom element). No polyfills ship ([ADR-0004](../architecture/adr/0004-support-floors.md)).
 - **Depends on / fallback** — the Baseline features it relies on, and what happens without anything newer.
 
-Of the 22 Tier 1 components, **18 need no JavaScript in current engines** (Dialog and Drawer load a small polyfill only
-on Safari older than 26.2), 2 use an opt-in behaviour, and 2 use a custom element.
+Of the 22 Tier 1 components, **18 need no JavaScript in current engines** (on Safari older than 26.2, HTML-path buttons
+that open a Dialog or Drawer do nothing — ADR-0004), 2 use an opt-in behaviour, and 2 use a custom element.
 
 ## Tier 0 — Foundations
 
@@ -41,8 +41,8 @@ on Safari older than 26.2), 2 use an opt-in behaviour, and 2 use a custom elemen
 | Switch | `<input type="checkbox" role="switch">` | Switch | none | Safari's `switch` attribute as PE |
 | Select | `<select>` | — (native) | none | `appearance: base-select` as PE → styled native select |
 | Form validation + error summary | Constraint validation, `<form data-lue-validate>` | — | opt-in `data-lue-validate` | Without JS: browser messages + server-rendered summary |
-| Dialog | `<dialog>` + `command="show-modal"` + `closedby="any"`; close with `<form method="dialog">` | Dialog (modal) | none (+ polyfill) | Invokers polyfill on Safari < 26.2; `closedby` fallback in Safari |
-| Drawer | `<dialog>` positioned to an inline/block edge | Dialog (modal) | none (+ polyfill) | As Dialog |
+| Dialog | `<dialog>` + `command="show-modal"` + `closedby="any"`; close with `<form method="dialog">` | Dialog (modal) | none | `closedby` is an enhancement (Safari: Esc and buttons close it). Safari < 26.2: `command` buttons are inert in the HTML path |
+| Drawer | `<dialog>` positioned to an inline/block edge | Dialog (modal) | none | As Dialog |
 | Popover | `[popover]` + `popovertarget`, anchor positioning | Disclosure (non-modal) | none | Without anchoring: browser-centred popover |
 | Menu button | `[popover]` with `role="menu"`, anchored | Menu button | element `<lue-menu>` | Keyboard model needs the element; opening works without it |
 | Toggletip | `[popover]` (`hint` as PE) | — (click-to-show help) | none | `popover="hint"` → `manual`/`auto` |
@@ -231,8 +231,8 @@ for the first five components, and the final schema is extracted from what those
   "ownedAttributes": {},
   "platform": {
     "baseline": ["dialog", "showModal", "invoker commands", "@starting-style", "transition-behavior: allow-discrete"],
-    "enhancements": [{ "feature": "closedby", "fallback": "Delegated backdrop listener calls requestClose() (Safari)" }],
-    "polyfills": [{ "feature": "invoker commands", "loadedWhen": "!('command' in HTMLButtonElement.prototype)", "policy": "ADR-0004" }]
+    "enhancements": [{ "feature": "closedby", "fallback": "No light dismiss; Esc and the dialog's buttons close it (Safari)" }],
+    "knownGaps": [{ "where": "Safari < 26.2, HTML path", "gap": "command buttons do nothing", "policy": "ADR-0004 — no polyfill" }]
   },
   "forcedColors": "Canvas / CanvasText with a visible border; ::backdrop stays transparent-dark",
   "rules": [
@@ -240,6 +240,6 @@ for the first five components, and the final schema is extracted from what those
     "Popovers inside the dialog stay DOM children of the dialog (never portalled)",
     "Scroll lock: html:has(dialog:modal) { overflow: hidden } with scrollbar-gutter: stable"
   ],
-  "deletionTrigger": "closedby Baseline → remove fallback; Safari < 26.2 share < 1% → remove invokers polyfill"
+  "deletionTrigger": null
 }
 ```

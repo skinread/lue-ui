@@ -19,7 +19,7 @@ Read in this order the first time; every later document traces back to the first
 | [ADR-0001](architecture/adr/0001-component-model.md) | HTML+CSS core, light-DOM elements, React adapters |
 | [ADR-0002](architecture/adr/0002-native-css-core-tailwind-bridge.md) | Native CSS core; Tailwind as a generated bridge |
 | [ADR-0003](architecture/adr/0003-dtcg-tokens-with-terrazzo.md) | DTCG 2025.10 tokens built with Terrazzo |
-| [ADR-0004](architecture/adr/0004-support-floors.md) | Baseline fidelity floor and one inclusion exception |
+| [ADR-0004](architecture/adr/0004-support-floors.md) | Baseline fidelity floor, no polyfills (the inclusion exception was declined) |
 | [ADR-0005](architecture/adr/0005-three-engine-testing-and-a11y-gates.md) | Three-engine testing and failing accessibility gates |
 | [ADR-0006](architecture/adr/0006-licence-and-governance.md) | MIT licence and open governance |
 | [ADR-0007](architecture/adr/0007-package-layout-and-ownership.md) | Package layout, versioning, element ↔ framework ownership |

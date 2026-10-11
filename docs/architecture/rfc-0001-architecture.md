@@ -153,8 +153,8 @@ Every interactive component follows the [platform ladder](../foundations/mission
 
 | Need | Platform primitive | Gap filled by |
 | --- | --- | --- |
-| Open/close dialogs | `<dialog>` + `command="show-modal"`, `<form method="dialog">` to close | Invokers polyfill on Safari < 26.2 (conditional) |
-| Light dismiss for modal dialogs | `closedby="any"` | Delegated backdrop listener + `requestClose()` where `closedby` is missing |
+| Open/close dialogs | `<dialog>` + `command="show-modal"`, `<form method="dialog">` to close | — (Safari < 26.2: no polyfill, ADR-0004) |
+| Light dismiss for modal dialogs | `closedby="any"` | — (where `closedby` is missing, Esc and buttons close it) |
 | Menus, popovers | `popover` + `popovertarget` / `command`, anchor positioning | `<lue-menu>` keyboard model (arrows, Home/End, typeahead, Tab closes) |
 | Disclosure, accordion | `<details>`, `<details name>` | — |
 | Select | `<select>`, `appearance: base-select` as PE | — |
@@ -266,7 +266,7 @@ Decision and detail: [ADR-0005](./adr/0005-three-engine-testing-and-a11y-gates.m
 
 | Risk | Likelihood / impact | Mitigation |
 | --- | --- | --- |
-| Dead invoker buttons on Safari < 26.2 (e.g. iOS 18) | High / High | Conditional polyfill (ADR-0004); real-Safari smoke test |
+| Dead invoker buttons on Safari < 26.2 (e.g. iOS 18) | High / High | Accepted (ADR-0004): documented; React adapters call `showModal()`; real-Safari smoke test |
 | Elements and React fight over the DOM | Medium / High | Element rules §4; hydration harness in both script orders |
 | Consumer pipelines rewrite our CSS | High / High | No `light-dark()` in custom properties; consumer fixtures; documented `layer()` import |
 | React's invoker gaps, then a casing change | High / Medium | `invoker()` helper + type augmentation + codemod |
@@ -293,7 +293,7 @@ Decision and detail: [ADR-0005](./adr/0005-three-engine-testing-and-a11y-gates.m
 | HTML+CSS core, light-DOM elements, React adapters (ADR-0001) | 2 platform ladder · 7 lean · 9 one core |
 | Native CSS core, Tailwind as a generated bridge (ADR-0002) | 3 standards · 4 CSS is the API |
 | DTCG + Terrazzo, literal per-context values (ADR-0003) | 3 standards · 1 accessible (contrast-tested) · 10 legible |
-| Baseline fidelity floor + inclusion exception (ADR-0004) | 8 Baseline-anchored · 1 accessible · people first |
+| Baseline fidelity floor, no polyfills (ADR-0004) | 8 Baseline-anchored · 1 accessible · people first |
 | Three-engine tests, failing a11y gates (ADR-0005) | 1 accessible · 8 Baseline · evidence over opinion |
 | MIT + public RFC/ADR process (ADR-0006) | Open by default |
 | Lockstep packages + element ownership rules (ADR-0007) | 9 one core · 7 lean |

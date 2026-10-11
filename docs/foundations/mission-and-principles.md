@@ -198,8 +198,8 @@ The core relies only on features that are Baseline across Chrome, Firefox and Sa
 experience better but are never required.
 
 - **We do**
-  - Use **Baseline "newly available"** as the fidelity floor (one narrow inclusion exception — see
-    [ADR-0004](../architecture/adr/0004-support-floors.md)).
+  - Use **Baseline "newly available"** as the fidelity floor, with no polyfills — see
+    [ADR-0004](../architecture/adr/0004-support-floors.md).
   - Gate enhancements with `@supports` and feature detection, each with an accessible fallback.
   - Track Baseline and Interop, promote features into the core when they land, and keep the
     **deletion roadmap** current.
@@ -276,7 +276,7 @@ Resolve in this order:
 
 ## Non-goals
 
-- **Legacy browsers.** Only current evergreen engines (with the narrow inclusion exception in ADR-0004).
+- **Legacy browsers.** Only current evergreen engines (ADR-0004).
 - **Pixel-identical progressive enhancements** across engines. Fallbacks must be accessible and good, not identical.
 - **A utility-CSS framework.** We generate a Tailwind theme bridge; we don't compete with Tailwind.
 - **Runtime CSS-in-JS.**

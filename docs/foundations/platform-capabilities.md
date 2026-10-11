@@ -16,8 +16,8 @@ Cr Chrome/Edge · Fx Firefox · Sf Safari · TP Safari Technology Preview · PE 
   available in all three engines.
 - **Progressive enhancement above the floor.** Anything newer sits behind `@supports` or feature detection and
   degrades to an accessible equivalent. The base experience must be complete without it.
-- **Function floor (inclusion exception):** a small conditional invokers polyfill and a `closedby` fallback, loaded
-  only where missing, so devices stuck below Safari 26.2 (e.g. iOS 18) don't get dead buttons — decided in
+- **No polyfills (2026-10-11):** on Safari older than 26.2 (e.g. iOS 18), HTML-path `command` buttons that open
+  dialogs do nothing. A conditional fix was declined and kept as a possible future enhancement in
   [ADR-0004](../architecture/adr/0004-support-floors.md).
 - **Enforced** by Baseline lint for CSS (`@eslint/css` `use-baseline`) and HTML (html-eslint `use-baseline`), and by
   tests in Chromium, Firefox and WebKit.
@@ -135,7 +135,7 @@ emulated; Firefox from its source and BCD (it wouldn't launch under Playwright).
 | `popover="hint"` | L: Cr, Fx 153; TP | Unknown values fall back to `manual`; detect via the property value; no polyfill |
 | Invoker commands (`command`/`commandfor`, custom `--commands`) | N Dec 2025 (Sf 26.2 last) | No-JS dialogs and popovers; custom commands fire a `command` event |
 | `interestfor` | L: Cr 142 | Excluded — WebKit opposed, not in Interop 2026 |
-| `dialog.requestClose()` · `closedby` | N May 2025 · L: Cr 134, Fx 141; TP | `closedby` fallback in Safari: delegated backdrop listener + `requestClose()` |
+| `dialog.requestClose()` · `closedby` | N May 2025 · L: Cr 134, Fx 141; TP | `closedby` is an enhancement: in Safari, Esc and the dialog's buttons close it (no light dismiss) |
 | `:open`, `ToggleEvent.source` | N May 2026 | |
 | `<details name>` · `::details-content` | N Sep 2024 · N Sep 2025 | Exclusive accordions without JS |
 | `hidden="until-found"` | L: no Sf | Accept weaker find-in-page in Safari |
@@ -217,8 +217,8 @@ emulated; Firefox from its source and BCD (it wouldn't launch under Playwright).
 | Customizable select | Cr, Sf 27 | `@supports (appearance: base-select)`; rich option content stays optional |
 | `popover="hint"` | Cr, Fx | Falls back to `manual`; content also reachable by click and keyboard |
 | `focusgroup` | Cr/Edge 150 | Feature-detect; else the roving-focus element |
-| `closedby` | Cr, Fx | Delegated backdrop listener calling `requestClose()` |
-| Invoker commands on old Safari (< 26.2) | — | Conditional invokers polyfill (ADR-0004) |
+| `closedby` | Cr, Fx | Enhancement only: elsewhere Esc and the dialog's buttons close it |
+| Invoker commands on old Safari (< 26.2) | — | None: HTML-path buttons are inert. A conditional polyfill is a possible future enhancement (ADR-0004) |
 | Cross-document / nested / element view transitions; scroll-driven and scroll-triggered animations; carousels; `grid-lanes`; `corner-shape`; gap decorations | One or two engines | Pure PE inside `@supports` (`selector(::scroll-marker)` for carousels) |
 | `hidden="until-found"` · `reading-flow` | No Sf · Cr only | Accept weaker find-in-page · fix source order |
 
