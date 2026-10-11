@@ -402,17 +402,20 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       const minMargin = Math.min(...rows.map((r) => r.ratio / r.min));
       console.log(`${dir}/${scheme}: ${rows.length} pairs, ${fails.length} fail, tightest margin ×${minMargin.toFixed(2)}, accent-vs-canvas ${advisory['bg-accent vs bg-canvas'].toFixed(2)}${mapped.length ? ', gamut-mapped: ' + mapped.join(',') : ''}`);
       for (const f of fails) console.log(`   FAIL ${f.fg} on ${f.bg}: ${f.ratio.toFixed(2)} < ${f.min}`);
+      if (fails.length) process.exitCode = 1;
     }
   }
   for (const s of ['light-more', 'dark-more']) {
     const { rows } = evaluateLuminousMore(s);
     const fails = rows.filter((r) => !r.pass);
+    if (fails.length) process.exitCode = 1;
     console.log(`luminous/${s} opaque · multi-tone: ${rows.length} rules, ${fails.length} fail, tightest margin ×${Math.min(...rows.map((r) => r.ratio / r.min)).toFixed(2)}`);
     for (const r of rows) if (!r.pass || process.argv.includes('--all')) console.log(`   ${r.pass ? 'ok  ' : 'FAIL'} ${r.what}: ${r.ratio.toFixed(2)} (min ${r.min})`);
   }
   for (const s of ['light', 'dark']) {
     const { rows } = evaluateLuminous(s);
     const fails = rows.filter((r) => !r.pass);
+    if (fails.length) process.exitCode = 1;
     const minMargin = Math.min(...rows.map((r) => r.ratio / r.min));
     console.log(`luminous/${s} prism · chrome · glass: ${rows.length} rules, ${fails.length} fail, tightest margin ×${minMargin.toFixed(2)}`);
     for (const r of rows) if (!r.pass || process.argv.includes('--all')) console.log(`   ${r.pass ? 'ok  ' : 'FAIL'} ${r.what}: ${r.ratio.toFixed(2)} (min ${r.min})`);

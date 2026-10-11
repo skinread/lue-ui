@@ -1,8 +1,8 @@
 # Lue UI tokens — source
 
 DTCG 2025.10 token source for Lue UI ([ADR-0003](../../docs/architecture/adr/0003-dtcg-tokens-with-terrazzo.md),
-[token spec](../../docs/design/tokens.md)). JSON only: there is no package here yet — the workspace, `package.json`
-and the Terrazzo build arrive in Pass 3.
+[token spec](../../docs/design/tokens.md)). The package (`@lue-ui/tokens`, private for now) exists from Pass 3;
+the Terrazzo build arrives with Spike B.
 
 **Don't edit these files by hand during Pass 2.** They're generated from the verified C2 · Chroma Luminous palettes:
 

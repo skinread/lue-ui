@@ -1,0 +1,18 @@
+{
+  "name": "@lue-ui/react",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Lue UI React 19 adapters — the same markup as the HTML core",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    "./*": { "types": "./dist/*/index.d.ts", "default": "./dist/*/index.js" }
+  },
+  "files": ["dist"],
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

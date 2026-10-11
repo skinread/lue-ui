@@ -8,13 +8,14 @@ primary reference for agents working in this repo.
 
 ## Current state
 
-- **Pass 2 is complete (2026-10-10):** the C2 · Chroma Luminous look is locked (ADR-0009), the DTCG token source is in
-  `packages/tokens/src`, and the private Claude Design System is built. **No library code yet** — Pass 3 starts only
-  when the user says so.
-- `tools/directions/` holds dependency-free design scripts (contrast checks, the Claude Design canvas generator) —
-  see its [README](tools/directions/README.md).
-- Don't scaffold packages, add `package.json` files or install tooling until Pass 3 begins
-  ([RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-pass-3)).
+- **Pass 3 (tracer bullet) started on 2026-10-11.** Pass 2 is complete: the C2 · Chroma Luminous look is locked
+  (ADR-0009), the DTCG token source is in `packages/tokens/src`, and the private Claude Design System is built.
+  Follow [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-pass-3); progress is in
+  [HANDOVER.md](HANDOVER.md).
+- **pnpm workspace** (`packages/*`, `apps/*`). Run `pnpm check` (lint + token contrast) before committing. Every
+  package is `"private": true` — **nothing is published to npm yet** (user's decision, 2026-10-11).
+- `tools/directions/` holds dependency-free design scripts (contrast checks, the Claude Design canvas and Design System
+  generators) — see its [README](tools/directions/README.md).
 - **The Claude Design files stay private (user's rule, 2026-10-05).** The canvas and the Claude Design System are never
   shared within the organisation or made public. The library itself is open source and will be published to npm and
   GitHub — but creating orgs, pushing and publishing are outward-facing, so ask first.

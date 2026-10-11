@@ -1,0 +1,25 @@
+{
+  "name": "lue-ui-workspace",
+  "private": true,
+  "type": "module",
+  "description": "Lue UI \u2014 a platform-native, accessibility-first design system (workspace root)",
+  "license": "MIT",
+  "packageManager": "pnpm@12.4.1",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "lint": "eslint --no-error-on-unmatched-pattern .",
+    "check-tokens": "node tools/directions/check-tokens.mjs && node tools/directions/palettes.mjs",
+    "check": "pnpm lint && pnpm check-tokens",
+    "changeset": "changeset"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^3.0.3",
+    "@eslint/css": "^2.0.0",
+    "@html-eslint/eslint-plugin": "^0.66.1",
+    "@html-eslint/parser": "^0.66.1",
+    "eslint": "^10.12.0",
+    "typescript": "^7.0.2"
+  }
+}

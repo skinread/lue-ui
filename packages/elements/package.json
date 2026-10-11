@@ -1,0 +1,16 @@
+{
+  "name": "@lue-ui/elements",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Lue UI light-DOM custom elements and controllers",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": ["./dist/define.js", "./dist/define/*.js", "./dist/lue.iife.js"],
+  "exports": {
+    ".": "./dist/index.js",
+    "./define": "./dist/define.js",
+    "./define/*": "./dist/define/*.js",
+    "./lue.iife.js": "./dist/lue.iife.js"
+  },
+  "files": ["dist"]
+}

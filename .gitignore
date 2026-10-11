@@ -137,3 +137,9 @@ dist
 
 # macOS
 .DS_Store
+
+# Test output
+test-results/
+playwright-report/
+__screenshots__/
+storybook-static/

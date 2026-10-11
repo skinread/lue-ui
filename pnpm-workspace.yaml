@@ -1,0 +1,9 @@
+packages:
+  - packages/*
+  - apps/*
+
+# Supply-chain guard: don't install versions published in the last day.
+minimumReleaseAge: 1440
+
+# Dependency build scripts are refused unless listed here (strictDepBuilds is on by default).
+allowBuilds: {}
