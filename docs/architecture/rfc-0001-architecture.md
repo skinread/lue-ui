@@ -307,7 +307,7 @@ Decision and detail: [ADR-0005](./adr/0005-three-engine-testing-and-a11y-gates.m
 
 ## Open questions
 
-1. **Final name and prefix** ([naming](../foundations/naming.md)).
+1. ~~**Final name and prefix**~~ — Lue UI, prefix `lue` ([ADR-0008](./adr/0008-name-lue-ui.md)); the npm scope is still to confirm.
 2. **When to retire the inclusion exception** — the trigger proposed in ADR-0004 uses public browser-share data.
 3. **Open-code registry** for the React adapters — useful for adoption, but copied code drifts; decide before 0.x.
 4. **Storybook long-term** versus a lighter docs site once contracts generate most pages.
