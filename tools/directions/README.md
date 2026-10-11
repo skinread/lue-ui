@@ -1,7 +1,8 @@
-# Direction tools (Phase 1)
+# Direction tools
 
-Dependency-free Node scripts (Node ≥ 22; last run on 26.10) that seed and verify the Claude Design directions: the
-three Phase 1 directions and **C2 · Chroma Luminous**, the Chroma evolution chosen in Pass 2.
+Dependency-free Node scripts (Node ≥ 22; last run on 26.10) that seed and verify the Claude Design directions. The
+palettes still cover the three Phase 1 directions (the brief's appendix records them); the canvas now shows only
+**C2 · Chroma Luminous**, the Chroma evolution chosen in Pass 2.
 They are design tooling, not library code, and the Terrazzo token pipeline replaces the contrast checks in Pass 3.
 Output goes to `out/` (gitignored).
 
@@ -12,7 +13,7 @@ Output goes to `out/` (gitignored).
 | `report.mjs` | Writes `out/palette-values.json` and `out/palette-report.md` — the brief's appendix, already in `<details>` blocks | `node report.mjs` |
 | `luminous-canvas.mjs` | Luminous's per-scheme custom properties, its CSS (chrome ring, glass, prism slide, sparks, fallbacks) and its extra Foundations sections. Imported by `build-canvas.mjs` | — |
 | `luminous-pages.mjs` | Luminous's materials (satin folds, glass prism and orb, metal icon tiles, media art) and its fluid boards: block library, portfolio home, journal article | — |
-| `build-canvas.mjs` | Generates the 16 artboards and `canvas.json` into `out/canvas/project/` | `node build-canvas.mjs` |
+| `build-canvas.mjs` | Generates C2's six artboards and `canvas.json` into `out/canvas/project/`. Phase 1's cover and its Loom, Instrument and Chroma rows were removed on 2026-10-11; check out commit `18ec453` to regenerate them | `node build-canvas.mjs` |
 | `tokens.mjs` | Writes the DTCG 2025.10 token source for C2 into `packages/tokens/src/` (12 files: colour per theme context, materials per scheme, type, dimension, motion, components, resolver) | `node tokens.mjs` |
 | `design-system.mjs` | Builds the **private** Claude Design System into `out/design-system/project/`: `tokens.json` (list shape) from `packages/tokens/src`, `components/bundle.css` (a generated per-theme header + `design-system/components.css`), the brand book (`design-system/README.md`), 44 component cards and previews (`design-system/components.mjs`), the cover, fonts and the icon records (`design-system/icon-uploads.json`) | `node design-system.mjs --uploads design-system/icon-uploads.json --created 2026-10-10T…` |
 | `check-tokens.mjs` | Checks that source: `$type` and `$description` on every token, aliases resolve, every declared pair passes in all four contexts, body ≥ 16 px. Exits non-zero on failure | `node check-tokens.mjs` |
@@ -55,14 +56,13 @@ shares it.
 - No `{{` or `}}` inside CSS: those are template holes. Holes are dotted lookups only, never expressions.
 - Fonts load only through one Google Fonts `css2` `<link>` in `<helmet>`; no `data:` URIs; icons are inline SVG
   styled by the `.icon` class.
-- Board heights are fixed per type (Foundations 3150, Components 2400, Checkout 1240, Main 1060); Luminous overrides
-  them in `DIRS.luminous.H` (6000 · 2560 · 1240). If a board looks clipped, raise its `H` and republish both the board
-  and `canvas.json`.
+- Board heights live in `DIRS.luminous.H` (Foundations 7700 · Components 2560 · Checkout 1240). If a board looks
+  clipped, raise its `H` and republish both the board and `canvas.json`.
 - Boards with live hover and focus states carry `is_interactive: true` (the Luminous row), which gives them a Play
   button.
-- The canvas has two pages: `luminous` (C2, the launch page: a system row — foundations, components, blocks — and an
-  in-use row — portfolio, article, checkout) and `phase-1` (the cover and the three Phase 1 rows). Every board and
-  title note carries its `page`.
+- The canvas has one page, `luminous`: a system row (foundations, components, blocks) and an in-use row (portfolio,
+  article, checkout). Every board and title note carries its `page`. The `phase-1` page was removed on 2026-10-11 by
+  publishing `null` for its ten files and dropping its page, boards and notes from `canvas.json`.
 - Portfolio, journal and block boards are **fluid** (`expand: "fill"`, no root width, `$preview` 1440 wide) and reflow
   to one column. Their heights are estimates (Blocks 8000 — set on the canvas by the user, Portfolio 5400, Article 6600) — raise them if clipped.
 - SVG gradients, masks and filters use IDs from one counter per build, so they stay unique across boards. Use

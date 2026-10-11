@@ -1,4 +1,4 @@
-// Generates the Claude Design canvas (three directions) from the verified palettes.
+// Generates the Claude Design canvas (C2 · Chroma Luminous) from the verified palettes.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -25,130 +25,6 @@ const ratio = (d, s, a, b) => contrast(resolved[d][s][a], resolved[d][s][b]).toF
 // ---------------------------------------------------------------- direction tokens (non-colour)
 const FONT_HOST = 'https://fonts.googleapis.com/css2?';
 const DIRS = {
-  loom: {
-    letter: 'A', name: 'Loom', tagline: 'Calm · tactile · warm',
-    motto: 'Interfaces with the quiet confidence of good cloth.',
-    tags: ['Warm paper neutrals', 'Spruce accent', 'Stitched edges'],
-    fonts: 'family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&family=Atkinson+Hyperlegible+Mono:wght@200..800&display=swap',
-    fontNames: ['Besley — display', 'Atkinson Hyperlegible Next — body', 'Atkinson Hyperlegible Mono — code'],
-    vars: {
-      '--font-display': "'Besley', 'Iowan Old Style', Georgia, serif",
-      '--font-body': "'Atkinson Hyperlegible Next', system-ui, sans-serif",
-      '--font-mono': "'Atkinson Hyperlegible Mono', ui-monospace, monospace",
-      '--fs-display': '60px', '--lh-display': '1.04', '--fw-display': '800', '--ls-display': '-0.015em',
-      '--fs-h1': '40px', '--lh-h1': '1.1', '--fs-h2': '30px', '--lh-h2': '1.15', '--fs-h3': '23px', '--lh-h3': '1.25',
-      '--fs-h4': '19px', '--lh-h4': '1.3', '--fw-heading': '700',
-      '--fs-body': '17px', '--lh-body': '1.6', '--fs-small': '15px', '--fs-label': '16px', '--fw-label': '600',
-      '--fs-code': '15px', '--fs-micro': '13px', '--ls-micro': '0.04em', '--tt-micro': 'none', '--micro-font': 'var(--font-body)',
-      '--radius-xs': '4px', '--radius-s': '6px', '--radius-m': '10px', '--radius-l': '16px', '--radius-full': '999px',
-      '--radius-button': '10px', '--radius-field': '8px', '--radius-tag': '999px', '--radius-switch': '999px', '--radius-toast': '12px',
-      '--size-control-sm': '36px', '--size-control-md': '46px', '--size-control-lg': '54px',
-      '--btn-pad': '22px', '--btn-border-w': '1px', '--field-pad': '14px', '--field-border-w': '1.5px',
-      '--space-3xs': '4px', '--space-2xs': '8px', '--space-xs': '12px', '--space-s': '16px', '--space-m': '24px',
-      '--space-l': '32px', '--space-xl': '48px', '--space-2xl': '64px', '--space-3xl': '96px',
-      '--focus-w': '2px', '--focus-offset': '3px', '--focus-offset-field': '2px',
-      '--focus-halo': '0 0 0 7px var(--bg-accent-subtle)',
-      '--dur-fast': '160ms', '--dur-moderate': '240ms', '--ease': 'cubic-bezier(0.2, 0.7, 0.2, 1)',
-      '--btn-primary-border': 'var(--bg-accent)', '--btn-danger-border': 'var(--bg-critical)',
-    },
-    shadows: {
-      light: { raised: '0 1px 2px oklch(0.3 0.03 60 / 0.08), 0 6px 18px oklch(0.3 0.03 60 / 0.07)', overlay: '0 22px 56px oklch(0.25 0.03 60 / 0.22)' },
-      dark: { raised: '0 1px 2px oklch(0 0 0 / 0.45)', overlay: '0 22px 56px oklch(0 0 0 / 0.6)' },
-    },
-    extra: { light: { '--scrim': 'oklch(0.22 0.02 60 / 0.5)', '--stitch': 'oklch(0.58 0.02 70 / 0.55)', '--twill-a': 'oklch(0.93 0.016 80)', '--twill-b': 'oklch(0.955 0.012 80)' },
-             dark: { '--scrim': 'oklch(0 0 0 / 0.6)', '--stitch': 'oklch(0.58 0.015 70 / 0.5)', '--twill-a': 'oklch(0.25 0.014 70)', '--twill-b': 'oklch(0.22 0.013 70)' } },
-    motion: ['Gentle — 160 / 240 / 320 ms', 'Ease-out cubic-bezier(0.2, 0.7, 0.2, 1)', 'Short fades and small rises; instant under reduced motion'],
-    signature: 'A selvedge: surfaces carry a stitched inner edge, and brand bands use a fine twill weave — never behind text.',
-    sig: `
-.dir-loom .ns-card, .dir-loom .ns-dialog { outline: 1px dashed var(--stitch); outline-offset: -8px; }
-.dir-loom .band { background: repeating-linear-gradient(135deg, var(--twill-a) 0 5px, var(--twill-b) 5px 10px); }
-.dir-loom .t-display { font-style: italic; }
-`,
-  },
-  instrument: {
-    letter: 'B', name: 'Instrument', tagline: 'Precise · technical · cool',
-    motto: 'The clarity of a well-made instrument panel.',
-    tags: ['Graphite ink on paper', 'One signal orange', 'Hairlines, ticks, tabular numbers'],
-    fonts: 'family=Instrument+Sans:ital,wdth,wght@0,75..100,400..700;1,75..100,400..700&family=Martian+Mono:wdth,wght@75..112.5,100..800&display=swap',
-    fontNames: ['Instrument Sans — display and body', 'Martian Mono — labels and data'],
-    vars: {
-      '--font-display': "'Instrument Sans', system-ui, sans-serif",
-      '--font-body': "'Instrument Sans', system-ui, sans-serif",
-      '--font-mono': "'Martian Mono', ui-monospace, monospace",
-      '--fs-display': '58px', '--lh-display': '1.0', '--fw-display': '600', '--ls-display': '-0.025em',
-      '--fvs-display': "'wdth' 80",
-      '--fs-h1': '36px', '--lh-h1': '1.1', '--fs-h2': '27px', '--lh-h2': '1.15', '--fs-h3': '21px', '--lh-h3': '1.25',
-      '--fs-h4': '17px', '--lh-h4': '1.3', '--fw-heading': '600',
-      '--fs-body': '16px', '--lh-body': '1.5', '--fs-small': '14px', '--fs-label': '15px', '--fw-label': '600',
-      '--fs-code': '13px', '--fs-micro': '12px', '--ls-micro': '0.08em', '--tt-micro': 'uppercase', '--micro-font': 'var(--font-mono)',
-      '--radius-xs': '2px', '--radius-s': '3px', '--radius-m': '4px', '--radius-l': '6px', '--radius-full': '999px',
-      '--radius-button': '3px', '--radius-field': '3px', '--radius-tag': '2px', '--radius-switch': '3px', '--radius-toast': '4px',
-      '--size-control-sm': '30px', '--size-control-md': '38px', '--size-control-lg': '46px',
-      '--btn-pad': '16px', '--btn-border-w': '1px', '--field-pad': '12px', '--field-border-w': '1px',
-      '--space-3xs': '4px', '--space-2xs': '6px', '--space-xs': '10px', '--space-s': '14px', '--space-m': '20px',
-      '--space-l': '28px', '--space-xl': '40px', '--space-2xl': '56px', '--space-3xl': '80px',
-      '--focus-w': '2px', '--focus-offset': '2px', '--focus-offset-field': '2px',
-      '--focus-halo': 'none',
-      '--dur-fast': '100ms', '--dur-moderate': '140ms', '--ease': 'cubic-bezier(0.3, 0, 0.2, 1)',
-      '--btn-primary-border': 'var(--fg-default)', '--btn-danger-border': 'var(--bg-critical)',
-    },
-    shadows: {
-      light: { raised: 'none', overlay: '0 0 0 1px var(--border-strong)' },
-      dark: { raised: 'none', overlay: '0 0 0 1px var(--border-strong)' },
-    },
-    extra: { light: { '--scrim': 'oklch(0.2 0.008 255 / 0.55)' }, dark: { '--scrim': 'oklch(0 0 0 / 0.65)' } },
-    motion: ['Snappy — 100 / 140 / 180 ms', 'Standard cubic-bezier(0.3, 0, 0.2, 1); no bounce', 'Instant under reduced motion'],
-    signature: 'Measurement ticks on rules and progress, short mono micro-labels, tabular numerals, and filled buttons outlined in ink.',
-    sig: `
-.dir-instrument .board, .dir-instrument.board { font-variant-numeric: tabular-nums; }
-.dir-instrument .ticks { block-size: 10px; background: repeating-linear-gradient(90deg, var(--border-strong) 0 1px, transparent 1px 10px); mask-image: linear-gradient(to bottom, black 55%, transparent 55%); }
-.dir-instrument .ns-card { border-color: var(--border-strong); }
-.dir-instrument .ns-menu { border-color: var(--border-strong); }
-.dir-instrument .ns-dialog { border-color: var(--border-strong); }
-.dir-instrument .ns-tag { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
-`,
-  },
-  chroma: {
-    letter: 'C', name: 'Chroma', tagline: 'Expressive · vivid · playful',
-    motto: 'Colour as a material.',
-    tags: ['Vivid fuchsia', 'Lime highlights', 'Pills and colour fields'],
-    fonts: 'family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Figtree:ital,wght@0,300..900;1,300..900&family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap',
-    fontNames: ['Bricolage Grotesque — display', 'Figtree — body', 'Spline Sans Mono — code'],
-    vars: {
-      '--font-display': "'Bricolage Grotesque', system-ui, sans-serif",
-      '--font-body': "'Figtree', system-ui, sans-serif",
-      '--font-mono': "'Spline Sans Mono', ui-monospace, monospace",
-      '--fs-display': '72px', '--lh-display': '0.95', '--fw-display': '800', '--ls-display': '-0.03em',
-      '--fvs-display': "'wdth' 78, 'opsz' 96",
-      '--fs-h1': '44px', '--lh-h1': '1.02', '--fs-h2': '32px', '--lh-h2': '1.08', '--fs-h3': '24px', '--lh-h3': '1.2',
-      '--fs-h4': '19px', '--lh-h4': '1.3', '--fw-heading': '750',
-      '--fs-body': '17px', '--lh-body': '1.55', '--fs-small': '15px', '--fs-label': '16px', '--fw-label': '650',
-      '--fs-code': '14px', '--fs-micro': '13px', '--ls-micro': '0.02em', '--tt-micro': 'none', '--micro-font': 'var(--font-body)',
-      '--radius-xs': '6px', '--radius-s': '10px', '--radius-m': '18px', '--radius-l': '26px', '--radius-full': '999px',
-      '--radius-button': '999px', '--radius-field': '14px', '--radius-tag': '999px', '--radius-switch': '999px', '--radius-toast': '999px',
-      '--size-control-sm': '38px', '--size-control-md': '50px', '--size-control-lg': '58px',
-      '--btn-pad': '24px', '--btn-border-w': '2px', '--field-pad': '18px', '--field-border-w': '2px',
-      '--space-3xs': '4px', '--space-2xs': '8px', '--space-xs': '12px', '--space-s': '18px', '--space-m': '26px',
-      '--space-l': '36px', '--space-xl': '52px', '--space-2xl': '72px', '--space-3xl': '104px',
-      '--focus-w': '3px', '--focus-offset': '3px', '--focus-offset-field': '3px',
-      '--focus-halo': 'none',
-      '--dur-fast': '180ms', '--dur-moderate': '300ms', '--ease': 'linear(0, 0.38 12%, 0.82 28%, 1.04 45%, 1.06 55%, 1.01 75%, 1)',
-      '--btn-primary-border': 'var(--bg-accent)', '--btn-danger-border': 'var(--bg-critical)',
-    },
-    shadows: {
-      light: { raised: '0 8px 24px oklch(0.55 0.22 350 / 0.12)', overlay: '0 24px 64px oklch(0.4 0.18 350 / 0.28)' },
-      dark: { raised: '0 8px 24px oklch(0 0 0 / 0.4)', overlay: '0 24px 64px oklch(0 0 0 / 0.6)' },
-    },
-    extra: { light: { '--scrim': 'oklch(0.22 0.03 320 / 0.5)', '--highlight': 'oklch(0.9 0.19 125)', '--hl-bg': 'oklch(0.9 0.19 125)' }, dark: { '--scrim': 'oklch(0 0 0 / 0.62)', '--highlight': 'oklch(0.88 0.19 125)', '--hl-bg': 'oklch(0.42 0.13 130)' } },
-    motion: ['Springy — 180 / 300 / 360 ms', 'linear() spring with a small overshoot', 'Instant under reduced motion'],
-    signature: 'Big flat colour fields behind content, a lime highlight that never carries text, and a display face that stretches its width axis.',
-    sig: `
-.dir-chroma .field { background: var(--bg-accent-subtle); border-radius: var(--radius-l); }
-.dir-chroma .hl { background: linear-gradient(transparent 58%, var(--hl-bg) 58% 92%, transparent 92%); padding-inline: 0.06em; }
-.dir-chroma .ns-card { border-width: 2px; }
-.dir-chroma .ns-button { font-family: var(--font-display); font-variation-settings: 'wdth' 90; letter-spacing: -0.005em; }
-`,
-  },
   luminous: {
     letter: 'C2', name: 'Chroma Luminous', file: 'Luminous', tagline: 'Luminous · luxurious · prismatic',
     motto: 'Light, caught in chrome and glass.',
@@ -185,11 +61,13 @@ const DIRS = {
     sig: LX_CSS,
   },
 };
+// Only C2 remains. The `d === 'luminous'` branches and the Loom/Instrument/Chroma conditionals below are left from
+// when this built four directions; they keep C2's output byte-identical.
 const fileOf = (t) => t.file ?? t.name;
 const sizeOf = (t, k, dflt) => t.H?.[k] ?? dflt;
 
 // ---------------------------------------------------------------- CSS
-const COLOR_KEYS = Object.keys(PAL.loom.light);
+const COLOR_KEYS = Object.keys(PAL.luminous.dark);
 function tokenCss(d) {
   const t = DIRS[d];
   const base = Object.entries(t.vars).map(([k, v]) => `  ${k}: ${v};`).join('\n');
@@ -746,60 +624,11 @@ for (const d of Object.keys(DIRS)) {
   }
 }
 
-// Main — the three directions side by side
-{
-  const W = 1500, H = 1060;
-  const allFonts = ['loom', 'instrument', 'chroma'].map((d) => DIRS[d].fonts.replace('&display=swap', '')).join('&') + '&display=swap';
-  const col = (d) => {
-    const t = DIRS[d];
-    const chips = ['bg-canvas', 'bg-surface-subtle', 'fg-default', 'bg-accent', 'bg-accent-subtle', 'bg-critical'];
-    return `
-  <section class="dir-${d} scheme" data-scheme="light" aria-labelledby="m-${d}" style="display: grid; align-content: start; gap: 22px; padding: 36px 32px 40px; border-radius: 24px; border: 1px solid var(--border-subtle); font-family: var(--font-body)">
-    ${d === 'loom' ? '<div class="band" style="block-size: 12px; border-radius: 999px"></div>' : ''}${d === 'instrument' ? '<div class="ticks"></div>' : ''}${d === 'chroma' ? '<div class="field" style="block-size: 12px; background: var(--highlight)"></div>' : ''}
-    <p class="t-micro">Direction ${t.letter}</p>
-    <h2 class="t-display" id="m-${d}" style="font-size: calc(var(--fs-display) * 0.86)">${d === 'chroma' ? `<span class="hl">${t.name}</span>` : t.name}</h2>
-    <p class="t-h4" style="font-weight: 400">${t.motto}</p>
-    <p class="t-micro">${t.tagline}</p>
-    <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px">
-      ${chips.map((c) => `<span title="${c}" style="block-size: 34px; border-radius: var(--radius-s); background: var(--${c}); border: 1px solid var(--border-subtle)"></span>`).join('')}
-    </div>
-    <div class="scheme" data-scheme="dark" style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; padding: 8px; border-radius: var(--radius-m)">
-      ${chips.map((c) => `<span title="${c} (dark)" style="block-size: 26px; border-radius: var(--radius-s); background: var(--${c}); border: 1px solid var(--border-subtle)"></span>`).join('')}
-    </div>
-    <div class="ns-field">
-      <label class="ns-field__label" for="m-${d}-pc">Postcode</label>
-      <input class="ns-input" id="m-${d}-pc" aria-invalid="true" aria-describedby="m-${d}-pce" />
-      <p class="ns-field__error" id="m-${d}-pce">${icon('alert')}<span>Enter a postcode</span></p>
-    </div>
-    <div style="display: flex; flex-wrap: wrap; gap: 10px">
-      <button type="button" class="ns-button" data-variant="primary">Continue</button>
-      <button type="button" class="ns-button" data-demo="focus">Focus</button>
-      <button type="button" class="ns-button" aria-pressed="true">${icon('check')}<span>On</span></button>
-    </div>
-    <p class="t-small t-muted">${t.fontNames.map((f) => f.split(' — ')[0]).join(' + ')}</p>
-  </section>`;
-  };
-  const body = `
-<div class="board" style="width: ${W}px; min-height: ${H}px; background: oklch(0.975 0.003 90); color: oklch(0.22 0.01 90); font-family: system-ui, sans-serif; display: grid; align-content: start; gap: 36px; padding: 56px 56px 64px">
-  <header style="display: flex; justify-content: space-between; align-items: end; gap: 24px">
-    <div style="display: grid; gap: 6px">
-      <p style="margin: 0; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: oklch(0.45 0.01 90)">never-ui · Phase 1 · design kickoff</p>
-      <h1 style="margin: 0; font-size: 44px; line-height: 1.05; font-weight: 700">Three directions</h1>
-    </div>
-    <p style="margin: 0; max-inline-size: 52ch; font-size: 16px; line-height: 1.5; color: oklch(0.42 0.01 90)">Same components, same contrast rules, three personalities. Every text pair below meets WCAG 2.x in light and dark.</p>
-  </header>
-  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start">
-${['loom', 'instrument', 'chroma'].map(col).join('\n')}
-  </div>
-</div>`;
-  files['Main.dc.html'] = { w: W, h: H, title: 'Three directions',
-    html: page('never-ui — three directions', allFonts, ['loom', 'instrument', 'chroma'], body, { $preview: { width: W, height: H } }) };
-}
-
 // ---------------------------------------------------------------- canvas.json
-// Two pages: the direction in progress on its own, and the Phase 1 set (cover + three rows) for reference.
+// One page. Phase 1's cover and its Loom, Instrument and Chroma rows were removed on 2026-10-11 at the user's request;
+// check out commit 18ec453 and run this script to regenerate them.
 const rowGap = 120, titleSpace = 300;
-const pages = [{ id: 'luminous', name: 'C2 · Chroma Luminous' }, { id: 'phase-1', name: 'Phase 1 · three directions' }];
+const pages = [{ id: 'luminous', name: 'C2 · Chroma Luminous' }];
 const boards = {};
 const order = [];
 const notes = {};
@@ -815,10 +644,6 @@ const placeRow = (key, row, text, y, page) => {
   notes[`row-${key}`] = { x: 0, y: y - 260, text, kind: 'title1', w: 240, maxW: x - 80, page };
   return y + maxH + rowGap + titleSpace;
 };
-const dirRow = (d, y, page) => {
-  const t = DIRS[d], f = fileOf(t);
-  return placeRow(d, [`${f}-Foundations.dc.html`, `${f}-Components.dc.html`, `${f}-Checkout.dc.html`], `${t.letter} · ${t.name} — ${t.tagline.toLowerCase()}`, y, page);
-};
 {
   const t = DIRS.luminous;
   const y2 = placeRow('luminous', ['Luminous-Foundations.dc.html', 'Luminous-Components.dc.html', 'Luminous-Blocks.dc.html'],
@@ -829,10 +654,6 @@ const dirRow = (d, y, page) => {
   notes['future-neon'] = { x: 4320, y: titleSpace, w: 380, fill: 'purple', page: 'luminous',
     text: 'Future exploration · neon spectrum — push the prism further into wide-gamut neon (Display P3) inside @media (color-gamut: p3), keeping sRGB fallbacks and checking contrast in both. Parked 2026-10-05: not needed yet.' };
 }
-boards['Main.dc.html'] = { x: 0, y: 0, w: files['Main.dc.html'].w, h: files['Main.dc.html'].h, title: files['Main.dc.html'].title, page: 'phase-1' };
-order.push('Main.dc.html');
-let y = files['Main.dc.html'].h + rowGap + titleSpace;
-for (const d of ['loom', 'instrument', 'chroma']) y = dirRow(d, y, 'phase-1');
 const canvas = {
   v: 3,
   attachments: {}, // added by the canvas editor; kept so republishing doesn't fight it
