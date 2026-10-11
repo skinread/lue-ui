@@ -53,7 +53,7 @@ lue-ui/
    implement the behaviour with state, reusing the element's pure controller.
 5. **Inputs are string attributes; outputs are native events.**
 6. **Connect/disconnect is idempotent** (`AbortController` per connection).
-7. **Registered once,** guarded with `customElements.get`; React apps mount `<NsElements/>` once at the root.
+7. **Registered once,** guarded with `customElements.get`; React apps mount `<LueElements/>` once at the root.
 
 ## Consequences
 

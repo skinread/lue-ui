@@ -177,7 +177,7 @@ Every interactive component follows the [platform ladder](../foundations/mission
    they implement the same behaviour with state, reusing the element's **pure controller** code.
 5. **Inputs are string attributes; outputs are native events.** Works with server rendering and any framework.
 6. **Connect/disconnect is idempotent** (one `AbortController` per connection).
-7. **Registered once**, guarded with `customElements.get`; React apps mount `<NsElements/>` at the root.
+7. **Registered once**, guarded with `customElements.get`; React apps mount `<LueElements/>` at the root.
 8. **Each element names its deletion trigger** — the platform feature that will make it unnecessary.
 
 ## 5. React adapters
@@ -308,9 +308,12 @@ Decision and detail: [ADR-0005](./adr/0005-three-engine-testing-and-a11y-gates.m
 ## Open questions
 
 1. ~~**Final name and prefix**~~ — Lue UI, prefix `lue` ([ADR-0008](./adr/0008-name-lue-ui.md)); the npm scope is still to confirm.
-2. **When to retire the inclusion exception** — the trigger proposed in ADR-0004 uses public browser-share data.
-3. **Open-code registry** for the React adapters — useful for adoption, but copied code drifts; decide before 0.x.
-4. **Storybook long-term** versus a lighter docs site once contracts generate most pages.
+2. ~~**When to retire the inclusion exception**~~ — moot: the exception was declined (ADR-0004, 2026-10-11) and kept
+   as a possible future enhancement.
+3. **Copy-paste components** — *future consideration* (2026-10-11): if Lue UI ever offers copy-paste React
+   components, it will use the shadcn registry tooling rather than a registry of its own. Not now; copied code drifts.
+4. ~~**Storybook long-term**~~ — Storybook 10 for now (2026-10-11); revisit a lighter docs site once contracts generate
+   most pages.
 5. **`/design-sync` constraints** — confirmed by spike C.
 
 ## Sources

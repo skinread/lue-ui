@@ -40,9 +40,9 @@ light.
   Tailwind.
 - **Negative:** French spelling and pronunciation ("lü-ur", shortened to "lü") may need a pronunciation note in the
   README; *lue* alone is a common French word, so search results will be noisy until the project is known.
-- **Follow-ups (need the user, as they publish things):** confirm or replace the `@lue-ui` npm scope; create the npm
-  and GitHub organisations and hold placeholder packages; search trademarks (IP Australia, USPTO, EUIPO) and register
-  a domain.
+- **Follow-ups (need the user, as they publish things):** confirm or replace the `@lue-ui` npm scope and create the
+  npm and GitHub organisations when publishing starts — not yet (2026-10-11). **No trademark** will be registered
+  (user, 2026-10-11).
 - The Claude Design artifacts stay private and are never shared within the organisation, whatever the library's
   publication status (user's rule, 2026-10-05).
 

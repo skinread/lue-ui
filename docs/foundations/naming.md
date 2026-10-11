@@ -149,10 +149,10 @@ waymark, plumbline, handhold, openweave, warpweft, weftwise.
 
 ## Once a name is chosen
 
-1. ⬜ **Confirm the npm scope** (`@lue-ui` if the existing `lue-ui` npm user is ours, otherwise `@lueui`), then create
-   the npm organisation and the GitHub organisation `lue-ui`, and publish placeholder packages so they're held. *These
-   publish things, so the user does them or approves each step.*
-2. ⬜ Search trademarks (IP Australia, USPTO, EUIPO) and register a domain.
+1. ⏸ **npm scope and organisations — not yet** (user, 2026-10-11): nothing is published to npm for now, so `@lue-ui/*`
+   stays provisional (fallback `@lueui/*`). When publishing starts: confirm the scope, create the npm and GitHub
+   organisations, and hold the names. *These publish things, so the user does them or approves each step.*
+2. ✗ **No trademark** (user, 2026-10-11). A domain can still be registered later.
 3. ✅ Replace `never-ui` and the `ns` prefix across the docs (2026-10-05). The Claude Design System will be built with
    `lue` from the start; the direction canvas's internal mockup classes keep `ns-`.
 4. ✅ Record the decision as an ADR — [ADR-0008](../architecture/adr/0008-name-lue-ui.md).
