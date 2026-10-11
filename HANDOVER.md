@@ -1,16 +1,19 @@
-# Handover — Lue UI, Pass 2 complete
+# Handover — Lue UI, Pass 3 in progress
 
-> Written 2026-10-05 when Phase 1 closed; updated through Pass 2, which completed on 2026-10-10. A fresh session should read this file,
-> then [AGENTS.md](AGENTS.md), then [mission and principles](docs/foundations/mission-and-principles.md).
+> Written 2026-10-05 when Phase 1 closed; updated through Pass 2 (complete 2026-10-10) and into Pass 3 (started
+> 2026-10-11). A fresh session should read this file, then [AGENTS.md](AGENTS.md), then
+> [mission and principles](docs/foundations/mission-and-principles.md).
 
 ## Where things stand
 
-- **Phase 1 (foundations and design kickoff) is complete.** There is no library code, by design.
-- **Pass 2 is complete (2026-10-10).** The user chose **Chroma** and asked for a more luminous, luxurious evolution: **C2 · Chroma
-  Luminous** (chrome hairlines, liquid-glass depth, a subdued prismatic-neon palette, light that moves on
-  interaction). It's the first row on the canvas and recorded in the
-  [brief](docs/design/claude-design-brief.md#c2-chroma-luminous--luminous--luxurious--prismatic). It is still
-  being explored — not yet locked, so no ADR yet.
+- **Phase 1 (foundations and design kickoff) is complete.**
+- **Pass 2 is complete (2026-10-10).** The user chose **Chroma** and evolved it into **C2 · Chroma Luminous** (chrome
+  hairlines, liquid-glass depth, a subdued prismatic-neon palette, light that moves on interaction), locked in
+  [ADR-0009](docs/architecture/adr/0009-visual-direction-chroma-luminous.md). Token source in `packages/tokens/src`;
+  the private Claude Design System is built.
+- **Pass 3 (tracer bullet) started on 2026-10-11.** Step 0 (pnpm workspace, Changesets, CI) and **Spike A** (a menu
+  inside a modal dialog, HTML and React) are done — see [Pass 3](#pass-3--tracer-bullet-in-progress). Library code
+  now exists in `packages/elements`, `packages/react` and `packages/css`; every package is private.
 - **Repo:** `/Volumes/Code/never-ui` (the git root). `main` holds only the initial commit (MIT `LICENSE`,
   `.gitignore`, `.gitattributes`); all work happens on **`develop`**, where Phase 1 was committed on 2026-10-05. No
   remote.
@@ -22,11 +25,11 @@
   and GitHub; design files may be published later, but never through the Claude Design System.
 - **Git workflow (user's decision, 2026-10-05):** commit as you go on `develop`, in logical units. No feature branches.
   Don't push unless asked.
-- **The Claude Design canvas** has two pages: **C2 · Chroma Luminous** (opens first) and **Phase 1 · three
-  directions**. The user likes C2's direction and its prism hues (2026-10-05). Round 2 made buttons frosted glass
-  with multi-tone primaries and the ambient light more diffuse. Round 3 added metal-and-light materials (dispersion
-  at chrome's lower edge, thicker glass, metal tiles, satin, a glass prism and orb) and moved the composed screens
-  from commerce to portfolio and editorial: a block library, a portfolio home and a journal article.
+- **The Claude Design canvas** has one page, **C2 · Chroma Luminous**. The Phase 1 page was removed at the user's
+  request on 2026-10-11 (commit `18ec453` can regenerate it). Round 2 made buttons frosted glass with multi-tone
+  primaries and the ambient light more diffuse. Round 3 added metal-and-light materials (dispersion at chrome's lower
+  edge, thicker glass, metal tiles, satin, a glass prism and orb) and moved the composed screens from commerce to
+  portfolio and editorial: a block library, a portfolio home and a journal article.
 
 ## What exists
 
@@ -34,7 +37,9 @@
 | --- | --- |
 | [README.md](README.md), [AGENTS.md](AGENTS.md) | Front door and agent guide |
 | [docs/foundations/](docs/foundations/) | [Mission and principles](docs/foundations/mission-and-principles.md) (11 principles, each with "how we check") · [naming shortlist](docs/foundations/naming.md) · [landscape and positioning](docs/foundations/landscape-and-positioning.md) · [platform capabilities](docs/foundations/platform-capabilities.md) |
-| [docs/architecture/](docs/architecture/) | [RFC-0001](docs/architecture/rfc-0001-architecture.md) and ADRs 0001–0007 |
+| [docs/architecture/](docs/architecture/) | [RFC-0001](docs/architecture/rfc-0001-architecture.md), ADRs 0001–0009 and [spike reports](docs/architecture/spikes/) |
+| `packages/` | `tokens` (DTCG source), `css` (dialog, menu), `elements` (`<lue-menu>`), `react` (Dialog, Menu, `LueElements`) — all `"private": true` |
+| `tests/` | Browser tests (Vitest browser mode, Chromium · Firefox · WebKit); Spike A's fixture and scenario |
 | [docs/design/](docs/design/) | [Token spec](docs/design/tokens.md) · [component inventory and draft contracts](docs/design/components.md) · [Claude Design brief](docs/design/claude-design-brief.md) (with verified palettes in its appendix) |
 | [tools/directions/](tools/directions/README.md) | Contrast checker, seeded palettes and the canvas generator, with how to republish |
 
@@ -42,19 +47,15 @@
 
 <https://claude.ai/artifact/9DKJGmK7kPdEt2giN4qDgP> — private until the user shares it.
 
-- **Layout:** a cover board (`Main`, Phase 1's three directions), then one row per direction: `<Name>-Foundations`,
-  `<Name>-Components` (light and dark side by side) and `<Name>-Checkout` (a composed "Checkout details" screen with
-  Tweaks for `dark` and `dialog`).
-- **C2 · Chroma Luminous** (its own page, files `Luminous-*`, interactive — press Play to try hover, press and
-  focus). Pearl and obsidian neutrals; an eight-hue prism; frosted glass buttons whose primaries carry five prism
-  tones at one lightness that drift on hover; 1 px chrome rings (gunmetal on pearl, silver on obsidian) that glint;
-  two glass tiers; sparks; diffuse ambient prism light.
-  Selected and on states trade chrome for prism. Foundations adds Prism, Chrome, Glass, Light that moves and fallback
+- **Layout:** one page, two rows — the system (`Luminous-Foundations`, `-Components`, `-Blocks`) and in use
+  (`-Portfolio`, `-Article`, `-Checkout`), plus a "future exploration" sticky for the neon spectrum.
+- **C2 · Chroma Luminous** (files `Luminous-*`, interactive — press Play to try hover, press and focus). Pearl and
+  obsidian neutrals; an eight-hue prism; frosted glass buttons whose primaries carry five prism tones at one lightness
+  that drift on hover; 1 px chrome rings (gunmetal on pearl, silver on obsidian) that glint; two glass tiers; sparks;
+  diffuse ambient prism light. Selected and on states trade chrome for prism. Foundations adds Prism, Chrome, Glass, Light that moves and fallback
   sections. The checkout opens in dark.
-- **A · Loom** — calm, tactile, warm. Spruce accent, Besley with Atkinson Hyperlegible Next, stitched edges.
-- **B · Instrument** — precise, technical. Graphite with one signal orange, Instrument Sans with Martian Mono,
-  hairlines and tick marks. The orange fill is 2.75:1 against the canvas, so filled buttons carry an ink border.
-- **C · Chroma** — expressive. Fuchsia and lime, Bricolage Grotesque with Figtree, pills and colour fields.
+- **Phase 1's three directions** (A · Loom, B · Instrument, C · Chroma) are no longer on the canvas; their palettes
+  and contrast matrices stay in the [brief](docs/design/claude-design-brief.md).
 - **Contrast:** all 360 declared pairs pass WCAG 2.x (36 × 4 palettes × light/dark, plus C2's `dark-more` and
   `light-more` at raised minimums), and all 86 Luminous prism, chrome, glass, glass-button, multi-tone, ambient-light,
   satin, metal and increased-contrast rules pass. Glass is checked worst-case — over white, black and every fill, through
@@ -75,15 +76,16 @@
 | Direction | Continue with **Chroma**, evolved as C2 · Chroma Luminous (2026-10-05). Glass is allowed only when verified; the brief's creative mandate and non-negotiables were revised to match. |
 | C2 details (2026-10-05) | Multi-tone fills on checkboxes, radios, switches and steps · **dark is the primary scheme** · Phosphor icons, regular weight · **Epilogue** for headings (2026-10-10; wider faces and Bricolage Grotesque tried and rejected) · wider neon spectrum parked as future exploration. **Locked in [ADR-0009](docs/architecture/adr/0009-visual-direction-chroma-luminous.md).** |
 | Approved with the plan | Native CSS core with Tailwind only as a generated bridge · WCAG 2.2 AA + 2.4.13 AAA focus + 44px targets under `(any-pointer: coarse)` · Baseline "newly available" fidelity floor · DTCG 2025.10 tokens via Terrazzo · pnpm workspace from Pass 3 · lockstep versions · open-licensed fonts and icons. |
+| 2026-10-11 | **Start Pass 3.** **No npm publishing yet** (packages stay private; `@lue-ui` scope provisional; no org creation yet). **No polyfills:** the ADR-0004 inclusion exception is declined and kept as a possible future enhancement — on Safari < 26.2, HTML-path `command` buttons do nothing. **No trademark.** **Storybook 10** for docs for now. Copy-paste components, if ever offered, would use the **shadcn registry** tooling — a future consideration. Phase 1 canvas page removed. |
 
 ## Waiting on the user
 
-1. ~~Pick the display face~~ — Epilogue (2026-10-10); the look is locked in ADR-0009. Further canvas feedback is
-   still welcome as refinements.
-2. **npm scope** — an empty npm user scope `lue-ui` already exists. Is it the user's? If not, use `@lueui/*`. Then the
-   user creates the npm and GitHub organisations (outward-facing; not for an agent to do unasked).
-3. **[ADR-0004](docs/architecture/adr/0004-support-floors.md) inclusion exception** — a ~2 KB conditional invokers
-   polyfill plus a `closedby` fallback, so buttons still open dialogs on Safari older than 26.2 (e.g. iOS 18).
+1. **Firefox tests can't run from the Claude app.** macOS blocks it from reading `~/Library/Application Support/Firefox`,
+   which Playwright's Firefox shares with the installed Firefox. Run `pnpm test --project firefox` from your own
+   terminal (macOS may ask to allow access to other apps' data), or let CI run it once the repo is on GitHub.
+2. **When to put the repo on GitHub** — CI (`.github/workflows/ci.yml`) is ready but has never run. Creating the
+   repository and pushing are yours to approve.
+3. **Spike C** needs you to start `/design-sync` (it's a skill the user runs).
 
 Lower-priority open questions are listed at the end of [RFC-0001](docs/architecture/rfc-0001-architecture.md#open-questions).
 
@@ -109,36 +111,32 @@ Done on 2026-10-05:
   block cards with live HTML previews, a cover, the fonts and 23 Phosphor icons. How to rebuild and republish: the
   [tools README](tools/directions/README.md#the-claude-design-system-private). Not render-checked.
 
-Remaining:
+- ~~Remove the Phase 1 canvas page~~ — done 2026-10-11, at the user's request.
 
-1. *(Done — kept for the record.)* **Create the Claude Design "Design System" artifact** — private, never shared
-   within the organisation, built with `lue` names. Run Artifact `quickstart` with intent `other`, then publish with the Design System `type_url` and a
-   title, and no files. Follow the instructions in the create result, and read its reference pages (format, craft,
-   cover, from-code) before writing anything:
-   - files live under `project/`;
-   - a brand-book `README.md`;
-   - `tokens.json` in its **list** shape, with themes `dark`, `light`, `dark-more`, `light-more` (primary first), and
-     literal `oklch()` values (no `var()`, `color-mix()` or named colours) — convert from `packages/tokens/src`, not by
-     hand;
-   - per component and content block, `components/<Comp>/README.md` and a `preview.html` whose line 1 is a `@dsCard`
-     comment;
-   - `components/bundle.css` and the fonts — **ask the user before downloading** the Epilogue, Figtree and Spline
-     Sans Mono files (state source and size). Latin variable woff2 from Google Fonts (2026-10-10): Epilogue 34 KB,
-     Figtree 19 KB (+ italic 20 KB, loaded only when used), Spline Sans Mono 35 KB — about 88 KB, inside the 130 KB
-     budget (raised by the user on 2026-10-10);
-   - the `design-system.json` index, written **last**.
-2. **Archive the Phase 1 page** on the canvas if the user wants it gone (it's regenerable from the repo).
+## Pass 3 — tracer bullet (in progress)
 
-## Then: Pass 3 — tracer bullet
+Following [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-pass-3), riskiest first:
 
-Follow [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-pass-3), riskiest first:
-
-1. pnpm workspace, Changesets and CI.
-2. Spike A: a dialog containing a menu, in raw HTML and in React with SSR and hydration, in Chromium, Firefox and
-   WebKit.
-3. Spike B: Terrazzo → `tokens.css` + Claude Design JSON + contrast lint → Lightning CSS → consumer fixtures.
-4. Spike C: one Claude Design preview with the elements IIFE through `/design-sync`.
-5. Then Button → Field + error summary → Select → Dialog → Menu.
+1. ~~**Step 0** — pnpm workspace, Changesets, CI~~ — done 2026-10-11.
+   - The four package skeletons follow ADR-0007's export maps and are all `"private": true`.
+   - Changesets uses a `fixed` group; `baseBranch` is `main`.
+   - ESLint runs `@eslint/css` (Baseline newly available, `use-layers`, logical properties) and html-eslint.
+   - TypeScript 7 runs with isolated declarations for packages.
+   - CI: lint, types and token contrast, then browser tests sharded by engine.
+   - Run `pnpm check` and `pnpm test`.
+2. ~~**Spike A** — a dialog containing a menu~~ — done 2026-10-11:
+   [report](docs/architecture/spikes/spike-a-dialog-menu.md). 23 tests pass in Chromium and WebKit. WebKit needed
+   explicit focus return in `<lue-menu>` and Option+Tab. Firefox is pending (see *Waiting on the user*).
+3. **Spike B — next:** Terrazzo → `tokens.css` + Claude Design JSON + contrast lint → Lightning CSS → consumer
+   fixtures.
+   - Build from `packages/tokens/src`, retiring `tools/directions/tokens.mjs` as the source of truth.
+   - Move `tools/directions/design-system/components.css` into `packages/css/src`. A lint trial on 2026-10-11 found
+     17 issues to fix as it moves: `vw` → `vi`, `overflow-x` → `overflow-inline` (check it's Baseline first), and one
+     `background` value the parser rejects.
+   - Then add the ADR-0005 emulation tests: forced colours, increased contrast, reduced motion, 320 px, RTL.
+4. **Spike C:** one Claude Design preview with the elements IIFE through `/design-sync` (the user starts it).
+5. **Components:** Button → Field + TextInput + error summary → Select → Dialog → Menu. Dialog and Menu start from
+   Spike A's code. Storybook 10 (`apps/docs`) arrives with the first component.
 
 ## Things to know
 
@@ -165,3 +163,9 @@ Follow [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-
   separate task was offered for its CI (still `npm ci` after the pnpm switch, so it breaks on push) and its form
   accessibility bugs.
 - **The Phase 1 session's scratchpad is gone.** Everything worth keeping is in this repo and on the canvas.
+- **Running tests from the Claude app:** if a browser fails to launch, set `TMPDIR` to a writable folder (the
+  session's scratchpad). Firefox needs a terminal with macOS permission (above).
+- **Toolchain as installed on 2026-10-11:** pnpm 12.4, Node 26.10, TypeScript 7.0, Vitest 5.0 with
+  `@vitest/browser-playwright`, Playwright 1.64 (Chromium 156, Firefox 157, WebKit 27.2), React 19.3, ESLint 10 with
+  `@eslint/css` 2 and html-eslint 0.66, Changesets 3, axe-core 4.14. `pnpm-workspace.yaml` refuses versions under a day
+  old and dependency build scripts unless allowed.
