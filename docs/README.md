@@ -25,6 +25,7 @@ Read in this order the first time; every later document traces back to the first
 | [ADR-0007](architecture/adr/0007-package-layout-and-ownership.md) | Package layout, versioning, element ↔ framework ownership |
 | [ADR-0008](architecture/adr/0008-name-lue-ui.md) | The name Lue UI and its identifiers (`lue`, `lue-ui`, `@lue-ui/*`, `LueUI`) |
 | [ADR-0009](architecture/adr/0009-visual-direction-chroma-luminous.md) | The visual direction: C2 · Chroma Luminous — chrome, glass, colour as light |
+| [Spike A](architecture/spikes/spike-a-dialog-menu.md) | A menu inside a modal dialog, HTML and React, SSR and hydration — what held and what each engine needed |
 
 ## Design — what
 

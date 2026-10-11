@@ -1,0 +1,50 @@
+/* Menu — <lue-menu class="lue-menu" popover role="menu">, opened with command="toggle-popover". */
+@layer lue.components {
+  .lue-menu {
+    display: grid;
+    gap: 2px;
+    padding: var(--lue-space-3xs);
+    inline-size: 15rem;
+    margin: 0;
+    border-radius: var(--lue-radius-m);
+    color: var(--lue-color-fg-default);
+    background-color: var(--lue-material-glass-overlay);
+    background-image: var(--lue-glass-sheen);
+    backdrop-filter: var(--lue-glass-filter);
+    box-shadow: var(--lue-shadow-overlay), var(--lue-shadow-fringe);
+  }
+  .lue-menu:where([popover]:not(:popover-open)) { display: none; }
+
+  /* Anchored to its invoker (the implicit anchor). Without anchor positioning the browser centres the popover. */
+  @supports (position-area: block-end) {
+    .lue-menu:where([popover]) {
+      inset: auto;
+      margin-block-start: var(--lue-space-3xs);
+      position-area: block-end span-inline-end;
+      position-try-fallbacks: flip-block, flip-inline;
+    }
+  }
+
+  .lue-menu__item {
+    display: flex;
+    align-items: center;
+    gap: var(--lue-space-xs);
+    min-block-size: var(--lue-size-control-sm);
+    padding-inline: var(--lue-space-xs);
+    border: 0;
+    border-radius: var(--lue-radius-s);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+  }
+  .lue-menu__item:where([data-tone="critical"]) { color: var(--lue-color-fg-critical); }
+  .lue-menu__item:where(:hover, :focus-visible) { background: var(--lue-color-bg-accent-subtle); }
+  .lue-menu__item:where(:focus-visible) { outline-offset: -2px; box-shadow: 0 0 18px -6px var(--lue-focus-glow); }
+  .lue-menu__separator {
+    block-size: 1px;
+    margin-block: var(--lue-space-3xs);
+    background: linear-gradient(90deg, transparent, var(--lue-chrome-line), transparent);
+  }
+}

@@ -1,0 +1,16 @@
+{
+  // Tests and tooling. Packages are also checked on their own, with isolated declarations (tsconfig.packages.json).
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "declaration": false,
+    "isolatedDeclarations": false,
+    "types": ["node"],
+    "paths": {
+      "@lue-ui/elements": ["./packages/elements/src/index.ts"],
+      "@lue-ui/elements/define": ["./packages/elements/src/define.ts"],
+      "@lue-ui/react": ["./packages/react/src/index.ts"]
+    }
+  },
+  "include": ["packages/*/src", "tests", "vitest.config.ts"]
+}

@@ -1,0 +1,27 @@
+/* Dialog — <dialog class="lue-dialog">, opened with command="show-modal". Seeded from the Claude Design System. */
+@layer lue.components {
+  .lue-dialog {
+    margin: auto;
+    display: grid;
+    gap: var(--lue-space-s);
+    inline-size: min(100% - 2rem, var(--lue-size-dialog-max));
+    padding: var(--lue-space-l);
+    border-radius: var(--lue-radius-l);
+    color: var(--lue-color-fg-default);
+    background-color: var(--lue-material-glass-modal);
+    background-image: var(--lue-glass-sheen);
+    backdrop-filter: var(--lue-glass-filter);
+    box-shadow: var(--lue-shadow-overlay), var(--lue-shadow-fringe);
+  }
+  .lue-dialog:where(:not([open])) { display: none; }
+  .lue-dialog::backdrop { background: var(--lue-color-overlay-scrim); }
+  .lue-dialog__title { font-size: 1.4375rem; line-height: 1.22; }
+  .lue-dialog__body { color: var(--lue-color-fg-muted); }
+  .lue-dialog__actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: var(--lue-space-xs);
+    margin: var(--lue-space-2xs) 0 0;
+  }
+}

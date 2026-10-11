@@ -19,8 +19,9 @@ inclusion question, not just a compatibility one.
    available in Chrome, Firefox and Safari. Everything newer is progressive enhancement with an accessible fallback.
 2. **No inclusion exception (user's decision, 2026-10-11).** Lue UI ships no polyfills. On Safari older than 26.2 a
    `command="show-modal"` button does nothing, and `closedby` light dismiss is absent (Esc and the dialog's own
-   buttons still close it). React adapters open dialogs with `showModal()` from state, so React consumers are not
-   affected; HTML-only consumers who must support older Safari can load an invokers polyfill themselves.
+   buttons still close it). React's `<Dialog open>` opens with `showModal()` from state, so React apps that open
+   dialogs from state are not affected (proved in [Spike A](../spikes/spike-a-dialog-menu.md)); HTML-only consumers
+   who must support older Safari can load an invokers polyfill themselves.
    *Possible future enhancement:* a small, conditional fix loaded only when the feature is absent — the invokers
    polyfill (`command`/`commandfor`) and a delegated `closedby` fallback (backdrop click → `requestClose()`), about
    2 KB.

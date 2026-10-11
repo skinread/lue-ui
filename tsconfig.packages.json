@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "paths": {
+      "@lue-ui/elements": ["./packages/elements/src/index.ts"],
+      "@lue-ui/elements/define": ["./packages/elements/src/define.ts"]
+    }
+  },
+  "include": ["packages/*/src"]
+}
