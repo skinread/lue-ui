@@ -3,7 +3,7 @@ import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import react from '@vitejs/plugin-react';
 import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vitest/config';
-import { emulateMedia } from './tests/emulation/commands.js';
+import { emulateMedia, focusTestFrame } from './tests/emulation/commands.js';
 
 const source = (path: string) => fileURLToPath(new URL(path, import.meta.url));
 
@@ -18,7 +18,7 @@ const browser = () => ({
   enabled: true,
   headless: true,
   provider: playwright(),
-  commands: { emulateMedia },
+  commands: { emulateMedia, focusTestFrame },
   instances: [{ browser: 'chromium' as const }, { browser: 'firefox' as const }, { browser: 'webkit' as const }],
   // Visual regression (tests/visual): tolerate anti-aliasing noise between machines, not a changed component.
   expect: { toMatchScreenshot: { comparatorName: 'pixelmatch' as const, comparatorOptions: { allowedMismatchedPixelRatio: 0.005 } } },
@@ -43,6 +43,7 @@ export default defineConfig({
         test: {
           name: 'unit',
           include: ['packages/*/src/**/*.browser.test.{ts,tsx}', 'tests/**/*.browser.test.{ts,tsx}'],
+          setupFiles: ['tests/support/setup.ts'],
           browser: browser(),
         },
       },
