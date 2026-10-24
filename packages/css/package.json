@@ -10,6 +10,7 @@
   ],
   "exports": {
     ".": {
+      "types": "./lue.d.ts",
       "style": "./dist/lue.css",
       "default": "./dist/lue.css"
     },
@@ -20,7 +21,8 @@
     "./components/*.css": "./dist/components/*.css"
   },
   "files": [
-    "dist"
+    "dist",
+    "lue.d.ts"
   ],
   "devDependencies": {
     "lightningcss": "1.33.0"

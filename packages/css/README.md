@@ -8,6 +8,19 @@ The package (`@lue-ui/css`) is private for now.
 @import "@lue-ui/css";
 ```
 
+With Tailwind v4, add the bridge and put Lue in Tailwind's components layer so utilities still win:
+
+```css
+@import "tailwindcss";
+@import "@lue-ui/tokens/tokens.css";
+@import "@lue-ui/tokens/tailwind.css";
+@import "@lue-ui/css" layer(components);
+```
+
+If your pipeline lowers CSS for older browsers (Next does by default), set a Baseline browserslist —
+`"browserslist": ["baseline newly available"]` — or it rewrites every colour token. The
+[consumer fixtures](../../fixtures/README.md) check these recipes on every push.
+
 Component files assume only the tokens (`tokens.css` also carries the theme compositions — filters, gradients, layered
 shadows — in `@layer lue.tokens`). Every built file starts with the full layer order, so the order you load files in
 never changes which rules win:

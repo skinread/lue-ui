@@ -1,0 +1,25 @@
+{
+  "name": "@lue-ui/fixture-next",
+  "private": true,
+  "type": "module",
+  "description": "Consumer fixture: Next.js App Router with its default CSS pipeline",
+  "scripts": {
+    "build": "next build",
+    "check": "node ../check.js .next/static"
+  },
+  "dependencies": {
+    "@lue-ui/css": "workspace:*",
+    "@lue-ui/tokens": "workspace:*",
+    "next": "16.4.2",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "@types/react": "19.3.0",
+    "typescript": "7.0.2"
+  },
+  "browserslist": [
+    "baseline newly available"
+  ]
+}

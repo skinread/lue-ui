@@ -1,0 +1,17 @@
+{
+  "name": "@lue-ui/fixture-vite",
+  "private": true,
+  "type": "module",
+  "description": "Consumer fixture: Vite with its default CSS pipeline",
+  "scripts": {
+    "build": "vite build",
+    "check": "node ../check.js dist"
+  },
+  "dependencies": {
+    "@lue-ui/css": "workspace:*",
+    "@lue-ui/tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "vite": "8.3.4"
+  }
+}

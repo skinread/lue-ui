@@ -10,6 +10,7 @@
   ],
   "exports": {
     "./tokens.css": "./dist/tokens.css",
+    "./tailwind.css": "./dist/tailwind.css",
     "./claude-design/tokens.json": "./dist/claude-design/tokens.json",
     "./resolver.json": "./src/lue.resolver.json",
     "./src/*": "./src/*"

@@ -16,6 +16,7 @@
     "check": "pnpm lint && pnpm typecheck && pnpm check-tokens",
     "test": "pnpm build && vitest run",
     "test:watch": "vitest",
+    "fixtures": "pnpm --filter \"./fixtures/*\" run build && pnpm --filter \"./fixtures/*\" run check",
     "changeset": "changeset"
   },
   "devDependencies": {

@@ -1,6 +1,7 @@
 packages:
   - packages/*
   - apps/*
+  - fixtures/*
 
 # Supply-chain guard: don't install versions published in the last day.
 minimumReleaseAge: 1440
