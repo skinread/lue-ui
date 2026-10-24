@@ -60,3 +60,10 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps ${{ matrix.browser }}
       - run: pnpm test --project "*(${{ matrix.browser }})"
+      # When a visual test fails, print its diff and actual images (base64) so they can be decoded and reviewed
+      # without an artifact store.
+      - if: failure()
+        run: |
+          find .vitest/attachments -name '*-diff-*.png' -o -name '*-actual-*.png' | while read -r f; do
+            echo "::group::$f"; base64 -w0 "$f"; echo; echo "::endgroup::"
+          done
