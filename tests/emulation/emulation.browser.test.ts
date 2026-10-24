@@ -109,6 +109,16 @@ describe('320 px reflow', () => {
     }
   });
 
+  it('keeps text controls inside their field', async () => {
+    await page.viewport(320, 640);
+    await frame();
+    for (const control of document.querySelectorAll<HTMLElement>('#page :is(.lue-input, .lue-textarea, .lue-select)')) {
+      const box = control.parentElement!.getBoundingClientRect();
+      const { left, right } = control.getBoundingClientRect();
+      expect([left, right], `#${control.id}`).toEqual([box.left, box.right]);
+    }
+  });
+
   it('scales fluid space between 360 and 1280 px', async () => {
     const space = () => parseFloat(getComputedStyle(probe('--lue-space-s', 'padding-inline-start')).paddingInlineStart);
     await page.viewport(320, 640);

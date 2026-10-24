@@ -33,6 +33,10 @@ export const html = `
         <label class="lue-field__label" for="email">Email address</label>
         <input class="lue-input" id="email" type="email" autocomplete="email">
       </div>
+      <div class="lue-field">
+        <label class="lue-field__label" for="notes">Notes</label>
+        <textarea class="lue-textarea" id="notes"></textarea>
+      </div>
       <div class="lue-select-wrap">
         <select class="lue-select" id="size" aria-label="Size"><option>Medium</option></select>
       </div>

@@ -19,6 +19,8 @@
       box-shadow var(--lue-motion-duration-slow) var(--lue-motion-ease-standard);
   }
   .lue-input, .lue-select, .lue-textarea {
+    /* Inputs and textareas are content-box by default, so 100% plus padding and border would overflow the field. */
+    box-sizing: border-box;
     inline-size: 100%;
     min-block-size: max(var(--lue-size-target-min), var(--lue-size-control-md));
     padding-inline: calc(1.125rem * var(--lue-density));
