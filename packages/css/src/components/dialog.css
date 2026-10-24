@@ -4,7 +4,7 @@
     margin: auto;
     display: grid;
     gap: var(--lue-space-s);
-    inline-size: min(100% - 2rem, var(--lue-size-dialog-max));
+    inline-size: min(100% - 2rem, var(--lue-dialog-max-inline-size));
     padding: var(--lue-space-l);
     border-radius: var(--lue-radius-l);
     color: var(--lue-color-fg-default);

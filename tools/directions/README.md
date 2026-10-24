@@ -86,3 +86,9 @@ shares it.
    only when its own keys change (title, an asset record, `lastChange`), and last.
 4. New icons are **uploads**: Artifact `publish` with `asset: true`, then add `{blob, size}` to `icon-uploads.json`.
 5. The type asks agents not to render-check unless the user asks.
+
+## The library copy of the component CSS
+
+Since Spike B (2026-10-24) the library's CSS lives in `packages/css/src`, split per component and built with Lightning
+CSS. `design-system/components.css` stays as the private Claude Design System's copy; changes made in the library
+aren't copied back automatically.

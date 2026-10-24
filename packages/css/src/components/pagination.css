@@ -1,0 +1,6 @@
+/* Pagination — <nav class="lue-pagination"><ul>, the current page from aria-current="page". */
+@layer lue.components {
+  .lue-pagination > ul { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; list-style: none; margin: 0; padding: 0; }
+  .lue-pagination a:where(:not(.lue-button)) { display: inline-grid; place-items: center; min-inline-size: 44px; min-block-size: 44px; border-radius: var(--lue-radius-full); color: var(--lue-color-fg-default); text-decoration: none; }
+  .lue-pagination a:where([aria-current="page"]) { background-color: var(--lue-material-button-pressed); box-shadow: var(--lue-button-depth); font-weight: 600; }
+}

@@ -1,0 +1,98 @@
+/* Page blocks for portfolio and editorial layouts: wrap, headings, hero, article, project and post cards, quote,
+   timeline, call to action, header and footer. Moved from the Claude Design System seed (Pass 2). */
+@layer lue.blocks {
+  .lue-wrap { inline-size: min(100% - 2 * var(--lue-gutter), 75rem); margin-inline: auto; }
+  .lue-skip-link { position: absolute; inset-inline-start: 16px; inset-block-start: 12px; z-index: 20; translate: 0 -200%; }
+  .lue-skip-link:where(:focus-visible) { translate: 0 0; }
+  .lue-display { font-family: var(--lue-font-family-display); font-weight: 300; font-size: clamp(2.875rem, 1.5rem + 4.4vi, 6rem); line-height: 1; letter-spacing: -0.035em; text-wrap: balance; margin: 0; }
+  .lue-title { font-family: var(--lue-font-family-display); font-weight: 300; font-size: clamp(2.5rem, 1.45rem + 3.4vi, 4.75rem); line-height: 1.02; letter-spacing: -0.035em; max-inline-size: 18ch; text-wrap: balance; margin: 0; }
+  .lue-h2 { font-family: var(--lue-font-family-display); font-weight: 350; font-size: clamp(1.9rem, 1.35rem + 1.9vi, 3.1rem); line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; margin: 0; }
+  .lue-h3 { font-family: var(--lue-font-family-display); font-weight: 400; font-size: 1.4375rem; line-height: 1.18; letter-spacing: -0.02em; margin: 0; }
+  .lue-lede { font-size: clamp(1.125rem, 1rem + 0.5vi, 1.375rem); line-height: 1.55; color: var(--lue-color-fg-muted); max-inline-size: 46ch; text-wrap: pretty; }
+  .lue-dek { font-size: clamp(1.2rem, 1.05rem + 0.6vi, 1.5rem); line-height: 1.5; color: var(--lue-color-fg-muted); max-inline-size: 44ch; text-wrap: pretty; }
+  .lue-kicker { font: 600 0.75rem/1.4 var(--lue-font-family-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lue-color-fg-muted); }
+  .lue-actions { display: flex; flex-wrap: wrap; gap: var(--lue-space-xs); }
+  .lue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(var(--lue-grid-min, 18rem), 100%), 1fr)); gap: var(--lue-space-m); }
+  .lue-split { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(26rem, 100%), 1fr)); gap: var(--lue-space-xl); align-items: center; }
+  .lue-section { display: grid; gap: var(--lue-space-l); padding-block: var(--lue-space-2xl); }
+  .lue-section__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--lue-space-s) var(--lue-space-l); }
+
+  /* site header */
+  .lue-site-header { position: sticky; inset-block-start: var(--lue-space-s); z-index: var(--lue-layer-sticky); }
+  .lue-site-header__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; padding: 8px 8px 8px 24px; border-radius: var(--lue-radius-full); background-color: var(--lue-material-glass-overlay); backdrop-filter: var(--lue-glass-filter); }
+  .lue-site-header ul { display: flex; flex-wrap: wrap; gap: 2px; list-style: none; margin: 0; padding: 0; }
+  .lue-site-header__link { display: inline-flex; align-items: center; min-block-size: 44px; padding-inline: 16px; border-radius: var(--lue-radius-full); color: var(--lue-color-fg-default); text-decoration: none; font-weight: 500; transition: background-color var(--lue-motion-duration-slow) var(--lue-motion-ease-standard); }
+  .lue-site-header__link:where([aria-current="page"]) { background-color: var(--lue-material-button-tint); box-shadow: var(--lue-button-depth); }
+  .lue-site-header__link:where(:hover) { background-color: var(--lue-material-button-tint); }
+  .lue-wordmark { display: inline-flex; align-items: center; gap: 10px; min-block-size: 44px; font: 400 1.375rem/1 var(--lue-font-family-display); letter-spacing: -0.02em; color: var(--lue-color-fg-default); text-decoration: none; }
+  .lue-wordmark { --lue-tile-size: 34px; }
+
+  /* hero */
+  .lue-hero { position: relative; isolation: isolate; overflow: clip; padding-block: clamp(4.5rem, 10vi, 9rem) clamp(4rem, 8vi, 7.5rem); }
+  .lue-hero__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(27rem, 100%), 1fr)); gap: var(--lue-space-xl); align-items: center; }
+  .lue-hero__text { display: grid; gap: var(--lue-space-m); justify-items: start; }
+  .lue-hero:where([data-layout="center"]) :where(.lue-hero__grid) { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
+  .lue-hero:where([data-layout="center"]) :where(.lue-hero__text) { justify-items: center; }
+  .lue-hero__object { display: grid; place-items: center; }
+
+  /* article */
+  .lue-article-header { display: grid; gap: var(--lue-space-m); justify-items: start; padding-block: var(--lue-space-2xl) var(--lue-space-xl); }
+  .lue-byline { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+  .lue-figure { margin: 0; display: grid; gap: var(--lue-space-xs); }
+  .lue-figure > figcaption { font-size: 0.9375rem; color: var(--lue-color-fg-muted); }
+  .lue-toc { display: grid; gap: var(--lue-space-xs); padding: 20px; border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); backdrop-filter: var(--lue-glass-filter); }
+  .lue-toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+  .lue-toc a { display: flex; align-items: center; gap: 10px; min-block-size: 44px; padding-inline: 12px; border-radius: 14px; color: var(--lue-color-fg-muted); text-decoration: none; }
+  .lue-toc a::before { content: ""; inline-size: 6px; block-size: 6px; border-radius: 50%; background: var(--lue-color-border-strong); flex: none; }
+  .lue-toc a:where([aria-current="true"]) { color: var(--lue-color-fg-default); background-color: var(--lue-material-button-tint); }
+  .lue-toc a:where([aria-current="true"])::before { background: linear-gradient(135deg, var(--lue-prism-fill)); }
+  .lue-prose { max-inline-size: 42rem; font-size: 1.1875rem; line-height: 1.7; }
+  .lue-prose > * + * { margin-block-start: 1.15em; }
+  .lue-prose > :where(h2) { font-weight: 400; font-size: clamp(1.55rem, 1.25rem + 1vi, 2.05rem); line-height: 1.18; margin-block-start: 2.1em; scroll-margin-block-start: 6.5rem; }
+  .lue-prose :where(ul, ol) { padding-inline-start: 1.2em; display: grid; gap: 0.35em; }
+  .lue-pull { font-family: var(--lue-font-family-display); font-weight: 300; font-size: clamp(1.6rem, 1.15rem + 1.4vi, 2.4rem); line-height: 1.2; letter-spacing: -0.02em; text-align: center; text-wrap: balance; padding-block: 0.7em; border-block: var(--lue-border-width-thin) solid transparent; border-image: linear-gradient(90deg, transparent, var(--lue-chrome-line), transparent) 1; }
+  .lue-code { margin: 0; border-radius: var(--lue-radius-m); overflow: clip; background-color: var(--lue-material-glass-overlay); }
+  .lue-code > figcaption { display: flex; justify-content: space-between; gap: 12px; padding: 10px 18px; font: 500 0.75rem/1.4 var(--lue-font-family-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lue-color-fg-muted); border-block-end: var(--lue-border-width-thin) solid var(--lue-color-border-subtle); }
+  .lue-code pre { margin: 0; padding: 18px 20px; overflow-inline: auto; font-size: 0.875rem; line-height: 1.7; }
+  .lue-code pre:where(:focus-visible) { outline-offset: -4px; }
+  .lue-code__token:where([data-kind="property"]) { color: var(--lue-color-fg-accent); }
+  .lue-code__token:where([data-kind="comment"]) { color: var(--lue-color-fg-muted); }
+  .lue-author { display: flex; flex-wrap: wrap; gap: 18px 22px; align-items: center; padding: 24px 28px; border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); backdrop-filter: var(--lue-glass-filter); }
+  .lue-author__text { flex: 1 1 18rem; display: grid; gap: 4px; }
+
+  /* cards and lists */
+  .lue-project { display: grid; gap: 18px; align-content: start; padding: 12px 12px 26px; border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-raised), var(--lue-shadow-fringe); transition: --lue-angle var(--lue-motion-duration-slow) var(--lue-motion-ease-standard); }
+  .lue-project__body { display: grid; gap: 10px; padding-inline: 14px; }
+  .lue-project :where(h3) a, .lue-post :where(h3) a { color: var(--lue-color-fg-default); text-decoration: none; }
+  .lue-project :where(h3) a::after, .lue-post :where(h3) a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 1; }
+  .lue-project:where(:has(a:focus-visible)), .lue-post:where(:has(a:focus-visible)) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: 4px; }
+  .lue-project :where(h3) a:where(:focus-visible), .lue-post :where(h3) a:where(:focus-visible) { outline: none; }
+  .lue-project:where(:hover), .lue-post:where(:hover) { --lue-angle: 120deg; }
+  .lue-tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; position: relative; z-index: 2; }
+  .lue-post { position: relative; display: grid; gap: 10px; align-content: start; padding-block: 26px; border-block-start: var(--lue-border-width-thin) solid transparent; border-image: linear-gradient(90deg, var(--lue-chrome-line), transparent) 1; }
+  .lue-post:where([data-variant="card"]) { padding: 12px 12px 26px; border-image: none; border-radius: var(--lue-radius-l); gap: 16px; background-color: var(--lue-material-glass-overlay); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-raised), var(--lue-shadow-fringe); }
+  .lue-post:where([data-variant="card"]) > :where(:not(.lue-media)) { margin-inline: 14px; }
+  .lue-meta { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; }
+  .lue-excerpt { color: var(--lue-color-fg-muted); max-inline-size: 60ch; }
+  .lue-feature { display: grid; gap: var(--lue-space-s); align-content: start; }
+  .lue-feature > p { color: var(--lue-color-fg-muted); }
+
+  .lue-quote { margin: 0; display: grid; gap: var(--lue-space-m); justify-items: start; max-inline-size: 64rem; }
+  .lue-quote > blockquote { margin: 0; font-family: var(--lue-font-family-display); font-weight: 300; font-size: clamp(1.7rem, 1.15rem + 1.8vi, 2.75rem); line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
+  .lue-quote > figcaption { display: flex; align-items: center; gap: 14px; }
+  .lue-quote__mark { font: 300 6rem/0.6 var(--lue-font-family-display); block-size: 0.5em; }
+
+  .lue-timeline { list-style: none; margin: 0; padding: 0; display: grid; }
+  .lue-timeline > li { display: flex; flex-wrap: wrap; gap: 6px 32px; padding-block: 22px; border-block-start: var(--lue-border-width-thin) solid transparent; border-image: linear-gradient(90deg, var(--lue-chrome-line), transparent) 1; }
+  .lue-timeline time { flex: 0 0 11rem; }
+  .lue-timeline__entry { flex: 1 1 22rem; display: grid; gap: 4px; }
+
+  .lue-cta { display: grid; gap: var(--lue-space-m); justify-items: start; padding: clamp(2rem, 6vi, 4.5rem); border-radius: calc(var(--lue-radius-l) * 1.4); background-color: var(--lue-material-glass-overlay); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-raised), var(--lue-shadow-fringe); }
+  .lue-cta > form { display: flex; flex-wrap: wrap; gap: var(--lue-space-xs); align-items: end; inline-size: 100%; max-inline-size: 40rem; }
+  .lue-cta :where(.lue-field) { flex: 1 1 16rem; }
+
+  .lue-site-footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px 32px; padding-block: 40px 64px; border-block-start: var(--lue-border-width-thin) solid transparent; border-image: linear-gradient(90deg, transparent, var(--lue-chrome-line), transparent) 1; }
+  .lue-site-footer ul { display: flex; flex-wrap: wrap; gap: 4px 20px; list-style: none; padding: 0; margin: 0; }
+  .lue-site-footer a { display: inline-flex; align-items: center; min-block-size: 44px; color: var(--lue-color-fg-muted); text-decoration: none; }
+  .lue-site-footer a:where(:hover) { color: var(--lue-color-fg-default); text-decoration: underline; }
+}

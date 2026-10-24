@@ -1,0 +1,6 @@
+/* Toast — .lue-toast on an inverse surface. */
+@layer lue.components {
+  .lue-toast { display: flex; align-items: center; gap: var(--lue-space-s); inline-size: fit-content; max-inline-size: 100%; padding-block: var(--lue-space-2xs); padding-inline: var(--lue-space-s) var(--lue-space-2xs); border-radius: var(--lue-radius-full); background: var(--lue-color-bg-inverse); color: var(--lue-color-fg-inverse); box-shadow: var(--lue-shadow-overlay); }
+  .lue-toast :where(.lue-button) { color: var(--lue-color-fg-inverse); background: transparent; box-shadow: none; text-decoration: underline; text-underline-offset: 0.18em; min-block-size: var(--lue-size-control-sm); }
+  .lue-toast :where(.lue-button)::before { content: none; }
+}

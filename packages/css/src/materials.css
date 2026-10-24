@@ -1,0 +1,30 @@
+/* Materials: glass, ambient light, satin, metal tiles and avatars, chrome text, squircle corners. */
+@layer lue.materials {
+  .lue-glass { border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-overlay), var(--lue-shadow-fringe); }
+  .lue-glass:where([data-tier="modal"]) { background-color: var(--lue-material-glass-modal); }
+  .lue-stage { position: relative; isolation: isolate; overflow: clip; }
+  .lue-ambient { position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(62% 80% at 0% 72%, var(--lue-material-ambient-amber), transparent 76%), radial-gradient(58% 78% at 100% 64%, var(--lue-material-ambient-azure), transparent 76%),
+      radial-gradient(40% 50% at 92% 0%, var(--lue-material-ambient-orchid), transparent 74%); }
+  .lue-ambient::before { content: ""; position: absolute; inset: -12%; opacity: 0.55;
+    background: linear-gradient(116deg, transparent 4%, var(--lue-material-ambient-rose) 19%, var(--lue-material-ambient-amber) 30%, var(--lue-material-ambient-citron) 41%, var(--lue-material-ambient-mint) 52%, var(--lue-material-ambient-aqua) 63%, var(--lue-material-ambient-azure) 74%, var(--lue-material-ambient-iris) 85%, transparent 97%);
+    mask-image: radial-gradient(closest-side, #000 18%, transparent 100%); }
+  .lue-satin { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; z-index: -1; display: block; }
+  .lue-prism { inline-size: min(100%, 27.5rem); block-size: auto; display: block; overflow: visible; }
+  .lue-media { position: relative; isolation: isolate; overflow: clip; display: grid; place-items: center; aspect-ratio: 4 / 3; border-radius: calc(var(--lue-radius-l) - 8px); box-shadow: inset 0 0 0 1px var(--lue-color-border-subtle); }
+  .lue-media > svg:where(:not(.lue-satin)) { inline-size: 54%; block-size: auto; max-block-size: 82%; }
+  .lue-tile { inline-size: var(--lue-tile-size, 64px); block-size: var(--lue-tile-size, 64px); border-radius: 30%; display: inline-grid; place-items: center; flex: none; background: var(--lue-metal); box-shadow: inset 0 1px 0 var(--lue-metal-rim-top), inset 0 -1px 0 var(--lue-metal-rim-bottom), var(--lue-tile-shadow); color: var(--lue-material-tile-ink); }
+  .lue-tile:where([data-size="lg"]) { --lue-tile-size: 112px; }
+  .lue-tile > svg { inline-size: 54%; block-size: 54%; }
+  .lue-avatar { inline-size: 44px; block-size: 44px; border-radius: 50%; display: inline-grid; place-items: center; flex: none; background: var(--lue-metal); box-shadow: inset 0 1px 0 var(--lue-metal-rim-top), inset 0 -1px 0 var(--lue-metal-rim-bottom), var(--lue-tile-shadow); font: 500 0.9375rem/1 var(--lue-font-family-display); color: var(--lue-color-fg-default); overflow: hidden; }
+  .lue-avatar:where([data-size="lg"]) { inline-size: 72px; block-size: 72px; font-size: 1.375rem; }
+  .lue-avatar > img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+  .lue-chrome-text { color: var(--lue-color-fg-default); }
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    .lue-chrome-text { background: linear-gradient(180deg, var(--lue-chrome-text)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  }
+  @supports (corner-shape: squircle) {
+    .lue-card, .lue-glass, .lue-project, .lue-dialog { corner-shape: squircle; border-radius: calc(var(--lue-radius-l) * 1.7); }
+    .lue-tile { corner-shape: squircle; border-radius: 44%; }
+  }
+}

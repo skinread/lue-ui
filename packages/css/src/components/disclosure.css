@@ -1,0 +1,10 @@
+/* Disclosure — <details class="lue-disclosure"> with a chrome rule underneath. */
+@layer lue.components {
+  /* disclosure */
+  .lue-disclosure { border-block-end: var(--lue-border-width-thin) solid transparent; border-image: linear-gradient(90deg, var(--lue-chrome-line), transparent) 1; }
+  .lue-disclosure > summary { display: flex; justify-content: space-between; align-items: center; gap: var(--lue-space-s); min-block-size: var(--lue-size-control-md); cursor: pointer; font-weight: 600; list-style: none; }
+  .lue-disclosure > summary::-webkit-details-marker { display: none; }
+  .lue-disclosure > summary > :where(.lue-icon) { transition: rotate var(--lue-motion-duration-moderate) var(--lue-motion-ease-standard); }
+  .lue-disclosure:where([open]) > summary > :where(.lue-icon) { rotate: 180deg; }
+  .lue-disclosure > :where(:not(summary)) { margin: 0; padding-block-end: var(--lue-space-s); color: var(--lue-color-fg-muted); }
+}

@@ -1,0 +1,7 @@
+/* Breadcrumb — <nav class="lue-breadcrumb"><ol>, the current page from aria-current="page". */
+@layer lue.components {
+  .lue-breadcrumb > ol { display: flex; flex-wrap: wrap; gap: var(--lue-space-2xs); list-style: none; margin: 0; padding: 0; }
+  .lue-breadcrumb li + li::before { content: "/"; margin-inline-end: var(--lue-space-2xs); color: var(--lue-color-fg-muted); }
+  .lue-breadcrumb a { color: var(--lue-color-fg-muted); }
+  .lue-breadcrumb a:where([aria-current="page"]) { color: var(--lue-color-fg-default); text-decoration: none; }
+}

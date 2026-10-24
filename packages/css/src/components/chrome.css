@@ -1,0 +1,22 @@
+/* Chrome hairline ring shared by every glass and chrome component, the .lue-chrome pill, and icons. Moved from the Claude Design System seed (Pass 2). */
+@layer lue.components {
+  /* ---------------------------------------------------------------- chrome hairline ring (shared) */
+  :where(.lue-button, .lue-card, .lue-dialog:not(:modal), .lue-menu:not([popover]), .lue-tag, .lue-alert, .lue-toast:not([popover]), .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"]) { position: relative; }
+  :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"]) {
+    border: var(--lue-border-width-thin) solid transparent; /* visible in forced colours */
+  }
+  :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before {
+    content: "";
+    position: absolute;
+    inset: calc(var(--lue-border-width-thin) * -1);
+    border-radius: inherit;
+    padding: var(--lue-border-width-thin);
+    pointer-events: none;
+    background: conic-gradient(from var(--lue-angle), var(--lue-chrome-stops));
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  }
+  .lue-chrome { border-radius: var(--lue-radius-full); }
+
+  .lue-icon { inline-size: 1.25em; block-size: 1.25em; flex: none; fill: currentColor; }
+  .lue-icon:where([data-mirror]:dir(rtl)) { scale: -1 1; }
+}

@@ -1,0 +1,13 @@
+/* Alert — .lue-alert with data-tone (info by default, warning, success, critical). Always an icon and a word, never colour alone. */
+@layer lue.components {
+  .lue-alert { display: grid; grid-template-columns: auto 1fr; gap: var(--lue-space-3xs) var(--lue-space-s); padding: var(--lue-space-s) var(--lue-space-m); border-radius: var(--lue-radius-m); background: var(--lue-color-bg-info-subtle); }
+  .lue-alert > :where(.lue-icon) { grid-row: span 2; color: var(--lue-color-fg-info); margin-block-start: 3px; }
+  .lue-alert:where([data-tone="warning"]) { background: var(--lue-color-bg-warning-subtle); }
+  .lue-alert:where([data-tone="warning"]) > :where(.lue-icon) { color: var(--lue-color-fg-warning); }
+  .lue-alert:where([data-tone="success"]) { background: var(--lue-color-bg-success-subtle); }
+  .lue-alert:where([data-tone="success"]) > :where(.lue-icon) { color: var(--lue-color-fg-success); }
+  .lue-alert:where([data-tone="critical"]) { background: var(--lue-color-bg-critical-subtle); }
+  .lue-alert:where([data-tone="critical"]) > :where(.lue-icon) { color: var(--lue-color-fg-critical); }
+  .lue-alert__title { font-weight: 600; }
+  .lue-alert__body { font-size: 0.9375rem; }
+}
