@@ -57,8 +57,12 @@ export function Field({ label, hint, error, controlId, children, className, ...p
   );
 }
 
-/** Spreads the surrounding Field's id, description and invalid state onto a control. */
-function useFieldControl(props: { id?: string | undefined; 'aria-describedby'?: string | undefined; 'aria-invalid'?: unknown }) {
+/** Spreads the surrounding Field's id, description and invalid state onto a control. Shared with Select. */
+export function useFieldControl(props: { id?: string | undefined; 'aria-describedby'?: string | undefined; 'aria-invalid'?: unknown }): {
+  id?: string;
+  'aria-describedby'?: string;
+  'aria-invalid'?: 'true' | undefined;
+} {
   const field = useContext(FieldContext);
   if (!field) return {};
   return {

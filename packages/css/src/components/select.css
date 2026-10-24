@@ -1,7 +1,63 @@
-/* Select — a native <select class="lue-select"> in a .lue-select-wrap that holds its chevron. Shares the field
-   surface and states in field.css. */
+/* Select — a native <select class="lue-select"> in a .lue-select-wrap, which holds the chevron. Contract:
+   apps/docs/contracts/select.json. The field surface, focus and invalid states are shared with field.css.
+   Where the browser supports customisable select, the picker becomes overlay glass with text-only options (v1:
+   no <selectedcontent>, no rich option content). Elsewhere the native picker is the fallback. */
 @layer lue.components {
-  .lue-select { appearance: none; padding-inline-end: calc(1.125rem + 1.75em); }
   .lue-select-wrap { position: relative; display: grid; }
-  .lue-select-wrap > :where(.lue-icon) { position: absolute; inset-inline-end: 1.125rem; inset-block-start: 50%; translate: 0 -50%; pointer-events: none; }
+  .lue-select-wrap > :where(.lue-icon) {
+    position: absolute;
+    inset-inline-end: 1.125rem;
+    inset-block-start: 50%;
+    translate: 0 -50%;
+    pointer-events: none;
+  }
+  .lue-select { appearance: none; padding-inline-end: calc(1.125rem + 1.75em); cursor: pointer; }
+  .lue-select:where(:disabled) + :where(.lue-icon) { color: var(--lue-color-fg-muted); }
+
+  @supports (appearance: base-select) {
+    /* eslint-disable-next-line css/no-invalid-properties -- base-select is newer than the linter's grammar */
+    .lue-select, .lue-select::picker(select) { appearance: base-select; }
+    .lue-select { display: flex; align-items: center; }
+    .lue-select::picker-icon { display: none; } /* the wrap's chevron stays, so both paths look the same */
+    .lue-select::picker(select) {
+      margin-block: var(--lue-space-3xs);
+      padding: var(--lue-space-3xs);
+      border: var(--lue-border-width-thin) solid var(--lue-color-border-subtle);
+      border-radius: var(--lue-radius-m);
+      color: var(--lue-color-fg-default);
+      background-color: var(--lue-material-glass-overlay);
+      background-image: var(--lue-glass-sheen);
+      backdrop-filter: var(--lue-glass-filter);
+      box-shadow: var(--lue-shadow-overlay), var(--lue-shadow-fringe);
+    }
+    .lue-select :where(option) {
+      display: flex;
+      align-items: center;
+      gap: var(--lue-space-xs);
+      min-block-size: max(var(--lue-size-target-min), var(--lue-size-control-sm));
+      padding-inline: var(--lue-space-xs);
+      border-radius: var(--lue-radius-s);
+    }
+    .lue-select :where(option:hover, option:focus-visible) { background: var(--lue-color-bg-accent-subtle); }
+    .lue-select :where(option:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: -2px; }
+    .lue-select :where(option:checked) { font-weight: 600; }
+    .lue-select :where(option)::checkmark { order: 1; margin-inline-start: auto; color: var(--lue-color-fg-accent); }
+  }
+}
+
+@layer lue.contrast {
+  @supports (appearance: base-select) {
+    :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-select)::picker(select) {
+      background: var(--lue-color-bg-surface);
+      backdrop-filter: none;
+      border-color: var(--lue-color-border-strong);
+    }
+    @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+      :where(.lue-select)::picker(select) { background: var(--lue-color-bg-surface); backdrop-filter: none; }
+    }
+    @media (forced-colors: active) {
+      :where(.lue-select)::picker(select) { background: Canvas; color: CanvasText; border-color: CanvasText; backdrop-filter: none; }
+      :where(.lue-select option:checked) { background: SelectedItem; color: SelectedItemText; }
+    }
+  }
 }

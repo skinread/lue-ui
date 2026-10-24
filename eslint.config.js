@@ -2,6 +2,14 @@
 import css from '@eslint/css';
 import html from '@html-eslint/eslint-plugin';
 
+const baseline = {
+  available: 'newly',
+  // Enhancements that fail safe: an unknown media feature never matches, and an unknown value is dropped,
+  // leaving the declaration before it in force.
+  allowMediaConditions: ['prefers-reduced-transparency'],
+  allowPropertyValues: { 'text-wrap': ['pretty'] },
+};
+
 export default [
   { ignores: ['**/dist/**', '**/out/**', '**/.next/**', '**/storybook-static/**', '**/node_modules/**', 'tools/**'] },
   {
@@ -12,13 +20,7 @@ export default [
       ...css.configs.recommended.rules,
       // Tokens are custom properties defined in @lue-ui/tokens, so they're unknown to a per-file check.
       'css/no-invalid-properties': ['error', { allowUnknownVariables: true }],
-      'css/use-baseline': ['error', {
-        available: 'newly',
-        // Enhancements that fail safe: an unknown media feature never matches, and an unknown value is dropped,
-        // leaving the declaration before it in force.
-        allowMediaConditions: ['prefers-reduced-transparency'],
-        allowPropertyValues: { 'text-wrap': ['pretty'] },
-      }],
+      'css/use-baseline': ['error', baseline],
       // Everything ships in `@layer lue` and its sub-layers (RFC-0001 §2). The rule tests each dotted segment.
       'css/use-layers': ['error', { layerNamePattern: '^(lue|reset|tokens|base|layout|components|blocks|materials|contrast|utilities)$',
         // lue.css imports files that put themselves in their own sub-layers; layer() on the import would nest them.
@@ -27,6 +29,12 @@ export default [
       'css/prefer-logical-properties': 'error',
       'css/relative-font-units': ['error', { allowUnits: ['rem', 'em'] }],
     },
+  },
+  {
+    // Customisable select appears only inside @supports (appearance: base-select), which the rule doesn't read as a
+    // guard. The native select is the fallback (platform capabilities: Chromium 135, Safari 27).
+    files: ['packages/css/src/components/select.css'],
+    rules: { 'css/use-baseline': ['error', { ...baseline, allowSelectors: ['picker', 'picker-icon', 'checkmark'] }] },
   },
   {
     files: ['**/*.html'],
