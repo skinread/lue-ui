@@ -1,0 +1,324 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lue-ui.dev/schemas/contract.json",
+  "title": "Lue UI component contract",
+  "description": "v1, extracted on 2026-10-24 from the first five hand-written contracts and the tests they needed (docs/design/components.md#contract-format). Checked by tools/check-contracts.mjs.",
+  "type": "object",
+  "required": [
+    "name",
+    "status",
+    "rung",
+    "rungReason",
+    "anatomy",
+    "a11y",
+    "ownedAttributes",
+    "tokens",
+    "platform",
+    "contrast",
+    "forcedColors",
+    "deletionTrigger"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Za-z]+$"
+    },
+    "status": {
+      "enum": [
+        "proposal",
+        "experimental",
+        "candidate",
+        "stable"
+      ]
+    },
+    "covers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Other components or behaviours this contract includes"
+    },
+    "rung": {
+      "enum": [
+        "native-element",
+        "native-attribute",
+        "css",
+        "aria",
+        "light-dom-script",
+        "framework-adapter"
+      ],
+      "description": "The lowest platform-ladder rung used (AGENTS.md)"
+    },
+    "rungReason": {
+      "type": "string",
+      "minLength": 20
+    },
+    "anatomy": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/part"
+      }
+    },
+    "variants": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "attribute"
+        ],
+        "properties": {
+          "attribute": {
+            "type": "string",
+            "pattern": "^(data-|aria-)[a-z-]+$"
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "type": {
+            "const": "boolean"
+          },
+          "default": {
+            "type": "string"
+          },
+          "requires": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "messages": {
+      "type": "object"
+    },
+    "a11y": {
+      "type": "object",
+      "required": [
+        "role",
+        "name",
+        "keyboard",
+        "focus"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "states": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "state",
+              "via"
+            ],
+            "properties": {
+              "state": {
+                "type": "string"
+              },
+              "via": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "keyboard": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "keys",
+              "action"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "keys": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "action": {
+                "type": "string"
+              },
+              "on": {
+                "type": "string"
+              },
+              "where": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "focus": {
+          "type": "object",
+          "required": [
+            "indicator"
+          ],
+          "properties": {
+            "initial": {
+              "type": "string"
+            },
+            "return": {
+              "type": "string"
+            },
+            "indicator": {
+              "type": "string"
+            }
+          }
+        },
+        "targetSize": {
+          "type": "string"
+        }
+      }
+    },
+    "ownedAttributes": {
+      "type": "object",
+      "description": "Attributes (and text or children) an element or behaviour writes; frameworks render initial values only (ADR-0007)"
+    },
+    "elementRules": {
+      "type": "string"
+    },
+    "react": {
+      "type": "object"
+    },
+    "tokens": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^--lue-[a-z0-9-]+$"
+      }
+    },
+    "platform": {
+      "type": "object",
+      "required": [
+        "baseline"
+      ],
+      "properties": {
+        "baseline": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "enhancements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "feature",
+              "fallback"
+            ],
+            "properties": {
+              "feature": {
+                "type": "string"
+              },
+              "fallback": {
+                "type": "string"
+              },
+              "where": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "knownGaps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "where",
+              "gap",
+              "policy"
+            ],
+            "properties": {
+              "where": {
+                "type": "string"
+              },
+              "gap": {
+                "type": "string"
+              },
+              "policy": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "withoutJavaScript": {
+      "type": "string"
+    },
+    "motion": {
+      "type": "string"
+    },
+    "contrast": {
+      "type": "string"
+    },
+    "forcedColors": {
+      "type": "string"
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "deletionTrigger": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "$defs": {
+    "part": {
+      "type": "object",
+      "required": [
+        "element"
+      ],
+      "properties": {
+        "element": {
+          "type": "string"
+        },
+        "class": {
+          "type": "string",
+          "pattern": "^lue-[a-z-]+(__[a-z-]+)?(\\|lue-[a-z-]+(__[a-z-]+)?)*$"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "attributes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "children": {
+          "type": "array"
+        },
+        "variants": {
+          "type": "object"
+        },
+        "hook": {
+          "type": "boolean",
+          "description": "A class scripts find the part by, with no styles of its own"
+        }
+      }
+    }
+  }
+}

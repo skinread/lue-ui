@@ -15,7 +15,8 @@ pnpm --filter @lue-ui/docs build   # storybook-static/
   `storybook` Vitest project renders it in Chromium, Firefox and WebKit, runs its play function, and fails on any axe
   violation (`a11y.test: 'error'`). `pnpm test` runs it with everything else.
 - **Contracts** (`contracts/<component>.json`) are the machine-readable accessibility contracts
-  ([format](../../docs/design/components.md#contract-format-draft)). Pass 3 writes them by hand next to hand-written
-  keyboard tests (`tests/<component>/`); the schema is extracted from what those tests need.
-- The JS packages aren't built yet, so `.storybook/main.ts` and `tsconfig.json` point `@lue-ui/react` and
-  `@lue-ui/elements` at their sources, as the tests do.
+  ([format](../../docs/design/components.md#contract-format)), validated against schema v1
+  (`contracts/contract.schema.json`) by `pnpm check`. They're written by hand next to the keyboard tests in
+  `tests/<component>/`.
+- `.storybook/main.ts` and `tsconfig.json` point `@lue-ui/react` and `@lue-ui/elements` at their sources, as the tests
+  do, so stories reflect edits without a build. The built packages are exercised by the Next fixture.

@@ -1,32 +1,107 @@
 {
   "name": "Field",
   "status": "experimental",
-  "covers": ["Field", "TextInput", "ErrorSummary", "data-lue-validate"],
+  "covers": [
+    "Field",
+    "TextInput",
+    "ErrorSummary",
+    "data-lue-validate"
+  ],
   "rung": "native-attribute",
   "rungReason": "<label for>, constraint validation, aria-describedby and aria-invalid carry everything; an opt-in behaviour (HTML path) or state (React) replaces the browser's bubbles with messages in the page.",
   "anatomy": {
-    "root": { "element": "div", "class": "lue-field" },
-    "label": { "element": "label", "class": "lue-field__label", "required": true, "attributes": { "for": "{control id}" } },
-    "hint": { "element": "p", "class": "lue-field__hint", "required": false, "attributes": { "id": "{control id}-hint" } },
+    "root": {
+      "element": "div",
+      "class": "lue-field"
+    },
+    "label": {
+      "element": "label",
+      "class": "lue-field__label",
+      "required": true,
+      "attributes": {
+        "for": "{control id}"
+      }
+    },
+    "hint": {
+      "element": "p",
+      "class": "lue-field__hint",
+      "required": false,
+      "attributes": {
+        "id": "{control id}-hint"
+      }
+    },
     "error": {
-      "element": "p", "class": "lue-field__error", "required": true, "attributes": { "id": "{control id}-error", "hidden": "while valid" },
+      "element": "p",
+      "class": "lue-field__error",
+      "required": true,
+      "attributes": {
+        "id": "{control id}-error",
+        "hidden": "while valid"
+      },
       "children": [
-        { "element": "span", "class": "lue-visually-hidden", "text": "Error: " },
-        { "element": "span", "class": "lue-field__message", "text": "the message; empty while valid" }
+        {
+          "element": "span",
+          "class": "lue-visually-hidden",
+          "text": "Error: "
+        },
+        {
+          "element": "span",
+          "class": "lue-field__message",
+          "text": "the message; empty while valid",
+          "hook": true
+        }
       ]
     },
     "control": {
-      "element": "input|textarea|select", "class": "lue-input|lue-textarea|lue-select", "required": true,
-      "attributes": { "id": "{control id}", "aria-describedby": "{hint id} {error id}", "aria-invalid": "\"true\" while invalid" }
+      "element": "input|textarea|select",
+      "class": "lue-input|lue-textarea|lue-select",
+      "required": true,
+      "attributes": {
+        "id": "{control id}",
+        "aria-describedby": "{hint id} {error id}",
+        "aria-invalid": "\"true\" while invalid"
+      }
     },
     "summary": {
-      "element": "div", "class": "lue-error-summary", "required": false,
-      "attributes": { "tabindex": "-1", "hidden": "while there are no errors", "data-lue-error-summary": "HTML path only", "autofocus": "when server-rendered with errors" },
+      "element": "div",
+      "class": "lue-error-summary",
+      "required": false,
+      "attributes": {
+        "tabindex": "-1",
+        "hidden": "while there are no errors",
+        "data-lue-error-summary": "HTML path only",
+        "autofocus": "when server-rendered with errors"
+      },
       "children": [
-        { "element": "div", "attributes": { "role": "alert" }, "children": [
-          { "element": "h2", "class": "lue-error-summary__title", "text": "There is a problem" },
-          { "element": "ul", "class": "lue-error-summary__list", "attributes": { "aria-labelledby": "{title id}" }, "children": [{ "element": "li > a", "attributes": { "href": "#{control id}" }, "text": "the message" }] }
-        ] }
+        {
+          "element": "div",
+          "attributes": {
+            "role": "alert"
+          },
+          "children": [
+            {
+              "element": "h2",
+              "class": "lue-error-summary__title",
+              "text": "There is a problem"
+            },
+            {
+              "element": "ul",
+              "class": "lue-error-summary__list",
+              "attributes": {
+                "aria-labelledby": "{title id}"
+              },
+              "children": [
+                {
+                  "element": "li > a",
+                  "attributes": {
+                    "href": "#{control id}"
+                  },
+                  "text": "the message"
+                }
+              ]
+            }
+          ]
+        }
       ]
     }
   },
@@ -40,13 +115,35 @@
     "name": "The control's <label>",
     "description": "aria-describedby → hint, then error (the error's \"Error: \" prefix is visually hidden)",
     "states": [
-      { "state": "invalid", "via": "[aria-invalid=\"true\"]; :user-invalid styles a control nothing manages" },
-      { "state": "disabled", "via": ":disabled" }
+      {
+        "state": "invalid",
+        "via": "[aria-invalid=\"true\"]; :user-invalid styles a control nothing manages"
+      },
+      {
+        "state": "disabled",
+        "via": ":disabled"
+      }
     ],
     "keyboard": [
-      { "keys": ["Enter"], "action": "Submit the form (native)" },
-      { "keys": ["Tab"], "action": "From the focused summary to its first link, then each link in turn" },
-      { "keys": ["Enter"], "on": "a summary link", "action": "Focus its control, scrolling its label into view" }
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "Submit the form (native)"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "From the focused summary to its first link, then each link in turn"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "on": "a summary link",
+        "action": "Focus its control, scrolling its label into view"
+      }
     ],
     "focus": {
       "initial": "After a failed submission, the error summary (or the first invalid control when there's no summary)",
@@ -56,25 +153,77 @@
   },
   "ownedAttributes": {
     "form[data-lue-validate]": {
-      "control": ["aria-invalid"],
-      ".lue-field__error": ["hidden"],
-      ".lue-field__message": ["text"],
-      "[data-lue-error-summary]": ["hidden", "children of .lue-error-summary__list"]
+      "control": [
+        "aria-invalid"
+      ],
+      ".lue-field__error": [
+        "hidden"
+      ],
+      ".lue-field__message": [
+        "text"
+      ],
+      "[data-lue-error-summary]": [
+        "hidden",
+        "children of .lue-error-summary__list"
+      ]
     }
   },
   "react": {
     "components": {
-      "Field": { "props": { "label": "label text", "hint": "hint text", "error": "message → aria-invalid and the shown error", "controlId": "the control's id (generated otherwise)" } },
-      "TextInput": { "props": "every <input> prop; id, aria-describedby and aria-invalid come from the Field" },
-      "ErrorSummary": { "props": { "errors": "[{ id, message }]", "title": "heading text", "attempt": "changes once per submission; focus follows it" } },
-      "useValidation": { "returns": { "formProps": "noValidate, onSubmit, onInput", "summaryProps": "errors, attempt", "errorFor": "(id) → message" } }
+      "Field": {
+        "props": {
+          "label": "label text",
+          "hint": "hint text",
+          "error": "message → aria-invalid and the shown error",
+          "controlId": "the control's id (generated otherwise)"
+        }
+      },
+      "TextInput": {
+        "props": "every <input> prop; id, aria-describedby and aria-invalid come from the Field"
+      },
+      "ErrorSummary": {
+        "props": {
+          "errors": "[{ id, message }]",
+          "title": "heading text",
+          "attempt": "changes once per submission; focus follows it"
+        }
+      },
+      "useValidation": {
+        "returns": {
+          "formProps": "noValidate, onSubmit, onInput",
+          "summaryProps": "errors, attempt",
+          "errorFor": "(id) → message"
+        }
+      }
     },
     "rule": "React never renders data-lue-validate or data-lue-error-summary; useValidation does the same work with state, using the same controller"
   },
-  "tokens": ["--lue-color-fg-critical", "--lue-color-fg-muted", "--lue-color-focus-ring", "--lue-field-radius", "--lue-size-control-md", "--lue-size-target-min", "--lue-border-width-thick", "--lue-space-2xs", "--lue-space-m"],
+  "tokens": [
+    "--lue-color-fg-critical",
+    "--lue-color-fg-muted",
+    "--lue-color-focus-ring",
+    "--lue-field-radius",
+    "--lue-size-control-md",
+    "--lue-size-target-min",
+    "--lue-border-width-thick",
+    "--lue-space-2xs",
+    "--lue-space-m"
+  ],
   "platform": {
-    "baseline": ["constraint validation", "invalid event", ":user-invalid", "aria-describedby", "autofocus on any focusable element", "field-sizing (textarea)"],
-    "enhancements": [{ "feature": "field-sizing", "fallback": "A textarea of six lines that scrolls" }]
+    "baseline": [
+      "constraint validation",
+      "invalid event",
+      ":user-invalid",
+      "aria-describedby",
+      "autofocus on any focusable element",
+      "field-sizing (textarea)"
+    ],
+    "enhancements": [
+      {
+        "feature": "field-sizing",
+        "fallback": "A textarea of six lines that scrolls"
+      }
+    ]
   },
   "withoutJavaScript": "The browser's own messages appear and block submission; a server-rendered summary (visible, with autofocus) and errors work as written",
   "contrast": "Increased contrast: solid boundaries; invalid fields keep a doubled critical boundary",

@@ -117,12 +117,16 @@ drawn on the C2 canvas.
 | Site footer | `<footer>` + `<nav aria-label="Footer">` | — | none | — |
 | Icon tile | Decorative `<span>` with inline SVG, `aria-hidden="true"`; meaning lives in the adjacent text | — | none | Forced colours: the tile drops its material and keeps a border |
 
-## Contract format (draft)
+## Contract format
 
-Every component ships a machine-readable contract. **This format is a draft:** Pass 3 hand-writes the keyboard tests
-for the first five components, and the final schema is extracted from what those tests actually need. The written
-contracts live in [`apps/docs/contracts/`](../../apps/docs/contracts/) (Button, Field, Select, Dialog and Menu — the first five); they extend this draft
-where a component needed it (`react`, `contrast`, `messages`, `withoutJavaScript`).
+Every component ships a machine-readable contract. Pass 3 hand-wrote the keyboard tests for the first five
+components, and **schema v1** was extracted from what those tests needed (2026-10-24):
+[`apps/docs/contracts/contract.schema.json`](../../apps/docs/contracts/contract.schema.json). The contracts live beside
+it (Button, Field, Select, Dialog, Menu). `pnpm check` validates them and also fails when a contract names a token that
+isn't in `tokens.css`, a class that isn't in `packages/css` (parts marked `hook` are script hooks, not styled), or a
+component without tests and stories. The table below is the original draft; the schema adds `covers`, `messages`,
+`react`, `elementRules`, `withoutJavaScript`, `motion`, `contrast` and `rules`, and makes `a11y.keyboard` a list of
+`{ keys, action, on?, where? }`.
 
 | Field | Meaning |
 | --- | --- |

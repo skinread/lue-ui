@@ -4,30 +4,119 @@
   "rung": "native-element",
   "rungReason": "<select> provides the role, the picker, keyboard selection, form participation and validation. Customisable select only restyles it.",
   "anatomy": {
-    "wrap": { "element": "div", "class": "lue-select-wrap" },
-    "control": { "element": "select", "class": "lue-select", "required": true, "note": "Inside a Field: id, aria-describedby and aria-invalid as for TextInput" },
-    "option": { "element": "option", "content": "text only in v1 (no <selectedcontent>, no rich content)" },
-    "chevron": { "element": "svg", "class": "lue-icon", "attributes": { "aria-hidden": "true" }, "position": "after the select, at the inline end" }
+    "wrap": {
+      "element": "div",
+      "class": "lue-select-wrap"
+    },
+    "control": {
+      "element": "select",
+      "class": "lue-select",
+      "required": true,
+      "note": "Inside a Field: id, aria-describedby and aria-invalid as for TextInput"
+    },
+    "option": {
+      "element": "option",
+      "content": "text only in v1 (no <selectedcontent>, no rich content)"
+    },
+    "chevron": {
+      "element": "svg",
+      "class": "lue-icon",
+      "attributes": {
+        "aria-hidden": "true"
+      },
+      "position": "after the select, at the inline end"
+    }
   },
   "a11y": {
     "role": "combobox (implicit, native select)",
     "name": "The Field's <label>",
     "states": [
-      { "state": "invalid", "via": "[aria-invalid=\"true\"] (from data-lue-validate or useValidation)" },
-      { "state": "disabled", "via": ":disabled" },
-      { "state": "open", "via": ":open (customisable select)" }
+      {
+        "state": "invalid",
+        "via": "[aria-invalid=\"true\"] (from data-lue-validate or useValidation)"
+      },
+      {
+        "state": "disabled",
+        "via": ":disabled"
+      },
+      {
+        "state": "open",
+        "via": ":open (customisable select)"
+      }
     ],
-    "keyboard": "Native. With customisable select (Chromium, Safari 27): Enter, Space or Alt+ArrowDown open; arrows move; Enter chooses and closes; Escape closes; focus returns to the select",
-    "focus": { "indicator": ":focus-visible outline on the select; options show it inside the picker" },
+    "keyboard": [
+      {
+        "keys": [
+          "Arrow keys",
+          "typing"
+        ],
+        "action": "Native: choose without opening where the platform does (varies by OS)"
+      },
+      {
+        "keys": [
+          "Enter",
+          "Space",
+          "Alt+ArrowDown"
+        ],
+        "action": "Open the picker",
+        "where": "customisable select (Chromium, Safari 27)"
+      },
+      {
+        "keys": [
+          "ArrowDown",
+          "ArrowUp"
+        ],
+        "action": "Move between options",
+        "where": "customisable select, open"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "Choose the option, close, return focus to the select",
+        "where": "customisable select, open"
+      },
+      {
+        "keys": [
+          "Escape"
+        ],
+        "action": "Close without choosing",
+        "where": "customisable select, open"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline on the select; options show it inside the picker"
+    },
     "targetSize": "max(--lue-size-target-min, --lue-size-control-md); options max(--lue-size-target-min, --lue-size-control-sm)"
   },
   "ownedAttributes": {},
-  "react": { "component": "Select", "props": "every <select> prop; renders the wrap and chevron; Field context as TextInput", "rule": "v1 renders text options only — no <selectedcontent> (hydration risk, RFC-0001 §5)" },
-  "tokens": ["--lue-field-radius", "--lue-size-control-md", "--lue-size-control-sm", "--lue-material-glass-overlay", "--lue-glass-filter", "--lue-shadow-overlay", "--lue-color-bg-accent-subtle", "--lue-color-focus-ring"],
+  "react": {
+    "component": "Select",
+    "props": "every <select> prop; renders the wrap and chevron; Field context as TextInput",
+    "rule": "v1 renders text options only — no <selectedcontent> (hydration risk, RFC-0001 §5)"
+  },
+  "tokens": [
+    "--lue-field-radius",
+    "--lue-size-control-md",
+    "--lue-size-control-sm",
+    "--lue-material-glass-overlay",
+    "--lue-glass-filter",
+    "--lue-shadow-overlay",
+    "--lue-color-bg-accent-subtle",
+    "--lue-color-focus-ring"
+  ],
   "platform": {
-    "baseline": ["select", "appearance: none", ":focus-visible"],
+    "baseline": [
+      "select",
+      "appearance: none",
+      ":focus-visible"
+    ],
     "enhancements": [
-      { "feature": "appearance: base-select, ::picker(select), ::picker-icon, ::checkmark", "where": "Chromium 135, Safari 27", "fallback": "The native picker with the styled closed control" }
+      {
+        "feature": "appearance: base-select, ::picker(select), ::picker-icon, ::checkmark",
+        "where": "Chromium 135, Safari 27",
+        "fallback": "The native picker with the styled closed control"
+      }
     ]
   },
   "contrast": "Increased contrast and reduced transparency: an opaque picker with a strong boundary",
