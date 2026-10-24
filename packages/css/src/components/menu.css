@@ -54,18 +54,14 @@
 @layer lue.contrast {
   :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-menu),
   :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-menu) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
-  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-menu)::before,
-  :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-menu)::before { background: var(--lue-color-border-strong); }
   @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
     :where(.lue-menu) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
-    :where(.lue-menu)::before { background: var(--lue-color-border-strong); }
   }
   @supports not (backdrop-filter: blur(1px)) {
     :where(.lue-menu) { background-color: var(--lue-color-bg-surface); background-image: none; }
   }
   @media (forced-colors: active) {
     :where(.lue-menu) { background: Canvas; color: CanvasText; border-color: CanvasText; backdrop-filter: none; }
-    :where(.lue-menu)::before { content: none; }
     :where(.lue-menu__item:hover, .lue-menu__item:focus-visible) { background: Highlight; color: HighlightText; }
     :where(.lue-menu__item[data-tone="critical"]) { color: CanvasText; }
     :where(.lue-menu__separator) { background: CanvasText; }

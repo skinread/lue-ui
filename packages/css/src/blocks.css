@@ -96,3 +96,18 @@
   .lue-site-footer a { display: inline-flex; align-items: center; min-block-size: 44px; color: var(--lue-color-fg-muted); text-decoration: none; }
   .lue-site-footer a:where(:hover) { color: var(--lue-color-fg-default); text-decoration: underline; }
 }
+
+/* Glass blocks: Increased contrast, reduced transparency and no backdrop-filter: opaque surface. Forced colours: Canvas with a visible border. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"], .lue-site-header__bar),
+  :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"], .lue-site-header__bar) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+    :where(.lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"], .lue-site-header__bar) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    :where(.lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"], .lue-site-header__bar) { background-color: var(--lue-color-bg-surface); background-image: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"], .lue-site-header__bar) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
+  }
+}

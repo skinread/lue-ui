@@ -53,7 +53,7 @@ emulation rows, which needed CSS built from tokens.
 
 - Port the glass, chrome and prism worst-case rules from `tools/directions/palettes.mjs` into a plugin before the
   material tokens are edited by hand (they still check the Pass 2 palettes, not the source).
-- Per-component forced-colours and contrast styles instead of one `contrast.css`, as each component is built.
+- ~~Per-component forced-colours and contrast styles instead of one `contrast.css`~~ — done 2026-10-24; `contrast.css` is gone.
 - `--lue-angle` on the pseudo-element with `inherits: false` (the handover's CSS trap), with the Button work.
 - `tokens.js` + `.d.ts` and `figma/*.tokens.json` outputs (RFC-0001 §1) — not needed for the tracer bullet.
 - Ship a browserslist config package if the Next finding repeats in other pipelines.

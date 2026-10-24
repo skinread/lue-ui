@@ -23,3 +23,16 @@
   .lue-icon { inline-size: 1.25em; block-size: 1.25em; flex: none; fill: currentColor; }
   .lue-icon:where([data-mirror]:dir(rtl)) { scale: -1 1; }
 }
+
+/* The ring in increased contrast and reduced transparency: one solid strong line. Forced colours: removed; the
+   transparent border shows instead. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before { background: var(--lue-color-border-strong); }
+  @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+    :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before { background: var(--lue-color-border-strong); }
+  }
+  @media (forced-colors: active) {
+    :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before { content: none; }
+    :where(.lue-chrome) { border-color: CanvasText; background-color: Canvas; background-image: none; }
+  }
+}

@@ -28,3 +28,26 @@
     .lue-tile { corner-shape: squircle; border-radius: 44%; }
   }
 }
+
+/* Glass goes opaque; light and satin switch off in increased contrast and reduced transparency. Forced colours:
+   system colours, chrome text plain. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-glass),
+  :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-glass) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+    :where(.lue-glass) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    :where(.lue-glass) { background-color: var(--lue-color-bg-surface); background-image: none; }
+  }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-ambient, .lue-satin) { display: none; }
+  @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+    :where(.lue-ambient, .lue-satin) { display: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.lue-glass) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
+    :where(.lue-ambient, .lue-satin) { display: none; }
+    :where(.lue-chrome-text) { background: none; color: CanvasText; -webkit-text-fill-color: currentColor; }
+    :where(.lue-tile, .lue-avatar) { background: Canvas; border: 1px solid CanvasText; }
+  }
+}

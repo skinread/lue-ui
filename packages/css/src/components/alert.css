@@ -11,3 +11,10 @@
   .lue-alert__title { font-weight: 600; }
   .lue-alert__body { font-size: 0.9375rem; }
 }
+
+/* Forced colours: Canvas with a visible border (the icon and word carry the tone). */
+@layer lue.contrast {
+  @media (forced-colors: active) {
+    :where(.lue-alert) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
+  }
+}

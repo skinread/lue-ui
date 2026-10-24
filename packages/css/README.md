@@ -42,7 +42,6 @@ never changes which rules win:
 | `components/*.css` | One file per component: button, field, dialog, menu, alert, toast, tag, disclosure, steps, breadcrumb, pagination, card, and the shared chrome ring |
 | `blocks.css` | Portfolio and editorial blocks |
 | `materials.css` | Glass, ambient light, satin, metal tiles, chrome text |
-| `contrast.css` | Increased contrast, reduced transparency, no `backdrop-filter`, forced colours, reduced motion |
 
 ## Where it came from
 
@@ -50,5 +49,5 @@ Moved on 2026-10-24 (Spike B) from the Claude Design System's seed, `tools/direc
 which stays as the private system's copy. Dialog and menu are Spike A's versions. The move fixed the lint findings
 (`vw` → `vi`, `overflow-x` → `overflow-inline`) and turned the seed's per-scheme literals into material tokens.
 
-Still to do as each component is built: per-component forced-colours and contrast styles instead of one
-`contrast.css`; `--lue-angle` animated on the pseudo-element with `inherits: false`; a `reset.css`.
+Each file carries its own increased-contrast, reduced-transparency and forced-colours rules in `@layer lue.contrast`
+(the ring's are in `components/chrome.css`). Still to do: a `reset.css`.

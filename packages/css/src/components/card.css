@@ -2,3 +2,18 @@
 @layer lue.components {
   .lue-card { padding: var(--lue-space-l); border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-raised), var(--lue-shadow-fringe); }
 }
+
+/* Increased contrast, reduced transparency and no backdrop-filter: opaque surface. Forced colours: Canvas with a visible border. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-card),
+  :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-card) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+    :where(.lue-card) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    :where(.lue-card) { background-color: var(--lue-color-bg-surface); background-image: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.lue-card) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
+  }
+}

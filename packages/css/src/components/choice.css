@@ -21,3 +21,18 @@
   .lue-switch:where(:checked)::before { translate: 20px 0; background: var(--lue-bead-on); box-shadow: 0 0 0 1px var(--lue-bead-on-rim), 0 1px 3px oklch(0 0 0 / 0.3); }
   .lue-switch:where(:checked:dir(rtl))::before { translate: -20px 0; }
 }
+
+/* Increased contrast: a solid boundary, and a strong ring around checked fills. Forced colours: Field, and
+   SelectedItem when checked. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-checkbox, .lue-radio, .lue-switch) { background: var(--lue-field-bg); border-color: var(--lue-color-border-strong); }
+   
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-checkbox:checked, .lue-switch:checked) { background: linear-gradient(135deg, var(--lue-prism-fill)) padding-box, linear-gradient(var(--lue-color-fg-default), var(--lue-color-fg-default)) border-box; }
+   
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-radio:checked) { background: radial-gradient(circle, var(--lue-color-fg-on-accent) 0 3.5px, transparent 4px) padding-box, linear-gradient(135deg, var(--lue-prism-fill)) padding-box, linear-gradient(var(--lue-color-fg-default), var(--lue-color-fg-default)) border-box; }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-checkbox, .lue-radio)[aria-invalid="true"] { border-color: var(--lue-color-fg-critical); box-shadow: inset 0 0 0 1px var(--lue-color-fg-critical); }
+  @media (forced-colors: active) {
+    :where(.lue-checkbox, .lue-radio, .lue-switch) { background: Field; border-color: FieldText; }
+    :where(.lue-checkbox:checked, .lue-radio:checked, .lue-switch:checked) { background: SelectedItem; }
+  }
+}

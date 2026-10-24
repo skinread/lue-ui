@@ -67,17 +67,13 @@
     background-image: none;
     backdrop-filter: none;
   }
-  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-dialog)::before,
-  :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-dialog)::before { background: var(--lue-color-border-strong); }
   @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
     :where(.lue-dialog) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
-    :where(.lue-dialog)::before { background: var(--lue-color-border-strong); }
   }
   @supports not (backdrop-filter: blur(1px)) {
     :where(.lue-dialog) { background-color: var(--lue-color-bg-surface); background-image: none; }
   }
   @media (forced-colors: active) {
     :where(.lue-dialog) { background: Canvas; color: CanvasText; border-color: CanvasText; backdrop-filter: none; }
-    :where(.lue-dialog)::before { content: none; }
   }
 }
