@@ -1,7 +1,7 @@
-# Handover — Lue UI, Pass 3 in progress
+# Handover — Lue UI, Pass 3 done (but for Spike C), Pass 4 next
 
-> Written 2026-10-05 when Phase 1 closed; updated through Pass 2 (complete 2026-10-10) and into Pass 3 (started
-> 2026-10-11). A fresh session should read this file, then [AGENTS.md](AGENTS.md), then
+> Written 2026-10-05 when Phase 1 closed; updated through Pass 2 (complete 2026-10-10) and Pass 3 (2026-10-11 to
+> 2026-10-24). A fresh session should read this file, then [AGENTS.md](AGENTS.md), then
 > [mission and principles](docs/foundations/mission-and-principles.md).
 
 ## Where things stand
@@ -11,10 +11,10 @@
   hairlines, liquid-glass depth, a subdued prismatic-neon palette, light that moves on interaction), locked in
   [ADR-0009](docs/architecture/adr/0009-visual-direction-chroma-luminous.md). Token source in `packages/tokens/src`;
   the private Claude Design System is built.
-- **Pass 3 (tracer bullet) started on 2026-10-11.** Step 0 (pnpm workspace, Changesets, CI), **Spike A** (a menu
-  inside a modal dialog, HTML and React), **Spike B** (Terrazzo tokens → Lightning CSS → consumer fixtures, plus the
-  emulation tests) and the **first five components** with Storybook 10 (both 2026-10-24) are done — see [Pass 3](#pass-3--tracer-bullet-in-progress). Library code
-  now exists in `packages/elements`, `packages/react` and `packages/css`; every package is private.
+- **Pass 3 (tracer bullet, 2026-10-11 to 2026-10-24) is done but for Spike C,** which you start. Step 0, Spikes A and B,
+  the package builds and the first five components with Storybook 10 and every ADR-0005 gate are in place — see
+  [Pass 3](#pass-3--tracer-bullet-done-but-for-spike-c). **Pass 4 (Tier 1 components) is next.** Every package is
+  private.
 - **Repo:** `/Volumes/Code/never-ui` (the git root). `main` holds only the initial commit (MIT `LICENSE`,
   `.gitignore`, `.gitattributes`); all work happens on **`develop`**, where Phase 1 was committed on 2026-10-05. The
   remote is `origin`, private, `skinread/lue-ui` on GitHub.
@@ -26,6 +26,7 @@
   and GitHub; design files may be published later, but never through the Claude Design System.
 - **Git workflow (user's decision, 2026-10-05):** commit as you go on `develop`, in logical units. No feature branches.
   Don't push unless asked.
+- **No escaped dashes (user's rule, 2026-10-24):** write a normal dash, never a Unicode escape; `pnpm lint` checks.
 - **The Claude Design canvas** has one page, **C2 · Chroma Luminous**. The Phase 1 page was removed at the user's
   request on 2026-10-11 (commit `18ec453` can regenerate it). Round 2 made buttons frosted glass with multi-tone
   primaries and the ambient light more diffuse. Round 3 added metal-and-light materials (dispersion at chrome's lower
@@ -39,12 +40,13 @@
 | [README.md](README.md), [AGENTS.md](AGENTS.md) | Front door and agent guide |
 | [docs/foundations/](docs/foundations/) | [Mission and principles](docs/foundations/mission-and-principles.md) (11 principles, each with "how we check") · [naming shortlist](docs/foundations/naming.md) · [landscape and positioning](docs/foundations/landscape-and-positioning.md) · [platform capabilities](docs/foundations/platform-capabilities.md) |
 | [docs/architecture/](docs/architecture/) | [RFC-0001](docs/architecture/rfc-0001-architecture.md), ADRs 0001–0009 and [spike reports](docs/architecture/spikes/) |
-| `packages/` | `tokens` (hand-edited DTCG source, Terrazzo build), `css` (per-component CSS, Lightning CSS build), `elements` (`<lue-menu>`), `react` (Dialog, Menu, `LueElements`) — all `"private": true` |
-| `tests/` | Browser tests (Vitest browser mode, Chromium · Firefox · WebKit): Spike A, the ADR-0005 emulation tests, one folder per component, shared helpers in `support/` |
+| `packages/` | `tokens` (hand-edited DTCG source, Terrazzo build), `css` (per-component CSS and fonts, Lightning CSS build), `elements` (`<lue-menu>`, `data-lue-validate`, the IIFE), `react` (the five components' adapters) — all `"private": true`, each with a README |
+| `tests/` | Browser tests (Vitest browser mode, Chromium · Firefox · WebKit): Spike A, emulation, one folder per component, visual regression baselines (`visual/`), the static markup gate (`markup/`, Node), shared helpers in `support/` |
 | `apps/docs/` | Storybook 10 (stories are tests, axe set to `error`) and the component contracts |
 | `fixtures/` | Consumer fixtures (Vite, Next, Tailwind v4) and the checker that fails if our CSS is lowered |
-| [docs/design/](docs/design/) | [Token spec](docs/design/tokens.md) · [component inventory and draft contracts](docs/design/components.md) · [Claude Design brief](docs/design/claude-design-brief.md) (with verified palettes in its appendix) |
-| [tools/directions/](tools/directions/README.md) | Contrast checker, seeded palettes and the canvas generator, with how to republish |
+| `tools/` | `build-js.mjs` (JS package builds), `check-contracts.mjs`, `check-text.mjs` (escaped dashes) |
+| [docs/design/](docs/design/) | [Token spec](docs/design/tokens.md) · [component inventory and contract format](docs/design/components.md) · [Claude Design brief](docs/design/claude-design-brief.md) (with verified palettes in its appendix) |
+| [tools/directions/](tools/directions/README.md) | The Pass 2 design tools: seeded palettes, the canvas and Design System generators, with how to republish |
 
 ## The Claude Design canvas
 
@@ -113,56 +115,52 @@ Done on 2026-10-05:
 
 - ~~Remove the Phase 1 canvas page~~ — done 2026-10-11, at the user's request.
 
-## Pass 3 — tracer bullet (in progress)
+## Pass 3 — tracer bullet (done, but for Spike C)
 
 Following [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-pass-3), riskiest first:
 
-1. ~~**Step 0** — pnpm workspace, Changesets, CI~~ — done 2026-10-11.
-   - The four package skeletons follow ADR-0007's export maps and are all `"private": true`.
-   - Changesets uses a `fixed` group; `baseBranch` is `main`.
-   - ESLint runs `@eslint/css` (Baseline newly available, `use-layers`, logical properties) and html-eslint.
-   - TypeScript 7 runs with isolated declarations for packages.
-   - CI: lint, types and token contrast, then browser tests sharded by engine.
-   - Run `pnpm check` and `pnpm test`.
-2. ~~**Spike A** — a dialog containing a menu~~ — done 2026-10-11:
-   [report](docs/architecture/spikes/spike-a-dialog-menu.md). 23 tests pass in Chromium, Firefox and WebKit (Firefox confirmed in
-   CI on 2026-10-24). WebKit needed explicit focus return in `<lue-menu>` and Option+Tab.
-3. ~~**Spike B**~~ — done 2026-10-24: [report](docs/architecture/spikes/spike-b-token-and-css-pipeline.md).
-   - `packages/tokens/src` is now **hand-edited**; Terrazzo 2.10 builds `tokens.css`, `tailwind.css` and
-     `claude-design/tokens.json`, with a per-context contrast gate (144 checks) and a 6 KB budget (3.6 KB today).
-     `tools/directions/tokens.mjs` is retired and refuses to overwrite the source.
-   - Seventeen canvas values that were never tokens (button rims, beads, field inset, tile shadow…) are now material
-     tokens; `packages/tokens/src/theme.css` composes them (filters, gradients) per themed element.
-   - The component CSS moved to `packages/css/src` (per component, plus base, blocks, materials, contrast), lint-clean,
-     built by Lightning CSS with no targets. Dialog and menu are Spike A's.
-   - Consumer fixtures (`fixtures/`) for Vite 8, Next 16 and Tailwind 4 run in CI. **Next lowers `oklch()` unless the
-     consumer sets a Baseline browserslist** — it's in the recipe.
-   - ADR-0005 emulation tests (`tests/emulation/`): scheme, increased contrast, forced colours, reduced motion, 320 px,
-     RTL. 98 tests pass across the three engines (one skipped: forced colours in WebKit, per ADR-0005).
-   - ADR-0003 is now Accepted.
-4. **Spike C:** one Claude Design preview with the elements IIFE through `/design-sync` (the user starts it).
-5. ~~**Components**~~ — the first five done 2026-10-24, each with a hand-written contract in
-   [`apps/docs/contracts/`](apps/docs/contracts/), a React adapter, stories and three-engine tests in `tests/<component>/`:
-   - **Button** — variants, sizes, icon-only, pressed; forced colours (pressed → SelectedItem).
-   - **Field + TextInput + error summary** — the opt-in `data-lue-validate` behaviour (through the platform's `invalid`
-     event, no `novalidate`) and React's `useValidation`, sharing one controller in `@lue-ui/elements`.
-   - **Select** — native, with customisable select behind `@supports (appearance: base-select)` (Chromium, WebKit 27).
-   - **Dialog** — `@starting-style` transitions, scroll lock, a development warning for `open` without `onOpenChange`.
-   - **Menu** — ArrowDown/ArrowUp on the trigger open at the first/last item; the element still writes nothing.
-   - **Storybook 10** is in `apps/docs`; every story is a Vitest test in three engines with axe set to `error`.
-   - `--lue-angle` no longer inherits (rings set it on `::before`); each component owns its contrast and forced-colours
-     rules; `utilities.css` adds the `[hidden]` rule and `.lue-visually-hidden`.
-   - 330 tests pass (6 skipped: forced colours in WebKit, and customisable select in Firefox).
+1. ~~**Step 0**~~ — pnpm workspace, Changesets (`fixed` group, `baseBranch: main`), CI. Done 2026-10-11.
+2. ~~**Spike A**~~ — a menu inside a modal dialog, HTML and React with SSR and hydration
+   ([report](docs/architecture/spikes/spike-a-dialog-menu.md)). Done 2026-10-11; Firefox confirmed in CI 2026-10-24.
+3. ~~**Spike B**~~ — tokens → CSS → consumers ([report](docs/architecture/spikes/spike-b-token-and-css-pipeline.md)).
+   Done 2026-10-24.
+4. **Spike C — next, yours to start:** one Claude Design preview with `@lue-ui/elements/lue.iife.js` through
+   `/design-sync`. The IIFE is built (2.3 KB) and checked to define `<lue-menu>`.
+5. ~~**Components**~~ — Button, Field + TextInput + error summary, Select, Dialog, Menu. Done 2026-10-24.
+
+What exists now (all private, all on `develop`):
+
+- **Tokens** (`packages/tokens`): `src` is hand-edited (`tools/directions/tokens.mjs` is retired). Terrazzo 2.10 builds
+  `tokens.css` (4 KB Brotli, budget 6), `tokens.js` + types, `tailwind.css`, `figma/<context>.tokens.json` and the
+  Claude Design `tokens.json`. The build fails on a contrast pair (144), a material rule (78: glass, glass buttons,
+  ambient light, satin, metal, rings, multi-tone fills — ported from `palettes.mjs`), a missing description, a name
+  collision, an incomplete theme block or the budget. The `-more` contexts have their own multi-tone fills.
+- **CSS** (`packages/css`): one file per component, each owning its increased-contrast and forced-colours rules; blocks,
+  materials, utilities (`[hidden]`, `.lue-visually-hidden`), and opt-in `fonts.css` (Epilogue, Figtree, Spline Sans
+  Mono from the repo's OFL files, 111 KB, with metric-matched fallback faces). Lightning CSS, no lowering; every file
+  starts with the full layer order.
+- **Elements and React** (`packages/elements`, `packages/react`): per-file ESM with types (`tools/build-js.mjs`),
+  `'use client'` kept, the IIFE, and size budgets. Controllers have server-safe subpaths
+  (`@lue-ui/elements/validate`, `…/menu`).
+- **Docs** (`apps/docs`): Storybook 10; contracts with schema v1 (`pnpm check` validates them against tokens, CSS,
+  tests and stories).
+- **Gates:** `pnpm check` (lint, escaped-dash check, types, token build, contracts, static markup of every story);
+  `pnpm test` (unit, emulation, component, visual and story tests in Chromium, Firefox and WebKit: 383 tests, 6
+  skipped by design); `pnpm fixtures` (Vite, Next with the built React adapters, Tailwind v4). CI runs all three.
 
 ## Next steps
 
-1. **Check CI on `develop`** (pushed 2026-10-24 at `6a8c31f`): it's the first run of the fixtures job, the
-   `*(browser)` sharding and the Storybook project.
-2. **Spike C** — `/design-sync` with the elements IIFE (you start it). The JS packages have no build yet (tests,
-   Storybook and the typecheck use sources), so Spike C needs the per-file ESM build and `lue.iife.js` from RFC-0001 §9.
-3. **Pass 3 wrap-up:** extract the contract schema from the five contracts; html-validate on rendered markup; visual
-   regression and size-limit (ADR-0005); the remaining `contrast.css` entries move into their components; port the glass
-   and chrome worst-case rules out of `tools/directions/palettes.mjs`; `tokens.js` and the Figma output.
+1. **Spike C** (you start `/design-sync`).
+2. **Pass 4 — Tier 1 components** ([inventory](docs/design/components.md#tier-1--the-first-release)), in order of
+   increasing JavaScript, each with a contract, adapter, stories and the same gates:
+   - CSS only, styles already written: Link, Textarea, Checkbox, Radio group, Switch, Disclosure, Accordion, Alert,
+     Icon, Visually hidden and Skip link, layout primitives.
+   - Platform overlays: Popover, Toggletip, Drawer.
+   - Opt-in behaviour: Toggle button (`data-lue-toggle`).
+   - Element: Toast (`<lue-toast-region>`).
+3. **Pass 4 tooling:** keyboard tests generated from contracts (schema v1 has what they need), `llms.txt` and a
+   Markdown page per component from the contracts, then the MCP endpoint for tokens and contracts.
+4. **Before a public release (Pass 5):** confirm the npm scope, make the repo public, publish — all yours to decide.
 
 ## Things to know
 

@@ -1,6 +1,6 @@
 # RFC-0001: System architecture
 
-> **Status:** Proposed · Phase 1 · 2026-10-05
+> **Status:** Proposed · Phase 1 · 2026-10-05 · implemented through Pass 3 (2026-10-24; see §11)
 > **Decisions recorded in:** [ADR-0001](./adr/0001-component-model.md) ·
 > [0002](./adr/0002-native-css-core-tailwind-bridge.md) · [0003](./adr/0003-dtcg-tokens-with-terrazzo.md) ·
 > [0004](./adr/0004-support-floors.md) · [0005](./adr/0005-three-engine-testing-and-a11y-gates.md) ·
@@ -278,13 +278,17 @@ Decision and detail: [ADR-0005](./adr/0005-three-engine-testing-and-a11y-gates.m
 
 ## 11. Sequencing (Pass 3)
 
-1. **Step 0:** pnpm workspace, Changesets, CI.
+1. **Step 0:** pnpm workspace, Changesets, CI. _(Done 2026-10-11.)_
 2. **Spike A — riskiest first:** a dialog containing a menu, in raw HTML and in React with SSR + hydration, in all
    three engines (commands, anchoring, Esc stacking, focus hand-off and the element rules together).
+   _(Done 2026-10-11; [report](./spikes/spike-a-dialog-menu.md).)_
 3. **Spike B:** Terrazzo → `tokens.css` + Claude Design JSON + contrast lint → Lightning CSS → consumer fixtures.
-4. **Spike C:** one Claude Design preview with the IIFE bundle via `/design-sync`.
+   _(Done 2026-10-24; [report](./spikes/spike-b-token-and-css-pipeline.md).)_
+4. **Spike C:** one Claude Design preview with the IIFE bundle via `/design-sync`. _(Next: the IIFE,
+   `@lue-ui/elements/lue.iife.js`, is built; the user starts `/design-sync`.)_
 5. **Components in order of increasing JavaScript:** Button → Field + TextInput + error summary → Select → Dialog →
-   Menu.
+   Menu. _(Done 2026-10-24, with contracts ([schema v1](../../apps/docs/contracts/contract.schema.json)), Storybook 10,
+   and the ADR-0005 gates: keyboard, axe, emulation, static markup, visual regression and size budgets.)_
 
 ## 12. Traceability
 

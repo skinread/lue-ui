@@ -1,7 +1,8 @@
 # Lue UI
 
 > An open-source, platform-native, accessibility-first design system. *Lueur* is French for a glimmer of light.
-> **Status:** Pass 2 — codifying the visual direction, C2 · Chroma Luminous. There is no library code yet.
+> **Status:** Pass 3, the tracer bullet, is complete apart from Spike C: tokens, CSS, elements and React adapters build,
+> and the first five components are tested in three engines. Every package is private; nothing is on npm yet.
 
 **Mission:** make accessible, standards-based interfaces the path of least resistance — by building _with_ the web
 platform, not on top of it.
@@ -34,14 +35,38 @@ platform, not on top of it.
 
 Full index: [docs/](docs/README.md).
 
+## Packages
+
+| Package | What it is |
+| --- | --- |
+| [`@lue-ui/tokens`](packages/tokens/README.md) | DTCG 2025.10 source, built by Terrazzo into `tokens.css`, `tokens.js`, a Tailwind v4 bridge, Figma and Claude Design files. The build fails on any contrast pair or material rule below its minimum |
+| [`@lue-ui/css`](packages/css/README.md) | Component CSS in `@layer lue`, built by Lightning CSS with nothing lowered, and the self-hosted fonts |
+| [`@lue-ui/elements`](packages/elements/README.md) | Light-DOM custom elements and opt-in behaviours (`<lue-menu>`, `data-lue-validate`), and a script-tag build |
+| [`@lue-ui/react`](packages/react/README.md) | React 19 adapters that render the same markup as the HTML core |
+| [`apps/docs`](apps/docs/README.md) | Storybook 10, and the component contracts |
+
+Components so far: **Button, Field + TextInput + error summary, Select, Dialog, Menu** — each with a
+[contract](apps/docs/contracts/), stories, and keyboard, axe, emulation and visual tests in Chromium, Firefox and WebKit.
+
+```bash
+pnpm install
+pnpm build      # tokens, CSS, elements, React
+pnpm check      # lint, types, token contrast, contracts, static markup
+pnpm test       # build, then every browser test in three engines
+pnpm fixtures   # consumer recipes: Vite, Next, Tailwind v4
+pnpm --filter @lue-ui/docs dev   # Storybook
+```
+
 ## Roadmap
 
 1. **Phase 1 — foundations and design kickoff** _(done)_: principles, research, architecture, token and component
    specs, and three visual directions in Claude Design.
-2. **Pass 2 — codify the chosen direction** _(now)_ as a Claude Design system and DTCG token source.
-3. **Pass 3 — tracer bullet:** workspace, token pipeline, and Button, Field, Select, Dialog and Menu, tested in three
-   engines.
-4. **Pass 4 — Tier 1 components,** contracts-driven tests, `llms.txt` and MCP.
+2. **Pass 2 — codify the chosen direction** _(done)_: C2 · Chroma Luminous, a private Claude Design system and the DTCG
+   token source.
+3. **Pass 3 — tracer bullet** _(done, but for Spike C)_: workspace, token and CSS pipelines, package builds, consumer
+   fixtures, and Button, Field, Select, Dialog and Menu tested in three engines. Spike C (one Claude Design preview
+   from the script-tag build) is next.
+4. **Pass 4 — Tier 1 components** _(next)_, contracts-driven tests, `llms.txt` and MCP.
 5. **Pass 5 — Tier 2 and a first public 0.x release.**
 
 ## Licence
