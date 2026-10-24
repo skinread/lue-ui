@@ -1,0 +1,55 @@
+{
+  "name": "Kbd",
+  "summary": "A key cap for keyboard input, nested for combinations.",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "<kbd> is user input; nested <kbd> elements are a key combination.",
+  "anatomy": {
+    "key": {
+      "element": "kbd",
+      "class": "lue-kbd",
+      "required": true
+    }
+  },
+  "a11y": {
+    "role": "none (text)",
+    "name": "Its text",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Passes over it: it takes no focus"
+      }
+    ],
+    "focus": {
+      "indicator": "Never focusable"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Kbd",
+    "props": {
+      "...": "every <kbd> prop"
+    }
+  },
+  "tokens": [
+    "--lue-color-border-strong",
+    "--lue-color-bg-surface",
+    "--lue-color-fg-default",
+    "--lue-radius-xs",
+    "--lue-font-family-mono"
+  ],
+  "platform": {
+    "baseline": [
+      "kbd"
+    ]
+  },
+  "rules": [
+    "Write key names as words where a symbol is unclear (\"Shift\", not \"⇧\"), or give the symbol a title"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "A strong border",
+  "forcedColors": "The border follows CanvasText",
+  "deletionTrigger": null
+}

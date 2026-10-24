@@ -25,6 +25,8 @@
 @import "./components/breadcrumb.css";
 @import "./components/pagination.css";
 @import "./components/card.css";
+@import "./components/divider.css";
+@import "./components/kbd.css";
 @import "./blocks.css";
 @import "./materials.css";
 @import "./utilities.css";

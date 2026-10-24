@@ -17,3 +17,10 @@ export { Stack, Cluster, Grid, Sidebar, Switcher, Center, type LayoutProps } fro
 export { ToggleButton, type ToggleButtonProps } from './toggle-button/index.js';
 export { Popover, PopoverTrigger, Toggletip, type PopoverProps, type PopoverTriggerProps, type ToggletipProps } from './popover/index.js';
 export { ToastRegion, showToast, type ToastRegionProps, type ToastOptions } from './toast/index.js';
+export { Breadcrumb, type BreadcrumbProps } from './breadcrumb/index.js';
+export { Pagination, pageRange, type PaginationProps } from './pagination/index.js';
+export { Tag, type TagProps } from './tag/index.js';
+export { Card, CardLink, type CardProps, type CardLinkProps } from './card/index.js';
+export { Avatar, initials, type AvatarProps } from './avatar/index.js';
+export { Divider, type DividerProps } from './divider/index.js';
+export { Kbd, type KbdProps } from './kbd/index.js';

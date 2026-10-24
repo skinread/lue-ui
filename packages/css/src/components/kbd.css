@@ -1,0 +1,15 @@
+/* Kbd — <kbd class="lue-kbd">, a key cap for keyboard input. Nest them for a combination: <kbd><kbd>Ctrl</kbd>+<kbd>K</kbd></kbd>.
+   Contract: apps/docs/contracts/kbd.json. */
+@layer lue.components {
+  .lue-kbd {
+    display: inline-block;
+    padding: 0.1em 0.45em;
+    border: var(--lue-border-width-thin) solid var(--lue-color-border-strong);
+    border-block-end-width: var(--lue-border-width-thick);
+    border-radius: var(--lue-radius-xs);
+    background: var(--lue-color-bg-surface);
+    color: var(--lue-color-fg-default);
+    font: 500 0.875em/1.3 var(--lue-font-family-mono);
+    white-space: nowrap;
+  }
+}

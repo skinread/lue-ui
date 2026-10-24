@@ -1,6 +1,7 @@
 // The MCP server (packages/mcp) speaks MCP over stdio: initialize, then tools and resources from the generated docs
 // (pnpm docs-ai writes them; pnpm check and pnpm test run it first).
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';
+import fs from 'node:fs';
 import readline from 'node:readline';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
@@ -39,7 +40,8 @@ describe('MCP server', () => {
   it('lists every component', async () => {
     const result = await text('list_components', {});
     expect(result.content[0].text).toContain('- Radio group (radio-group, experimental):');
-    expect(result.content[0].text.split('\n')).toHaveLength(22);
+    const contracts = fs.readdirSync('apps/docs/contracts').filter((f) => f.endsWith('.json') && f !== 'contract.schema.json');
+    expect(result.content[0].text.split('\n')).toHaveLength(contracts.length);
   });
 
   it('gets a component by id, name or title, as Markdown or as its contract', async () => {

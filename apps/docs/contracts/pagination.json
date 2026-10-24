@@ -1,0 +1,117 @@
+{
+  "name": "Pagination",
+  "summary": "Links between the pages of a list: previous, next, and numbers with gaps.",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "A named <nav> with a list of links; aria-current marks the current page.",
+  "anatomy": {
+    "nav": {
+      "element": "nav",
+      "class": "lue-pagination",
+      "required": true,
+      "attributes": {
+        "aria-label": "Pagination"
+      }
+    },
+    "list": {
+      "element": "ul",
+      "required": true
+    },
+    "step": {
+      "element": "a",
+      "class": "lue-button",
+      "required": false,
+      "attributes": {
+        "data-variant": "quiet",
+        "rel": "prev or next"
+      }
+    },
+    "page": {
+      "element": "a",
+      "required": true,
+      "attributes": {
+        "aria-current": "page, on the current one"
+      },
+      "children": [
+        {
+          "element": "span",
+          "class": "lue-visually-hidden",
+          "text": "Page "
+        }
+      ]
+    },
+    "gap": {
+      "element": "li",
+      "required": false,
+      "attributes": {
+        "aria-hidden": "true"
+      }
+    }
+  },
+  "messages": {
+    "label": "Pagination",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page"
+  },
+  "a11y": {
+    "role": "navigation landmark named Pagination; a list of links",
+    "name": "aria-label; each number reads \"Page n\"",
+    "states": [
+      {
+        "state": "current page",
+        "via": "[aria-current=\"page\"]"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Moves through the links"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "Follows a link"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline at --lue-focus-offset"
+    },
+    "targetSize": "Each number is at least 44 px"
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Pagination",
+    "props": {
+      "page": "current page, from 1",
+      "pages": "total",
+      "href": "(page) => URL",
+      "messages": "translations"
+    }
+  },
+  "tokens": [
+    "--lue-material-button-pressed",
+    "--lue-button-depth",
+    "--lue-radius-full",
+    "--lue-color-fg-default"
+  ],
+  "platform": {
+    "baseline": [
+      "nav",
+      "ul",
+      "aria-current",
+      "rel=prev/next"
+    ]
+  },
+  "rules": [
+    "Shows the first, the last, and the current page with its neighbours; gaps are hidden from assistive technology",
+    "Previous is left out on the first page, Next on the last"
+  ],
+  "withoutJavaScript": "Works fully: they're links",
+  "contrast": "As Button for the current page",
+  "forcedColors": "Links take LinkText; the current page keeps its bold weight",
+  "deletionTrigger": null
+}

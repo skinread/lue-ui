@@ -1,6 +1,15 @@
-/* Card — .lue-card, overlay glass. */
+/* Card — <article class="lue-card">, overlay glass, optionally one link (.lue-card__link) that covers the whole card.
+   Contract: apps/docs/contracts/card.json. */
 @layer lue.components {
   .lue-card { padding: var(--lue-space-l); border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-raised), var(--lue-shadow-fringe); }
+  /* A whole-card link: the title's link stretches over the card. Other links and buttons sit above it. The card shows
+     the focus ring, since the link's own outline would only circle the title. */
+  .lue-card__link { color: inherit; text-decoration: none; }
+  .lue-card__link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+  .lue-card__link:where(:hover) { text-decoration: underline; text-underline-offset: 0.2em; }
+  .lue-card__link:where(:focus-visible) { outline: none; text-decoration: underline; }
+  .lue-card:where(:has(.lue-card__link:focus-visible)) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); }
+  .lue-card :where(a, button, input, select, textarea, summary):where(:not(.lue-card__link)) { position: relative; z-index: 1; }
 }
 
 /* Increased contrast, reduced transparency and no backdrop-filter: opaque surface. Forced colours: Canvas with a visible border. */

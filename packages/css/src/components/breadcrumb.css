@@ -1,7 +1,10 @@
-/* Breadcrumb — <nav class="lue-breadcrumb"><ol>, the current page from aria-current="page". */
+/* Breadcrumb — <nav class="lue-breadcrumb" aria-label="Breadcrumb"><ol>, the current page from aria-current="page".
+   The separator is generated content with empty alt text, so screen readers don't read it. Contract:
+   apps/docs/contracts/breadcrumb.json. */
 @layer lue.components {
   .lue-breadcrumb > ol { display: flex; flex-wrap: wrap; gap: var(--lue-space-2xs); list-style: none; margin: 0; padding: 0; }
-  .lue-breadcrumb li + li::before { content: "/"; margin-inline-end: var(--lue-space-2xs); color: var(--lue-color-fg-muted); }
-  .lue-breadcrumb a { color: var(--lue-color-fg-muted); }
+  .lue-breadcrumb li + li::before { content: "/" / ""; margin-inline-end: var(--lue-space-2xs); color: var(--lue-color-fg-muted); }
+  .lue-breadcrumb a { color: var(--lue-color-fg-muted); text-underline-offset: 0.2em; }
   .lue-breadcrumb a:where([aria-current="page"]) { color: var(--lue-color-fg-default); text-decoration: none; }
+  .lue-breadcrumb a:where(:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); border-radius: var(--lue-radius-xs); }
 }

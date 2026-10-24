@@ -1,0 +1,73 @@
+{
+  "name": "Tag",
+  "summary": "A short label in a pill; removable with a named button inside it.",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "A <span> for the label; removing is a native <button> with its own name.",
+  "anatomy": {
+    "tag": {
+      "element": "span",
+      "class": "lue-tag",
+      "required": true
+    },
+    "remove": {
+      "element": "button",
+      "class": "lue-tag__remove",
+      "required": false,
+      "attributes": {
+        "type": "button",
+        "aria-label": "Remove {tag}"
+      }
+    }
+  },
+  "messages": {
+    "remove": "Remove {tag}"
+  },
+  "a11y": {
+    "role": "none for the label; button for remove",
+    "name": "The tag's text; the remove button's aria-label names the tag",
+    "keyboard": [
+      {
+        "keys": [
+          "Enter",
+          "Space"
+        ],
+        "action": "Remove",
+        "on": "the remove button"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline on the remove button"
+    },
+    "targetSize": "The remove button is 24 px"
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Tag",
+    "props": {
+      "onRemove": "makes it removable",
+      "removeLabel": "the button's name, translated"
+    }
+  },
+  "tokens": [
+    "--lue-material-glass-overlay",
+    "--lue-glass-filter",
+    "--lue-radius-full",
+    "--lue-color-bg-accent-subtle",
+    "--lue-color-focus-ring"
+  ],
+  "platform": {
+    "baseline": [
+      "span",
+      "button"
+    ]
+  },
+  "rules": [
+    "After removing, move focus to something sensible (the next tag, or the list's heading): the button is gone",
+    "For filters that toggle, use Toggle button: a tag is a label"
+  ],
+  "withoutJavaScript": "The label works; removing needs a form or a link instead",
+  "contrast": "An opaque surface",
+  "forcedColors": "Canvas with a CanvasText border",
+  "deletionTrigger": null
+}

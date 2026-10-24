@@ -1,0 +1,89 @@
+{
+  "name": "Breadcrumb",
+  "summary": "Where the page sits in the site: a named list of links, the last one the current page.",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "<nav> with a name, an <ol> and links: the landmark, the list count and aria-current carry it all.",
+  "anatomy": {
+    "nav": {
+      "element": "nav",
+      "class": "lue-breadcrumb",
+      "required": true,
+      "attributes": {
+        "aria-label": "Breadcrumb"
+      }
+    },
+    "list": {
+      "element": "ol",
+      "required": true
+    },
+    "link": {
+      "element": "a",
+      "required": true,
+      "attributes": {
+        "href": "required",
+        "aria-current": "page, on the last"
+      }
+    }
+  },
+  "messages": {
+    "label": "Breadcrumb"
+  },
+  "a11y": {
+    "role": "navigation landmark named Breadcrumb; a list of links",
+    "name": "aria-label",
+    "states": [
+      {
+        "state": "current page",
+        "via": "[aria-current=\"page\"]"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Moves through the links"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "Follows a link"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline at --lue-focus-offset"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Breadcrumb",
+    "props": {
+      "items": "[{ label, href }], home first; the last is current",
+      "aria-label": "the landmark's name, translated"
+    }
+  },
+  "tokens": [
+    "--lue-color-fg-muted",
+    "--lue-color-fg-default",
+    "--lue-space-2xs",
+    "--lue-color-focus-ring"
+  ],
+  "platform": {
+    "baseline": [
+      "nav",
+      "ol",
+      "aria-current",
+      "content alt text (content: \"/\" / \"\")"
+    ]
+  },
+  "rules": [
+    "The separator is generated content with empty alt text, so it isn't read",
+    "The current page stays a link (to itself), marked with aria-current=\"page\""
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "Muted links use --lue-color-fg-muted, raised in the -more themes",
+  "forcedColors": "Links take LinkText; the separator follows the text colour",
+  "deletionTrigger": null
+}

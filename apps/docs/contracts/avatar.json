@@ -1,0 +1,78 @@
+{
+  "name": "Avatar",
+  "summary": "A person's photo or initials in a circle.",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "<img alt> for a photo; initials are an image too (role=\"img\" with the name), so they're read as the person, not as letters.",
+  "anatomy": {
+    "avatar": {
+      "element": "span",
+      "class": "lue-avatar",
+      "required": true,
+      "attributes": {
+        "role": "img, for initials",
+        "aria-label": "the name, for initials",
+        "aria-hidden": "true, when decorative",
+        "data-size": "lg"
+      }
+    },
+    "photo": {
+      "element": "img",
+      "required": false,
+      "attributes": {
+        "alt": "the name, or empty when decorative"
+      }
+    }
+  },
+  "variants": {
+    "size": {
+      "attribute": "data-size",
+      "values": [
+        "lg"
+      ]
+    }
+  },
+  "a11y": {
+    "role": "img",
+    "name": "The person's name, or nothing when the name is written beside it",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Passes over it: it takes no focus"
+      }
+    ],
+    "focus": {
+      "indicator": "Never focusable"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Avatar",
+    "props": {
+      "name": "the alt text or label",
+      "src": "a photo; initials without it",
+      "decorative": "hide it when the name is beside it",
+      "size": "lg"
+    }
+  },
+  "tokens": [
+    "--lue-metal"
+  ],
+  "platform": {
+    "baseline": [
+      "img",
+      "role=img",
+      "object-fit"
+    ]
+  },
+  "rules": [
+    "Decorative next to a visible name, so the name isn't read twice",
+    "Initials are the first letters of the first and last words"
+  ],
+  "withoutJavaScript": "Works fully; a photo that fails to load shows its alt text",
+  "contrast": "n/a",
+  "forcedColors": "Canvas with a CanvasText border",
+  "deletionTrigger": null
+}

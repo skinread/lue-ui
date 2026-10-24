@@ -1,0 +1,76 @@
+{
+  "name": "Card",
+  "summary": "A glass panel for one item; optionally one link that makes the whole card clickable.",
+  "status": "experimental",
+  "rung": "css",
+  "rungReason": "An <article> with its heading's link stretched over the card by a pseudo-element; no script, and the link keeps its name.",
+  "anatomy": {
+    "card": {
+      "element": "article",
+      "class": "lue-card",
+      "required": true
+    },
+    "link": {
+      "element": "a",
+      "class": "lue-card__link",
+      "required": false,
+      "attributes": {
+        "href": "required"
+      }
+    }
+  },
+  "a11y": {
+    "role": "article (or section, or none)",
+    "name": "Its heading; the link's name is the heading's text",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Reaches the card's link, then any other controls in it"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "Follows the card's link"
+      }
+    ],
+    "focus": {
+      "indicator": "The card shows the outline while its link has focus (:has(:focus-visible))"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Card, CardLink",
+    "props": {
+      "as": "article (default), section, div or li",
+      "CardLink": "the one main link, inside the heading"
+    }
+  },
+  "tokens": [
+    "--lue-material-glass-overlay",
+    "--lue-glass-sheen",
+    "--lue-glass-filter",
+    "--lue-shadow-raised",
+    "--lue-radius-l",
+    "--lue-space-l",
+    "--lue-color-focus-ring"
+  ],
+  "platform": {
+    "baseline": [
+      ":has()",
+      "::after",
+      "backdrop-filter"
+    ]
+  },
+  "rules": [
+    "One link per card: the stretched link covers everything but other links and buttons, which sit above it",
+    "The link's text is the heading, so its name is short; don't wrap the whole card in an <a>",
+    "Text in a linked card can't be selected by dragging: keep long text out of linked cards"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "An opaque surface",
+  "forcedColors": "Canvas with a CanvasText border",
+  "deletionTrigger": null
+}
