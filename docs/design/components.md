@@ -57,7 +57,7 @@ that open a Dialog or Drawer do nothing — ADR-0004), 2 use an opt-in behaviour
 
 | Component | Primitive | Pattern | JS |
 | --- | --- | --- | --- |
-| Tabs | `<lue-tabs>` enhancing buttons + panels | Tabs | element |
+| Tabs | `<lue-tabs>` enhancing a `<nav>` of in-page links + panels (changed 2026-10-24: links work without script) | Tabs | element |
 | Toolbar | `role="toolbar"` + `<lue-roving>` | Toolbar | element (deleted when `focusgroup` is Baseline) |
 | Tooltip (hover/focus) | `[popover]` + `data-lue-tooltip` | Tooltip | opt-in (Esc to dismiss, hover persistence — WCAG 1.4.13) |
 | Segmented control | Radio group, styled | Radio group | none |
@@ -69,11 +69,11 @@ that open a Dialog or Drawer do nothing — ADR-0004), 2 use an opt-in behaviour
 | Spinner / skeleton | `aria-busy` on the region + status text | — | none |
 | Avatar | `<img alt>` with initials fallback | — | none |
 | Table | `<table>` + `<caption>`, container-aware overflow | — | none |
-| Carousel | scroll-snap list + previous/next buttons + pause; `::scroll-marker` as PE | Carousel | opt-in |
+| Carousel | scroll-snap track + previous/next buttons, no auto-rotation (so no pause); `::scroll-marker` as PE | Carousel | element `<lue-carousel>` (changed 2026-10-24: hides its buttons until defined) |
 | Search | `<search>` + `<input type="search">` | — | none |
 | Rating | display: text equivalent ("4.5 out of 5"); input: radio group | Radio group | none |
 | Swatch picker | Radio group with visible names — never colour alone | Radio group | none |
-| Quantity stepper | `<input type="number">` + − / + buttons calling `stepUp()`/`stepDown()` | Spinbutton (native) | opt-in |
+| Quantity stepper | `<input type="number">` + − / + buttons calling `stepUp()`/`stepDown()` | Spinbutton (native) | element `<lue-stepper>` (changed 2026-10-24: hides its buttons until defined) |
 | Divider · kbd | `<hr>` · `<kbd>` | — | none |
 
 ## Tier 3 — later

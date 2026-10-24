@@ -187,8 +187,14 @@ What exists now (all private, all on `develop`):
      2026-10-24. Table's scroller is a `<section>` named by its caption (`tabindex="0"`); Segmented control and Swatch
      picker are native radios covering their labels; Rating is read-only (asking for one is a radio group with words);
      `forced-color-adjust` is allowed past the Baseline lint (only forced-colours engines have it).
-   - Next, with script: Tabs (`<lue-tabs>`), Toolbar (`<lue-roving>`), Tooltip (`data-lue-tooltip`), Carousel,
-     Quantity stepper.
+   - ~~Tabs, Toolbar, Tooltip, Carousel, Quantity stepper~~ — done 2026-10-24, so **all of Tier 2 is built**. Tabs
+     upgrade a `<nav>` of in-page links (all sections show without script; the URL's `#panel` opens first); Toolbar is
+     `<lue-roving>` (deleted once `focusgroup` is Baseline); Tooltip is the `data-lue-tooltip` behaviour (WCAG 1.4.13:
+     hover delay, hoverable, Escape dismisses only it); Carousel and Stepper became elements so their buttons stay
+     hidden until defined (`:not(:defined)`), and use `aria-disabled` at the ends so focus stays put. Carousel has no
+     auto-rotation. A shared `rovingIndex` controller serves Tabs and Toolbar.
+   - Left in Pass 5: the first public release (all yours), Storybook's `html` decorator, the Storybook MCP addon,
+     Claude Design guidelines from contracts (after Spike C), and the manual screen-reader pass that gates Stable.
    - Firefox on a busy machine could drop focus from a test's frame. `tests/support/setup.ts` focuses the frame (a
      Playwright command) before each Firefox test and key press; `pnpm test:engines` passed clean after it.
 

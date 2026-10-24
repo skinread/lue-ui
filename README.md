@@ -41,16 +41,16 @@ Full index: [docs/](docs/README.md).
 | --- | --- |
 | [`@lue-ui/tokens`](packages/tokens/README.md) | DTCG 2025.10 source, built by Terrazzo into `tokens.css`, `tokens.js`, a Tailwind v4 bridge, Figma and Claude Design files. The build fails on any contrast pair or material rule below its minimum |
 | [`@lue-ui/css`](packages/css/README.md) | Component CSS in `@layer lue`, built by Lightning CSS with nothing lowered, and the self-hosted fonts |
-| [`@lue-ui/elements`](packages/elements/README.md) | Light-DOM custom elements and opt-in behaviours (`<lue-menu>`, `<lue-toast-region>`, `data-lue-validate`, `data-lue-toggle`), and a script-tag build |
+| [`@lue-ui/elements`](packages/elements/README.md) | Light-DOM custom elements and opt-in behaviours (`<lue-menu>`, `<lue-tabs>`, `<lue-roving>`, `<lue-carousel>`, `<lue-stepper>`, `<lue-toast-region>`, `data-lue-validate`, `data-lue-toggle`, `data-lue-tooltip`), and a script-tag build |
 | [`@lue-ui/react`](packages/react/README.md) | React 19 adapters that render the same markup as the HTML core |
 | [`@lue-ui/mcp`](packages/mcp/README.md) | An MCP server for AI assistants: components, contracts and tokens |
 | [`apps/docs`](apps/docs/README.md) | Storybook 10, the component contracts, and `llms.txt` with a Markdown page per component |
 
-Components: **all of Tier 1 and Tier 0** - Button, Toggle button, Link, Field + TextInput + Textarea + error summary,
+Components: **all of Tier 0, Tier 1 and Tier 2** - Button, Toggle button, Link, Field + TextInput + Textarea + error summary,
 Select, Checkbox, Radio group, Switch, Dialog, Drawer, Popover, Toggletip, Menu, Disclosure, Accordion, Alert, Toast,
 Icon, Skip link, Visually hidden and the layout primitives (Stack, Cluster, Grid, Sidebar, Switcher, Center); from Tier
-2 so far, Breadcrumb, Pagination, Tag, Card, Avatar, Divider, Kbd, Progress and Meter, Spinner and Skeleton, Table,
-Search, Segmented control, Rating and Swatch picker - each with a
+2, Breadcrumb, Pagination, Tag, Card, Avatar, Divider, Kbd, Progress and Meter, Spinner and Skeleton, Table, Search,
+Segmented control, Rating, Swatch picker, Tabs, Toolbar, Tooltip, Carousel and Quantity stepper - each with a
 [contract](apps/docs/contracts/), stories, and keyboard, axe, emulation and visual tests in Chromium, Firefox and WebKit.
 
 ```bash
@@ -78,9 +78,8 @@ Storybook is published to GitHub Pages by hand: Actions → **Storybook to GitHu
    from the script-tag build) is next.
 4. **Pass 4 — Tier 1 components** _(done)_: every Tier 1 component, keyboard coverage driven by the contracts,
    `llms.txt` and a Markdown page per component, and an MCP server.
-5. **Pass 5 — Tier 2 and a first public 0.x release** _(in progress)_: every Tier 2 component that needs no script is
-   done; next are Tabs, Toolbar, Tooltip, Carousel and Quantity stepper. Publishing waits on the npm scope and making
-   the repo public.
+5. **Pass 5 — Tier 2 and a first public 0.x release** _(in progress)_: every Tier 2 component is done. The first public
+   release waits on you: the npm scope, making the repo public, and publishing.
 
 ## Licence
 
