@@ -1,0 +1,59 @@
+/* Progress and Meter — native <progress class="lue-progress"> (a task's completion; no value = indeterminate) and
+   <meter class="lue-meter"> (a measurement in a known range, coloured by its low/high/optimum). Both are labelable:
+   give each a <label for>. Drawn through the engines' own parts, the only way to style them. Contract:
+   apps/docs/contracts/progress.json. */
+@layer lue.components {
+  /* The label row: the label, and the value in words at the inline end. */
+  .lue-progress-label { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--lue-space-2xs); }
+
+  .lue-progress, .lue-meter {
+    appearance: none;
+    display: block;
+    inline-size: 100%;
+    block-size: 0.5rem;
+    border: 0;
+    border-radius: var(--lue-radius-full);
+    background: var(--lue-color-bg-surface-subtle);
+    box-shadow: inset 0 0 0 1px var(--lue-color-border-strong);
+    overflow: hidden;
+  }
+  .lue-progress::-webkit-progress-bar { background: transparent; }
+  .lue-progress::-webkit-progress-value { background: linear-gradient(90deg, var(--lue-prism-fill)); border-radius: inherit; }
+  .lue-progress::-moz-progress-bar { background: linear-gradient(90deg, var(--lue-prism-fill)); border-radius: inherit; }
+
+  /* Indeterminate: a band slides along the track (still under reduced motion it rests in the middle). */
+  .lue-progress:where(:indeterminate) {
+    background: linear-gradient(90deg, transparent 0 35%, var(--lue-color-fg-accent) 35% 65%, transparent 65%) 0 0 / 200% 100% no-repeat, var(--lue-color-bg-surface-subtle);
+    animation: lue-progress-slide 1.4s var(--lue-motion-ease-standard) infinite;
+  }
+  .lue-progress:where(:indeterminate)::-webkit-progress-bar { background: transparent; }
+  .lue-progress:where(:indeterminate)::-moz-progress-bar { background: transparent; }
+  @keyframes lue-progress-slide {
+    from { background-position: 150% 0, 0 0; }
+    to { background-position: -50% 0, 0 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lue-progress:where(:indeterminate) { animation: none; background-position: 50% 0, 0 0; }
+  }
+
+  .lue-meter::-webkit-meter-bar { background: transparent; border: 0; block-size: 100%; }
+  .lue-meter::-webkit-meter-optimum-value { background: var(--lue-color-fg-success); }
+  .lue-meter::-webkit-meter-suboptimum-value { background: var(--lue-color-fg-warning); }
+  .lue-meter::-webkit-meter-even-less-good-value { background: var(--lue-color-fg-critical); }
+  .lue-meter::-moz-meter-bar { background: var(--lue-color-fg-success); }
+  .lue-meter:where(:-moz-meter-sub-optimum)::-moz-meter-bar { background: var(--lue-color-fg-warning); }
+  .lue-meter:where(:-moz-meter-sub-sub-optimum)::-moz-meter-bar { background: var(--lue-color-fg-critical); }
+}
+
+/* Forced colours: gradients and author colours are dropped, so the track is Canvas with a CanvasText edge and the fill
+   is Highlight (forced-color-adjust: none keeps the system colours as written). */
+@layer lue.contrast {
+  @media (forced-colors: active) {
+    :where(.lue-progress, .lue-meter) { forced-color-adjust: none; background: Canvas; box-shadow: none; outline: 1px solid CanvasText; }
+    :where(.lue-progress)::-webkit-progress-value { background: Highlight; }
+    :where(.lue-progress)::-moz-progress-bar { background: Highlight; }
+    :where(.lue-progress:indeterminate) { background: linear-gradient(90deg, Canvas 0 35%, Highlight 35% 65%, Canvas 65%) 0 0 / 200% 100% no-repeat, Canvas; }
+    :where(.lue-meter)::-webkit-meter-optimum-value, :where(.lue-meter)::-webkit-meter-suboptimum-value, :where(.lue-meter)::-webkit-meter-even-less-good-value { background: Highlight; }
+    :where(.lue-meter)::-moz-meter-bar { background: Highlight; }
+  }
+}

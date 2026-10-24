@@ -8,6 +8,8 @@ const baseline = {
   // leaving the declaration before it in force.
   allowMediaConditions: ['prefers-reduced-transparency'],
   allowPropertyValues: { 'text-wrap': ['pretty'] },
+  // Only does anything in forced-colours mode, which only Chromium and Firefox have; Safari has neither.
+  allowProperties: ['forced-color-adjust'],
 };
 
 export default [

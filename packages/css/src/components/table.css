@@ -1,0 +1,17 @@
+/* Table — <table class="lue-table"> with a <caption>, inside a scrollable <section class="lue-table-wrap"> (a region
+   named by the caption, tabindex="0" so keyboard users can scroll it). Numbers align to the end with data-numeric. Contract:
+   apps/docs/contracts/table.json. */
+@layer lue.components {
+  .lue-table-wrap { max-inline-size: 100%; overflow: auto; border-radius: var(--lue-radius-xs); }
+  .lue-table-wrap:where(:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); }
+  .lue-table { inline-size: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .lue-table > :where(caption) { caption-side: top; padding-block-end: var(--lue-space-xs); text-align: start; font-weight: 600; }
+  .lue-table :where(th, td) { padding: var(--lue-space-2xs) var(--lue-space-s); border-block-end: var(--lue-border-width-thin) solid var(--lue-color-border-subtle); text-align: start; vertical-align: top; }
+  .lue-table :where(thead th) { border-block-end-color: var(--lue-color-border-strong); color: var(--lue-color-fg-muted); font-weight: 600; white-space: nowrap; }
+  .lue-table :where(tbody th) { font-weight: 600; }
+  .lue-table :where([data-numeric]) { text-align: end; }
+}
+
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-table) :where(th, td) { border-block-end-color: var(--lue-color-border-strong); }
+}

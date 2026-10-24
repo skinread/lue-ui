@@ -24,3 +24,10 @@ export { Card, CardLink, type CardProps, type CardLinkProps } from './card/index
 export { Avatar, initials, type AvatarProps } from './avatar/index.js';
 export { Divider, type DividerProps } from './divider/index.js';
 export { Kbd, type KbdProps } from './kbd/index.js';
+export { Progress, Meter, type ProgressProps, type MeterProps } from './progress/index.js';
+export { Spinner, Skeleton, type SpinnerProps, type SkeletonProps } from './spinner/index.js';
+export { Table, type TableProps } from './table/index.js';
+export { Search, type SearchProps } from './search/index.js';
+export { SegmentedControl, type SegmentedControlProps } from './segmented-control/index.js';
+export { Rating, type RatingProps } from './rating/index.js';
+export { SwatchPicker, type SwatchPickerProps } from './swatch-picker/index.js';

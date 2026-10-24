@@ -1,0 +1,97 @@
+{
+  "name": "Search",
+  "summary": "A search landmark with a labelled search field and a button; a plain GET form.",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "<search> is the landmark; a GET form with <input type=\"search\"> submits with no script.",
+  "anatomy": {
+    "search": {
+      "element": "search",
+      "class": "lue-search",
+      "required": true
+    },
+    "form": {
+      "element": "form",
+      "required": true,
+      "attributes": {
+        "method": "get",
+        "action": "the results page"
+      }
+    },
+    "field": {
+      "element": "div",
+      "class": "lue-field",
+      "required": true
+    },
+    "input": {
+      "element": "input",
+      "class": "lue-input",
+      "required": true,
+      "attributes": {
+        "type": "search",
+        "name": "q"
+      }
+    },
+    "button": {
+      "element": "button",
+      "class": "lue-button",
+      "required": true,
+      "attributes": {
+        "type": "submit"
+      }
+    }
+  },
+  "messages": {
+    "label": "Search",
+    "button": "Search"
+  },
+  "a11y": {
+    "role": "search landmark",
+    "name": "The field's label",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "From the field to the button"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "Submit the search (native)",
+        "on": "the field"
+      }
+    ],
+    "focus": {
+      "indicator": "As Field and Button"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Search",
+    "props": {
+      "label": "the field's label",
+      "name": "the query parameter (q)",
+      "buttonLabel": "the button's text",
+      "action": "the results URL"
+    }
+  },
+  "tokens": [
+    "--lue-space-2xs"
+  ],
+  "platform": {
+    "baseline": [
+      "search",
+      "input type=search",
+      "form method=get"
+    ]
+  },
+  "rules": [
+    "Keep the label visible; if the design hides it, the button's text must still say \"Search\""
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "As Field",
+  "forcedColors": "As Field and Button",
+  "deletionTrigger": null
+}

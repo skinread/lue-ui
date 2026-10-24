@@ -1,0 +1,115 @@
+{
+  "name": "Progress",
+  "summary": "How much of a task is done (progress), or a measurement in a known range (meter).",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "<progress> and <meter> carry their role, value and range natively and are labelable; CSS only draws them.",
+  "covers": [
+    "Meter"
+  ],
+  "anatomy": {
+    "field": {
+      "element": "div",
+      "class": "lue-field",
+      "required": false
+    },
+    "labelRow": {
+      "element": "div",
+      "class": "lue-progress-label",
+      "required": false,
+      "children": [
+        {
+          "element": "label",
+          "class": "lue-field__label"
+        },
+        {
+          "element": "span",
+          "class": "lue-field__hint",
+          "text": "the value in words (optional)"
+        }
+      ]
+    },
+    "progress": {
+      "element": "progress",
+      "class": "lue-progress",
+      "required": false,
+      "attributes": {
+        "max": "the total",
+        "value": "done so far; leave it out for indeterminate",
+        "id": "for its label"
+      }
+    },
+    "meter": {
+      "element": "meter",
+      "class": "lue-meter",
+      "required": false,
+      "attributes": {
+        "min": "",
+        "max": "",
+        "low": "",
+        "high": "",
+        "optimum": "",
+        "value": "required"
+      }
+    }
+  },
+  "a11y": {
+    "role": "progressbar (progress) or meter",
+    "name": "Its <label>",
+    "description": "The value; give it in words beside the label when the number alone isn't enough",
+    "states": [
+      {
+        "state": "indeterminate",
+        "via": ":indeterminate (no value)"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Passes over it: it takes no focus"
+      }
+    ],
+    "focus": {
+      "indicator": "Never focusable"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Progress, Meter",
+    "props": {
+      "label": "the visible label",
+      "valueText": "the value in words",
+      "...": "every <progress> or <meter> prop"
+    }
+  },
+  "tokens": [
+    "--lue-prism-fill",
+    "--lue-color-bg-surface-subtle",
+    "--lue-color-border-strong",
+    "--lue-color-fg-accent",
+    "--lue-color-fg-success",
+    "--lue-color-fg-warning",
+    "--lue-color-fg-critical",
+    "--lue-radius-full"
+  ],
+  "platform": {
+    "baseline": [
+      "progress",
+      "meter",
+      "appearance: none",
+      ":indeterminate",
+      "::-webkit-progress-value, ::-moz-progress-bar (engine parts)"
+    ]
+  },
+  "rules": [
+    "Meter colours (optimum, suboptimum, worse) are never the only cue: say the value in words when it matters",
+    "For a loading state with no measurable progress, prefer Spinner"
+  ],
+  "withoutJavaScript": "Works fully",
+  "motion": "The indeterminate band slides; it rests in the middle under reduced motion",
+  "contrast": "The track has a strong edge in every theme",
+  "forcedColors": "A Canvas track with a CanvasText edge; the fill is Highlight",
+  "deletionTrigger": null
+}

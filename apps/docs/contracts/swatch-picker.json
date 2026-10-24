@@ -1,0 +1,118 @@
+{
+  "name": "SwatchPicker",
+  "summary": "A radio group of colours, each named in words.",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "Native radios in a fieldset; each colour's name is its label, so it's never colour alone.",
+  "anatomy": {
+    "group": {
+      "element": "fieldset",
+      "class": "lue-fieldset",
+      "required": true
+    },
+    "swatches": {
+      "element": "div",
+      "class": "lue-swatches",
+      "required": true
+    },
+    "swatch": {
+      "element": "label",
+      "class": "lue-swatch",
+      "required": true
+    },
+    "radio": {
+      "element": "input",
+      "required": true,
+      "attributes": {
+        "type": "radio",
+        "name": "shared"
+      }
+    },
+    "chip": {
+      "element": "span",
+      "class": "lue-swatch__chip",
+      "required": true,
+      "attributes": {
+        "style": "--lue-swatch: the colour"
+      }
+    }
+  },
+  "a11y": {
+    "role": "radio (implicit), in a group named by its legend",
+    "name": "The colour's name",
+    "states": [
+      {
+        "state": "checked",
+        "via": ":checked"
+      },
+      {
+        "state": "disabled",
+        "via": ":disabled"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Enters the group at the checked option, and leaves it"
+      },
+      {
+        "keys": [
+          "ArrowRight",
+          "ArrowLeft"
+        ],
+        "action": "Check the next or previous option (native; ArrowDown and ArrowUp too)"
+      },
+      {
+        "keys": [
+          "Space"
+        ],
+        "action": "Check the focused option when none is checked"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline on the swatch (:has())"
+    },
+    "targetSize": "Each swatch is at least --lue-size-target-min tall"
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "SwatchPicker",
+    "props": {
+      "legend": "the group's name",
+      "name": "the radios' name",
+      "swatches": "[{ value, label, color, disabled? }]",
+      "defaultValue": "",
+      "onChange": ""
+    }
+  },
+  "tokens": [
+    "--lue-color-border-subtle",
+    "--lue-color-fg-default",
+    "--lue-radius-full",
+    "--lue-size-target-min",
+    "--lue-color-focus-ring"
+  ],
+  "platform": {
+    "baseline": [
+      "input type=radio",
+      "fieldset",
+      ":has()"
+    ],
+    "enhancements": [
+      {
+        "feature": "forced-color-adjust",
+        "fallback": "Safari has no forced-colours mode, so nothing to adjust"
+      }
+    ]
+  },
+  "rules": [
+    "The checked swatch is marked by a heavier border and bold name, not by its colour",
+    "Chips keep their real colour in forced colours: the colour is the content"
+  ],
+  "withoutJavaScript": "Works fully, and submits with its form",
+  "contrast": "A strong border round the checked swatch",
+  "forcedColors": "The chip keeps its colour with a CanvasText edge; the checked swatch is SelectedItem",
+  "deletionTrigger": null
+}

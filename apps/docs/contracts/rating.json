@@ -1,0 +1,75 @@
+{
+  "name": "Rating",
+  "summary": "A read-only score shown as stars, and said in words.",
+  "status": "experimental",
+  "rung": "css",
+  "rungReason": "The score is text; the stars are a CSS mask filled to the value, hidden from assistive technology.",
+  "anatomy": {
+    "rating": {
+      "element": "span",
+      "class": "lue-rating",
+      "required": true
+    },
+    "stars": {
+      "element": "span",
+      "class": "lue-rating__stars",
+      "required": true,
+      "attributes": {
+        "aria-hidden": "true",
+        "style": "--lue-rating-value; --lue-rating-max (5)"
+      }
+    },
+    "text": {
+      "element": "span",
+      "class": "lue-rating__text",
+      "required": true
+    }
+  },
+  "messages": {
+    "text": "{value} out of {max}"
+  },
+  "a11y": {
+    "role": "none (text)",
+    "name": "The score in words",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Passes over it: it takes no focus"
+      }
+    ],
+    "focus": {
+      "indicator": "Never focusable"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Rating",
+    "props": {
+      "value": "the score",
+      "max": "5",
+      "text": "the words, translated",
+      "hideText": "hide the words visually (still read)"
+    }
+  },
+  "tokens": [
+    "--lue-color-fg-accent",
+    "--lue-color-border-strong",
+    "--lue-color-fg-muted"
+  ],
+  "platform": {
+    "baseline": [
+      "mask",
+      "linear-gradient",
+      "calc()"
+    ]
+  },
+  "rules": [
+    "To ask for a rating, use a Radio group or Segmented control with words (\"4 stars\"), not clickable stars"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "Filled and empty stars differ by more than 3:1",
+  "forcedColors": "CanvasText stars on GrayText (forced-color-adjust: none)",
+  "deletionTrigger": null
+}

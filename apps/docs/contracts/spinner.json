@@ -1,0 +1,96 @@
+{
+  "name": "Spinner",
+  "summary": "Loading indicators: a spinner with its words read as a status, and decorative skeleton placeholders.",
+  "status": "experimental",
+  "rung": "aria",
+  "rungReason": "No element says \"loading\": role=\"status\" with visually hidden words announces it, and aria-busy on the region marks what's loading.",
+  "covers": [
+    "Skeleton"
+  ],
+  "anatomy": {
+    "spinner": {
+      "element": "span",
+      "class": "lue-spinner",
+      "required": false,
+      "attributes": {
+        "role": "status"
+      },
+      "children": [
+        {
+          "element": "span",
+          "class": "lue-visually-hidden",
+          "text": "Loading"
+        }
+      ]
+    },
+    "skeleton": {
+      "element": "span",
+      "class": "lue-skeleton",
+      "required": false,
+      "attributes": {
+        "aria-hidden": "true",
+        "data-shape": "circle (optional)"
+      }
+    }
+  },
+  "variants": {
+    "shape": {
+      "attribute": "data-shape",
+      "values": [
+        "circle"
+      ]
+    }
+  },
+  "messages": {
+    "label": "Loading"
+  },
+  "a11y": {
+    "role": "status (spinner); none (skeleton)",
+    "name": "The spinner's words",
+    "description": "Put aria-busy=\"true\" on the region that's loading, and remove it when the content arrives",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Passes over it: it takes no focus"
+      }
+    ],
+    "focus": {
+      "indicator": "Never focusable"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Spinner, Skeleton",
+    "props": {
+      "label": "the spinner's words, translated",
+      "shape": "circle",
+      "width": "a skeleton's width"
+    }
+  },
+  "tokens": [
+    "--lue-color-border-subtle",
+    "--lue-color-fg-accent",
+    "--lue-color-bg-surface-subtle",
+    "--lue-color-bg-surface",
+    "--lue-radius-s"
+  ],
+  "platform": {
+    "baseline": [
+      "role=status",
+      "aria-busy",
+      "@keyframes",
+      "rotate"
+    ]
+  },
+  "rules": [
+    "Render the spinner when loading starts; a status announces changes, so one inserted already full may not be read in every screen reader",
+    "When the content arrives, focus stays where it was: don't move it to the new content"
+  ],
+  "withoutJavaScript": "There is no loading state without script",
+  "motion": "The spinner turns 3× slower under reduced motion (it must keep saying \"still working\"); skeletons stop shimmering",
+  "contrast": "n/a",
+  "forcedColors": "A CanvasText arc on a GrayText ring; skeletons are outlined boxes",
+  "deletionTrigger": null
+}

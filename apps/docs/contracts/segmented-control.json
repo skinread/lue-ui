@@ -1,0 +1,110 @@
+{
+  "name": "SegmentedControl",
+  "summary": "A radio group drawn as one pill of options, for a few mutually exclusive choices.",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "Native radios in a fieldset keep the group's name, arrow-key selection and form value; each radio covers its label invisibly.",
+  "anatomy": {
+    "group": {
+      "element": "fieldset",
+      "class": "lue-segmented",
+      "required": true
+    },
+    "legend": {
+      "element": "legend",
+      "required": true
+    },
+    "options": {
+      "element": "div",
+      "class": "lue-segmented__options",
+      "required": true
+    },
+    "option": {
+      "element": "label",
+      "class": "lue-segmented__option",
+      "required": true
+    },
+    "radio": {
+      "element": "input",
+      "required": true,
+      "attributes": {
+        "type": "radio",
+        "name": "shared"
+      }
+    }
+  },
+  "a11y": {
+    "role": "radio (implicit), in a group named by its legend",
+    "name": "Each option's text; the legend for the group",
+    "states": [
+      {
+        "state": "checked",
+        "via": ":checked"
+      },
+      {
+        "state": "disabled",
+        "via": ":disabled"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Enters the group at the checked option, and leaves it"
+      },
+      {
+        "keys": [
+          "ArrowRight",
+          "ArrowLeft"
+        ],
+        "action": "Check the next or previous option (native; ArrowDown and ArrowUp too)"
+      },
+      {
+        "keys": [
+          "Space"
+        ],
+        "action": "Check the focused option when none is checked"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline on the option (:has())"
+    },
+    "targetSize": "Each option is at least --lue-size-target-min tall"
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "SegmentedControl",
+    "props": {
+      "legend": "the group's name",
+      "name": "the radios' name",
+      "options": "[{ value, label, disabled? }]",
+      "defaultValue": "",
+      "value, onChange": "controlled"
+    }
+  },
+  "tokens": [
+    "--lue-field-bg",
+    "--lue-field-inset",
+    "--lue-material-button-pressed",
+    "--lue-button-depth",
+    "--lue-color-fg-muted",
+    "--lue-size-target-min",
+    "--lue-color-focus-ring"
+  ],
+  "platform": {
+    "baseline": [
+      "input type=radio",
+      "fieldset",
+      ":has()"
+    ]
+  },
+  "rules": [
+    "Two to five short options; more, or long labels, belong in a Radio group or Select",
+    "It chooses a value: to switch panels of content, use Tabs"
+  ],
+  "withoutJavaScript": "Works fully, and submits with its form",
+  "contrast": "A strong ring round the checked option",
+  "forcedColors": "SelectedItem for the checked option; the group has a CanvasText edge",
+  "deletionTrigger": null
+}

@@ -1,0 +1,107 @@
+{
+  "name": "Table",
+  "summary": "A data table with a caption, scrollable sideways inside a named, keyboard-reachable region.",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "<table>, <caption> and <th scope> give the structure; a <section> named by the caption is the focusable scrolling region.",
+  "anatomy": {
+    "wrap": {
+      "element": "section",
+      "class": "lue-table-wrap",
+      "required": true,
+      "attributes": {
+        "aria-labelledby": "the caption's id (makes it a region)",
+        "tabindex": "0"
+      }
+    },
+    "table": {
+      "element": "table",
+      "class": "lue-table",
+      "required": true
+    },
+    "caption": {
+      "element": "caption",
+      "required": true,
+      "attributes": {
+        "id": "required"
+      }
+    },
+    "header": {
+      "element": "th",
+      "required": true,
+      "attributes": {
+        "scope": "col or row"
+      }
+    },
+    "numeric": {
+      "element": "td",
+      "required": false,
+      "attributes": {
+        "data-numeric": ""
+      }
+    }
+  },
+  "variants": {
+    "numeric": {
+      "attribute": "data-numeric",
+      "type": "boolean"
+    }
+  },
+  "a11y": {
+    "role": "table, in a region named by its caption",
+    "name": "The caption",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Reaches the scrolling region"
+      },
+      {
+        "keys": [
+          "ArrowRight",
+          "ArrowLeft"
+        ],
+        "action": "Scroll it sideways (native)"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline on the region"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Table",
+    "props": {
+      "caption": "the table's name",
+      "children": "thead, tbody, tfoot"
+    }
+  },
+  "tokens": [
+    "--lue-color-border-subtle",
+    "--lue-color-border-strong",
+    "--lue-color-fg-muted",
+    "--lue-space-2xs",
+    "--lue-space-s",
+    "--lue-space-xs",
+    "--lue-color-focus-ring"
+  ],
+  "platform": {
+    "baseline": [
+      "table",
+      "caption",
+      "th scope",
+      "overflow: auto",
+      "font-variant-numeric"
+    ]
+  },
+  "rules": [
+    "Every table has a caption, and every header cell a scope",
+    "For layout, use the layout primitives: never a table",
+    "The region is a Tab stop even when it doesn't scroll, so the keyboard can always reach it"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "Row rules are strong lines",
+  "forcedColors": "Rules follow CanvasText",
+  "deletionTrigger": null
+}
