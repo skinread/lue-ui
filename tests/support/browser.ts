@@ -35,11 +35,24 @@ export function focusDocument(): void {
   document.body.focus();
 }
 
+/**
+ * Keys go to the focused frame. Test files run in frames of one page, and on a busy machine Firefox can leave the
+ * test's frame without system focus, so a key pressed after element.focus() lands elsewhere: take it back first.
+ */
+function ownFocus(): void {
+  if (!document.hasFocus()) window.focus();
+}
+
 /** Tab as a keyboard user presses it. WebKit follows macOS, where Tab skips buttons unless Option is held. */
-export const tab = (): Promise<void> => (server.browser === 'webkit' ? userEvent.keyboard('{Alt>}{Tab}{/Alt}') : userEvent.tab());
+export const tab = (): Promise<void> => {
+  ownFocus();
+  return server.browser === 'webkit' ? userEvent.keyboard('{Alt>}{Tab}{/Alt}') : userEvent.tab();
+};
 /** Shift+Tab, likewise. */
-export const shiftTab = (): Promise<void> =>
-  userEvent.keyboard(server.browser === 'webkit' ? '{Shift>}{Alt>}{Tab}{/Alt}{/Shift}' : '{Shift>}{Tab}{/Shift}');
+export const shiftTab = (): Promise<void> => {
+  ownFocus();
+  return userEvent.keyboard(server.browser === 'webkit' ? '{Shift>}{Alt>}{Tab}{/Alt}{/Shift}' : '{Shift>}{Tab}{/Shift}');
+};
 
 export function $<T extends Element = HTMLElement>(selector: string, root: ParentNode = document): T {
   const element = root.querySelector<T>(selector);
