@@ -51,8 +51,9 @@ emulation rows, which needed CSS built from tokens.
 
 ## Follow-ups
 
-- Port the glass, chrome and prism worst-case rules from `tools/directions/palettes.mjs` into a plugin before the
-  material tokens are edited by hand (they still check the Pass 2 palettes, not the source).
+- ~~Port the glass, chrome and prism worst-case rules into a plugin~~ — done 2026-10-24 (`lue-materials`, 78 rules from
+  the token source). The port found that the `-more` contexts had the standard dark fills (marks at 5.5:1, not 7:1);
+  the Pass 2 `-more` fills are now tokens.
 - ~~Per-component forced-colours and contrast styles instead of one `contrast.css`~~ — done 2026-10-24; `contrast.css` is gone.
 - `--lue-angle` on the pseudo-element with `inherits: false` (the handover's CSS trap), with the Button work.
 - `tokens.js` + `.d.ts` and `figma/*.tokens.json` outputs (RFC-0001 §1) — not needed for the tracer bullet.

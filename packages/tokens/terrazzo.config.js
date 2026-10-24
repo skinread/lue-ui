@@ -4,6 +4,7 @@ import { defineConfig } from '@terrazzo/cli';
 import css from '@terrazzo/plugin-css';
 import { transformCSSValue } from '@terrazzo/token-tools/css';
 import { lueClaudeDesign, lueContrast, lueSchema, lueTailwind } from './plugins/lue.js';
+import { lueMaterials } from './plugins/materials.js';
 
 // Tokens that change with the theme context; everything else is context-free and emitted once, with the default.
 const THEMED = ['color.**', 'material.**', 'shadow.**'];
@@ -68,6 +69,7 @@ export default defineConfig({
     }),
     lueSchema(),
     lueContrast(),
+    lueMaterials(),
     lueClaudeDesign({ variableName, exclude: PRIMITIVES }),
     lueTailwind({ variableName, exclude: PRIMITIVES }),
   ],

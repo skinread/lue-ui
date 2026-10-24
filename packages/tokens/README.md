@@ -29,11 +29,16 @@ them.
 - a declared contrast pair (`$extensions.lue.pairs`) misses its minimum in any of the four theme contexts — raised to
   7:1 for text and 4.5:1 for boundaries in the `-more` contexts (`plugins/lue.js`, `lue-contrast`);
 - a token has no `$description`, or body text drops below 16 px (`lue-schema`);
-- `tokens.css` passes its size budget (`scripts/finish.js`).
+- `tokens.css` passes its size budget (`scripts/finish.js`);
+- a material rule fails (`plugins/materials.js`, `lue-materials`, 78 rules): text and boundaries on overlay and modal
+  glass over white, black and every fill (through the scrim, reading the backdrop filter both ways), on neutral,
+  prism (up to three overlapping tones), danger and pressed glass buttons, on ambient light (single and overlapping),
+  satin and metal; the chrome ring, its dispersion band and the multi-tone ring as boundaries; marks on the
+  multi-tone fills, with gradient midpoints. In the `-more` contexts glass and buttons are opaque (CSS), so only the
+  fills are checked there, at 7:1.
 
-The glass, chrome and prism worst-case rules (compositing over every backdrop) still live in
-`tools/directions/palettes.mjs` and check the Pass 2 palettes, not this source — port them to a plugin before the
-material tokens are edited by hand.
+The `-more` contexts layer `material.<context>.tokens.json` (deeper multi-tone fills and the switch bead) over their
+scheme's materials.
 
 ## Extensions
 
@@ -55,6 +60,7 @@ material tokens are edited by hand.
 | `lue.resolver.json` | Sets and modifiers: `theme` (`dark` · `light` · `dark-more` · `light-more`, dark is primary) and `density` |
 | `primitive/color.tokens.json` | Neutral ramp and the eight-hue prism (never public CSS) |
 | `semantic/color.<context>.tokens.json` | Semantic colour per theme context, literal values, with contrast pairs |
+| `semantic/material.<scheme>-more.tokens.json` | The `-more` overrides: multi-tone fills and the switch bead |
 | `semantic/material.<scheme>.tokens.json` | C2 materials (glass, buttons and their rims, chrome, dispersion, prism fills and ring, iridescence, metal and tile rims, satin, ambient light, field, focus glow, beads, the glass prism) and shadows |
 | `theme.css` | CSS compositions of the material tokens, appended to `tokens.css` |
 | `semantic/type.tokens.json` | Families, weights, the fluid scale (steps −2 … 5), leading, tracking, text styles |

@@ -1,0 +1,155 @@
+{
+  "$description": "Material overrides for light-more: deeper multi-tone fills so marks reach 7:1, and the switch bead to match. Everything else comes from the scheme's material file, and glass and buttons turn opaque in CSS.",
+  "$extensions": {
+    "lue": {
+      "context": "light-more"
+    }
+  },
+  "material": {
+    "prism-fill": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.86,
+              0.09,
+              205
+            ],
+            "hex": "#85e2ed"
+          },
+          "position": 0
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.86,
+              0.09,
+              168
+            ],
+            "hex": "#95e4c6"
+          },
+          "position": 0.25
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.86,
+              0.09,
+              118
+            ],
+            "hex": "#cbda96"
+          },
+          "position": 0.5
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.86,
+              0.074,
+              0
+            ],
+            "hex": "#fbbdcf"
+          },
+          "position": 0.75
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.86,
+              0.09,
+              318
+            ],
+            "hex": "#eabff8"
+          },
+          "position": 1
+        }
+      ],
+      "$description": "Multi-tone fill for checkboxes, radios, switches and step numbers in light-more; marks in fg-on-accent hold 7:1."
+    },
+    "prism-fill-active": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.82,
+              0.09,
+              205
+            ],
+            "hex": "#78d5e0"
+          },
+          "position": 0
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.82,
+              0.09,
+              168
+            ],
+            "hex": "#88d7b9"
+          },
+          "position": 0.25
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.82,
+              0.09,
+              118
+            ],
+            "hex": "#bfcd89"
+          },
+          "position": 0.5
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.82,
+              0.09,
+              0
+            ],
+            "hex": "#f5acc2"
+          },
+          "position": 0.75
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.82,
+              0.09,
+              318
+            ],
+            "hex": "#ddb2ea"
+          },
+          "position": 1
+        }
+      ],
+      "$description": "Multi-tone fill, pressed, in light-more."
+    },
+    "bead-on": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.2,
+          0.015,
+          285
+        ],
+        "hex": "#15151d"
+      },
+      "$description": "Switch thumb when on in light-more (4.5:1 against the multi-tone track)."
+    }
+  }
+}

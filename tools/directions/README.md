@@ -23,7 +23,8 @@ Output goes to `out/` (gitignored).
 1. Edit colours in `palettes.mjs` (Luminous's prism, chrome, glass and ambient values live in its `luminous`
    export), or fonts, type, radii, spacing, motion and signature CSS in `DIRS` in `build-canvas.mjs` (Luminous's CSS
    is in `luminous-canvas.mjs`).
-2. `node palettes.mjs` must print **0 fail** for every direction, scheme and Luminous rule set.
+2. `node palettes.mjs` must print **0 fail** for every direction, scheme and Luminous rule set. (It checks these seeds;
+   the library's tokens are checked by the Terrazzo build's `lue-contrast` and `lue-materials`.)
 3. `node report.mjs`, then replace everything after the appendix intro of
    [the brief](../../docs/design/claude-design-brief.md) with `out/palette-report.md`.
 4. `node build-canvas.mjs`, then republish (below).

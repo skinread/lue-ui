@@ -27,7 +27,7 @@
   },
   "modifiers": {
     "theme": {
-      "description": "Colour scheme and contrast. -more contexts reuse their scheme's materials, which turn opaque in CSS.",
+      "description": "Colour scheme and contrast. -more contexts reuse their scheme's materials (opaque in CSS) with their own multi-tone fills on top.",
       "contexts": {
         "dark": [
           {
@@ -50,12 +50,18 @@
             "$ref": "semantic/material.dark.tokens.json"
           },
           {
+            "$ref": "semantic/material.dark-more.tokens.json"
+          },
+          {
             "$ref": "semantic/color.dark-more.tokens.json"
           }
         ],
         "light-more": [
           {
             "$ref": "semantic/material.light.tokens.json"
+          },
+          {
+            "$ref": "semantic/material.light-more.tokens.json"
           },
           {
             "$ref": "semantic/color.light-more.tokens.json"
