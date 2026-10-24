@@ -187,6 +187,12 @@ What exists now (all private, all on `develop`):
      picker. Then with script: Tabs (`<lue-tabs>`), Toolbar (`<lue-roving>`), Tooltip (`data-lue-tooltip`),
      Carousel, Quantity stepper.
 
+   - **Published Storybook (user's request, 2026-10-24):** `.github/workflows/storybook-pages.yml` builds Storybook
+     and deploys it to GitHub Pages when run by hand (Actions → Storybook to GitHub Pages → Run workflow). One-time
+     setup is yours: Settings → Pages → Source "GitHub Actions"; if the `github-pages` environment only allows the
+     default branch, add `develop`. The repo is private, so Pages needs a paid plan, and the site is public unless
+     the organisation has Enterprise Cloud private Pages. Later it becomes a step of package publishing.
+
    Before
    publishing: confirm the npm scope, make the repo public, publish — all yours to decide. Also outstanding from
    RFC-0001 §8: Storybook's `html` decorator (show each story's server-rendered HTML as its source), the Storybook MCP

@@ -5,8 +5,13 @@ every package.
 
 ```bash
 pnpm --filter @lue-ui/docs dev     # http://localhost:6006
-pnpm --filter @lue-ui/docs build   # storybook-static/
+pnpm --filter @lue-ui/docs build   # storybook-static/ (writes public/ first: llms.txt and the component pages)
 ```
+
+**Published** at <https://skinread.github.io/lue-ui/> by the
+[Storybook to GitHub Pages](../../.github/workflows/storybook-pages.yml) workflow, run by hand from the Actions tab
+("Run workflow", pick the branch). It builds the packages, then this Storybook, and deploys `storybook-static`; the AI
+docs are served beside it (`/lue-ui/llms.txt`). Later it becomes a step of package publishing.
 
 - **Stories** (`stories/`) render the React adapters, which render the HTML core's markup, with the real CSS:
   `@lue-ui/tokens/tokens.css` (build it first: `pnpm build`) and `packages/css/src/lue.css`. The toolbar sets

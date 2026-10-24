@@ -63,6 +63,9 @@ pnpm fixtures   # consumer recipes: Vite, Next, Tailwind v4
 pnpm --filter @lue-ui/docs dev   # Storybook
 ```
 
+Storybook is published to GitHub Pages by hand: Actions → **Storybook to GitHub Pages** → Run workflow
+([details](apps/docs/README.md)).
+
 ## Roadmap
 
 1. **Phase 1 — foundations and design kickoff** _(done)_: principles, research, architecture, token and component
