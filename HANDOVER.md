@@ -13,9 +13,8 @@
   the private Claude Design System is built.
 - **Pass 3 (tracer bullet, 2026-10-11 to 2026-10-24) is done but for Spike C,** which you start. Step 0, Spikes A and B,
   the package builds and the first five components with Storybook 10 and every ADR-0005 gate are in place — see
-  [Pass 3](#pass-3--tracer-bullet-done-but-for-spike-c). **Pass 4 (Tier 1 components) is in progress:** the form
-  controls, the CSS-only components and the layout primitives are done (2026-10-24); the overlays, Toggle button and
-  Toast are next. Every package is private.
+  [Pass 3](#pass-3--tracer-bullet-done-but-for-spike-c). **Pass 4 (Tier 1 components) is in progress:** every Tier 1
+  component is done (2026-10-24); the Pass 4 tooling is next. Every package is private.
 - **Repo:** `/Volumes/Code/never-ui` (the git root). `main` holds only the initial commit (MIT `LICENSE`,
   `.gitignore`, `.gitattributes`); all work happens on **`develop`**, where Phase 1 was committed on 2026-10-05. The
   remote is `origin`, private, `skinread/lue-ui` on GitHub.
@@ -146,8 +145,8 @@ What exists now (all private, all on `develop`):
 - **Docs** (`apps/docs`): Storybook 10; contracts with schema v1 (`pnpm check` validates them against tokens, CSS,
   tests and stories).
 - **Gates:** `pnpm check` (lint, escaped-dash check, types, token build, contracts, static markup of every story);
-  `pnpm test` (unit, emulation, component, visual and story tests in Chromium, Firefox and WebKit: 866 tests, 14
-  skipped by design); `pnpm fixtures` (Vite, Next with the built React adapters, Tailwind v4). CI runs all three.
+  `pnpm test` (unit, emulation, component, visual and story tests in Chromium, Firefox and WebKit: 1,066 tests, 15
+  skipped by design; `pnpm test:engines` runs one engine at a time, as CI does); `pnpm fixtures` (Vite, Next with the built React adapters, Tailwind v4). CI runs all three.
 
 ## Next steps
 
@@ -162,9 +161,12 @@ What exists now (all private, all on `develop`):
      2026-10-24. Alert is a `<div>`, not an `<aside>` (a landmark per callout inside `<main>`), and says its tone in
      words. The skip link moved out of `blocks.css` into its own component; `.lue-grid` moved into `layout.css` with
      Stack, Cluster, Sidebar, Switcher and Center, all intrinsic (no media or container queries).
-   - Platform overlays: Popover, Toggletip, Drawer.
-   - Opt-in behaviour: Toggle button (`data-lue-toggle`).
-   - Element: Toast (`<lue-toast-region>`).
+   - ~~Overlays, Toggle button and Toast~~ — done 2026-10-24. Popover and Toggletip are `popover="auto"` (Toggletip
+     not `hint`, which falls back to `manual` where unsupported; its tip is a `<span>` so it fits in a paragraph).
+     Drawer is a Dialog with `data-side`. `data-lue-toggle` flips `aria-pressed` and fires `lue-toggle`; React has
+     `ToggleButton`. `<lue-toast-region>` owns its children: an always-rendered live region (`ariaNotify()` where it
+     exists) and a manual-popover list; 6 s, paused on hover and focus, actions never time out, three at a time.
+     Found on the way: `.lue-dialog` was content-box too, so its padding pushed it past its size (fixed).
 3. **Pass 4 tooling:** keyboard tests generated from contracts (schema v1 has what they need), `llms.txt` and a
    Markdown page per component from the contracts, then the MCP endpoint for tokens and contracts.
 4. **Before a public release (Pass 5):** confirm the npm scope, make the repo public, publish — all yours to decide.

@@ -41,13 +41,13 @@ Full index: [docs/](docs/README.md).
 | --- | --- |
 | [`@lue-ui/tokens`](packages/tokens/README.md) | DTCG 2025.10 source, built by Terrazzo into `tokens.css`, `tokens.js`, a Tailwind v4 bridge, Figma and Claude Design files. The build fails on any contrast pair or material rule below its minimum |
 | [`@lue-ui/css`](packages/css/README.md) | Component CSS in `@layer lue`, built by Lightning CSS with nothing lowered, and the self-hosted fonts |
-| [`@lue-ui/elements`](packages/elements/README.md) | Light-DOM custom elements and opt-in behaviours (`<lue-menu>`, `data-lue-validate`), and a script-tag build |
+| [`@lue-ui/elements`](packages/elements/README.md) | Light-DOM custom elements and opt-in behaviours (`<lue-menu>`, `<lue-toast-region>`, `data-lue-validate`, `data-lue-toggle`), and a script-tag build |
 | [`@lue-ui/react`](packages/react/README.md) | React 19 adapters that render the same markup as the HTML core |
 | [`apps/docs`](apps/docs/README.md) | Storybook 10, and the component contracts |
 
-Components so far: **Button, Link, Field + TextInput + Textarea + error summary, Select, Checkbox, Radio group,
-Switch, Dialog, Menu, Disclosure, Accordion, Alert, Icon, Skip link, Visually hidden and the layout primitives** (Stack,
-Cluster, Grid, Sidebar, Switcher, Center) — each with a
+Components: **all of Tier 1 and Tier 0** - Button, Toggle button, Link, Field + TextInput + Textarea + error summary,
+Select, Checkbox, Radio group, Switch, Dialog, Drawer, Popover, Toggletip, Menu, Disclosure, Accordion, Alert, Toast,
+Icon, Skip link, Visually hidden and the layout primitives (Stack, Cluster, Grid, Sidebar, Switcher, Center) - each with a
 [contract](apps/docs/contracts/), stories, and keyboard, axe, emulation and visual tests in Chromium, Firefox and WebKit.
 
 ```bash
@@ -55,6 +55,7 @@ pnpm install
 pnpm build      # tokens, CSS, elements, React
 pnpm check      # lint, types, token contrast, contracts, static markup
 pnpm test       # build, then every browser test in three engines
+pnpm test:engines  # the same, one engine at a time (steadier on a small machine)
 pnpm fixtures   # consumer recipes: Vite, Next, Tailwind v4
 pnpm --filter @lue-ui/docs dev   # Storybook
 ```
@@ -68,9 +69,8 @@ pnpm --filter @lue-ui/docs dev   # Storybook
 3. **Pass 3 — tracer bullet** _(done, but for Spike C)_: workspace, token and CSS pipelines, package builds, consumer
    fixtures, and Button, Field, Select, Dialog and Menu tested in three engines. Spike C (one Claude Design preview
    from the script-tag build) is next.
-4. **Pass 4 — Tier 1 components** _(in progress)_, contracts-driven tests, `llms.txt` and MCP. Done: Textarea,
-   Checkbox, Radio group, Switch, Link, Disclosure, Accordion, Alert, Icon, Skip link, Visually hidden and the layout
-   primitives. Next: Popover, Toggletip, Drawer, Toggle button and Toast.
+4. **Pass 4 — Tier 1 components** _(in progress)_: every Tier 1 component is done; next are contract-driven
+   keyboard tests, `llms.txt` and an MCP endpoint for tokens and contracts.
 5. **Pass 5 — Tier 2 and a first public 0.x release.**
 
 ## Licence
