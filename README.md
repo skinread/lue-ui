@@ -45,7 +45,8 @@ Full index: [docs/](docs/README.md).
 | [`@lue-ui/react`](packages/react/README.md) | React 19 adapters that render the same markup as the HTML core |
 | [`apps/docs`](apps/docs/README.md) | Storybook 10, and the component contracts |
 
-Components so far: **Button, Field + TextInput + error summary, Select, Dialog, Menu** — each with a
+Components so far: **Button, Field + TextInput + Textarea + error summary, Select, Checkbox, Radio group, Switch,
+Dialog, Menu** — each with a
 [contract](apps/docs/contracts/), stories, and keyboard, axe, emulation and visual tests in Chromium, Firefox and WebKit.
 
 ```bash
@@ -66,7 +67,8 @@ pnpm --filter @lue-ui/docs dev   # Storybook
 3. **Pass 3 — tracer bullet** _(done, but for Spike C)_: workspace, token and CSS pipelines, package builds, consumer
    fixtures, and Button, Field, Select, Dialog and Menu tested in three engines. Spike C (one Claude Design preview
    from the script-tag build) is next.
-4. **Pass 4 — Tier 1 components** _(next)_, contracts-driven tests, `llms.txt` and MCP.
+4. **Pass 4 — Tier 1 components** _(in progress)_, contracts-driven tests, `llms.txt` and MCP. Done: Textarea,
+   Checkbox, Radio group and Switch.
 5. **Pass 5 — Tier 2 and a first public 0.x release.**
 
 ## Licence

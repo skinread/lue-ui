@@ -35,7 +35,7 @@ Read in this order the first time; every later document traces back to the first
 | --- | --- |
 | [Token specification](design/tokens.md) | Tiers, naming grammar, colour roles, contrast bands, theming axes, outputs |
 | [Component inventory and contracts](design/components.md) | Every component's primitive, pattern, JavaScript need and tier; the contract format |
-| [Component contracts](../apps/docs/contracts/) | The written contracts (Button, Field, Select, Dialog, Menu) and schema v1, checked by `pnpm check` |
+| [Component contracts](../apps/docs/contracts/) | The written contracts (Button, Field, Textarea, Select, Checkbox, Radio group, Switch, Dialog, Menu) and schema v1, checked by `pnpm check` |
 | [Claude Design brief](design/claude-design-brief.md) | Creative mandate, non-negotiables, the three seeded directions and their contrast matrices |
 
 ## Conventions for these docs

@@ -1,4 +1,4 @@
-# Handover — Lue UI, Pass 3 done (but for Spike C), Pass 4 next
+# Handover — Lue UI, Pass 3 done (but for Spike C), Pass 4 in progress
 
 > Written 2026-10-05 when Phase 1 closed; updated through Pass 2 (complete 2026-10-10) and Pass 3 (2026-10-11 to
 > 2026-10-24). A fresh session should read this file, then [AGENTS.md](AGENTS.md), then
@@ -13,8 +13,8 @@
   the private Claude Design System is built.
 - **Pass 3 (tracer bullet, 2026-10-11 to 2026-10-24) is done but for Spike C,** which you start. Step 0, Spikes A and B,
   the package builds and the first five components with Storybook 10 and every ADR-0005 gate are in place — see
-  [Pass 3](#pass-3--tracer-bullet-done-but-for-spike-c). **Pass 4 (Tier 1 components) is next.** Every package is
-  private.
+  [Pass 3](#pass-3--tracer-bullet-done-but-for-spike-c). **Pass 4 (Tier 1 components) is in progress:** Textarea,
+  Checkbox, Radio group and Switch are done (2026-10-24). Every package is private.
 - **Repo:** `/Volumes/Code/never-ui` (the git root). `main` holds only the initial commit (MIT `LICENSE`,
   `.gitignore`, `.gitattributes`); all work happens on **`develop`**, where Phase 1 was committed on 2026-10-05. The
   remote is `origin`, private, `skinread/lue-ui` on GitHub.
@@ -145,7 +145,7 @@ What exists now (all private, all on `develop`):
 - **Docs** (`apps/docs`): Storybook 10; contracts with schema v1 (`pnpm check` validates them against tokens, CSS,
   tests and stories).
 - **Gates:** `pnpm check` (lint, escaped-dash check, types, token build, contracts, static markup of every story);
-  `pnpm test` (unit, emulation, component, visual and story tests in Chromium, Firefox and WebKit: 383 tests, 6
+  `pnpm test` (unit, emulation, component, visual and story tests in Chromium, Firefox and WebKit: 584 tests, 9
   skipped by design); `pnpm fixtures` (Vite, Next with the built React adapters, Tailwind v4). CI runs all three.
 
 ## Next steps
@@ -153,8 +153,12 @@ What exists now (all private, all on `develop`):
 1. **Spike C** (you start `/design-sync`).
 2. **Pass 4 — Tier 1 components** ([inventory](docs/design/components.md#tier-1--the-first-release)), in order of
    increasing JavaScript, each with a contract, adapter, stories and the same gates:
-   - CSS only, styles already written: Link, Textarea, Checkbox, Radio group, Switch, Disclosure, Accordion, Alert,
-     Icon, Visually hidden and Skip link, layout primitives.
+   - ~~Form controls: Textarea, Checkbox, Radio group, Switch~~ — done 2026-10-24. A required radio group is one error
+     on its first radio, with `aria-invalid` on every radio; the React adapters are `ChoiceGroup`, `Checkbox`, `Radio`,
+     `Switch` and `Textarea`. Building them found that text controls were content-box and overflowed their field by
+     38 px (fixed; the reflow test now checks each control against its field).
+   - CSS only, styles already written: Link, Disclosure, Accordion, Alert, Icon, Visually hidden and Skip link, layout
+     primitives.
    - Platform overlays: Popover, Toggletip, Drawer.
    - Opt-in behaviour: Toggle button (`data-lue-toggle`).
    - Element: Toast (`<lue-toast-region>`).

@@ -122,7 +122,7 @@ drawn on the C2 canvas.
 Every component ships a machine-readable contract. Pass 3 hand-wrote the keyboard tests for the first five
 components, and **schema v1** was extracted from what those tests needed (2026-10-24):
 [`apps/docs/contracts/contract.schema.json`](../../apps/docs/contracts/contract.schema.json). The contracts live beside
-it (Button, Field, Select, Dialog, Menu). `pnpm check` validates them and also fails when a contract names a token that
+it (Button, Field, Textarea, Select, Checkbox, Radio group, Switch, Dialog, Menu). `pnpm check` validates them and also fails when a contract names a token that
 isn't in `tokens.css`, a class that isn't in `packages/css` (parts marked `hook` are script hooks, not styled), or a
 component without tests and stories. The table below is the original draft; the schema adds `covers`, `messages`,
 `react`, `elementRules`, `withoutJavaScript`, `motion`, `contrast` and `rules`, and makes `a11y.keyboard` a list of
