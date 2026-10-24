@@ -183,9 +183,14 @@ What exists now (all private, all on `develop`):
    - ~~Breadcrumb, Pagination, Tag, Card, Avatar, Divider, Kbd~~ — done 2026-10-24. The breadcrumb separator now has
      empty alt text (`content: "/" / ""`), so it isn't read; Card's link stretches over the card and the card shows
      its focus (`:has()`); Pagination reads "Page n" for each number.
-   - Next without script: Progress and meter, Spinner and skeleton, Table, Search, Segmented control, Rating, Swatch
-     picker. Then with script: Tabs (`<lue-tabs>`), Toolbar (`<lue-roving>`), Tooltip (`data-lue-tooltip`),
-     Carousel, Quantity stepper.
+   - ~~Progress and meter, Spinner and skeleton, Table, Search, Segmented control, Rating, Swatch picker~~ — done
+     2026-10-24. Table's scroller is a `<section>` named by its caption (`tabindex="0"`); Segmented control and Swatch
+     picker are native radios covering their labels; Rating is read-only (asking for one is a radio group with words);
+     `forced-color-adjust` is allowed past the Baseline lint (only forced-colours engines have it).
+   - Next, with script: Tabs (`<lue-tabs>`), Toolbar (`<lue-roving>`), Tooltip (`data-lue-tooltip`), Carousel,
+     Quantity stepper.
+   - Firefox on a busy machine could drop focus from a test's frame. `tests/support/setup.ts` focuses the frame (a
+     Playwright command) before each Firefox test and key press; `pnpm test:engines` passed clean after it.
 
    - **Published Storybook (user's request, 2026-10-24):** `.github/workflows/storybook-pages.yml` builds Storybook
      and deploys it to GitHub Pages when run by hand (Actions → Storybook to GitHub Pages → Run workflow). One-time
