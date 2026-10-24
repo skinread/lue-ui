@@ -42,6 +42,9 @@ export default defineConfig({
         extends: true,
         test: {
           name: 'unit',
+          // A file's first test pays the cold start (styles, fonts, the engine itself). With about 80 files starting at
+          // once on a CI runner, WebKit took up to 19 s for it (later tests about 1 s), past the 15 s default.
+          testTimeout: 30_000,
           include: ['packages/*/src/**/*.browser.test.{ts,tsx}', 'tests/**/*.browser.test.{ts,tsx}'],
           setupFiles: ['tests/support/setup.ts'],
           browser: browser(),
@@ -61,7 +64,7 @@ export default defineConfig({
         // Every story is a test: it renders, its play function passes, and axe finds nothing (a11y.test: 'error').
         extends: true,
         plugins: [storybookTest({ configDir: source('./apps/docs/.storybook') })],
-        test: { name: 'storybook', browser: browser() },
+        test: { name: 'storybook', testTimeout: 30_000, browser: browser() },
       },
     ],
   },
