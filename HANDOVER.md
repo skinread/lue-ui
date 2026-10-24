@@ -17,8 +17,8 @@
   coverage driven by the contracts, `llms.txt` with a Markdown page per component, and an MCP server. **Pass 5 (Tier 2
   and a first public release) is next.** Every package is private.
 - **Repo:** `/Volumes/Code/never-ui` (the git root). `main` holds only the initial commit (MIT `LICENSE`,
-  `.gitignore`, `.gitattributes`); all work happens on **`develop`**, where Phase 1 was committed on 2026-10-05. The
-  remote is `origin`, private, `skinread/lue-ui` on GitHub.
+  `.gitignore`, `.gitattributes`); all work happens on **`develop`**, where Phase 1 was committed on 2026-10-05, and
+  which is the default branch (2026-10-24). The remote is `origin`, private, `skinread/lue-ui` on GitHub.
 - **Name: Lue UI** (2026-10-05, [ADR-0008](docs/architecture/adr/0008-name-lue-ui.md)) — from the French *lueur*, a
   glimmer. Prefix `lue`, slug `lue-ui`, global `LueUI`, npm scope `@lue-ui/*` (provisional). The docs no longer use
   `never-ui`/`ns`; the local folder keeps its old name.
@@ -189,8 +189,9 @@ What exists now (all private, all on `develop`):
 
    - **Published Storybook (user's request, 2026-10-24):** `.github/workflows/storybook-pages.yml` builds Storybook
      and deploys it to GitHub Pages when run by hand (Actions → Storybook to GitHub Pages → Run workflow). One-time
-     setup is yours: Settings → Pages → Source "GitHub Actions"; if the `github-pages` environment only allows the
-     default branch, add `develop`. The repo is private, so Pages needs a paid plan, and the site is public unless
+     setup is yours: Settings → Pages → Source "GitHub Actions" ("Deploy from a branch" runs GitHub's own
+     `pages-build-deployment`, which only renders the README); and `develop` is the default branch (user's decision,
+     2026-10-24), because GitHub only offers "Run workflow" for workflows on the default branch. The repo is private, so Pages needs a paid plan, and the site is public unless
      the organisation has Enterprise Cloud private Pages. Later it becomes a step of package publishing.
 
    Before

@@ -13,6 +13,9 @@ pnpm --filter @lue-ui/docs build   # storybook-static/ (writes public/ first: ll
 ("Run workflow", pick the branch). It builds the packages, then this Storybook, and deploys `storybook-static`; the AI
 docs are served beside it (`/lue-ui/llms.txt`). Later it becomes a step of package publishing.
 
+It needs Settings → Pages → Source set to **GitHub Actions** ("Deploy from a branch" publishes only the README), and
+the workflow on the default branch (`develop`), which is where GitHub looks for workflows you can run by hand.
+
 - **Stories** (`stories/`) render the React adapters, which render the HTML core's markup, with the real CSS:
   `@lue-ui/tokens/tokens.css` (build it first: `pnpm build`) and `packages/css/src/lue.css`. The toolbar sets
   `data-theme` (or "auto" for the OS) and the writing direction.

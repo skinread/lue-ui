@@ -28,7 +28,7 @@ primary reference for agents working in this repo.
   shared within the organisation or made public. The library itself is open source and will be published to npm and
   GitHub — but creating orgs, pushing and publishing are outward-facing, so ask first.
 - **Git:** work directly on `develop`, no feature branches. Commit as you go, in logical units with conventional
-  messages (`docs:`, `feat(tools):`, `chore:`). `main` holds only the initial commit. The remote is `origin` (private:
+  messages (`docs:`, `feat(tools):`, `chore:`). `develop` is the default branch (2026-10-24); `main` holds only the initial commit. The remote is `origin` (private:
   `skinread/lue-ui` on GitHub, added 2026-10-24); push `develop` only when asked.
 
 - **No escaped dashes (user's rule, 2026-10-24).** Never write a dash as a Unicode escape (backslash, `u`, `2014`); write a
