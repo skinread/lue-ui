@@ -27,6 +27,11 @@ primary reference for agents working in this repo.
   messages (`docs:`, `feat(tools):`, `chore:`). `main` holds only the initial commit. The remote is `origin` (private:
   `skinread/lue-ui` on GitHub, added 2026-10-24); push `develop` only when asked.
 
+- **No escaped dashes (user's rule, 2026-10-24).** Never write a dash as a Unicode escape (backslash, `u`, `2014`); write a
+  normal dash (`-`). When a
+  script writes JSON, keep characters unescaped (Python: `ensure_ascii=False`). `pnpm lint` fails on them
+  (`tools/check-text.mjs`).
+
 ## Read first
 
 1. [Mission, values and principles](docs/foundations/mission-and-principles.md) — every decision must trace back to a

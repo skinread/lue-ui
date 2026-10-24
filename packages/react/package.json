@@ -2,7 +2,7 @@
   "name": "@lue-ui/react",
   "version": "0.0.0",
   "private": true,
-  "description": "Lue UI React 19 adapters \u2014 the same markup as the HTML core",
+  "description": "Lue UI React 19 adapters - the same markup as the HTML core",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
