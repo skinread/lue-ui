@@ -83,10 +83,9 @@
 
 ## Waiting on the user
 
-1. **Push `develop`** — the components and Spike B are committed locally only (see *Next steps*).
-2. **Making the repo public** is yours to decide (private on GitHub as `skinread/lue-ui`; CI is green on `develop` in Chromium,
+1. **Making the repo public** is yours to decide (private on GitHub as `skinread/lue-ui`; CI is green on `develop` in Chromium,
    Firefox and WebKit as of 2026-10-24).
-3. **Spike C** needs you to start `/design-sync` (it's a skill the user runs).
+2. **Spike C** needs you to start `/design-sync` (it's a skill the user runs).
 
 Lower-priority open questions are listed at the end of [RFC-0001](docs/architecture/rfc-0001-architecture.md#open-questions).
 
@@ -157,8 +156,8 @@ Following [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequenci
 
 ## Next steps
 
-1. **Push `develop`** when you're ready — 13 commits since `9985bf7` aren't on GitHub yet, so CI hasn't seen the
-   fixtures job, the `*(browser)` sharding or the Storybook project.
+1. **Check CI on `develop`** (pushed 2026-10-24 at `6a8c31f`): it's the first run of the fixtures job, the
+   `*(browser)` sharding and the Storybook project.
 2. **Spike C** — `/design-sync` with the elements IIFE (you start it). The JS packages have no build yet (tests,
    Storybook and the typecheck use sources), so Spike C needs the per-file ESM build and `lue.iife.js` from RFC-0001 §9.
 3. **Pass 3 wrap-up:** extract the contract schema from the five contracts; html-validate on rendered markup; visual
