@@ -32,8 +32,8 @@ const contrast = (a, b) => {
   return (hi + 0.05) / (lo + 0.05);
 };
 const refId = (ref) => ref.replace(/^\{|\}$/g, '');
-const contexts = (resolver) => Object.keys(resolver.source.modifiers[THEME].contexts);
-const inputFor = (theme) => ({ theme, density: 'default' });
+export const contexts = (resolver) => Object.keys(resolver.source.modifiers[THEME].contexts);
+export const inputFor = (theme) => ({ theme, density: 'default' });
 
 export function lueContrast() {
   return {
@@ -81,9 +81,9 @@ export function lueSchema() {
 
 // Literal CSS for Claude Design, which can't read var() or clamp(): fluid sizes at their 1280 px maximum (the range goes
 // in the usage note), rem as px.
-const pxOf = (d) => (d.unit === 'rem' ? +(d.value * 16).toFixed(2) : d.value);
+export const pxOf = (d) => (d.unit === 'rem' ? +(d.value * 16).toFixed(2) : d.value);
 const colorCss = (c) => `oklch(${c.components.join(' ')}${c.alpha != null && c.alpha < 1 ? ` / ${c.alpha}` : ''})`;
-const literal = (token) => {
+export const literal = (token) => {
   const v = token.$value;
   const ext = token.$extensions?.lue ?? {};
   switch (token.$type) {
@@ -94,6 +94,7 @@ const literal = (token) => {
     case 'fontFamily': return v.map((f) => (/\s/.test(f) ? `"${f}"` : f)).join(', ');
     case 'number': return ext.unit ? `${v}${ext.unit}` : String(v);
     case 'gradient': return v.map((s) => `${colorCss(s.color)} ${+(s.position * 100).toFixed(2)}%`).join(', ');
+    case 'typography': return `${v.fontWeight} ${pxOf(v.fontSize)}px/${v.lineHeight} ${literal({ $type: 'fontFamily', $value: v.fontFamily })}`;
     case 'shadow': return v.map((s) => `${s.inset ? 'inset ' : ''}${pxOf(s.offsetX)}px ${pxOf(s.offsetY)}px ${pxOf(s.blur)}px ${pxOf(s.spread)}px ${colorCss(s.color)}`).join(', ');
     default: return String(v);
   }

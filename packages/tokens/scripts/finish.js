@@ -7,7 +7,8 @@
 //   3. bundles and minifies with Lightning CSS and no targets, so nothing is lowered (ADR-0002), then prepends the
 //      layer order;
 //   4. fails if a themed token (colour, material, shadow) is missing from any theme block — the default plus six;
-//   5. fails if the Brotli size passes the RFC-0001 §9 budget (6 KB).
+//   5. fails if tokens.js references a variable tokens.css doesn't define, or a value didn't serialise;
+//   6. fails if the Brotli size passes the RFC-0001 §9 budget (6 KB).
 import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
@@ -65,6 +66,15 @@ for (const [, name] of String(code).matchAll(/(--lue-(?:color|material|shadow)-[
 const incomplete = [...counts].filter(([, n]) => n !== THEME_BLOCKS);
 for (const [name, n] of incomplete) console.error(`tokens.css: ${name} is declared in ${n} theme blocks, not ${THEME_BLOCKS}`);
 if (incomplete.length) process.exit(1);
+
+// tokens.js must point only at variables tokens.css defines, and every literal must have serialised.
+const js = await import(new URL(`../dist/tokens.js?${Date.now()}`, import.meta.url).href);
+const badJs = [
+  ...Object.values(js.tokens).filter((ref) => !String(code).includes(`${ref.slice(4, -1)}:`)).map((ref) => `${ref} isn't defined in tokens.css`),
+  ...Object.entries(js.values).flatMap(([ctx, vals]) => Object.entries(vals).filter(([, v]) => /\[object|undefined|NaN/.test(v)).map(([id]) => `${ctx} ${id} didn't serialise`)),
+];
+for (const p of badJs) console.error(`tokens.js: ${p}`);
+if (badJs.length) process.exit(1);
 
 const size = zlib.brotliCompressSync(code).length;
 console.log(`tokens.css: ${(code.length / 1024).toFixed(1)} KB, ${(size / 1024).toFixed(2)} KB Brotli (budget ${BUDGET / 1024} KB)`);

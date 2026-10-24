@@ -1,10 +1,12 @@
 // Builds dist/tokens.css from the DTCG source (ADR-0003). Literal values per context; no light-dark(), no @property for
-// themeable colours. plugins/lue.js adds the contrast gate, the schema checks, the Claude Design JSON and the Tailwind bridge.
+// themeable colours. Plugins: lue.js (contrast gate, schema checks, Claude Design JSON, Tailwind bridge), materials.js
+// (material contrast rules), outputs.js (tokens.js and the Figma files).
 import { defineConfig } from '@terrazzo/cli';
 import css from '@terrazzo/plugin-css';
 import { transformCSSValue } from '@terrazzo/token-tools/css';
 import { lueClaudeDesign, lueContrast, lueSchema, lueTailwind } from './plugins/lue.js';
 import { lueMaterials } from './plugins/materials.js';
+import { lueFigma, lueJs } from './plugins/outputs.js';
 
 // Tokens that change with the theme context; everything else is context-free and emitted once, with the default.
 const THEMED = ['color.**', 'material.**', 'shadow.**'];
@@ -72,5 +74,7 @@ export default defineConfig({
     lueMaterials(),
     lueClaudeDesign({ variableName, exclude: PRIMITIVES }),
     lueTailwind({ variableName, exclude: PRIMITIVES }),
+    lueJs({ variableName, exclude: PRIMITIVES }),
+    lueFigma({ exclude: PRIMITIVES }),
   ],
 });

@@ -16,6 +16,8 @@ pnpm --filter @lue-ui/tokens build   # or: pnpm check-tokens (adds the Pass 2 ma
 | --- | --- |
 | `tokens.css` | `@layer lue.tokens`, minified by Lightning CSS with no targets. Dark on `:root`; light, `dark-more` and `light-more` follow the OS (`prefers-color-scheme`, `prefers-contrast`) unless an element sets `data-theme`; `data-contrast="more"` raises contrast within a set theme; `data-density` sets density. Durations are `0s` under reduced motion, and the target minimum is 44 px under a coarse pointer. Budget: 6 KB Brotli (fails the build) |
 | `tailwind.css` | The Tailwind v4 bridge: `@theme inline` names that point at our variables (`bg-surface`, `text-fg`, `text-fg-muted`, `border-border-strong`, `rounded-l`, `p-m`, `shadow-raised`, `font-display`, `text-heading-1`), so utilities follow `data-theme` |
+| `tokens.js`, `tokens.d.ts` | `tokens` (every public token as `var(--lue-…)`, typed by `TokenName`), `themes`, and `values` (literals per theme context; fluid sizes at 1280 px, rem as px) |
+| `figma/<context>.tokens.json` | One DTCG file per theme context, aliases resolved, to import as Figma variable modes (colour, dimension, number, font family and weight, duration) |
 | `claude-design/tokens.json` | The list shape the Claude Design System reads ([outputs](../../docs/design/tokens.md#outputs)): literal values only, per theme where they vary, fluid sizes at 1280 px |
 
 `tokens.css` starts with the layer order for everything Lue ships

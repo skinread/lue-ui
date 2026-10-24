@@ -11,7 +11,12 @@
   "exports": {
     "./tokens.css": "./dist/tokens.css",
     "./tailwind.css": "./dist/tailwind.css",
+    "./tokens.js": {
+      "types": "./dist/tokens.d.ts",
+      "default": "./dist/tokens.js"
+    },
     "./claude-design/tokens.json": "./dist/claude-design/tokens.json",
+    "./figma/*": "./dist/figma/*",
     "./resolver.json": "./src/lue.resolver.json",
     "./src/*": "./src/*"
   },
