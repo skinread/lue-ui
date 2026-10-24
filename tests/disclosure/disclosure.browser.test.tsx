@@ -7,7 +7,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
 import { Disclosure } from '@lue-ui/react';
-import { $, emulate, expectNoAxeViolations, frame, outline, resetMedia, resolveColor, tab } from '../support/browser.js';
+import { $, focusDocument, emulate, expectNoAxeViolations, frame, outline, resetMedia, resolveColor, tab } from '../support/browser.js';
 
 const caret = '<svg class="lue-icon" aria-hidden="true" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"></path></svg>';
 const html = (open = false) => `
@@ -35,6 +35,7 @@ describe('Disclosure', () => {
   it('opens and closes from the keyboard, and the caret turns', async () => {
     await emulate({ reducedMotion: 'reduce' });
     document.body.innerHTML = html();
+    focusDocument();
     await tab();
     expect(document.activeElement).toBe($('summary'));
     expect(getComputedStyle($('summary')).outlineStyle).toBe('solid');

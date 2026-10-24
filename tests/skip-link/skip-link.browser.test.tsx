@@ -7,18 +7,16 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
 import { SkipLink } from '@lue-ui/react';
-import { $, emulate, expectNoAxeViolations, frame, outline, resetMedia, resolveColor, tab } from '../support/browser.js';
+import { $, focusDocument, emulate, expectNoAxeViolations, frame, outline, resetMedia, resolveColor, tab } from '../support/browser.js';
 
 const html = '<a class="lue-skip-link" href="#main">Skip to main content</a>';
 const page = `${html}
 <header><nav aria-label="Site"><a href="#one" id="nav">Work</a></nav></header>
 <main id="main" tabindex="-1"><h1>Title</h1><a href="#two" id="first-in-main">First link in main</a></main>`;
 const skip = () => $('.lue-skip-link');
-/** The page as it loads: focus on the document, so the first Tab is the page's first stop. */
 const load = () => {
   document.body.innerHTML = page;
-  document.body.tabIndex = -1;
-  document.body.focus();
+  focusDocument();
 };
 
 afterEach(async () => {

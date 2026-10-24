@@ -26,6 +26,15 @@ export async function emulate(media: MediaEmulation): Promise<void> {
 export const resetMedia = (): Promise<void> =>
   emulate({ colorScheme: 'dark', contrast: 'no-preference', forcedColors: 'none', reducedMotion: 'no-preference' });
 
+/**
+ * Focus on the document itself, as on a page that has just loaded, so the next Tab is the page's first stop. Without
+ * it, Firefox can begin Tab outside the test's frame when the machine is busy.
+ */
+export function focusDocument(): void {
+  document.body.tabIndex = -1;
+  document.body.focus();
+}
+
 /** Tab as a keyboard user presses it. WebKit follows macOS, where Tab skips buttons unless Option is held. */
 export const tab = (): Promise<void> => (server.browser === 'webkit' ? userEvent.keyboard('{Alt>}{Tab}{/Alt}') : userEvent.tab());
 

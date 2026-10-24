@@ -5,7 +5,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
 import { VisuallyHidden } from '@lue-ui/react';
-import { $, expectNoAxeViolations, frame, outline, tab } from '../support/browser.js';
+import { $, focusDocument, expectNoAxeViolations, frame, outline, tab } from '../support/browser.js';
 
 const html = '<span class="lue-visually-hidden">, opens in a new tab</span>';
 
@@ -31,6 +31,7 @@ describe('Visually hidden', () => {
 
   it('shows while something inside it has focus', async () => {
     document.body.innerHTML = '<span class="lue-visually-hidden"><a href="#x" id="inner">Back to top</a></span>';
+    focusDocument();
     await tab();
     await frame();
     expect(document.activeElement).toBe($('#inner'));

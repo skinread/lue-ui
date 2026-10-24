@@ -6,7 +6,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
 import { Link } from '@lue-ui/react';
-import { $, emulate, expectNoAxeViolations, frame, outline, resetMedia, resolveColor, tab } from '../support/browser.js';
+import { $, focusDocument, emulate, expectNoAxeViolations, frame, outline, resetMedia, resolveColor, tab } from '../support/browser.js';
 
 const html = '<a class="lue-link" href="#statement" id="link">Accessibility statement</a>';
 const link = () => $('#link');
@@ -33,6 +33,7 @@ describe('Link', () => {
 
   it('shows the focus ring from the keyboard', async () => {
     document.body.innerHTML = `<p>${html}</p>`;
+    focusDocument();
     await tab();
     expect(document.activeElement).toBe(link());
     expect(getComputedStyle(link()).outlineStyle).toBe('solid');
