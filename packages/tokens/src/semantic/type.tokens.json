@@ -6,28 +6,31 @@
         "$type": "fontFamily",
         "$value": [
           "Epilogue",
+          "Epilogue Fallback",
           "system-ui",
           "sans-serif"
         ],
-        "$description": "Display and headings (SIL OFL; light 300 for display)."
+        "$description": "Display and headings (SIL OFL; light 300 for display). The metric-matched fallback face comes from @lue-ui/css/fonts.css."
       },
       "body": {
         "$type": "fontFamily",
         "$value": [
           "Figtree",
+          "Figtree Fallback",
           "system-ui",
           "sans-serif"
         ],
-        "$description": "Body text, labels and controls (SIL OFL)."
+        "$description": "Body text, labels and controls (SIL OFL). The metric-matched fallback face comes from @lue-ui/css/fonts.css."
       },
       "mono": {
         "$type": "fontFamily",
         "$value": [
           "Spline Sans Mono",
+          "Spline Sans Mono Fallback",
           "ui-monospace",
           "monospace"
         ],
-        "$description": "Code, and uppercase micro-labels (SIL OFL)."
+        "$description": "Code, and uppercase micro-labels (SIL OFL). The metric-matched fallback face comes from @lue-ui/css/fonts.css."
       }
     },
     "weight": {

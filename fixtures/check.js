@@ -1,6 +1,6 @@
 // Checks a consumer fixture's built CSS (ADR-0002, RFC-0001 §9): our CSS must come out of a consumer's pipeline
 // unlowered — the layer order intact, OKLCH colours, logical viewport units, zero-specificity theme selectors and
-// the registered angle all still there. Usage: node fixtures/check.js <build folder> [--tailwind]
+// the registered angle all still there. Usage: node fixtures/check.js <build folder> [--tailwind] [--fonts]
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -41,6 +41,14 @@ if (flags.includes('--tailwind')) {
     ['a Tailwind utility on our variables', /\.bg-surface\{background-color:var\(--lue-color-bg-surface\)/],
     ['Lue inside Tailwind\'s components layer', /@layercomponents\{@layerlue\.reset/],
   );
+}
+
+if (flags.includes('--fonts')) {
+  // Every font URL in the built CSS must resolve to a file the pipeline emitted.
+  const urls = [...css.matchAll(/url\(["']?([^"')]+\.woff2)["']?\)/g)].map((m) => m[1]);
+  const resolve = (f, u) => (u.startsWith('/') ? path.join(dir, u) : path.resolve(path.dirname(f), u));
+  const missing = urls.filter((u) => !files.some((f) => fs.existsSync(resolve(f, u))));
+  checks.push(['the self-hosted fonts', () => urls.length >= 4 && missing.length === 0]);
 }
 
 let failed = 0;

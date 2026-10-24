@@ -5,7 +5,7 @@
   "description": "Consumer fixture: Vite with its default CSS pipeline",
   "scripts": {
     "build": "vite build",
-    "check": "node ../check.js dist"
+    "check": "node ../check.js dist --fonts"
   },
   "dependencies": {
     "@lue-ui/css": "workspace:*",

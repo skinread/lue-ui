@@ -1,6 +1,7 @@
 import type { Preview } from '@storybook/react-vite';
 import '@lue-ui/tokens/tokens.css';
 import '../../../packages/css/src/lue.css';
+import '../../../packages/css/src/fonts.css';
 
 const preview: Preview = {
   parameters: {

@@ -6,6 +6,7 @@ The package (`@lue-ui/css`) is private for now.
 ```css
 @import "@lue-ui/tokens/tokens.css";
 @import "@lue-ui/css";
+@import "@lue-ui/css/fonts.css"; /* optional: the self-hosted fonts */
 ```
 
 With Tailwind v4, add the bridge and put Lue in Tailwind's components layer so utilities still win:
@@ -41,6 +42,7 @@ never changes which rules win:
 | `base.css` | Element defaults (opt-in) |
 | `components/*.css` | One file per component: button, field, dialog, menu, alert, toast, tag, disclosure, steps, breadcrumb, pagination, card, and the shared chrome ring |
 | `blocks.css` | Portfolio and editorial blocks |
+| `fonts.css`, `fonts/` | Opt-in. Epilogue, Figtree (and italic) and Spline Sans Mono as Latin woff2 (SIL OFL, licences in `fonts/`, 111 KB; budget 130 KB), each with a metric-matched fallback face (Arial / Courier New or their Liberation clones) so nothing shifts while they load |
 | `materials.css` | Glass, ambient light, satin, metal tiles, chrome text |
 
 ## Where it came from

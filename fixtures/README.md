@@ -10,7 +10,7 @@ pnpm build && pnpm fixtures
 
 | Fixture | Pipeline | Recipe |
 | --- | --- | --- |
-| `vite` | Vite 8 defaults (Lightning CSS minify) | `import '@lue-ui/tokens/tokens.css'; import '@lue-ui/css';` |
+| `vite` | Vite 8 defaults (Lightning CSS minify) | `import '@lue-ui/tokens/tokens.css'; import '@lue-ui/css'; import '@lue-ui/css/fonts.css';` (with `--fonts`, the check also wants every font URL to resolve to an emitted file) |
 | `tailwind` | Vite 8 + `@tailwindcss/vite` 4 | `@import "tailwindcss"; @import "@lue-ui/tokens/tokens.css"; @import "@lue-ui/tokens/tailwind.css"; @import "@lue-ui/css" layer(components);` |
 | `next` | Next 16 App Router, Turbopack | The Vite recipe in `app/layout.tsx`, plus `"browserslist": ["baseline newly available"]`. Also renders every React adapter from `@lue-ui/react`'s built `dist`: a server component and a `'use client'` island, so a server-unsafe import or a lost `'use client'` fails `next build` |
 

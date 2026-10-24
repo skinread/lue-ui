@@ -1,7 +1,9 @@
 // Builds @lue-ui/css with Lightning CSS and no targets, so nothing is lowered or rewritten (ADR-0002):
 //   dist/lue.css            src/lue.css with its @imports bundled
-//   dist/<file>.css         every other source file on its own (base.css, components/*.css, blocks, materials, contrast)
-// Everything is minified. Prints Brotli sizes against the RFC-0001 §9 budgets and fails when one is passed.
+//   dist/<file>.css         every other source file on its own (base.css, components/*.css, blocks, materials, fonts)
+//   dist/fonts/             the woff2 files and their OFL licences, which fonts.css points at
+// Everything is minified. Prints Brotli sizes against the RFC-0001 §9 budgets (and the fonts' 130 KB) and fails when
+// one is passed.
 import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
@@ -12,7 +14,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = path.join(ROOT, 'src');
 const DIST = path.join(ROOT, 'dist');
 const KB = 1024;
-const BUDGET = { component: 1.5 * KB, total: 30 * KB };
+const BUDGET = { component: 1.5 * KB, total: 30 * KB, fonts: 130 * KB };
 
 // The full layer order, prepended to every file after minifying (the minifier drops names a file doesn't use).
 const LAYERS = '@layer lue.reset, lue.tokens, lue.base, lue.layout, lue.components, lue.blocks, lue.materials, lue.contrast, lue.utilities;';
@@ -41,6 +43,11 @@ for (const rel of files) {
     if (size > BUDGET.component) over.push(`${rel} is ${fmt(size)} (budget ${fmt(BUDGET.component)})`);
   }
 }
+fs.cpSync(path.join(SRC, 'fonts'), path.join(DIST, 'fonts'), { recursive: true });
+const fontBytes = fs.readdirSync(path.join(SRC, 'fonts')).filter((f) => f.endsWith('.woff2')).reduce((n, f) => n + fs.statSync(path.join(SRC, 'fonts', f)).size, 0);
+console.log(`fonts: ${fmt(fontBytes)} woff2 (budget ${fmt(BUDGET.fonts)})`);
+if (fontBytes > BUDGET.fonts) over.push(`fonts are ${fmt(fontBytes)} (budget ${fmt(BUDGET.fonts)})`);
+
 const lue = report(bundle({ filename: path.join(SRC, 'lue.css'), minify: true }), 'lue.css');
 write('lue.css', lue);
 const total = brotli(lue);
