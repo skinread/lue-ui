@@ -10,7 +10,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
 import { Button, Dialog, DialogTrigger } from '@lue-ui/react';
-import { $, emulate, expectNoAxeViolations, frame, outline, resetMedia, resolveColor, tab } from '../support/browser.js';
+import { $, emulate, expectNoAxeViolations, frame, outline, resetMedia, resolveColor, shiftTab, tab } from '../support/browser.js';
 
 const html = `
 <main>
@@ -144,5 +144,18 @@ describe('Dialog', () => {
     expect(warn.mock.calls.filter(([m]) => String(m).includes('onOpenChange'))).toHaveLength(1);
     await act(async () => root.unmount());
     warn.mockRestore();
+  });
+});
+
+// Every key in the contract's keyboard map, with real input (tools/check-contracts.mjs checks each is pressed here).
+describe('Dialog keyboard map', () => {
+  it('Shift+Tab moves back within it', async () => {
+    document.body.innerHTML = html;
+    await openByKeyboard();
+    expect(document.activeElement).toBe($('#cancel'));
+    await tab();
+    expect(document.activeElement).toBe($('#delete'));
+    await shiftTab();
+    expect(document.activeElement).toBe($('#cancel'));
   });
 });

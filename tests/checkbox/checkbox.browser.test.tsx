@@ -9,7 +9,7 @@ import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
 import { installValidate } from '@lue-ui/elements';
 import { Checkbox, ChoiceGroup, ErrorSummary, useValidation } from '@lue-ui/react';
-import { $, emulate, expectNoAxeViolations, frame, outline, resetMedia, resolveColor } from '../support/browser.js';
+import { $, emulate, expectNoAxeViolations, focusDocument, frame, outline, resetMedia, resolveColor, tab } from '../support/browser.js';
 
 const MESSAGE = 'Agree to the terms to continue';
 const group = (error = '') => `
@@ -119,5 +119,17 @@ describe('Checkbox', () => {
     await emulate({ forcedColors: 'active', reducedMotion: 'reduce' });
     expect(getComputedStyle($('#gift')).backgroundColor).toBe(resolveColor('SelectedItem'));
     expect(getComputedStyle($('#gift'), '::after').borderBlockEndColor).toBe(resolveColor('SelectedItemText'));
+  });
+});
+
+// Every key in the contract's keyboard map, with real input (tools/check-contracts.mjs checks each is pressed here).
+describe('Checkbox keyboard map', () => {
+  it('Tab reaches each checkbox in turn', async () => {
+    document.body.innerHTML = group();
+    focusDocument();
+    await tab();
+    expect(document.activeElement).toBe($('#gift'));
+    await tab();
+    expect(document.activeElement).toBe($('#note'));
   });
 });

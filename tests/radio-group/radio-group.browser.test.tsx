@@ -123,3 +123,18 @@ describe('Radio group', () => {
     expect(getComputedStyle(radio('express'), '::after').width).toBe('8px');
   });
 });
+
+// Every key in the contract's keyboard map, with real input (tools/check-contracts.mjs checks each is pressed here).
+describe('Radio group keyboard map', () => {
+  it('Space checks the focused radio; ArrowRight and ArrowLeft move the selection', async () => {
+    document.body.innerHTML = group('', false);
+    radio('standard').focus();
+    await userEvent.keyboard(' ');
+    expect(radio('standard').checked).toBe(true);
+    await userEvent.keyboard('{ArrowRight}');
+    expect(radio('express').checked).toBe(true);
+    await userEvent.keyboard('{ArrowLeft}');
+    expect(radio('standard').checked).toBe(true);
+    expect(document.activeElement).toBe(radio('standard'));
+  });
+});

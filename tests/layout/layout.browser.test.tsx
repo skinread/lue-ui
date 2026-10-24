@@ -6,7 +6,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
 import { Center, Cluster, Grid, Sidebar, Stack, Switcher } from '@lue-ui/react';
-import { $, expectNoAxeViolations, frame, outline } from '../support/browser.js';
+import { $, expectNoAxeViolations, frame, outline, tab } from '../support/browser.js';
 
 const box = (id: string, width = '') => `<div id="${id}" style="block-size:20px${width ? `;inline-size:${width}` : ''}"></div>`;
 const rect = (id: string) => $(`#${id}`).getBoundingClientRect();
@@ -99,5 +99,15 @@ describe('Layout primitives', () => {
   it('pass axe', async () => {
     await mount(600, '<main class="lue-center"><div class="lue-stack"><h1>Title</h1><ul class="lue-cluster"><li>One</li><li>Two</li></ul></div></main>');
     await expectNoAxeViolations(document.body);
+  });
+});
+
+// Every key in the contract's keyboard map, with real input (tools/check-contracts.mjs checks each is pressed here).
+describe('Layout keyboard map', () => {
+  it('adds no Tab stops', async () => {
+    document.body.innerHTML = `<button type="button" class="lue-button" id="a">A</button><div class="lue-stack"><div class="lue-cluster"><p>Text</p></div><div class="lue-sidebar"><p>Side</p><p>Main</p></div></div><button type="button" class="lue-button" id="b">B</button>`;
+    $('#a').focus();
+    await tab();
+    expect(document.activeElement).toBe($('#b'));
   });
 });

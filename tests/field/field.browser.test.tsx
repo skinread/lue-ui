@@ -9,7 +9,7 @@ import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
 import { installValidate } from '@lue-ui/elements';
 import { ErrorSummary, Field, TextInput, useValidation } from '@lue-ui/react';
-import { $, expectNoAxeViolations, frame, outline } from '../support/browser.js';
+import { $, expectNoAxeViolations, frame, outline, tab } from '../support/browser.js';
 
 const NAME = 'Enter your full name';
 const EMAIL_MISSING = 'Enter your email address';
@@ -227,5 +227,27 @@ describe('React', () => {
       expect(valid).toEqual(['ada@example.com']);
       expect(visible($('#summary'))).toBe(false);
     });
+  });
+});
+
+// Every key in the contract's keyboard map, with real input (tools/check-contracts.mjs checks each is pressed here).
+describe('Field keyboard map', () => {
+  it('Enter submits; Tab goes from the summary to its links; Enter on a link focuses its control', async () => {
+    document.body.innerHTML = markup();
+    uninstall = installValidate(document);
+    $('#name').focus();
+    await userEvent.keyboard('{Enter}');
+    await frame();
+    expect(document.activeElement).toBe($('#summary'));
+    expect(submits).toHaveLength(0);
+    await tab();
+    expect(document.activeElement).toBe($('#summary a'));
+    await userEvent.keyboard('{Enter}');
+    expect(document.activeElement).toBe($('#name'));
+    await userEvent.fill($('#name'), 'Ada Lovelace');
+    await userEvent.fill($('#email'), 'ada@example.com');
+    $('#email').focus();
+    await userEvent.keyboard('{Enter}');
+    expect(submits).toHaveLength(1);
   });
 });

@@ -6,7 +6,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
 import { Link } from '@lue-ui/react';
-import { $, focusDocument, emulate, expectNoAxeViolations, frame, outline, resetMedia, resolveColor, tab } from '../support/browser.js';
+import { $, emulate, expectNoAxeViolations, focusDocument, frame, outline, resetMedia, resolveColor, tab } from '../support/browser.js';
 
 const html = '<a class="lue-link" href="#statement" id="link">Accessibility statement</a>';
 const link = () => $('#link');
@@ -51,5 +51,17 @@ describe('Link', () => {
     document.body.innerHTML = `<p>${html}</p>`;
     await emulate({ forcedColors: 'active' });
     expect(getComputedStyle(link()).color).toBe(resolveColor('LinkText'));
+  });
+});
+
+// Every key in the contract's keyboard map, with real input (tools/check-contracts.mjs checks each is pressed here).
+describe('Link keyboard map', () => {
+  it('Enter follows it', async () => {
+    document.body.innerHTML = `<p>${html}</p><h2 id="statement">Statement</h2>`;
+    link().focus();
+    await userEvent.keyboard('{Enter}');
+    await frame();
+    expect(location.hash).toBe('#statement');
+    history.replaceState(null, '', location.pathname + location.search);
   });
 });

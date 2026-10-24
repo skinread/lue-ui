@@ -7,7 +7,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
 import { Icon } from '@lue-ui/react';
-import { $, emulate, expectNoAxeViolations, frame, outline, resetMedia, resolveColor } from '../support/browser.js';
+import { $, emulate, expectNoAxeViolations, frame, outline, resetMedia, resolveColor, tab } from '../support/browser.js';
 
 const path = '<path d="M2 8h12"></path>';
 const decorative = `<svg class="lue-icon" viewBox="0 0 16 16" aria-hidden="true">${path}</svg>`;
@@ -60,5 +60,15 @@ describe('Icon', () => {
     document.body.innerHTML = `<p>${decorative}</p>`;
     await emulate({ forcedColors: 'active' });
     expect(getComputedStyle($('svg')).fill).toBe(resolveColor('CanvasText'));
+  });
+});
+
+// Every key in the contract's keyboard map, with real input (tools/check-contracts.mjs checks each is pressed here).
+describe('Icon keyboard map', () => {
+  it('is never a Tab stop, decorative or labelled', async () => {
+    document.body.innerHTML = `<button type="button" class="lue-button" id="a">A</button>${decorative}${labelled}<button type="button" class="lue-button" id="b">B</button>`;
+    $('#a').focus();
+    await tab();
+    expect(document.activeElement).toBe($('#b'));
   });
 });

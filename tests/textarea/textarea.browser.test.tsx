@@ -7,7 +7,7 @@ import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
 import { installValidate } from '@lue-ui/elements';
 import { Field, Textarea } from '@lue-ui/react';
-import { $, expectNoAxeViolations, frame, outline } from '../support/browser.js';
+import { $, expectNoAxeViolations, frame, outline, tab } from '../support/browser.js';
 
 const MESSAGE = 'Tell us about your project';
 const field = (error = '') => `
@@ -65,4 +65,16 @@ describe('Textarea', () => {
       await expectNoAxeViolations(document.body);
     });
   }
+});
+
+// Every key in the contract's keyboard map, with real input (tools/check-contracts.mjs checks each is pressed here).
+describe('Textarea keyboard map', () => {
+  it('Enter adds a line; Tab leaves', async () => {
+    document.body.innerHTML = `${field()}<button type="button" class="lue-button" id="after">After</button>`;
+    textarea().focus();
+    await userEvent.keyboard('Side gate{Enter}Code 1234');
+    expect(textarea().value).toBe('Side gate\nCode 1234');
+    await tab();
+    expect(document.activeElement).toBe($('#after'));
+  });
 });

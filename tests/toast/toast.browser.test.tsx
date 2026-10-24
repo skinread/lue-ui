@@ -9,7 +9,7 @@ import '../../packages/css/src/lue.css';
 import '@lue-ui/elements/define';
 import type { LueToastRegion } from '@lue-ui/elements';
 import { showToast, ToastRegion } from '@lue-ui/react';
-import { $, emulate, expectNoAxeViolations, frame, outline, resetMedia } from '../support/browser.js';
+import { $, emulate, expectNoAxeViolations, frame, outline, resetMedia, tab } from '../support/browser.js';
 
 const region = () => $<LueToastRegion>('lue-toast-region');
 const toasts = () => [...document.querySelectorAll('.lue-toast')].map((t) => t.querySelector('.lue-toast__message')!.textContent);
@@ -121,4 +121,18 @@ describe('Toast', () => {
       await expectNoAxeViolations(document.body);
     });
   }
+});
+
+// Every key in the contract's keyboard map, with real input (tools/check-contracts.mjs checks each is pressed here).
+describe('Toast keyboard map', () => {
+  it('Tab reaches a toast\'s buttons after the page', async () => {
+    await mount();
+    region().show('Removed', { action: { label: 'Undo', onAction: () => {} } });
+    await frame();
+    $('#save').focus();
+    await tab();
+    expect(document.activeElement?.textContent).toBe('Undo');
+    await tab();
+    expect(document.activeElement?.getAttribute('aria-label')).toBe('Dismiss');
+  });
 });

@@ -1,6 +1,6 @@
 // Checks every component contract in apps/docs/contracts (RFC-0001 §6): it matches contract.schema.json, every token
-// it names exists in the built tokens.css, every class in its anatomy exists in packages/css/src, and the component
-// has its browser tests (tests/<name>/) and stories. Run by `pnpm check`, after the token build.
+// it names exists in the built tokens.css, every class in its anatomy exists in packages/css/src, the component has
+// its browser tests (tests/<name>/) and stories, and those tests press every key its keyboard map names. Run by `pnpm check`, after the token build.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -26,6 +26,28 @@ function classes(node, out = new Set()) {
   return out;
 }
 
+// Contracts → tests (RFC-0001 §6): each key a contract's keyboard map names must be pressed, with real input, in the
+// component's tests (tests/<name>/, or any test file that names its contract). Descriptive entries ("typing", "a
+// printable character") aren't key names and aren't checked.
+const PRESSED = {
+  Tab: /\btab\(\)|\{Tab\}/,
+  'Shift+Tab': /\bshiftTab\(\)|\{Shift>\}[^']*\{Tab\}/,
+  Enter: /\{Enter\}/,
+  Space: /keyboard\(' '\)|\{Space\}/,
+  Escape: /\{Escape\}/,
+  ArrowDown: /\{ArrowDown\}/,
+  ArrowUp: /\{ArrowUp\}/,
+  ArrowLeft: /\{ArrowLeft\}/,
+  ArrowRight: /\{ArrowRight\}/,
+  Home: /\{Home\}/,
+  End: /\{End\}/,
+  PageUp: /\{PageUp\}/,
+  PageDown: /\{PageDown\}/,
+  'Alt+ArrowDown': /\{Alt>\}\{ArrowDown\}/,
+};
+const testsDir = path.join(ROOT, 'tests');
+const testFiles = fs.readdirSync(testsDir, { recursive: true }).filter((f) => /\.tsx?$/.test(f) && fs.statSync(path.join(testsDir, f)).isFile()).map((f) => ({ file: f, source: fs.readFileSync(path.join(testsDir, f), 'utf8') }));
+
 const problems = [];
 const files = fs.readdirSync(DIR).filter((f) => f.endsWith('.json') && f !== 'contract.schema.json');
 for (const file of files) {
@@ -41,6 +63,10 @@ for (const file of files) {
   }
   if (!fs.existsSync(path.join(ROOT, 'tests', id))) problems.push(`${file}: no browser tests in tests/${id}/`);
   if (!fs.existsSync(path.join(ROOT, 'apps/docs/stories', `${id}.stories.tsx`))) problems.push(`${file}: no stories in apps/docs/stories/${id}.stories.tsx`);
+  const own = testFiles.filter((t) => t.file.startsWith(`${id}${path.sep}`) || t.source.includes(`apps/docs/contracts/${id}.json`)).map((t) => t.source).join('\n');
+  for (const key of new Set((contract.a11y?.keyboard ?? []).flatMap((entry) => entry.keys))) {
+    if (PRESSED[key] && !PRESSED[key].test(own)) problems.push(`${file}: the keyboard map names ${key}, but no test presses it`);
+  }
 }
 for (const p of problems) console.error(`contracts: ${p}`);
 console.log(`${files.length} contracts · ${problems.length} problems`);

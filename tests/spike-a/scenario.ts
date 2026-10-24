@@ -1,4 +1,6 @@
 // The behaviours Spike A must prove in every engine and on every path (HTML, React define-before, React define-after).
+// It presses the keys in apps/docs/contracts/menu.json and apps/docs/contracts/dialog.json that tests/menu and
+// tests/dialog don't (tools/check-contracts.mjs reads both).
 import { expect } from 'vitest';
 import { server, userEvent } from 'vitest/browser';
 import axe from 'axe-core';

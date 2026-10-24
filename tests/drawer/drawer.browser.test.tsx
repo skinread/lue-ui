@@ -7,7 +7,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
 import { DialogTrigger, Drawer } from '@lue-ui/react';
-import { $, emulate, expectNoAxeViolations, frame, outline, resetMedia } from '../support/browser.js';
+import { $, emulate, expectNoAxeViolations, frame, outline, resetMedia, tab } from '../support/browser.js';
 
 const html = (side = 'inline-end') => `
 <button type="button" class="lue-button" command="show-modal" commandfor="filters" id="open">Filters</button>
@@ -88,4 +88,15 @@ describe('Drawer', () => {
       await expectNoAxeViolations(document.body);
     });
   }
+});
+
+// Every key in the contract's keyboard map, with real input (tools/check-contracts.mjs checks each is pressed here).
+describe('Drawer keyboard map', () => {
+  it('Tab moves between its controls', async () => {
+    document.body.innerHTML = `<main>${html().replace('<button type="submit" class="lue-button" autofocus="">Done</button>', '<button type="submit" class="lue-button" autofocus="" id="done">Done</button><button type="submit" class="lue-button" id="reset">Reset</button>')}</main>`;
+    await open();
+    expect(document.activeElement).toBe($('#done'));
+    await tab();
+    expect(document.activeElement).toBe($('#reset'));
+  });
 });

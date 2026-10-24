@@ -7,7 +7,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
 import { Alert } from '@lue-ui/react';
-import { $, emulate, expectNoAxeViolations, outline, resetMedia, resolveColor } from '../support/browser.js';
+import { $, emulate, expectNoAxeViolations, outline, resetMedia, resolveColor, tab } from '../support/browser.js';
 
 const icon = '<svg class="lue-icon" aria-hidden="true" viewBox="0 0 16 16"><path d="M8 4v5M8 11v1"></path></svg>';
 const alert = (tone: string, word: string, role = '') => `
@@ -60,5 +60,15 @@ describe('Alert', () => {
     expect(style.borderBlockStartColor).toBe(resolveColor('CanvasText'));
     expect(style.borderBlockStartStyle).toBe('solid');
     expect(style.backgroundColor).toBe(resolveColor('Canvas'));
+  });
+});
+
+// Every key in the contract's keyboard map, with real input (tools/check-contracts.mjs checks each is pressed here).
+describe('Alert keyboard map', () => {
+  it('takes no focus itself: Tab goes straight to a link inside it', async () => {
+    document.body.innerHTML = `<button type="button" class="lue-button" id="before">Before</button>${alert('warning', 'Warning').replace('Orders placed today go out on Monday.', '<a href="#delivery" id="inside">Delivery times</a>')}`;
+    $('#before').focus();
+    await tab();
+    expect(document.activeElement).toBe($('#inside'));
   });
 });

@@ -6,7 +6,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
 import { Popover, PopoverTrigger } from '@lue-ui/react';
-import { $, emulate, expectNoAxeViolations, frame, outline, resetMedia, resolveColor } from '../support/browser.js';
+import { $, emulate, expectNoAxeViolations, frame, outline, resetMedia, resolveColor, tab } from '../support/browser.js';
 
 const html = `
 <button type="button" class="lue-button" command="toggle-popover" commandfor="share" id="trigger">Share</button>
@@ -86,5 +86,18 @@ describe('Popover', () => {
     const style = getComputedStyle(popover());
     expect(style.backgroundColor).toBe(resolveColor('Canvas'));
     expect(style.borderBlockStartColor).toBe(resolveColor('CanvasText'));
+  });
+});
+
+// Every key in the contract's keyboard map, with real input (tools/check-contracts.mjs checks each is pressed here).
+describe('Popover keyboard map', () => {
+  it('Space opens it; Tab moves into it from its button', async () => {
+    document.body.innerHTML = `<main>${html}</main>`;
+    $('#trigger').focus();
+    await userEvent.keyboard(' ');
+    await frame();
+    expect(open()).toBe(true);
+    await tab();
+    expect(document.activeElement).toBe($('#inside'));
   });
 });

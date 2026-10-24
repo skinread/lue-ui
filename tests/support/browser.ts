@@ -37,6 +37,9 @@ export function focusDocument(): void {
 
 /** Tab as a keyboard user presses it. WebKit follows macOS, where Tab skips buttons unless Option is held. */
 export const tab = (): Promise<void> => (server.browser === 'webkit' ? userEvent.keyboard('{Alt>}{Tab}{/Alt}') : userEvent.tab());
+/** Shift+Tab, likewise. */
+export const shiftTab = (): Promise<void> =>
+  userEvent.keyboard(server.browser === 'webkit' ? '{Shift>}{Alt>}{Tab}{/Alt}{/Shift}' : '{Shift>}{Tab}{/Shift}');
 
 export function $<T extends Element = HTMLElement>(selector: string, root: ParentNode = document): T {
   const element = root.querySelector<T>(selector);

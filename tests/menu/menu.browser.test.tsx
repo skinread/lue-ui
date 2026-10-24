@@ -6,7 +6,7 @@ import { server, userEvent } from 'vitest/browser';
 import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
 import '@lue-ui/elements/define';
-import { $, emulate, expectNoAxeViolations, frame, resetMedia, resolveColor } from '../support/browser.js';
+import { $, emulate, expectNoAxeViolations, frame, resetMedia, resolveColor, tab } from '../support/browser.js';
 
 const html = `
 <main>
@@ -103,5 +103,38 @@ describe('Menu', () => {
     const item = document.activeElement as HTMLElement;
     expect(getComputedStyle(item).backgroundColor).toBe(resolveColor('Highlight'));
     expect(getComputedStyle(item).color).toBe(resolveColor('HighlightText'));
+  });
+});
+
+// Every key in the contract's keyboard map, with real input (tools/check-contracts.mjs checks each is pressed here).
+describe('Menu keyboard map', () => {
+  it('Space on its button opens it at the first item', async () => {
+    $('#trigger').focus();
+    await userEvent.keyboard(' ');
+    await frame();
+    expect(focusedText()).toBe('Newest first');
+  });
+
+  it('PageDown and PageUp go to the last and first items; Space activates and closes', async () => {
+    $('#trigger').focus();
+    await userEvent.keyboard('{ArrowDown}');
+    await frame();
+    await userEvent.keyboard('{PageDown}');
+    expect(focusedText()).toBe('Clear sorting');
+    await userEvent.keyboard('{PageUp}');
+    expect(focusedText()).toBe('Newest first');
+    await userEvent.keyboard(' ');
+    await frame();
+    expect(open()).toBe(false);
+  });
+
+  it('Tab closes it and moves on from its button', async () => {
+    $('#trigger').focus();
+    await userEvent.keyboard('{ArrowDown}');
+    await frame();
+    await tab();
+    await frame();
+    expect(open()).toBe(false);
+    expect(document.activeElement).toBe($('#other'));
   });
 });

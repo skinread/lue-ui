@@ -55,11 +55,17 @@
       {
         "keys": [
           "Enter",
-          "Space",
-          "Alt+ArrowDown"
+          "Space"
         ],
         "action": "Open the picker",
         "where": "customisable select (Chromium, Safari 27)"
+      },
+      {
+        "keys": [
+          "Alt+ArrowDown"
+        ],
+        "action": "Open the picker",
+        "where": "customisable select in Chromium (not WebKit, which follows macOS; checked 2026-10-24, WebKit 27.2)"
       },
       {
         "keys": [

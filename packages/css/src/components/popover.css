@@ -8,6 +8,8 @@
     gap: var(--lue-space-2xs);
     inline-size: min(22rem, 100vi - 2rem);
     margin: 0;
+    /* Not the popover default (auto): the ring overflows by its width, and Firefox makes a scroll container a Tab stop. */
+    overflow: visible;
     padding: var(--lue-space-s);
     border-radius: var(--lue-radius-m);
     color: var(--lue-color-fg-default);

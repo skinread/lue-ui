@@ -6,7 +6,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
 import { Accordion, Disclosure } from '@lue-ui/react';
-import { $, focusDocument, expectNoAxeViolations, frame, outline, tab } from '../support/browser.js';
+import { $, expectNoAxeViolations, focusDocument, frame, outline, tab } from '../support/browser.js';
 
 const caret = '<svg class="lue-icon" aria-hidden="true" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"></path></svg>';
 const items = [['delivery', 'How long does delivery take?', '3 to 5 days.'], ['returns', 'Can I return it?', 'Yes, within 30 days.']];
@@ -63,4 +63,19 @@ describe('Accordion', () => {
       await expectNoAxeViolations(document.body);
     });
   }
+});
+
+// Every key in the contract's keyboard map, with real input (tools/check-contracts.mjs checks each is pressed here).
+describe('Accordion keyboard map', () => {
+  it('Space opens a summary, and closes it again', async () => {
+    document.body.innerHTML = html;
+    focusDocument();
+    await tab();
+    await userEvent.keyboard(' ');
+    await frame();
+    expect(details('delivery').open).toBe(true);
+    await userEvent.keyboard(' ');
+    await frame();
+    expect(details('delivery').open).toBe(false);
+  });
 });

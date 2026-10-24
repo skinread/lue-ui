@@ -50,3 +50,14 @@ describe('Toggletip', () => {
     });
   }
 });
+
+// Every key in the contract's keyboard map, with real input (tools/check-contracts.mjs checks each is pressed here).
+describe('Toggletip keyboard map', () => {
+  it('Space shows the help', async () => {
+    document.body.innerHTML = `<main><p>Delivery ${html}</p></main>`;
+    $('button').focus();
+    await userEvent.keyboard(' ');
+    await frame();
+    expect(tip().matches(':popover-open')).toBe(true);
+  });
+});

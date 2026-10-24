@@ -125,3 +125,26 @@ describe('Select', () => {
     expect(style.borderTopWidth).toBe('2px');
   });
 });
+
+// Every key in the contract's keyboard map, with real input (tools/check-contracts.mjs checks each is pressed here).
+// The native picker's keys vary by OS and aren't automatable; the customisable picker's are.
+describe('Select keyboard map', () => {
+  it.runIf(CSS.supports('appearance', 'base-select'))('Space and Alt+ArrowDown (Chromium) open it, ArrowUp moves, Escape closes without choosing', async () => {
+    document.body.innerHTML = field();
+    select().focus();
+    await userEvent.keyboard(' ');
+    await frame();
+    expect(select().matches(':open')).toBe(true);
+    await userEvent.keyboard('{Escape}');
+    await frame();
+    expect(select().matches(':open')).toBe(false);
+    expect(select().value).toBe('');
+    // Alt+ArrowDown is Chromium's (Windows and Linux convention); WebKit follows macOS and opens with Space or Enter.
+    await userEvent.keyboard(server.browser === 'webkit' ? ' ' : '{Alt>}{ArrowDown}{/Alt}');
+    await frame();
+    expect(select().matches(':open')).toBe(true);
+    await userEvent.keyboard('{ArrowDown}{ArrowDown}{ArrowUp}{Enter}');
+    await frame();
+    expect(select().value).toBe('standard');
+  });
+});
