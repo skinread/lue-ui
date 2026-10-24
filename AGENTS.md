@@ -20,8 +20,8 @@ primary reference for agents working in this repo.
   shared within the organisation or made public. The library itself is open source and will be published to npm and
   GitHub — but creating orgs, pushing and publishing are outward-facing, so ask first.
 - **Git:** work directly on `develop`, no feature branches. Commit as you go, in logical units with conventional
-  messages (`docs:`, `feat(tools):`, `chore:`). `main` holds only the initial commit. There's no remote; don't push
-  unless asked.
+  messages (`docs:`, `feat(tools):`, `chore:`). `main` holds only the initial commit. The remote is `origin` (private:
+  `skinread/lue-ui` on GitHub, added 2026-10-24); push `develop` only when asked.
 
 ## Read first
 

@@ -83,8 +83,9 @@
 1. **Firefox tests can't run from the Claude app.** macOS blocks it from reading `~/Library/Application Support/Firefox`,
    which Playwright's Firefox shares with the installed Firefox. Run `pnpm test --project firefox` from your own
    terminal (macOS may ask to allow access to other apps' data), or let CI run it once the repo is on GitHub.
-2. **When to put the repo on GitHub** — CI (`.github/workflows/ci.yml`) is ready but has never run. Creating the
-   repository and pushing are yours to approve.
+2. **CI's first run** — the repo is on GitHub as a **private** repository, `skinread/lue-ui` (2026-10-24), so
+   `.github/workflows/ci.yml` runs on the first push. Check the Firefox job in particular. Making the repo public is yours
+   to decide.
 3. **Spike C** needs you to start `/design-sync` (it's a skill the user runs).
 
 Lower-priority open questions are listed at the end of [RFC-0001](docs/architecture/rfc-0001-architecture.md#open-questions).
