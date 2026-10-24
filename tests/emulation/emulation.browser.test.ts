@@ -2,31 +2,16 @@
 // scheme, reduced motion, 320 px reflow and RTL. Uses the built tokens (pnpm test builds them first) and the CSS
 // sources. Forced colours runs in Chromium and Firefox only: Playwright's WebKit reports it but doesn't apply it.
 import { afterEach, beforeAll, describe, expect, it } from 'vitest';
-import { commands, page, server } from 'vitest/browser';
+import { page, server } from 'vitest/browser';
 import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
-import type { MediaEmulation } from './commands.js';
+import { emulate, frame, resetMedia } from '../support/browser.js';
 import { html } from './fixture.js';
-
-declare module 'vitest/browser' {
-  interface BrowserCommands {
-    emulateMedia: (media: MediaEmulation) => Promise<void>;
-  }
-}
-
-// Emulate, then wait for the next frames so every engine has restyled. Playwright's Firefox updates matchMedia for
-// `contrast` but doesn't re-evaluate stylesheets already in the page (a freshly inserted sheet does see it), so there
-// the test re-inserts every <style> — a harness gap, not a browser one (checked 2026-10-24, Playwright 1.64).
-async function emulate(media: MediaEmulation): Promise<void> {
-  await commands.emulateMedia(media);
-  if (server.browser === 'firefox') for (const el of document.querySelectorAll('style')) el.parentNode!.append(el);
-  await frame();
-}
 
 const $ = (selector: string) => document.querySelector<HTMLElement>(selector)!;
 const style = (selector: string, pseudo?: string) => getComputedStyle($(selector), pseudo);
 const token = (name: string, el: Element = document.documentElement) => getComputedStyle(el).getPropertyValue(name).trim();
-const reset = () => emulate({ colorScheme: 'dark', contrast: 'no-preference', forcedColors: 'none', reducedMotion: 'no-preference' });
+const reset = resetMedia;
 
 beforeAll(() => {
   document.body.innerHTML = html;
@@ -161,4 +146,3 @@ function alpha(color: string): number {
   return m ? parseFloat(m[1] ?? m[2] ?? '1') : 1;
 }
 const seconds = (time: string) => (time.endsWith('ms') ? parseFloat(time) / 1000 : parseFloat(time));
-const frame = () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));

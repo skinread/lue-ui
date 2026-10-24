@@ -59,4 +59,4 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps ${{ matrix.browser }}
-      - run: pnpm test --project ${{ matrix.browser }}
+      - run: pnpm test --project "*(${{ matrix.browser }})"

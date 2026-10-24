@@ -11,7 +11,7 @@
   "scripts": {
     "build": "pnpm -r --filter \"./packages/*\" run build",
     "lint": "eslint --no-error-on-unmatched-pattern .",
-    "typecheck": "tsc -p tsconfig.packages.json && tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.packages.json && tsc -p tsconfig.json && tsc -p apps/docs",
     "check-tokens": "pnpm --filter @lue-ui/tokens build && node tools/directions/palettes.mjs",
     "check": "pnpm lint && pnpm typecheck && pnpm check-tokens",
     "test": "pnpm build && vitest run",
@@ -24,6 +24,10 @@
     "@eslint/css": "^2.0.0",
     "@html-eslint/eslint-plugin": "^0.66.1",
     "@html-eslint/parser": "^0.66.1",
+    "@storybook/addon-a11y": "10.6.3",
+    "@storybook/addon-docs": "10.6.3",
+    "@storybook/addon-vitest": "10.6.3",
+    "@storybook/react-vite": "10.6.3",
     "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
@@ -34,6 +38,7 @@
     "playwright": "^1.64.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
+    "storybook": "10.6.3",
     "typescript": "^7.0.2",
     "vitest": "^5.0.3"
   }

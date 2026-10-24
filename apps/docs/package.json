@@ -1,0 +1,23 @@
+{
+  "name": "@lue-ui/docs",
+  "private": true,
+  "type": "module",
+  "description": "Lue UI documentation — Storybook 10 (react-vite)",
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build -o storybook-static"
+  },
+  "dependencies": {
+    "@lue-ui/css": "workspace:*",
+    "@lue-ui/elements": "workspace:*",
+    "@lue-ui/react": "workspace:*",
+    "@lue-ui/tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "10.6.3",
+    "@storybook/addon-docs": "10.6.3",
+    "@storybook/addon-vitest": "10.6.3",
+    "@storybook/react-vite": "10.6.3",
+    "storybook": "10.6.3"
+  }
+}

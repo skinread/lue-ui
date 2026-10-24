@@ -7,4 +7,6 @@ packages:
 minimumReleaseAge: 1440
 
 # Dependency build scripts are refused unless listed here (strictDepBuilds is on by default).
-allowBuilds: {}
+allowBuilds:
+  # Its install script only re-checks the platform binary, which the optional @esbuild/* package already provides.
+  esbuild: false
