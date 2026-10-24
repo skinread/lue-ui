@@ -12,8 +12,8 @@
   [ADR-0009](docs/architecture/adr/0009-visual-direction-chroma-luminous.md). Token source in `packages/tokens/src`;
   the private Claude Design System is built.
 - **Pass 3 (tracer bullet) started on 2026-10-11.** Step 0 (pnpm workspace, Changesets, CI), **Spike A** (a menu
-  inside a modal dialog, HTML and React) and **Spike B** (Terrazzo tokens → Lightning CSS → consumer fixtures, plus the
-  emulation tests, 2026-10-24) are done — see [Pass 3](#pass-3--tracer-bullet-in-progress). Library code
+  inside a modal dialog, HTML and React), **Spike B** (Terrazzo tokens → Lightning CSS → consumer fixtures, plus the
+  emulation tests) and the **first five components** with Storybook 10 (both 2026-10-24) are done — see [Pass 3](#pass-3--tracer-bullet-in-progress). Library code
   now exists in `packages/elements`, `packages/react` and `packages/css`; every package is private.
 - **Repo:** `/Volumes/Code/never-ui` (the git root). `main` holds only the initial commit (MIT `LICENSE`,
   `.gitignore`, `.gitattributes`); all work happens on **`develop`**, where Phase 1 was committed on 2026-10-05. The
@@ -40,7 +40,8 @@
 | [docs/foundations/](docs/foundations/) | [Mission and principles](docs/foundations/mission-and-principles.md) (11 principles, each with "how we check") · [naming shortlist](docs/foundations/naming.md) · [landscape and positioning](docs/foundations/landscape-and-positioning.md) · [platform capabilities](docs/foundations/platform-capabilities.md) |
 | [docs/architecture/](docs/architecture/) | [RFC-0001](docs/architecture/rfc-0001-architecture.md), ADRs 0001–0009 and [spike reports](docs/architecture/spikes/) |
 | `packages/` | `tokens` (hand-edited DTCG source, Terrazzo build), `css` (per-component CSS, Lightning CSS build), `elements` (`<lue-menu>`), `react` (Dialog, Menu, `LueElements`) — all `"private": true` |
-| `tests/` | Browser tests (Vitest browser mode, Chromium · Firefox · WebKit): Spike A's fixture and scenario, the ADR-0005 emulation tests |
+| `tests/` | Browser tests (Vitest browser mode, Chromium · Firefox · WebKit): Spike A, the ADR-0005 emulation tests, one folder per component, shared helpers in `support/` |
+| `apps/docs/` | Storybook 10 (stories are tests, axe set to `error`) and the component contracts |
 | `fixtures/` | Consumer fixtures (Vite, Next, Tailwind v4) and the checker that fails if our CSS is lowered |
 | [docs/design/](docs/design/) | [Token spec](docs/design/tokens.md) · [component inventory and draft contracts](docs/design/components.md) · [Claude Design brief](docs/design/claude-design-brief.md) (with verified palettes in its appendix) |
 | [tools/directions/](tools/directions/README.md) | Contrast checker, seeded palettes and the canvas generator, with how to republish |
@@ -82,9 +83,10 @@
 
 ## Waiting on the user
 
-1. **Making the repo public** is yours to decide (private on GitHub as `skinread/lue-ui`; CI is green on `develop` in Chromium,
+1. **Push `develop`** — the components and Spike B are committed locally only (see *Next steps*).
+2. **Making the repo public** is yours to decide (private on GitHub as `skinread/lue-ui`; CI is green on `develop` in Chromium,
    Firefox and WebKit as of 2026-10-24).
-2. **Spike C** needs you to start `/design-sync` (it's a skill the user runs).
+3. **Spike C** needs you to start `/design-sync` (it's a skill the user runs).
 
 Lower-priority open questions are listed at the end of [RFC-0001](docs/architecture/rfc-0001-architecture.md#open-questions).
 
@@ -140,11 +142,28 @@ Following [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequenci
      RTL. 98 tests pass across the three engines (one skipped: forced colours in WebKit, per ADR-0005).
    - ADR-0003 is now Accepted.
 4. **Spike C:** one Claude Design preview with the elements IIFE through `/design-sync` (the user starts it).
-5. **Components — next:** Button → Field + TextInput + error summary → Select → Dialog → Menu. Dialog and Menu start
-   from Spike A's code; each starts from its file in `packages/css/src/components`. Storybook 10 (`apps/docs`) arrives
-   with the first component. Spike B's follow-ups ride along: per-component forced-colours and contrast styles,
-   `--lue-angle` with `inherits: false`, and porting the glass and chrome worst-case rules out of
-   `tools/directions/palettes.mjs` before material tokens are edited.
+5. ~~**Components**~~ — the first five done 2026-10-24, each with a hand-written contract in
+   [`apps/docs/contracts/`](apps/docs/contracts/), a React adapter, stories and three-engine tests in `tests/<component>/`:
+   - **Button** — variants, sizes, icon-only, pressed; forced colours (pressed → SelectedItem).
+   - **Field + TextInput + error summary** — the opt-in `data-lue-validate` behaviour (through the platform's `invalid`
+     event, no `novalidate`) and React's `useValidation`, sharing one controller in `@lue-ui/elements`.
+   - **Select** — native, with customisable select behind `@supports (appearance: base-select)` (Chromium, WebKit 27).
+   - **Dialog** — `@starting-style` transitions, scroll lock, a development warning for `open` without `onOpenChange`.
+   - **Menu** — ArrowDown/ArrowUp on the trigger open at the first/last item; the element still writes nothing.
+   - **Storybook 10** is in `apps/docs`; every story is a Vitest test in three engines with axe set to `error`.
+   - `--lue-angle` no longer inherits (rings set it on `::before`); each component owns its contrast and forced-colours
+     rules; `utilities.css` adds the `[hidden]` rule and `.lue-visually-hidden`.
+   - 330 tests pass (6 skipped: forced colours in WebKit, and customisable select in Firefox).
+
+## Next steps
+
+1. **Push `develop`** when you're ready — 13 commits since `9985bf7` aren't on GitHub yet, so CI hasn't seen the
+   fixtures job, the `*(browser)` sharding or the Storybook project.
+2. **Spike C** — `/design-sync` with the elements IIFE (you start it). The JS packages have no build yet (tests,
+   Storybook and the typecheck use sources), so Spike C needs the per-file ESM build and `lue.iife.js` from RFC-0001 §9.
+3. **Pass 3 wrap-up:** extract the contract schema from the five contracts; html-validate on rendered markup; visual
+   regression and size-limit (ADR-0005); the remaining `contrast.css` entries move into their components; port the glass
+   and chrome worst-case rules out of `tools/directions/palettes.mjs`; `tokens.js` and the Figma output.
 
 ## Things to know
 

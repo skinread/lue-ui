@@ -11,7 +11,8 @@ primary reference for agents working in this repo.
 - **Pass 3 (tracer bullet) started on 2026-10-11.** Pass 2 is complete: the C2 · Chroma Luminous look is locked
   (ADR-0009), and the private Claude Design System is built. Spikes A and B are done: `packages/tokens/src` is the
   hand-edited DTCG source, built by Terrazzo (`tools/directions/tokens.mjs` is retired), and the component CSS lives in
-  `packages/css/src`. Follow [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-pass-3); progress is in
+  `packages/css/src`. The first five components (Button, Field + TextInput + error summary, Select, Dialog, Menu) have
+  contracts in `apps/docs/contracts`, React adapters, Storybook 10 stories and three-engine tests. Follow [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-pass-3); progress is in
   [HANDOVER.md](HANDOVER.md).
 - **pnpm workspace** (`packages/*`, `apps/*`, `fixtures/*`). Run `pnpm check` (lint, types, token build with its
   contrast gate) and `pnpm test` (builds, then three engines) before committing; `pnpm fixtures` after `pnpm build`
