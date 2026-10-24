@@ -9,9 +9,9 @@ primary reference for agents working in this repo.
 ## Current state
 
 - **Pass 3 (tracer bullet) is done but for Spike C** (the user starts `/design-sync`); **Pass 4 (all of Tier 1, contract-driven keyboard
-  coverage, `llms.txt` and an MCP server) is done; Pass 5 (Tier 2, first public release) is next.** `packages/tokens/src` is the hand-edited DTCG source, built by Terrazzo with contrast and material gates;
+  coverage, `llms.txt` and an MCP server) is done; Pass 5 (Tier 2, first public release) is in progress.** `packages/tokens/src` is the hand-edited DTCG source, built by Terrazzo with contrast and material gates;
   `packages/css/src` holds one file per component; elements and React build per file with size budgets. Every Tier 1
-  component is built: 22 contracts (one per component, Layout covering the six primitives) live in `apps/docs/contracts`
+  component and part of Tier 2 is built: one contract per component (Layout covers the six primitives) lives in `apps/docs/contracts`
   (schema v1), each with a React adapter, Storybook 10 stories and keyboard, axe, emulation, static-markup and visual tests in
   three engines. Follow [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-pass-3); progress and
   the Pass 5 plan are in [HANDOVER.md](HANDOVER.md).

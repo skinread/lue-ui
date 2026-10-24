@@ -179,7 +179,15 @@ What exists now (all private, all on `develop`):
      which Storybook serves. Contracts gained a required one-line `summary`.
    - **MCP:** `packages/mcp/server.js`, dependency-free MCP over stdio: `list_components`, `get_component`,
      `find_tokens`, and every page as a resource. `claude mcp add lue-ui -- node packages/mcp/server.js`.
-4. **Pass 5 — Tier 2 and a first public 0.x release** ([inventory](docs/design/components.md#tier-2)). Before
+4. **Pass 5 — Tier 2 and a first public 0.x release** ([inventory](docs/design/components.md#tier-2)), in progress:
+   - ~~Breadcrumb, Pagination, Tag, Card, Avatar, Divider, Kbd~~ — done 2026-10-24. The breadcrumb separator now has
+     empty alt text (`content: "/" / ""`), so it isn't read; Card's link stretches over the card and the card shows
+     its focus (`:has()`); Pagination reads "Page n" for each number.
+   - Next without script: Progress and meter, Spinner and skeleton, Table, Search, Segmented control, Rating, Swatch
+     picker. Then with script: Tabs (`<lue-tabs>`), Toolbar (`<lue-roving>`), Tooltip (`data-lue-tooltip`),
+     Carousel, Quantity stepper.
+
+   Before
    publishing: confirm the npm scope, make the repo public, publish — all yours to decide. Also outstanding from
    RFC-0001 §8: Storybook's `html` decorator (show each story's server-rendered HTML as its source), the Storybook MCP
    addon's manifests, contract-generated component guidelines for the Claude Design System (after Spike C), and the

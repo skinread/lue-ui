@@ -48,7 +48,8 @@ Full index: [docs/](docs/README.md).
 
 Components: **all of Tier 1 and Tier 0** - Button, Toggle button, Link, Field + TextInput + Textarea + error summary,
 Select, Checkbox, Radio group, Switch, Dialog, Drawer, Popover, Toggletip, Menu, Disclosure, Accordion, Alert, Toast,
-Icon, Skip link, Visually hidden and the layout primitives (Stack, Cluster, Grid, Sidebar, Switcher, Center) - each with a
+Icon, Skip link, Visually hidden and the layout primitives (Stack, Cluster, Grid, Sidebar, Switcher, Center); from Tier
+2 so far, Breadcrumb, Pagination, Tag, Card, Avatar, Divider and Kbd - each with a
 [contract](apps/docs/contracts/), stories, and keyboard, axe, emulation and visual tests in Chromium, Firefox and WebKit.
 
 ```bash
@@ -73,7 +74,8 @@ pnpm --filter @lue-ui/docs dev   # Storybook
    from the script-tag build) is next.
 4. **Pass 4 — Tier 1 components** _(done)_: every Tier 1 component, keyboard coverage driven by the contracts,
    `llms.txt` and a Markdown page per component, and an MCP server.
-5. **Pass 5 — Tier 2 and a first public 0.x release.**
+5. **Pass 5 — Tier 2 and a first public 0.x release** _(in progress)_: Breadcrumb, Pagination, Tag, Card, Avatar,
+   Divider and Kbd done; publishing waits on the npm scope and making the repo public.
 
 ## Licence
 
