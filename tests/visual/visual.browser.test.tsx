@@ -55,6 +55,23 @@ const SECTIONS: Record<string, string> = {
       <label class="lue-choice"><input class="lue-radio" type="radio" name="v" checked=""> Express</label>
       <label class="lue-choice"><input class="lue-switch" type="checkbox" role="switch" checked=""> Notifications</label>
     </div>`,
+  choice: `
+    <div style="display:grid;gap:20px;inline-size:360px">
+      <fieldset class="lue-fieldset" aria-describedby="v-rooms-error">
+        <legend>Rooms</legend>
+        <p class="lue-field__error" id="v-rooms-error"><span class="lue-visually-hidden">Error: </span><span class="lue-field__message">Choose at least one room</span></p>
+        <label class="lue-choice"><input class="lue-checkbox" type="checkbox" aria-invalid="true"> Living room</label>
+        <label class="lue-choice"><input class="lue-checkbox" type="checkbox" aria-invalid="true"> Bedroom</label>
+      </fieldset>
+      <label class="lue-choice"><input class="lue-checkbox" type="checkbox" id="v-all"> All rooms</label>
+      <label class="lue-choice"><input class="lue-checkbox" type="checkbox" disabled=""> Unavailable</label>
+      <label class="lue-choice"><input class="lue-radio" type="radio" name="v-off"> Standard</label>
+      <label class="lue-choice"><input class="lue-switch" type="checkbox" role="switch"> Order updates by text</label>
+      <div class="lue-field">
+        <label class="lue-field__label" for="v-notes">Delivery instructions</label>
+        <textarea class="lue-textarea" id="v-notes">Side gate, code 1234</textarea>
+      </div>
+    </div>`,
   dialog: `
     <dialog class="lue-dialog" open="" aria-labelledby="v-dialog-title" style="position:static;margin:0">
       <h2 class="lue-dialog__title" id="v-dialog-title">Delete this project?</h2>
@@ -86,6 +103,9 @@ describe.runIf(server.platform === 'linux')('visual', () => {
       it(`${name} in ${theme}`, async () => {
         document.documentElement.setAttribute('data-theme', theme);
         document.body.innerHTML = `<main id="shot" style="display:inline-block;padding:24px;background:var(--lue-color-bg-canvas)">${html}</main>`;
+        // indeterminate has no attribute.
+        const all = document.getElementById('v-all') as HTMLInputElement | null;
+        if (all) all.indeterminate = true;
         await document.fonts.ready;
         await expect(page.elementLocator(document.getElementById('shot')!)).toMatchScreenshot(`${name}-${theme}`);
       });

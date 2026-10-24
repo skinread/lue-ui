@@ -32,7 +32,7 @@ for (const file of files) {
   const contract = JSON.parse(fs.readFileSync(path.join(DIR, file), 'utf8'));
   const id = file.replace(/\.json$/, '');
   if (!validate(contract)) for (const e of validate.errors) problems.push(`${file}: ${e.instancePath || '/'} ${e.message}`);
-  if (contract.name?.toLowerCase().replace(/[^a-z]/g, '-') !== id) problems.push(`${file}: name "${contract.name}" doesn't match the file name`);
+  if (contract.name?.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase() !== id) problems.push(`${file}: name "${contract.name}" doesn't match the file name`);
   for (const token of contract.tokens ?? []) {
     if (!tokensCss.includes(`${token}:`)) problems.push(`${file}: token ${token} isn't in tokens.css`);
   }

@@ -1,0 +1,88 @@
+{
+  "name": "Switch",
+  "status": "experimental",
+  "rung": "native-attribute",
+  "rungReason": "A checkbox with role=\"switch\" keeps the native state, keyboard and form behaviour and announces on/off.",
+  "anatomy": {
+    "choice": {
+      "element": "label",
+      "class": "lue-choice",
+      "required": true
+    },
+    "control": {
+      "element": "input",
+      "class": "lue-switch",
+      "required": true,
+      "attributes": {
+        "type": "checkbox",
+        "role": "switch"
+      }
+    }
+  },
+  "a11y": {
+    "role": "switch",
+    "name": "The <label> it sits in",
+    "states": [
+      {
+        "state": "on",
+        "via": ":checked (exposed as aria-checked by the platform)"
+      },
+      {
+        "state": "invalid",
+        "via": "[aria-invalid=\"true\"]"
+      },
+      {
+        "state": "disabled",
+        "via": ":disabled"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Space"
+        ],
+        "action": "Turn on or off"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline, offset 3px"
+    },
+    "targetSize": "48 × 28 px track; the label row is at least --lue-size-target-min"
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Switch",
+    "props": {
+      "label": "label text",
+      "...": "every <input> prop but type"
+    }
+  },
+  "tokens": [
+    "--lue-prism-fill",
+    "--lue-prism-ring",
+    "--lue-bead",
+    "--lue-bead-on",
+    "--lue-motion-duration-moderate",
+    "--lue-motion-ease-spring",
+    "--lue-color-focus-ring"
+  ],
+  "platform": {
+    "baseline": [
+      "input",
+      "role=switch",
+      "appearance: none",
+      ":checked",
+      ":dir()"
+    ],
+    "enhancements": [
+      {
+        "feature": "Safari's native switch attribute",
+        "fallback": "Not used yet: appearance: none redraws it the same everywhere"
+      }
+    ]
+  },
+  "motion": "The thumb springs across (--lue-motion-ease-spring); instant under reduced motion",
+  "contrast": "Increased contrast: a strong boundary and a solid ring when on",
+  "forcedColors": "Field / FieldText; the thumb FieldText off, SelectedItemText on SelectedItem",
+  "deletionTrigger": "Cross-browser <input switch> with styleable parts"
+}

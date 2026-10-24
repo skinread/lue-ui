@@ -65,3 +65,10 @@ export type TextInputProps = ComponentPropsWithRef<'input'>;
 export function TextInput({ className, ...props }: TextInputProps): ReactNode {
   return <input {...props} {...useFieldControl(props)} className={cx('lue-input', className)} />;
 }
+
+export type TextareaProps = ComponentPropsWithRef<'textarea'>;
+
+/** `<textarea class="lue-textarea">`, growing with its content where `field-sizing` exists. Inside a Field it's wired up. */
+export function Textarea({ className, ...props }: TextareaProps): ReactNode {
+  return <textarea {...props} {...useFieldControl(props)} className={cx('lue-textarea', className)} />;
+}

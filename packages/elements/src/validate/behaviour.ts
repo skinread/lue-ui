@@ -65,10 +65,20 @@ export function installValidate(root: Document | HTMLElement = document): () => 
   return () => connection.abort();
 }
 
-/** Shows or clears one control's error. */
+/** The controls an error belongs to: a radio's whole group, or the control itself. */
+function groupOf(control: Element): Element[] {
+  if (control instanceof HTMLInputElement && control.type === 'radio' && control.name && control.form) {
+    return Array.from(control.form.elements).filter((el) => el instanceof HTMLInputElement && el.type === 'radio' && el.name === control.name);
+  }
+  return [control];
+}
+
+/** Shows or clears one control's (or one radio group's) error. */
 function showError(control: Element, message: string | null): void {
-  if (message) control.setAttribute('aria-invalid', 'true');
-  else control.removeAttribute('aria-invalid');
+  for (const el of groupOf(control)) {
+    if (message) el.setAttribute('aria-invalid', 'true');
+    else el.removeAttribute('aria-invalid');
+  }
   const error = errorElement(control);
   if (!error) return;
   const text = error.querySelector('.lue-field__message') ?? error;
@@ -77,12 +87,15 @@ function showError(control: Element, message: string | null): void {
 }
 
 function render(form: HTMLFormElement, errors: FieldError[]): void {
-  const invalid = new Set(errors.map((e) => e.id));
+  const covered = new Set<Element>();
+  for (const { id, message } of errors) {
+    const control = document.getElementById(id);
+    if (!control) continue;
+    showError(control, message);
+    for (const el of groupOf(control)) covered.add(el);
+  }
   for (const control of Array.from(form.elements)) {
-    if (!control.id) continue;
-    const error = errors.find((e) => e.id === control.id);
-    if (error) showError(control, error.message);
-    else if (control.getAttribute('aria-invalid') === 'true' && !invalid.has(control.id)) showError(control, null);
+    if (!covered.has(control) && control.getAttribute('aria-invalid') === 'true') showError(control, null);
   }
   const summary = form.querySelector<HTMLElement>('[data-lue-error-summary]');
   if (!summary) {
@@ -103,11 +116,16 @@ function render(form: HTMLFormElement, errors: FieldError[]): void {
   if (errors.length) summary.focus();
 }
 
-/** The control's error message element: the `.lue-field__error` among its `aria-describedby` ids. */
+/**
+ * The control's error message element: the `.lue-field__error` among its `aria-describedby` ids, or its fieldset's
+ * (checkbox and radio groups describe the whole group).
+ */
 function errorElement(control: Element): HTMLElement | null {
-  for (const id of (control.getAttribute('aria-describedby') ?? '').split(/\s+/)) {
-    const el = id ? document.getElementById(id) : null;
-    if (el?.classList.contains('lue-field__error')) return el;
+  for (const owner of [control, control.closest('fieldset')]) {
+    for (const id of (owner?.getAttribute('aria-describedby') ?? '').split(/\s+/)) {
+      const el = id ? document.getElementById(id) : null;
+      if (el?.classList.contains('lue-field__error')) return el;
+    }
   }
   return null;
 }

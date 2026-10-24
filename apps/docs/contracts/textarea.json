@@ -1,0 +1,91 @@
+{
+  "name": "Textarea",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "<textarea> with a <label>; field-sizing: content grows it with its content where supported.",
+  "anatomy": {
+    "root": {
+      "element": "div",
+      "class": "lue-field"
+    },
+    "label": {
+      "element": "label",
+      "class": "lue-field__label",
+      "required": true
+    },
+    "hint": {
+      "element": "p",
+      "class": "lue-field__hint",
+      "required": false
+    },
+    "error": {
+      "element": "p",
+      "class": "lue-field__error",
+      "required": true
+    },
+    "control": {
+      "element": "textarea",
+      "class": "lue-textarea",
+      "required": true
+    }
+  },
+  "a11y": {
+    "role": "textbox, multi-line (implicit)",
+    "name": "The Field's <label>",
+    "description": "aria-describedby → hint, then error",
+    "states": [
+      {
+        "state": "invalid",
+        "via": "[aria-invalid=\"true\"]; :user-invalid when nothing manages it"
+      },
+      {
+        "state": "disabled",
+        "via": ":disabled"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "New line (native)"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Leave the field (native)"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Textarea",
+    "props": "every <textarea> prop; inside a Field it's wired up"
+  },
+  "tokens": [
+    "--lue-field-radius",
+    "--lue-field-bg",
+    "--lue-color-fg-critical",
+    "--lue-color-focus-ring"
+  ],
+  "platform": {
+    "baseline": [
+      "textarea",
+      "lh unit",
+      ":user-invalid"
+    ],
+    "enhancements": [
+      {
+        "feature": "field-sizing: content",
+        "fallback": "A six-line textarea that scrolls"
+      }
+    ]
+  },
+  "contrast": "As TextInput",
+  "forcedColors": "As TextInput: Field / FieldText, invalid → 2 px boundary",
+  "deletionTrigger": null
+}

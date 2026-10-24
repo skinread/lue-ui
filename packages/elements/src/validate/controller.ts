@@ -62,12 +62,18 @@ export function controlError(control: Control): string | null {
 
 /**
  * Every invalid control in a form, in document order. Controls need an id (the summary links to it); one without is
- * reported with an empty id so the problem is visible rather than silent.
+ * reported with an empty id so the problem is visible rather than silent. A radio group is one error, on its first
+ * radio, since every radio in a required group fails together.
  */
 export function formErrors(form: HTMLFormElement): FieldError[] {
   const errors: FieldError[] = [];
+  const radioGroups = new Set<string>();
   for (const el of Array.from(form.elements)) {
     if (!isControl(el) || !el.willValidate) continue;
+    if (el instanceof HTMLInputElement && el.type === 'radio' && el.name) {
+      if (radioGroups.has(el.name)) continue;
+      radioGroups.add(el.name);
+    }
     const message = controlError(el);
     if (message) errors.push({ id: el.id, message });
   }

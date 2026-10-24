@@ -81,7 +81,11 @@ export function useValidation(onValid?: (event: FormEvent<HTMLFormElement>) => v
   const onInput = useCallback((event: FormEvent<HTMLFormElement>) => {
     const target = event.target as HTMLInputElement;
     if (!target.id || controlError(target) !== null) return;
-    setErrors((current) => (current.some((e) => e.id === target.id) ? current.filter((e) => e.id !== target.id) : current));
+    // A radio group's error sits on its first radio, so choosing any radio in the group clears it.
+    const ids = new Set(target.type === 'radio' && target.name
+      ? Array.from(event.currentTarget.elements).filter((el) => el instanceof HTMLInputElement && el.type === 'radio' && el.name === target.name).map((el) => el.id)
+      : [target.id]);
+    setErrors((current) => (current.some((e) => ids.has(e.id)) ? current.filter((e) => !ids.has(e.id)) : current));
   }, []);
   const errorFor = useCallback((id: string) => errors.find((e) => e.id === id)?.message, [errors]);
   return { errors, summaryProps: { errors, attempt }, errorFor, formProps: { noValidate: true, onSubmit, onInput } };

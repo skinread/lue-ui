@@ -1,5 +1,6 @@
 export { Button, type ButtonProps } from './button/index.js';
-export { Field, TextInput, type FieldProps, type TextInputProps } from './field/index.js';
+export { Field, TextInput, Textarea, type FieldProps, type TextInputProps, type TextareaProps } from './field/index.js';
+export { Checkbox, ChoiceGroup, Radio, Switch, type ChoiceGroupProps, type ChoiceProps } from './choice/index.js';
 export { ErrorSummary, useValidation, type ErrorSummaryProps, type Validation } from './error-summary/index.js';
 export { Select, type SelectProps } from './select/index.js';
 export { Dialog, DialogTrigger, type DialogProps, type DialogTriggerProps } from './dialog/index.js';

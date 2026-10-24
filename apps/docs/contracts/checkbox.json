@@ -1,0 +1,142 @@
+{
+  "name": "Checkbox",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "<input type=\"checkbox\"> gives the role, state, Space activation, label activation and form participation; appearance: none only redraws it.",
+  "anatomy": {
+    "group": {
+      "element": "fieldset",
+      "class": "lue-fieldset",
+      "required": false,
+      "attributes": {
+        "aria-describedby": "{hint id} {error id}"
+      }
+    },
+    "legend": {
+      "element": "legend",
+      "required": false
+    },
+    "hint": {
+      "element": "p",
+      "class": "lue-field__hint",
+      "required": false
+    },
+    "error": {
+      "element": "p",
+      "class": "lue-field__error",
+      "required": false,
+      "attributes": {
+        "hidden": "while valid"
+      },
+      "children": [
+        {
+          "element": "span",
+          "class": "lue-visually-hidden",
+          "text": "Error: "
+        },
+        {
+          "element": "span",
+          "class": "lue-field__message",
+          "hook": true
+        }
+      ]
+    },
+    "choice": {
+      "element": "label",
+      "class": "lue-choice",
+      "required": true
+    },
+    "control": {
+      "element": "input",
+      "class": "lue-checkbox",
+      "required": true,
+      "attributes": {
+        "type": "checkbox",
+        "id": "required for the error summary link"
+      }
+    }
+  },
+  "a11y": {
+    "role": "checkbox (implicit); the fieldset is a group named by its legend",
+    "name": "The <label> it sits in",
+    "description": "The group's hint and error, through the fieldset's aria-describedby",
+    "states": [
+      {
+        "state": "checked",
+        "via": ":checked"
+      },
+      {
+        "state": "mixed",
+        "via": ":indeterminate (set the indeterminate property)"
+      },
+      {
+        "state": "invalid",
+        "via": "[aria-invalid=\"true\"]"
+      },
+      {
+        "state": "disabled",
+        "via": ":disabled"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Space"
+        ],
+        "action": "Toggle"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Next checkbox (each is a tab stop)"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline, offset 3px"
+    },
+    "targetSize": "The whole label row: min-block-size --lue-size-target-min"
+  },
+  "ownedAttributes": {},
+  "react": {
+    "components": {
+      "ChoiceGroup": {
+        "props": {
+          "legend": "legend text",
+          "hint": "hint",
+          "error": "message → every choice aria-invalid and the shown error"
+        }
+      },
+      "Checkbox": {
+        "props": {
+          "label": "label text",
+          "...": "every <input> prop but type"
+        }
+      }
+    }
+  },
+  "tokens": [
+    "--lue-prism-fill",
+    "--lue-prism-ring",
+    "--lue-color-fg-on-accent",
+    "--lue-field-bg",
+    "--lue-color-fg-critical",
+    "--lue-color-focus-ring",
+    "--lue-radius-xs",
+    "--lue-size-target-min"
+  ],
+  "platform": {
+    "baseline": [
+      "input",
+      "appearance: none",
+      ":checked",
+      ":focus-visible",
+      "fieldset/legend",
+      ":has()"
+    ]
+  },
+  "withoutJavaScript": "Works fully; validation messages are the browser's unless data-lue-validate is installed",
+  "contrast": "Increased contrast: a strong boundary and a solid ring around checked fills; marks hold 7:1 on the -more multi-tone fills (lue-materials)",
+  "forcedColors": "Field / FieldText; checked and indeterminate → SelectedItem with a SelectedItemText mark; invalid → 2 px boundary",
+  "deletionTrigger": null
+}

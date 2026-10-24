@@ -1,0 +1,156 @@
+{
+  "name": "RadioGroup",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "Radios sharing a name in a <fieldset> give the radiogroup semantics, roving focus and arrow-key selection natively.",
+  "anatomy": {
+    "group": {
+      "element": "fieldset",
+      "class": "lue-fieldset",
+      "required": true,
+      "attributes": {
+        "aria-describedby": "{hint id} {error id}"
+      }
+    },
+    "legend": {
+      "element": "legend",
+      "required": true
+    },
+    "hint": {
+      "element": "p",
+      "class": "lue-field__hint",
+      "required": false
+    },
+    "error": {
+      "element": "p",
+      "class": "lue-field__error",
+      "required": false,
+      "attributes": {
+        "hidden": "while valid"
+      },
+      "children": [
+        {
+          "element": "span",
+          "class": "lue-visually-hidden",
+          "text": "Error: "
+        },
+        {
+          "element": "span",
+          "class": "lue-field__message",
+          "hook": true
+        }
+      ]
+    },
+    "choice": {
+      "element": "label",
+      "class": "lue-choice",
+      "required": true
+    },
+    "control": {
+      "element": "input",
+      "class": "lue-radio",
+      "required": true,
+      "attributes": {
+        "type": "radio",
+        "name": "shared by the group",
+        "id": "required; the first radio's id carries the group's error"
+      }
+    }
+  },
+  "a11y": {
+    "role": "radio (implicit) in a group named by its legend",
+    "name": "Each radio's <label>; the group's legend",
+    "description": "The group's hint and error, through the fieldset's aria-describedby",
+    "states": [
+      {
+        "state": "checked",
+        "via": ":checked"
+      },
+      {
+        "state": "invalid",
+        "via": "[aria-invalid=\"true\"] on every radio in the group"
+      },
+      {
+        "state": "disabled",
+        "via": ":disabled"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Into the group, onto the checked radio (or the first); Tab again leaves the group"
+      },
+      {
+        "keys": [
+          "ArrowDown",
+          "ArrowRight"
+        ],
+        "action": "Select the next radio, wrapping"
+      },
+      {
+        "keys": [
+          "ArrowUp",
+          "ArrowLeft"
+        ],
+        "action": "Select the previous radio, wrapping"
+      },
+      {
+        "keys": [
+          "Space"
+        ],
+        "action": "Select the focused radio"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline, offset 3px"
+    },
+    "targetSize": "Each label row: min-block-size --lue-size-target-min"
+  },
+  "ownedAttributes": {},
+  "rules": [
+    "A required group is one error, on its first radio; aria-invalid goes on every radio; choosing any radio clears it (data-lue-validate and useValidation)"
+  ],
+  "react": {
+    "components": {
+      "ChoiceGroup": {
+        "props": {
+          "legend": "legend text",
+          "hint": "hint",
+          "error": "errorFor(first radio's id)"
+        }
+      },
+      "Radio": {
+        "props": {
+          "label": "label text",
+          "name": "shared",
+          "...": "every <input> prop but type"
+        }
+      }
+    }
+  },
+  "tokens": [
+    "--lue-prism-fill",
+    "--lue-prism-ring",
+    "--lue-color-fg-on-accent",
+    "--lue-field-bg",
+    "--lue-color-fg-critical",
+    "--lue-color-focus-ring",
+    "--lue-size-target-min"
+  ],
+  "platform": {
+    "baseline": [
+      "input",
+      "appearance: none",
+      ":checked",
+      ":focus-visible",
+      "fieldset/legend",
+      ":has()"
+    ]
+  },
+  "withoutJavaScript": "Works fully; validation messages are the browser's unless data-lue-validate is installed",
+  "contrast": "Increased contrast: a strong boundary and a solid ring around the checked fill",
+  "forcedColors": "Field / FieldText; checked → SelectedItem with a SelectedItemText dot (a pseudo-element: gradients are dropped in forced colours)",
+  "deletionTrigger": null
+}

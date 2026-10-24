@@ -24,6 +24,8 @@ const validator = new HtmlValidate({
     'attribute-empty-style': 'off',
     // <lue-menu> is a custom element html-validate doesn't know.
     'no-unknown-elements': 'off',
+    // Checkboxes in a group share a name, as radios do; the form submits each checked value.
+    'form-dup-name': ['error', { shared: ['radio', 'checkbox', 'button', 'reset', 'submit'] }],
     // command / commandfor (invoker commands) are newer than html-validate's element metadata.
     'attribute-allowed-values': ['error', { ignore: [] }],
   },
