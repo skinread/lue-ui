@@ -1,0 +1,50 @@
+/* Theme compositions: CSS values built from material tokens (filters, gradients, layered shadows) that the token
+   format can't express. They're declared on every element that sets a theme, so a themed subtree recomputes them
+   from its own tokens instead of inheriting the root's. */
+
+/* The chrome ring's angle, moved by :hover and :focus-visible. Registered so it can transition. Not themeable. */
+@property --lue-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+
+@layer lue.tokens {
+  :where(:root, [data-theme], [data-contrast]) {
+    --lue-gutter: clamp(1rem, 4vi, 3.5rem);
+
+    --lue-chrome-stops: var(--lue-material-chrome);
+    --lue-chrome-line: var(--lue-material-chrome-line);
+    --lue-chrome-text: var(--lue-material-chrome-text);
+    --lue-prism-fill: var(--lue-material-prism-fill);
+    --lue-prism-fill-active: var(--lue-material-prism-fill-active);
+    --lue-prism-ring: var(--lue-material-prism-ring);
+    --lue-metal: linear-gradient(165deg, var(--lue-material-metal));
+    --lue-metal-rim-top: var(--lue-material-metal-rim-top);
+    --lue-metal-rim-bottom: var(--lue-material-metal-rim-bottom);
+    --lue-tile-shadow: var(--lue-shadow-tile);
+
+    --lue-glass-filter: blur(var(--lue-material-glass-blur)) saturate(var(--lue-material-glass-saturate))
+      contrast(var(--lue-material-glass-contrast)) brightness(var(--lue-material-glass-brightness));
+    --lue-glass-sheen: radial-gradient(120% 90% at 18% 0%, oklch(1 0 0 / var(--lue-material-glass-sheen)), transparent 62%);
+
+    --lue-button-filter: blur(var(--lue-material-button-blur)) saturate(var(--lue-material-button-saturate))
+      contrast(var(--lue-material-button-contrast)) brightness(var(--lue-material-button-brightness));
+    --lue-button-sheen: oklch(1 0 0 / var(--lue-material-button-sheen));
+    --lue-button-depth: inset 0 1px 0.5px var(--lue-material-button-rim-top),
+      inset 0 -1px 0 var(--lue-material-button-rim-bottom), inset 0 -7px 10px -8px var(--lue-material-button-refract);
+
+    --lue-field-bg: var(--lue-material-field-bg);
+    --lue-field-inset: var(--lue-material-field-inset);
+    --lue-focus-glow: var(--lue-material-focus-glow);
+
+    --lue-bead: radial-gradient(circle at 34% 30%, var(--lue-material-bead-rest));
+    --lue-bead-rim: var(--lue-material-bead-rest-rim);
+    --lue-bead-on: radial-gradient(circle at 34% 30%, var(--lue-material-bead-lit));
+    --lue-bead-on-rim: var(--lue-material-bead-lit-rim);
+
+    --lue-prism-glass-top: var(--lue-material-prism-glass-top);
+    --lue-prism-glass-bottom: var(--lue-material-prism-glass-bottom);
+    --lue-prism-shadow: var(--lue-material-prism-glass-shadow);
+  }
+}

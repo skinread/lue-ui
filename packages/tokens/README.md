@@ -17,8 +17,11 @@ pnpm --filter @lue-ui/tokens build   # or: pnpm check-tokens (adds the Pass 2 ma
 | `tokens.css` | `@layer lue.tokens`, minified by Lightning CSS with no targets. Dark on `:root`; light, `dark-more` and `light-more` follow the OS (`prefers-color-scheme`, `prefers-contrast`) unless an element sets `data-theme`; `data-contrast="more"` raises contrast within a set theme; `data-density` sets density. Durations are `0s` under reduced motion, and the target minimum is 44 px under a coarse pointer. Budget: 6 KB Brotli (fails the build) |
 | `claude-design/tokens.json` | The list shape the Claude Design System reads ([outputs](../../docs/design/tokens.md#outputs)): literal values only, per theme where they vary, fluid sizes at 1280 px |
 
-`tokens.css` also declares the layer order for everything Lue ships:
-`@layer lue { @layer reset, tokens, base, layout, components, blocks, materials, contrast, utilities; }`.
+`tokens.css` starts with the layer order for everything Lue ships
+(`@layer lue.reset, lue.tokens, lue.base, lue.layout, lue.components, lue.blocks, lue.materials, lue.contrast, lue.utilities;`)
+and ends with `src/theme.css`: the CSS compositions of material tokens (glass and button filters, chrome and prism
+gradients, layered button depth, beads) that components use, declared on every themed element so a subtree recomputes
+them.
 
 ## The build fails when
 
@@ -51,7 +54,8 @@ material tokens are edited by hand.
 | `lue.resolver.json` | Sets and modifiers: `theme` (`dark` · `light` · `dark-more` · `light-more`, dark is primary) and `density` |
 | `primitive/color.tokens.json` | Neutral ramp and the eight-hue prism (never public CSS) |
 | `semantic/color.<context>.tokens.json` | Semantic colour per theme context, literal values, with contrast pairs |
-| `semantic/material.<scheme>.tokens.json` | C2 materials (glass, buttons, chrome, dispersion, prism fills and ring, iridescence, metal, satin, ambient light) and shadows |
+| `semantic/material.<scheme>.tokens.json` | C2 materials (glass, buttons and their rims, chrome, dispersion, prism fills and ring, iridescence, metal and tile rims, satin, ambient light, field, focus glow, beads, the glass prism) and shadows |
+| `theme.css` | CSS compositions of the material tokens, appended to `tokens.css` |
 | `semantic/type.tokens.json` | Families, weights, the fluid scale (steps −2 … 5), leading, tracking, text styles |
 | `semantic/dimension.tokens.json` | Space (fluid), size, radius, border, focus, layer |
 | `semantic/motion.tokens.json` | Durations and easings |

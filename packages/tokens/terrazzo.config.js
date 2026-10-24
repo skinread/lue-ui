@@ -6,8 +6,8 @@ import { transformCSSValue } from '@terrazzo/token-tools/css';
 import { lueClaudeDesign, lueContrast, lueSchema } from './plugins/lue.js';
 
 // Tokens that change with the theme context; everything else is context-free and emitted once, with the default.
-const THEMED = ['color.*', 'material.*', 'shadow.*'];
-const PRIMITIVES = ['color.neutral.*', 'color.prism.*'];
+const THEMED = ['color.**', 'material.**', 'shadow.**'];
+const PRIMITIVES = ['color.neutral.**', 'color.prism.**'];
 const variableName = (token) => `--lue-${token.id.replace(/\./g, '-')}`;
 const round = (n) => +n.toFixed(4);
 

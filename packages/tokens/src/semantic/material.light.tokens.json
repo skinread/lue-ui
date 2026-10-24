@@ -162,6 +162,48 @@
         "$type": "number",
         "$value": 0.35,
         "$description": "Alpha of the white sheen at the top of a button."
+      },
+      "rim-top": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            1,
+            0,
+            0
+          ],
+          "hex": "#ffffff",
+          "alpha": 0.9
+        },
+        "$description": "Top rim light of a glass button (inset highlight)."
+      },
+      "rim-bottom": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            1,
+            0,
+            0
+          ],
+          "hex": "#ffffff",
+          "alpha": 0.45
+        },
+        "$description": "Bottom rim of a glass button."
+      },
+      "refract": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.75,
+            0.12,
+            205
+          ],
+          "hex": "#2cc3d2",
+          "alpha": 0.55
+        },
+        "$description": "Light refracted along the lower edge of a glass button."
       }
     },
     "iridescence": {
@@ -972,6 +1014,318 @@
         "alpha": 0.95
       },
       "$description": "Specks of light that drift along primaries on hover. Never over text."
+    },
+    "chrome-line": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.38,
+          0.012,
+          285
+        ],
+        "hex": "#414249"
+      },
+      "$description": "A single chrome stop for straight hairlines (dividers, pull-quote rules). A 3:1 boundary."
+    },
+    "chrome-text": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.006,
+              265
+            ],
+            "hex": "#737478"
+          },
+          "position": 0
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.51,
+              0.005,
+              240
+            ],
+            "hex": "#646669"
+          },
+          "position": 0.34
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.29,
+              0.014,
+              290
+            ],
+            "hex": "#2b2a32"
+          },
+          "position": 0.5
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.38,
+              0.012,
+              285
+            ],
+            "hex": "#414249"
+          },
+          "position": 0.6
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.545,
+              0.008,
+              270
+            ],
+            "hex": "#6e7075"
+          },
+          "position": 1
+        }
+      ],
+      "$description": "Chrome gradient for display text clipped to its glyphs. Decorative; the text colour underneath carries contrast."
+    },
+    "field": {
+      "bg": {
+        "$type": "color",
+        "$value": "{color.bg.surface}",
+        "$description": "Field fill: a well on obsidian, a surface on pearl."
+      },
+      "inset": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.3,
+            0.03,
+            285
+          ],
+          "hex": "#2c2c3c",
+          "alpha": 0.08
+        },
+        "$description": "Inset shade at the top of a field."
+      }
+    },
+    "focus-glow": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.46,
+          0.2,
+          285
+        ],
+        "hex": "#5437c0",
+        "alpha": 0.18
+      },
+      "$description": "Optional halo outside the focus outline; dropped in forced colours. Never the focus indicator on its own."
+    },
+    "bead": {
+      "rest": {
+        "$type": "gradient",
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                1,
+                0,
+                0
+              ],
+              "hex": "#ffffff"
+            },
+            "position": 0
+          },
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.78,
+                0.008,
+                270
+              ],
+              "hex": "#b5b7bd"
+            },
+            "position": 0.46
+          },
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.52,
+                0.012,
+                280
+              ],
+              "hex": "#676870"
+            },
+            "position": 1
+          }
+        ],
+        "$description": "Switch thumb at rest: a lit metal bead (radial, light from the upper left)."
+      },
+      "rest-rim": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.38,
+            0.012,
+            285
+          ],
+          "hex": "#414249"
+        },
+        "$description": "Rim of the resting bead. A 3:1 boundary against the track."
+      },
+      "lit": {
+        "$type": "gradient",
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.6,
+                0.02,
+                285
+              ],
+              "hex": "#7f7f8c"
+            },
+            "position": 0
+          },
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.3,
+                0.015,
+                285
+              ],
+              "hex": "#2d2d35"
+            },
+            "position": 0.48
+          },
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.2,
+                0.02,
+                285
+              ],
+              "hex": "#15151f"
+            },
+            "position": 1
+          }
+        ],
+        "$description": "Switch thumb when on, as a lit bead (radial). Its solid fallback is material.bead-on."
+      },
+      "lit-rim": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.15,
+            0.02,
+            285
+          ],
+          "hex": "#0a0a13"
+        },
+        "$description": "Rim of the lit bead."
+      }
+    },
+    "metal-rim": {
+      "top": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            1,
+            0,
+            0
+          ],
+          "hex": "#ffffff"
+        },
+        "$description": "Top rim light of a metal icon tile."
+      },
+      "bottom": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.82,
+            0.01,
+            285
+          ],
+          "hex": "#c3c3ca",
+          "alpha": 0.6
+        },
+        "$description": "Bottom rim of a metal icon tile."
+      }
+    },
+    "prism-glass": {
+      "top": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            1,
+            0,
+            0
+          ],
+          "hex": "#ffffff",
+          "alpha": 0.92
+        },
+        "$description": "Top of the glass prism illustration."
+      },
+      "bottom": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.92,
+            0.012,
+            285
+          ],
+          "hex": "#e3e4ec",
+          "alpha": 0.8
+        },
+        "$description": "Bottom of the glass prism illustration."
+      },
+      "shadow": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.35,
+            0.05,
+            285
+          ],
+          "hex": "#383754",
+          "alpha": 0.35
+        },
+        "$description": "Shadow under the glass prism illustration."
+      }
+    },
+    "tile-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.29,
+          0.014,
+          290
+        ],
+        "hex": "#2b2a32"
+      },
+      "$description": "Icon colour on a metal tile: the chrome stop at 38°."
     }
   },
   "shadow": {
@@ -1446,6 +1800,96 @@
         ],
         "$description": "Glow under a hovered destructive button."
       }
+    },
+    "tile": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.3,
+              0.03,
+              285
+            ],
+            "hex": "#2c2c3c",
+            "alpha": 0.08
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 1,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.35,
+              0.06,
+              285
+            ],
+            "hex": "#373659",
+            "alpha": 0.35
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 14,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 30,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -14,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4,
+              0.05,
+              285
+            ],
+            "hex": "#454462",
+            "alpha": 0.22
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 6,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 14,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -8,
+            "unit": "px"
+          }
+        }
+      ],
+      "$description": "Depth under metal icon tiles."
     }
   }
 }

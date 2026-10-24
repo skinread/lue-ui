@@ -9,8 +9,9 @@
 // (docs/design/tokens.md#outputs): `color.themes` primary first; each token `{ name, value, usage }` with `value` per
 // theme when it varies; literal values only; `type.groups` of text styles; the rest as `{ tokens: [...] }` lists.
 //
-// lueSchema — fails the build if a token has no $description (a token without a usage note doesn't ship) or body
-// text drops below 16 px at its fluid minimum.
+// lueSchema — fails the build if a token has no $description (a token without a usage note doesn't ship), two
+// tokens would share a CSS name (`a.b-c` and `a.b.c` both become --lue-a-b-c), or body text drops below 16 px at its
+// fluid minimum.
 
 const THEME = 'theme';
 const BOUNDARIES = new Set(['color.border.strong', 'color.focus.ring']);
@@ -60,6 +61,12 @@ export function lueSchema() {
     name: 'lue-schema',
     build({ tokens, context }) {
       const problems = Object.values(tokens).filter((t) => !t.$description).map((t) => `${t.id} has no $description`);
+      const names = new Map();
+      for (const id of Object.keys(tokens)) {
+        const name = id.replace(/\./g, '-');
+        if (names.has(name)) problems.push(`${names.get(name)} and ${id} both become --lue-${name}`);
+        names.set(name, id);
+      }
       const body = tokens['font.size.step-0'];
       const min = body?.$extensions?.lue?.fluid?.min;
       if (!min || (min.unit === 'rem' ? min.value * 16 : min.value) < 16) problems.push('font.size.step-0 is below 16 px at its minimum');

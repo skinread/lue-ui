@@ -20,7 +20,10 @@ export default [
         allowPropertyValues: { 'text-wrap': ['pretty'] },
       }],
       // Everything ships in `@layer lue` and its sub-layers (RFC-0001 §2). The rule tests each dotted segment.
-      'css/use-layers': ['error', { layerNamePattern: '^(lue|tokens|reset|base|components|blocks|materials|contrast)$' }],
+      'css/use-layers': ['error', { layerNamePattern: '^(lue|reset|tokens|base|layout|components|blocks|materials|contrast|utilities)$',
+        // lue.css imports files that put themselves in their own sub-layers; layer() on the import would nest them.
+        requireImportLayers: false,
+      }],
       'css/prefer-logical-properties': 'error',
       'css/relative-font-units': ['error', { allowUnits: ['rem', 'em'] }],
     },

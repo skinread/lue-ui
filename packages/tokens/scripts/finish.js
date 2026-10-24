@@ -2,9 +2,12 @@
 //   1. drops the `@media (color-gamut: …)` copies Terrazzo adds for wide-gamut displays. Our colours are gamut-mapped
 //      to sRGB at the source and contrast-checked there, so the copies only restate them with rounding noise;
 //   2. adds the two context rules tokens can't express as a theme: zero durations under reduced motion, and the 44 px
-//      target minimum under a coarse pointer ($extensions.lue.coarse);
-//   3. bundles and minifies with Lightning CSS and no targets, so nothing is lowered (ADR-0002);
-//   4. fails if the Brotli size passes the RFC-0001 §9 budget (6 KB).
+//      target minimum under a coarse pointer ($extensions.lue.coarse); then src/theme.css, the CSS compositions of
+//      material tokens (filters, gradients, layered shadows) that components use;
+//   3. bundles and minifies with Lightning CSS and no targets, so nothing is lowered (ADR-0002), then prepends the
+//      layer order;
+//   4. fails if a themed token (colour, material, shadow) is missing from any theme block — the default plus six;
+//   5. fails if the Brotli size passes the RFC-0001 §9 budget (6 KB).
 import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
@@ -14,6 +17,9 @@ import { transform } from 'lightningcss';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const FILE = path.join(ROOT, 'dist', 'tokens.css');
 const BUDGET = 6 * 1024;
+// Every Lue file starts with the full layer order. It's added after minifying, which drops layer names a file
+// doesn't use and with them the guarantee that load order never changes precedence.
+const LAYERS = '@layer lue.reset, lue.tokens, lue.base, lue.layout, lue.components, lue.blocks, lue.materials, lue.contrast, lue.utilities;';
 const read = (f) => JSON.parse(fs.readFileSync(path.join(ROOT, 'src', f), 'utf8'));
 
 // Remove every top-level `@media (color-gamut: …) { … }` block, matching braces.
@@ -48,11 +54,17 @@ const extra = `
 }
 `;
 
-const source = `@layer lue {\n  @layer reset, tokens, base, layout, components, blocks, materials, contrast, utilities;\n}\n`
-  + dropGamutBlocks(fs.readFileSync(FILE, 'utf8')) + extra;
+const source = dropGamutBlocks(fs.readFileSync(FILE, 'utf8')) + extra + fs.readFileSync(path.join(ROOT, 'src', 'theme.css'), 'utf8');
 const { code, warnings } = transform({ filename: 'tokens.css', code: Buffer.from(source), minify: true });
 for (const w of warnings) console.warn(`tokens.css: ${w.message}`);
-fs.writeFileSync(FILE, code);
+fs.writeFileSync(FILE, `${LAYERS}\n${code}`);
+
+const THEME_BLOCKS = 7;
+const counts = new Map();
+for (const [, name] of String(code).matchAll(/(--lue-(?:color|material|shadow)-[\w-]+):/g)) counts.set(name, (counts.get(name) ?? 0) + 1);
+const incomplete = [...counts].filter(([, n]) => n !== THEME_BLOCKS);
+for (const [name, n] of incomplete) console.error(`tokens.css: ${name} is declared in ${n} theme blocks, not ${THEME_BLOCKS}`);
+if (incomplete.length) process.exit(1);
 
 const size = zlib.brotliCompressSync(code).length;
 console.log(`tokens.css: ${(code.length / 1024).toFixed(1)} KB, ${(size / 1024).toFixed(2)} KB Brotli (budget ${BUDGET / 1024} KB)`);
