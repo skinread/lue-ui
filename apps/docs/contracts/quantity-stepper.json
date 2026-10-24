@@ -1,0 +1,119 @@
+{
+  "name": "QuantityStepper",
+  "summary": "A number field with − and + buttons that respect its min, max and step.",
+  "status": "experimental",
+  "rung": "light-dom-script",
+  "rungReason": "<input type=\"number\"> is the spinbutton; <lue-stepper> wires the buttons to stepUp() and stepDown().",
+  "anatomy": {
+    "field": {
+      "element": "div",
+      "class": "lue-field",
+      "required": true
+    },
+    "stepper": {
+      "element": "lue-stepper",
+      "class": "lue-stepper",
+      "required": true
+    },
+    "down": {
+      "element": "button",
+      "class": "lue-button",
+      "required": true,
+      "attributes": {
+        "data-lue-step": "down",
+        "aria-label": "Decrease {label}"
+      }
+    },
+    "input": {
+      "element": "input",
+      "class": "lue-input",
+      "required": true,
+      "attributes": {
+        "type": "number",
+        "min": "",
+        "max": "",
+        "step": ""
+      }
+    },
+    "up": {
+      "element": "button",
+      "class": "lue-button",
+      "required": true,
+      "attributes": {
+        "data-lue-step": "up",
+        "aria-label": "Increase {label}"
+      }
+    }
+  },
+  "messages": {
+    "decrease": "Decrease {label}",
+    "increase": "Increase {label}"
+  },
+  "a11y": {
+    "role": "spinbutton (the input); buttons",
+    "name": "The field's label; the buttons name what they change",
+    "states": [
+      {
+        "state": "at a limit",
+        "via": "[aria-disabled=\"true\"] on the button"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "ArrowUp",
+          "ArrowDown"
+        ],
+        "action": "Step the value (native)",
+        "on": "the input"
+      },
+      {
+        "keys": [
+          "Enter",
+          "Space"
+        ],
+        "action": "Step down or up",
+        "on": "a button"
+      }
+    ],
+    "focus": {
+      "indicator": "As Field and Button; a button at a limit keeps its focus"
+    }
+  },
+  "ownedAttributes": {
+    "input": [
+      "value (stepped, as the user would)"
+    ],
+    "[data-lue-step]": [
+      "aria-disabled"
+    ]
+  },
+  "elementRules": "It fires input and change after each step, as typing would.",
+  "react": {
+    "component": "QuantityStepper",
+    "props": {
+      "label": "",
+      "min, max, step": "the input's",
+      "messages": "translations",
+      "...": "every TextInput prop but type"
+    }
+  },
+  "tokens": [
+    "--lue-space-3xs"
+  ],
+  "platform": {
+    "baseline": [
+      "input type=number",
+      "stepUp() / stepDown()",
+      "custom elements",
+      ":defined"
+    ]
+  },
+  "rules": [
+    "For whole quantities; for free numbers (prices, measurements) use a text input with inputmode=\"decimal\""
+  ],
+  "withoutJavaScript": "A native number input with the browser's own spin buttons",
+  "contrast": "As Field and Button",
+  "forcedColors": "As Field and Button",
+  "deletionTrigger": null
+}

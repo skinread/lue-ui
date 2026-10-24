@@ -1,0 +1,15 @@
+/* Toolbar — <lue-roving class="lue-toolbar" role="toolbar" aria-label="…">: a row (or column, with
+   aria-orientation="vertical") of controls that is one Tab stop. Separators are <span role="separator">. Contract:
+   apps/docs/contracts/toolbar.json. */
+@layer lue.components {
+  .lue-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lue-space-3xs); padding: var(--lue-space-3xs); border-radius: var(--lue-radius-l); }
+  .lue-toolbar:where([aria-orientation="vertical"]) { flex-direction: column; align-items: stretch; inline-size: fit-content; }
+  .lue-toolbar > :where([role="separator"]) { align-self: stretch; inline-size: 1px; margin-inline: var(--lue-space-3xs); background: var(--lue-color-border-subtle); }
+  .lue-toolbar:where([aria-orientation="vertical"]) > :where([role="separator"]) { inline-size: auto; block-size: 1px; margin-block: var(--lue-space-3xs); margin-inline: 0; }
+}
+
+@layer lue.contrast {
+  @media (forced-colors: active) {
+    :where(.lue-toolbar) > :where([role="separator"]) { background: CanvasText; }
+  }
+}

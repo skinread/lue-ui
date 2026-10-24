@@ -1,0 +1,137 @@
+{
+  "name": "Tabs",
+  "summary": "Panels of related content, one shown at a time, chosen from a row of tabs.",
+  "status": "experimental",
+  "rung": "light-dom-script",
+  "rungReason": "No native element: <lue-tabs> upgrades links to sections (which work without script) into the APG tabs pattern.",
+  "anatomy": {
+    "tabs": {
+      "element": "lue-tabs",
+      "class": "lue-tabs",
+      "required": true
+    },
+    "list": {
+      "element": "nav",
+      "class": "lue-tabs__list",
+      "required": true,
+      "attributes": {
+        "aria-label": "the set's name"
+      }
+    },
+    "tab": {
+      "element": "a",
+      "class": "lue-tabs__tab",
+      "required": true,
+      "attributes": {
+        "id": "required",
+        "href": "#panel"
+      }
+    },
+    "panel": {
+      "element": "section",
+      "class": "lue-tabs__panel",
+      "required": true,
+      "attributes": {
+        "id": "required",
+        "aria-labelledby": "its tab"
+      }
+    }
+  },
+  "a11y": {
+    "role": "tablist, tab and tabpanel (written by the element)",
+    "name": "The list's aria-label; each panel by its tab",
+    "states": [
+      {
+        "state": "selected",
+        "via": "[aria-selected=\"true\"]"
+      },
+      {
+        "state": "hidden panel",
+        "via": "[hidden]"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "ArrowRight",
+          "ArrowLeft"
+        ],
+        "action": "Next or previous tab, shown at once (wrapping; mirrored in right-to-left text)",
+        "on": "a tab"
+      },
+      {
+        "keys": [
+          "Home",
+          "End"
+        ],
+        "action": "First or last tab",
+        "on": "a tab"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "From the selected tab into its panel"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "Show the focused tab (it already is: automatic activation)",
+        "on": "a tab"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline on the tab and the panel"
+    },
+    "targetSize": "Each tab is --lue-size-control-md tall"
+  },
+  "ownedAttributes": {
+    "a.lue-tabs__tab": [
+      "role",
+      "aria-selected",
+      "aria-controls",
+      "tabindex"
+    ],
+    ".lue-tabs__list": [
+      "role"
+    ],
+    ".lue-tabs__panel": [
+      "role",
+      "aria-labelledby",
+      "tabindex",
+      "hidden"
+    ]
+  },
+  "elementRules": "Links and panels need ids in the markup. The element finds tabs by .lue-tabs__list a[href^='#'] and panels by those ids; it fires lue-tab-change (detail.panel). React renders the no-script markup only.",
+  "react": {
+    "component": "Tabs",
+    "props": {
+      "label": "the list's name",
+      "tabs": "[{ id, label, content }]; the tab's id is `${id}-tab`"
+    }
+  },
+  "tokens": [
+    "--lue-chrome-line",
+    "--lue-color-fg-muted",
+    "--lue-color-fg-accent",
+    "--lue-size-control-md",
+    "--lue-color-focus-ring"
+  ],
+  "platform": {
+    "baseline": [
+      "custom elements",
+      ":defined",
+      "hidden"
+    ]
+  },
+  "rules": [
+    "The URL's #panel opens that tab first",
+    "To choose a value, use Segmented control: tabs switch content",
+    "The list is a <nav>: without script it's an in-page navigation landmark, and ARIA in HTML lets <nav> take role=\"tablist\""
+  ],
+  "withoutJavaScript": "A list of links to every section, all shown",
+  "contrast": "A solid rule under the tabs",
+  "forcedColors": "The selected tab has a Highlight bar",
+  "deletionTrigger": null
+}

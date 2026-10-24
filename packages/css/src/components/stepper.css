@@ -1,0 +1,11 @@
+/* Quantity stepper — <lue-stepper class="lue-stepper"> around − / + buttons ([data-lue-step]) and an
+   <input type="number" class="lue-input">, usually in a Field. The buttons show once the element is defined; the
+   native spin buttons are hidden then. Contract: apps/docs/contracts/quantity-stepper.json. */
+@layer lue.components {
+  .lue-stepper { display: inline-flex; align-items: center; gap: var(--lue-space-3xs); }
+  .lue-stepper :where(.lue-input) { inline-size: 6ch; min-inline-size: 4.5rem; text-align: center; }
+  .lue-stepper :where([aria-disabled="true"]) { opacity: 0.45; cursor: not-allowed; }
+  .lue-stepper:where(:not(:defined)) :where([data-lue-step]) { display: none; }
+  .lue-stepper:where(:defined) :where(input[type="number"]) { appearance: textfield; }
+  .lue-stepper:where(:defined) :where(input[type="number"])::-webkit-inner-spin-button { appearance: none; }
+}

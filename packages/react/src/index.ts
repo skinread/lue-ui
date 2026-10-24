@@ -31,3 +31,8 @@ export { Search, type SearchProps } from './search/index.js';
 export { SegmentedControl, type SegmentedControlProps } from './segmented-control/index.js';
 export { Rating, type RatingProps } from './rating/index.js';
 export { SwatchPicker, type SwatchPickerProps } from './swatch-picker/index.js';
+export { Tabs, type TabsProps } from './tabs/index.js';
+export { Toolbar, type ToolbarProps } from './toolbar/index.js';
+export { Tooltip, tooltipTrigger, type TooltipProps } from './tooltip/index.js';
+export { Carousel, type CarouselProps } from './carousel/index.js';
+export { QuantityStepper, type QuantityStepperProps } from './quantity-stepper/index.js';

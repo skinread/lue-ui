@@ -76,3 +76,19 @@ export function outline(markup: string): unknown {
   };
   return [...template.content.childNodes].map(walk).filter((c) => c !== null);
 }
+
+/**
+ * Renders markup in a fresh iframe that has this page's styles but no custom element definitions: the HTML path
+ * before (or without) the script. Returns the iframe's document; remove the iframe with `frame.remove()`.
+ */
+export async function withoutElements(markup: string): Promise<Document> {
+  const iframe = document.body.appendChild(Object.assign(document.createElement('iframe'), { style: 'inline-size:600px;block-size:400px;border:0' }));
+  const doc = iframe.contentDocument!;
+  doc.open();
+  doc.write('<!doctype html><html><head></head><body></body></html>');
+  doc.close();
+  for (const style of document.querySelectorAll('style')) doc.head.append(style.cloneNode(true));
+  doc.body.innerHTML = markup;
+  await frame();
+  return doc;
+}

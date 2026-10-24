@@ -53,7 +53,7 @@ describe('MCP server', () => {
   });
 
   it('says which components exist when one is unknown', async () => {
-    const result = await text('get_component', { name: 'carousel' });
+    const result = await text('get_component', { name: 'marquee' });
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toContain('accordion');
   });

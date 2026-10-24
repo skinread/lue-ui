@@ -1,0 +1,28 @@
+/* Carousel — <lue-carousel> around <section class="lue-carousel" aria-roledescription="carousel" aria-label="…">: a scroll-snap track of slides (.lue-carousel__track > .lue-carousel__slide, each a group named "n of count") and
+   previous/next buttons (.lue-carousel__controls), shown once the element is defined. No auto-rotation. Contract:
+   apps/docs/contracts/carousel.json. */
+@layer lue.components {
+  .lue-carousel { display: grid; gap: var(--lue-space-xs); }
+  .lue-carousel__track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--lue-carousel-slide, min(80%, 22rem));
+    gap: var(--lue-space-s);
+    margin: 0;
+    padding: 0 0 var(--lue-space-2xs);
+    overflow: auto;
+    scroll-snap-type: inline mandatory;
+    scrollbar-width: thin;
+  }
+  .lue-carousel__slide { scroll-snap-align: start; }
+  .lue-carousel__track:where(:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); }
+  .lue-carousel__controls { display: flex; justify-content: flex-end; gap: var(--lue-space-2xs); }
+  .lue-carousel__controls :where([aria-disabled="true"]) { opacity: 0.45; cursor: not-allowed; }
+  /* The arrows point along the line, so they flip in right-to-left text. */
+  .lue-carousel__controls :where([data-mirror]:dir(rtl)) { scale: -1 1; }
+  /* On the custom element: it's what :defined applies to (the type selector outweighs .lue-carousel__controls). */
+  lue-carousel:where(:not(:defined)) .lue-carousel__controls { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .lue-carousel__track { scroll-behavior: smooth; }
+  }
+}

@@ -34,6 +34,11 @@
 @import "./components/segmented.css";
 @import "./components/rating.css";
 @import "./components/swatch.css";
+@import "./components/tabs.css";
+@import "./components/toolbar.css";
+@import "./components/tooltip.css";
+@import "./components/carousel.css";
+@import "./components/stepper.css";
 @import "./blocks.css";
 @import "./materials.css";
 @import "./utilities.css";

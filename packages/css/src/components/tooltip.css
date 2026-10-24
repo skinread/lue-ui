@@ -1,0 +1,36 @@
+/* Tooltip — <span class="lue-tooltip" popover="manual" role="tooltip" id="…">, named by its trigger's
+   aria-describedby and data-lue-tooltip. A short, inverse bubble above the trigger (anchor positioning; centred by the
+   browser without it). It never holds anything a user must act on. Contract: apps/docs/contracts/tooltip.json. */
+@layer lue.components {
+  .lue-tooltip {
+    max-inline-size: min(18rem, 100vi - 2rem);
+    margin: 0;
+    padding: var(--lue-space-3xs) var(--lue-space-xs);
+    border: 0;
+    border-radius: var(--lue-radius-s);
+    background: var(--lue-color-bg-inverse);
+    color: var(--lue-color-fg-inverse);
+    box-shadow: var(--lue-shadow-overlay);
+    font-size: 0.875rem;
+    line-height: 1.4;
+    opacity: 0;
+    transition:
+      opacity var(--lue-motion-duration-fast) var(--lue-motion-ease-standard),
+      overlay var(--lue-motion-duration-fast) allow-discrete,
+      display var(--lue-motion-duration-fast) allow-discrete;
+  }
+  .lue-tooltip:where([popover]:not(:popover-open)) { display: none; }
+  .lue-tooltip:where(:popover-open) { opacity: 1; }
+  @starting-style {
+    .lue-tooltip:where(:popover-open) { opacity: 0; }
+  }
+  @supports (position-area: block-start) {
+    .lue-tooltip:where([popover]) { inset: auto; margin-block: var(--lue-space-3xs); position-area: block-start; position-try-fallbacks: flip-block; }
+  }
+}
+
+@layer lue.contrast {
+  @media (forced-colors: active) {
+    :where(.lue-tooltip) { border: 1px solid CanvasText; background: Canvas; color: CanvasText; }
+  }
+}

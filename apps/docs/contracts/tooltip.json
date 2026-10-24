@@ -1,0 +1,93 @@
+{
+  "name": "Tooltip",
+  "summary": "A short description shown on hover or keyboard focus, read with or without script.",
+  "status": "experimental",
+  "rung": "light-dom-script",
+  "rungReason": "aria-describedby and popover are native; showing on hover and focus with a delay, hover persistence and Escape (WCAG 1.4.13) need the data-lue-tooltip behaviour.",
+  "anatomy": {
+    "trigger": {
+      "element": "button",
+      "required": true,
+      "attributes": {
+        "aria-describedby": "the tooltip's id",
+        "data-lue-tooltip": "the tooltip's id"
+      }
+    },
+    "tooltip": {
+      "element": "span",
+      "class": "lue-tooltip",
+      "required": true,
+      "attributes": {
+        "popover": "manual",
+        "role": "tooltip",
+        "id": "required"
+      }
+    }
+  },
+  "a11y": {
+    "role": "tooltip",
+    "name": "n/a",
+    "description": "It describes its trigger (aria-describedby), shown or not",
+    "states": [
+      {
+        "state": "shown",
+        "via": ":popover-open"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Focusing the trigger shows it at once; moving on hides it"
+      },
+      {
+        "keys": [
+          "Escape"
+        ],
+        "action": "Hide it, keeping focus (and only it: a dialog it's in stays open)"
+      }
+    ],
+    "focus": {
+      "indicator": "The trigger's"
+    }
+  },
+  "ownedAttributes": {},
+  "elementRules": "The behaviour opens and closes the popover and writes nothing. Hover shows it after 300 ms, focus at once; it stays while the pointer is over the trigger or the tooltip.",
+  "react": {
+    "component": "Tooltip, tooltipTrigger",
+    "props": {
+      "id": "the tooltip's id",
+      "tooltipTrigger(id)": "spread onto the trigger"
+    }
+  },
+  "tokens": [
+    "--lue-color-bg-inverse",
+    "--lue-color-fg-inverse",
+    "--lue-shadow-overlay",
+    "--lue-radius-s",
+    "--lue-motion-duration-fast"
+  ],
+  "platform": {
+    "baseline": [
+      "popover=manual",
+      "aria-describedby"
+    ],
+    "enhancements": [
+      {
+        "feature": "showPopover({ source }) and anchor positioning",
+        "fallback": "The browser centres the tooltip"
+      }
+    ]
+  },
+  "rules": [
+    "Never on touch: anything a user needs belongs in a Toggletip",
+    "Text only, nothing to act on",
+    "An icon-only button still needs its own name (aria-label); the tooltip is its description"
+  ],
+  "withoutJavaScript": "Not shown; the description is still read",
+  "motion": "Fades; instant under reduced motion",
+  "contrast": "The inverse surface passes the -more levels",
+  "forcedColors": "Canvas with a CanvasText border",
+  "deletionTrigger": "interestfor and popover=\"hint\" in all three engines"
+}

@@ -1,0 +1,121 @@
+{
+  "name": "Carousel",
+  "summary": "A row of slides that scrolls and snaps, with previous and next buttons; never moves on its own.",
+  "status": "experimental",
+  "rung": "light-dom-script",
+  "rungReason": "Scroll snapping is CSS and works alone; the previous and next buttons need <lue-carousel>.",
+  "anatomy": {
+    "host": {
+      "element": "lue-carousel",
+      "required": true
+    },
+    "carousel": {
+      "element": "section",
+      "class": "lue-carousel",
+      "required": true,
+      "attributes": {
+        "aria-roledescription": "carousel",
+        "aria-label": "required"
+      }
+    },
+    "controls": {
+      "element": "div",
+      "class": "lue-carousel__controls",
+      "required": true
+    },
+    "button": {
+      "element": "button",
+      "class": "lue-button",
+      "required": true,
+      "attributes": {
+        "data-lue-carousel": "previous or next",
+        "aria-label": "Previous slide / Next slide"
+      }
+    },
+    "track": {
+      "element": "div",
+      "class": "lue-carousel__track",
+      "required": true
+    },
+    "slide": {
+      "element": "div",
+      "class": "lue-carousel__slide",
+      "required": true,
+      "attributes": {
+        "role": "group",
+        "aria-roledescription": "slide",
+        "aria-label": "n of count"
+      }
+    }
+  },
+  "messages": {
+    "previous": "Previous slide",
+    "next": "Next slide",
+    "slide": "{n} of {count}"
+  },
+  "a11y": {
+    "role": "region (a named section, \"carousel\"); groups (slides)",
+    "name": "aria-label; each slide \"n of count\"",
+    "states": [
+      {
+        "state": "at an end",
+        "via": "[aria-disabled=\"true\"] on the button"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Enter",
+          "Space"
+        ],
+        "action": "Previous or next slide",
+        "on": "a button"
+      }
+    ],
+    "focus": {
+      "indicator": "The buttons'; a button at an end keeps its focus (aria-disabled, not disabled)"
+    }
+  },
+  "ownedAttributes": {
+    "[data-lue-carousel]": [
+      "aria-disabled"
+    ]
+  },
+  "elementRules": "It moves with scrollIntoView (smooth unless motion is reduced; right-to-left aware) and reads the position from the track's scroll.",
+  "react": {
+    "component": "Carousel",
+    "props": {
+      "aria-label": "required",
+      "slides": "each slide's content",
+      "messages": "translations"
+    }
+  },
+  "tokens": [
+    "--lue-space-s",
+    "--lue-space-xs",
+    "--lue-color-focus-ring"
+  ],
+  "platform": {
+    "baseline": [
+      "scroll-snap",
+      "scrollIntoView",
+      "custom elements",
+      ":defined"
+    ],
+    "enhancements": [
+      {
+        "feature": "::scroll-button and ::scroll-marker",
+        "fallback": "Not used yet: the element's buttons work everywhere"
+      }
+    ]
+  },
+  "rules": [
+    "No auto-rotation, so there's nothing to pause (WCAG 2.2.2)",
+    "Slides hold their own links; nothing important lives only in a slide that starts out of view"
+  ],
+  "withoutJavaScript": "The track scrolls, swipes and snaps; the buttons stay hidden",
+  "motion": "Smooth scrolling, instant under reduced motion",
+  "contrast": "As Button",
+  "forcedColors": "As Button",
+  "deletionTrigger": "::scroll-button in all three engines"
+}
