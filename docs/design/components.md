@@ -121,7 +121,7 @@ drawn on the C2 canvas.
 
 Every component ships a machine-readable contract. **This format is a draft:** Pass 3 hand-writes the keyboard tests
 for the first five components, and the final schema is extracted from what those tests actually need. The written
-contracts live in [`apps/docs/contracts/`](../../apps/docs/contracts/) (Button, Field and Select so far); they extend this draft
+contracts live in [`apps/docs/contracts/`](../../apps/docs/contracts/) (Button, Field, Select and Dialog so far); they extend this draft
 where a component needed it (`react`, `contrast`, `messages`, `withoutJavaScript`).
 
 | Field | Meaning |

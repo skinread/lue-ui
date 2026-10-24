@@ -65,7 +65,8 @@ Chromium 156 and WebKit 27.2** (46 runs).
 ## Follow-ups
 
 - ArrowDown and ArrowUp on the menu button, opening at the first or last item (optional in the APG).
-- A controlled `Dialog` needs `onOpenChange` to stay in sync after Esc. Document it, or warn in development.
+- ~~A controlled `Dialog` needs `onOpenChange` to stay in sync after Esc~~ — documented, and warned once in development
+  (Pass 3 components, 2026-10-24).
 - ~~Emulation rows from [ADR-0005](../adr/0005-three-engine-testing-and-a11y-gates.md)~~ — done in
   [Spike B](spike-b-token-and-css-pipeline.md) (`tests/emulation/`), 2026-10-24.
 - A Chromium accessibility-tree check that the invoker exposes `aria-expanded` (ARIA snapshots can't prove it).

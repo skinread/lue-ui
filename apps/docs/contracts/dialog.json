@@ -1,0 +1,49 @@
+{
+  "name": "Dialog",
+  "status": "experimental",
+  "rung": "native-attribute",
+  "rungReason": "<dialog> gives modality, inertness, top layer and Esc; invoker commands open it without script; <form method=\"dialog\"> closes it with a return value.",
+  "anatomy": {
+    "root": { "element": "dialog", "class": "lue-dialog", "attributes": { "closedby": "any", "aria-labelledby": "{title id}" } },
+    "title": { "element": "h2", "class": "lue-dialog__title", "required": true },
+    "body": { "element": "div|p", "class": "lue-dialog__body" },
+    "actions": { "element": "form", "class": "lue-dialog__actions", "attributes": { "method": "dialog" } },
+    "trigger": { "element": "button", "class": "lue-button", "attributes": { "command": "show-modal", "commandfor": "{dialog id}" } }
+  },
+  "a11y": {
+    "role": "dialog (implicit, modal via showModal)",
+    "name": "aria-labelledby → title",
+    "keyboard": [
+      { "keys": ["Escape"], "action": "Close (cancel event; may be prevented once to confirm discarding changes)" },
+      { "keys": ["Tab", "Shift+Tab"], "action": "Move focus within the dialog; the page behind is inert" }
+    ],
+    "focus": {
+      "initial": "Element with autofocus, else the first focusable element",
+      "return": "Browser returns focus to the invoker on close",
+      "indicator": ":focus-visible outline"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "components": {
+      "Dialog": { "props": { "open": "controlled; opens with showModal(), never React's open attribute", "onOpenChange": "required with open: the dialog closes itself on Esc, light dismiss and form method=dialog", "closedby": "default \"any\"" } },
+      "DialogTrigger": { "props": { "dialog": "the dialog's id", "...": "every Button prop" } }
+    },
+    "warnings": ["Development: `open` without `onOpenChange` warns once"]
+  },
+  "tokens": ["--lue-dialog-max-inline-size", "--lue-dialog-radius", "--lue-material-glass-modal", "--lue-glass-filter", "--lue-shadow-overlay", "--lue-color-overlay-scrim", "--lue-motion-duration-moderate", "--lue-motion-ease-enter", "--lue-motion-ease-exit"],
+  "platform": {
+    "baseline": ["dialog", "showModal", "invoker commands", "@starting-style", "transition-behavior: allow-discrete", ":has()", "scrollbar-gutter"],
+    "enhancements": [{ "feature": "closedby", "fallback": "No light dismiss; Esc and the dialog's buttons close it (older Safari). Works in Chromium, Firefox and Playwright's WebKit 27.2, checked 2026-10-24" }],
+    "knownGaps": [{ "where": "Safari < 26.2, HTML path", "gap": "command buttons do nothing", "policy": "ADR-0004 — no polyfill; the React path opens from state" }]
+  },
+  "motion": "Fades and scales in (enter easing) and out (exit easing) with @starting-style; the backdrop fades. Durations are 0s under reduced motion",
+  "contrast": "Increased contrast and reduced transparency: opaque surface, solid ring",
+  "forcedColors": "Canvas / CanvasText with a visible border; the chrome ring is removed; ::backdrop stays transparent-dark",
+  "rules": [
+    "Never pass React's open prop (opens non-modal without inertness)",
+    "Popovers inside the dialog stay DOM children of the dialog (never portalled)",
+    "Scroll lock: html:has(.lue-dialog:modal) { overflow: hidden } with scrollbar-gutter: stable"
+  ],
+  "deletionTrigger": null
+}

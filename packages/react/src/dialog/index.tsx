@@ -1,7 +1,12 @@
 'use client';
 import { useLayoutEffect, useRef, type ComponentPropsWithRef, type ReactNode } from 'react';
+import { Button, type ButtonProps } from '../button/index.js';
 import { cx } from '../cx.js';
 import { invoker } from '../invoker.js';
+
+// Bundlers replace `process.env.NODE_ENV`, as they must for React itself; the warning is stripped from production builds.
+declare const process: { env: { NODE_ENV?: string } };
+let warnedUncontrolledClose = false;
 
 export interface DialogProps extends Omit<ComponentPropsWithRef<'dialog'>, 'open'> {
   /** Light dismiss. `any` closes on a backdrop click as well as Esc (an enhancement: Safari has Esc only). */
@@ -15,9 +20,19 @@ export interface DialogProps extends Omit<ComponentPropsWithRef<'dialog'>, 'open
   onOpenChange?: ((open: boolean) => void) | undefined;
 }
 
-/** `<dialog class="lue-dialog">` — modal dialog. Markup matches the HTML core exactly. */
+/**
+ * `<dialog class="lue-dialog">` — modal dialog. Markup matches the HTML core exactly. Contract:
+ * apps/docs/contracts/dialog.json. Controlled use needs `onOpenChange` as well as `open`.
+ */
 export function Dialog({ className, closedby = 'any', open, onOpenChange, onClose, ref, ...props }: DialogProps): ReactNode {
   const local = useRef<HTMLDialogElement>(null);
+  if (process.env.NODE_ENV !== 'production' && open !== undefined && !onOpenChange && !warnedUncontrolledClose) {
+    warnedUncontrolledClose = true;
+    console.warn(
+      'Lue UI Dialog: `open` is set without `onOpenChange`. The dialog closes itself on Esc, light dismiss and ' +
+        '`<form method="dialog">`; without onOpenChange your state stays `true` and the next `open` does nothing.',
+    );
+  }
   useLayoutEffect(() => {
     const dialog = local.current;
     if (open === undefined || !dialog) return;
@@ -42,12 +57,12 @@ export function Dialog({ className, closedby = 'any', open, onOpenChange, onClos
   );
 }
 
-export interface DialogTriggerProps extends ComponentPropsWithRef<'button'> {
+export interface DialogTriggerProps extends ButtonProps {
   /** The dialog's id. */
   dialog: string;
 }
 
-/** A button that opens a dialog with `command="show-modal"` — no script. */
-export function DialogTrigger({ dialog, className, ...props }: DialogTriggerProps): ReactNode {
-  return <button type="button" {...props} {...invoker('show-modal', dialog)} className={cx('lue-button', className)} />;
+/** A Button that opens a dialog with `command="show-modal"` — no script. Takes every Button prop. */
+export function DialogTrigger({ dialog, ...props }: DialogTriggerProps): ReactNode {
+  return <Button {...props} {...invoker('show-modal', dialog)} />;
 }

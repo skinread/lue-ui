@@ -1,27 +1,83 @@
-/* Dialog — <dialog class="lue-dialog">, opened with command="show-modal". Seeded from the Claude Design System. */
+/* Dialog — <dialog class="lue-dialog" closedby="any">, opened with command="show-modal" (HTML) or showModal() from
+   state (React). Contract: apps/docs/contracts/dialog.json. Modality, inertness, the top layer, Esc and focus return
+   are the browser's; this file adds the material, an entry and exit transition, and scroll lock. */
 @layer lue.components {
   .lue-dialog {
     margin: auto;
     display: grid;
     gap: var(--lue-space-s);
     inline-size: min(100% - 2rem, var(--lue-dialog-max-inline-size));
+    max-block-size: calc(100dvb - 2rem);
+    overflow: auto;
     padding: var(--lue-space-l);
-    border-radius: var(--lue-radius-l);
+    border-radius: var(--lue-dialog-radius);
     color: var(--lue-color-fg-default);
     background-color: var(--lue-material-glass-modal);
     background-image: var(--lue-glass-sheen);
     backdrop-filter: var(--lue-glass-filter);
     box-shadow: var(--lue-shadow-overlay), var(--lue-shadow-fringe);
+    opacity: 0;
+    scale: 0.97;
+    transition:
+      opacity var(--lue-motion-duration-moderate) var(--lue-motion-ease-exit),
+      scale var(--lue-motion-duration-moderate) var(--lue-motion-ease-exit),
+      overlay var(--lue-motion-duration-moderate) allow-discrete,
+      display var(--lue-motion-duration-moderate) allow-discrete;
   }
   .lue-dialog:where(:not([open])) { display: none; }
-  .lue-dialog::backdrop { background: var(--lue-color-overlay-scrim); }
-  .lue-dialog__title { font-size: 1.4375rem; line-height: 1.22; }
-  .lue-dialog__body { color: var(--lue-color-fg-muted); }
+  .lue-dialog:where([open]) {
+    opacity: 1;
+    scale: 1;
+    transition-timing-function: var(--lue-motion-ease-enter);
+  }
+  @starting-style {
+    .lue-dialog:where([open]) { opacity: 0; scale: 0.97; }
+  }
+  .lue-dialog::backdrop {
+    background: var(--lue-color-overlay-scrim);
+    opacity: 0;
+    transition:
+      opacity var(--lue-motion-duration-moderate) var(--lue-motion-ease-standard),
+      overlay var(--lue-motion-duration-moderate) allow-discrete,
+      display var(--lue-motion-duration-moderate) allow-discrete;
+  }
+  .lue-dialog:where([open])::backdrop { opacity: 1; }
+  @starting-style {
+    .lue-dialog:where([open])::backdrop { opacity: 0; }
+  }
+
+  .lue-dialog__title { margin: 0; font-size: 1.4375rem; line-height: 1.22; }
+  .lue-dialog__body { margin: 0; color: var(--lue-color-fg-muted); }
   .lue-dialog__actions {
     display: flex;
     justify-content: flex-end;
     flex-wrap: wrap;
     gap: var(--lue-space-xs);
     margin: var(--lue-space-2xs) 0 0;
+  }
+
+  /* Scroll lock while a modal dialog is open; the gutter stays, so the page doesn't shift. */
+  :where(html:has(.lue-dialog:modal)) { overflow: hidden; scrollbar-gutter: stable; }
+}
+
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-dialog),
+  :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-dialog) {
+    background-color: var(--lue-color-bg-surface);
+    background-image: none;
+    backdrop-filter: none;
+  }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-dialog)::before,
+  :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-dialog)::before { background: var(--lue-color-border-strong); }
+  @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+    :where(.lue-dialog) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+    :where(.lue-dialog)::before { background: var(--lue-color-border-strong); }
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    :where(.lue-dialog) { background-color: var(--lue-color-bg-surface); background-image: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.lue-dialog) { background: Canvas; color: CanvasText; border-color: CanvasText; backdrop-filter: none; }
+    :where(.lue-dialog)::before { content: none; }
   }
 }
