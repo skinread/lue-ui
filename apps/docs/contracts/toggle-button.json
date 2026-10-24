@@ -1,0 +1,70 @@
+{
+  "name": "ToggleButton",
+  "status": "experimental",
+  "rung": "light-dom-script",
+  "rungReason": "<button aria-pressed> is the native pattern, but no attribute flips it: the HTML path needs data-lue-toggle, React keeps state.",
+  "anatomy": {
+    "button": {
+      "element": "button",
+      "class": "lue-button",
+      "required": true,
+      "attributes": {
+        "type": "button",
+        "aria-pressed": "true or false",
+        "data-lue-toggle": "HTML path only"
+      }
+    }
+  },
+  "a11y": {
+    "role": "button (toggle)",
+    "name": "Its text, which doesn't change with the state",
+    "states": [
+      {
+        "state": "pressed",
+        "via": "[aria-pressed=\"true\"]"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Enter",
+          "Space"
+        ],
+        "action": "Toggle"
+      }
+    ],
+    "focus": {
+      "indicator": "Button's :focus-visible outline"
+    }
+  },
+  "ownedAttributes": {
+    "button[data-lue-toggle]": [
+      "aria-pressed"
+    ]
+  },
+  "elementRules": "The behaviour listens for clicks at the document, writes only aria-pressed on [data-lue-toggle] buttons, skips cancelled clicks, and fires a bubbling lue-toggle event (detail.pressed). React never renders data-lue-toggle.",
+  "react": {
+    "component": "ToggleButton",
+    "props": {
+      "pressed": "controlled",
+      "defaultPressed": "uncontrolled start",
+      "onPressedChange": "called with the new state",
+      "...": "every Button prop but pressed"
+    }
+  },
+  "tokens": [
+    "--lue-material-button-pressed",
+    "--lue-prism-ring"
+  ],
+  "platform": {
+    "baseline": [
+      "button",
+      "aria-pressed",
+      "CustomEvent"
+    ]
+  },
+  "withoutJavaScript": "It shows its initial state and doesn't change; give it a form fallback when the state must be saved",
+  "contrast": "As Button: a solid ring when pressed",
+  "forcedColors": "As Button: SelectedItem when pressed",
+  "deletionTrigger": "A native toggle button (none proposed)"
+}

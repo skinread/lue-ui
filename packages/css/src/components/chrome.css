@@ -2,11 +2,11 @@
    Claude Design System seed (Pass 2). Components turn the ring by setting --lue-angle on their ::before. */
 @layer lue.components {
   /* ---------------------------------------------------------------- chrome hairline ring (shared) */
-  :where(.lue-button, .lue-card, .lue-dialog:not(:modal), .lue-menu:not([popover]), .lue-tag, .lue-alert, .lue-toast:not([popover]), .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"]) { position: relative; }
-  :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"]) {
+  :where(.lue-button, .lue-card, .lue-dialog:not(:modal), .lue-menu:not([popover]), .lue-popover:not([popover]), .lue-tag, .lue-alert, .lue-toast:not([popover]), .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"]) { position: relative; }
+  :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-popover, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"]) {
     border: var(--lue-border-width-thin) solid transparent; /* visible in forced colours */
   }
-  :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before {
+  :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-popover, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before {
     content: "";
     position: absolute;
     inset: calc(var(--lue-border-width-thin) * -1);
@@ -27,12 +27,12 @@
 /* The ring in increased contrast and reduced transparency: one solid strong line. Forced colours: removed; the
    transparent border shows instead. */
 @layer lue.contrast {
-  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before { background: var(--lue-color-border-strong); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-popover, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before { background: var(--lue-color-border-strong); }
   @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
-    :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before { background: var(--lue-color-border-strong); }
+    :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-popover, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before { background: var(--lue-color-border-strong); }
   }
   @media (forced-colors: active) {
-    :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before { content: none; }
+    :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-popover, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before { content: none; }
     :where(.lue-chrome) { border-color: CanvasText; background-color: Canvas; background-image: none; }
   }
 }

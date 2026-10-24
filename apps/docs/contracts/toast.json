@@ -1,0 +1,137 @@
+{
+  "name": "Toast",
+  "status": "experimental",
+  "rung": "light-dom-script",
+  "rungReason": "Announcing, timing, pausing and queueing need script; the element uses ariaNotify() or a live region, and a manual popover for the top layer.",
+  "anatomy": {
+    "region": {
+      "element": "lue-toast-region",
+      "required": true,
+      "attributes": {
+        "dismiss-label": "the dismiss button's name (\"Dismiss\")",
+        "aria-label": "the list's name (\"Notifications\")"
+      }
+    },
+    "live": {
+      "element": "div",
+      "class": "lue-visually-hidden",
+      "attributes": {
+        "role": "status"
+      }
+    },
+    "list": {
+      "element": "div",
+      "class": "lue-toast-region__list",
+      "attributes": {
+        "popover": "manual",
+        "role": "region",
+        "aria-label": "Notifications"
+      }
+    },
+    "toast": {
+      "element": "div",
+      "class": "lue-toast",
+      "children": [
+        {
+          "element": "p",
+          "class": "lue-toast__message"
+        },
+        {
+          "element": "button",
+          "class": "lue-button",
+          "text": "action (optional)"
+        },
+        {
+          "element": "button",
+          "class": "lue-button",
+          "attributes": {
+            "data-icon-only": "",
+            "aria-label": "Dismiss"
+          }
+        }
+      ]
+    }
+  },
+  "messages": {
+    "dismiss": "Dismiss",
+    "region": "Notifications"
+  },
+  "a11y": {
+    "role": "region (the list), status (the fallback live region)",
+    "name": "Notifications",
+    "description": "Each message is announced once, politely, when shown (WCAG 4.1.3)",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Reaches a toast's buttons in the page's order (the region is at the end of the page)"
+      },
+      {
+        "keys": [
+          "Escape"
+        ],
+        "action": "Dismiss the focused toast; focus goes back where it came from",
+        "where": "inside a toast"
+      }
+    ],
+    "focus": {
+      "initial": "Never moved to a toast",
+      "return": "Where focus came from, when a focused toast leaves",
+      "indicator": "An inverse outline on the toast's buttons"
+    },
+    "targetSize": "Buttons are --lue-size-control-sm, at least --lue-size-target-min"
+  },
+  "ownedAttributes": {
+    "lue-toast-region": [
+      "all its children"
+    ]
+  },
+  "elementRules": "Render it empty; it creates and owns everything inside and writes nothing outside itself.",
+  "react": {
+    "component": "ToastRegion, showToast",
+    "props": {
+      "dismiss-label": "translated dismiss name",
+      "showToast(message, { action, duration })": "returns { dismiss() }"
+    }
+  },
+  "tokens": [
+    "--lue-color-bg-inverse",
+    "--lue-color-fg-inverse",
+    "--lue-shadow-overlay",
+    "--lue-radius-l",
+    "--lue-space-s",
+    "--lue-motion-duration-moderate"
+  ],
+  "platform": {
+    "baseline": [
+      "popover=manual",
+      "role=status",
+      "@starting-style",
+      "ariaNotify()"
+    ],
+    "enhancements": [
+      {
+        "feature": "ariaNotify()",
+        "fallback": "An always-rendered role=status region whose text is replaced"
+      }
+    ],
+    "knownGaps": [
+      {
+        "where": "While a modal dialog is open",
+        "gap": "The region shows above it but is inert, so a toast's buttons can't be used",
+        "policy": "Show toasts after the dialog closes, or put the message in the dialog"
+      }
+    ]
+  },
+  "rules": [
+    "Leaves after 6 s by default, paused while hovered or focused; a toast with an action stays until used or dismissed (WCAG 2.2.1)",
+    "At most three at once; the rest queue",
+    "Status only: errors that need action belong in the page (Alert, error summary)"
+  ],
+  "withoutJavaScript": "Nothing shows: put server messages in the page as an Alert",
+  "motion": "Rises and fades in; instant under reduced motion",
+  "contrast": "The inverse surface already passes the -more contrast levels",
+  "forcedColors": "Canvas with a CanvasText border",
+  "deletionTrigger": null
+}

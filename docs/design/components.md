@@ -45,7 +45,7 @@ that open a Dialog or Drawer do nothing — ADR-0004), 2 use an opt-in behaviour
 | Drawer | `<dialog>` positioned to an inline/block edge | Dialog (modal) | none | As Dialog |
 | Popover | `[popover]` + `popovertarget`, anchor positioning | Disclosure (non-modal) | none | Without anchoring: browser-centred popover |
 | Menu button | `[popover]` with `role="menu"`, anchored | Menu button | element `<lue-menu>` | Keyboard model needs the element; opening works without it |
-| Toggletip | `[popover]` (`hint` as PE) | — (click-to-show help) | none | `popover="hint"` → `manual`/`auto` |
+| Toggletip | `<span popover="auto">` after its button | — (click-to-show help) | none | Not `hint` (changed 2026-10-24): an unsupported value falls back to `manual`, losing Esc and light dismiss |
 | Disclosure | `<details>` / `<summary>` | Disclosure | none | `::details-content` animation as PE |
 | Accordion | `<details name>` group | Accordion | none | Exclusive open state is native |
 | Alert / callout | Static `<div>`, or `role="status"`/`role="alert"` when injected; the tone is said in words | — | none | Not `<aside>` (changed 2026-10-24): inside `<main>` each would be a complementary landmark, and it can't take `role="status"` |

@@ -1,0 +1,41 @@
+/* Drawer — a .lue-dialog with data-side="inline-end" | "inline-start" | "block-end": the same modal <dialog>, docked
+   to an edge and sliding in from it. Everything else (modality, Esc, focus, scroll lock) is Dialog's. Contract:
+   apps/docs/contracts/drawer.json. */
+@layer lue.components {
+  .lue-dialog:where([data-side]) {
+    margin: 0;
+    max-inline-size: 100%;
+    max-block-size: 100%;
+    scale: 1;
+    align-content: start;
+    transition:
+      opacity var(--lue-motion-duration-moderate) var(--lue-motion-ease-exit),
+      translate var(--lue-motion-duration-moderate) var(--lue-motion-ease-exit),
+      overlay var(--lue-motion-duration-moderate) allow-discrete,
+      display var(--lue-motion-duration-moderate) allow-discrete;
+  }
+  .lue-dialog:where([data-side="inline-end"], [data-side="inline-start"]) {
+    inline-size: min(100% - 3rem, var(--lue-drawer-inline-size, 26rem));
+    block-size: 100%;
+  }
+  .lue-dialog:where([data-side="inline-end"]) { margin-inline-start: auto; border-start-end-radius: 0; border-end-end-radius: 0; translate: 100% 0; }
+  .lue-dialog:where([data-side="inline-start"]) { margin-inline-end: auto; border-start-start-radius: 0; border-end-start-radius: 0; translate: -100% 0; }
+  .lue-dialog:where([data-side="inline-end"]:dir(rtl)) { translate: -100% 0; }
+  .lue-dialog:where([data-side="inline-start"]:dir(rtl)) { translate: 100% 0; }
+  .lue-dialog:where([data-side="block-end"]) {
+    inline-size: 100%;
+    max-block-size: 85dvb;
+    margin-block-start: auto;
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+    translate: 0 100%;
+  }
+  .lue-dialog:where([data-side][open]) { translate: 0 0; transition-timing-function: var(--lue-motion-ease-enter); }
+  @starting-style {
+    .lue-dialog:where([data-side="inline-end"][open]) { translate: 100% 0; }
+    .lue-dialog:where([data-side="inline-start"][open]) { translate: -100% 0; }
+    .lue-dialog:where([data-side="inline-end"][open]:dir(rtl)) { translate: -100% 0; }
+    .lue-dialog:where([data-side="inline-start"][open]:dir(rtl)) { translate: 100% 0; }
+    .lue-dialog:where([data-side="block-end"][open]) { translate: 0 100%; }
+  }
+}

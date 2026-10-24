@@ -1,0 +1,53 @@
+/* Popover and Toggletip — <div class="lue-popover" popover>, opened by a button with command="toggle-popover" (or
+   popovertarget). Non-modal: Esc, light dismiss, the top layer and focus order are the browser's. Anchored to its
+   invoker where anchor positioning exists; otherwise the browser centres it. data-variant="tip" is the small
+   click-to-show help bubble. Contracts: apps/docs/contracts/popover.json, toggletip.json. */
+@layer lue.components {
+  .lue-popover {
+    display: grid;
+    gap: var(--lue-space-2xs);
+    inline-size: min(22rem, 100vi - 2rem);
+    margin: 0;
+    padding: var(--lue-space-s);
+    border-radius: var(--lue-radius-m);
+    color: var(--lue-color-fg-default);
+    background-color: var(--lue-material-glass-overlay);
+    background-image: var(--lue-glass-sheen);
+    backdrop-filter: var(--lue-glass-filter);
+    box-shadow: var(--lue-shadow-overlay), var(--lue-shadow-fringe);
+    transition:
+      opacity var(--lue-motion-duration-fast) var(--lue-motion-ease-standard),
+      overlay var(--lue-motion-duration-fast) allow-discrete,
+      display var(--lue-motion-duration-fast) allow-discrete;
+  }
+  .lue-popover:where([popover]:not(:popover-open)) { display: none; opacity: 0; }
+  @starting-style {
+    .lue-popover:where(:popover-open) { opacity: 0; }
+  }
+  .lue-popover:where([data-variant="tip"]) { inline-size: max-content; max-inline-size: min(18rem, 100vi - 2rem); padding: var(--lue-space-2xs) var(--lue-space-xs); font-size: 0.9375rem; }
+
+  @supports (position-area: block-end) {
+    .lue-popover:where([popover]) {
+      inset: auto;
+      margin-block: var(--lue-space-3xs);
+      position-area: block-end span-inline-end;
+      position-try-fallbacks: flip-block, flip-inline;
+    }
+    .lue-popover:where([popover][data-variant="tip"]) { position-area: block-start center; position-try-fallbacks: flip-block; }
+  }
+}
+
+/* Increased contrast and reduced transparency: an opaque surface. Forced colours: Canvas with a CanvasText border. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-popover),
+  :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-popover) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+    :where(.lue-popover) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    :where(.lue-popover) { background-color: var(--lue-color-bg-surface); background-image: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.lue-popover) { background: Canvas; color: CanvasText; border-color: CanvasText; backdrop-filter: none; }
+  }
+}

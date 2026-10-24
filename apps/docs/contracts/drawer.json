@@ -1,0 +1,90 @@
+{
+  "name": "Drawer",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "A modal <dialog> docked to an edge with CSS; modality, Esc, focus and its return are the browser's, as for Dialog.",
+  "anatomy": {
+    "drawer": {
+      "element": "dialog",
+      "class": "lue-dialog",
+      "required": true,
+      "attributes": {
+        "data-side": "inline-end (default), inline-start, block-end",
+        "closedby": "any",
+        "aria-labelledby": "its title"
+      }
+    }
+  },
+  "variants": {
+    "side": {
+      "attribute": "data-side",
+      "values": [
+        "inline-end",
+        "inline-start",
+        "block-end"
+      ],
+      "default": "inline-end"
+    }
+  },
+  "a11y": {
+    "role": "dialog (modal)",
+    "name": "aria-labelledby its title",
+    "keyboard": [
+      {
+        "keys": [
+          "Escape"
+        ],
+        "action": "Close; focus returns to the button that opened it"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Stays inside it (the rest of the page is inert)"
+      }
+    ],
+    "focus": {
+      "initial": "autofocus, or the first focusable element",
+      "return": "The opening button",
+      "indicator": "Its content's own"
+    }
+  },
+  "ownedAttributes": {
+    "dialog": [
+      "open (the browser's)"
+    ]
+  },
+  "react": {
+    "component": "Drawer",
+    "props": {
+      "side": "data-side",
+      "...": "every Dialog prop"
+    }
+  },
+  "tokens": [
+    "--lue-dialog-radius",
+    "--lue-motion-duration-moderate",
+    "--lue-motion-ease-enter",
+    "--lue-motion-ease-exit"
+  ],
+  "platform": {
+    "baseline": [
+      "dialog",
+      "command=show-modal",
+      "@starting-style",
+      "translate",
+      ":dir()"
+    ],
+    "enhancements": [
+      {
+        "feature": "closedby=\"any\"",
+        "fallback": "Esc and its buttons close it (Safari)"
+      }
+    ]
+  },
+  "withoutJavaScript": "As Dialog: command buttons open it (Safari 26.2 and later)",
+  "motion": "Slides in from its edge (mirrored in right-to-left text); instant under reduced motion",
+  "contrast": "As Dialog",
+  "forcedColors": "As Dialog",
+  "deletionTrigger": null
+}

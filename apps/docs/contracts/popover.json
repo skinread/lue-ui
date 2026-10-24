@@ -1,0 +1,105 @@
+{
+  "name": "Popover",
+  "status": "experimental",
+  "rung": "native-attribute",
+  "rungReason": "popover=\"auto\" with command=\"toggle-popover\" gives open and close, Esc, light dismiss, the top layer and the expanded state on its button, with no script.",
+  "anatomy": {
+    "trigger": {
+      "element": "button",
+      "class": "lue-button",
+      "required": true,
+      "attributes": {
+        "command": "toggle-popover",
+        "commandfor": "the popover's id"
+      }
+    },
+    "popover": {
+      "element": "div",
+      "class": "lue-popover",
+      "required": true,
+      "attributes": {
+        "popover": "auto",
+        "id": "required"
+      }
+    }
+  },
+  "a11y": {
+    "role": "None of its own: its content keeps its semantics; the button exposes expanded state (the platform)",
+    "name": "n/a (give it a heading or aria-label when its content needs one)",
+    "states": [
+      {
+        "state": "open",
+        "via": ":popover-open"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Enter",
+          "Space"
+        ],
+        "action": "Open or close",
+        "on": "trigger"
+      },
+      {
+        "keys": [
+          "Escape"
+        ],
+        "action": "Close; focus stays or returns to the button"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Moves into it from its button (it follows the button in the DOM)"
+      }
+    ],
+    "focus": {
+      "initial": "Stays on the button",
+      "indicator": "Its content's own"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Popover, PopoverTrigger",
+    "props": {
+      "id": "the popover's id",
+      "target": "PopoverTrigger: the popover's id",
+      "...": "every <div> / Button prop"
+    }
+  },
+  "tokens": [
+    "--lue-material-glass-overlay",
+    "--lue-glass-sheen",
+    "--lue-glass-filter",
+    "--lue-shadow-overlay",
+    "--lue-shadow-fringe",
+    "--lue-radius-m",
+    "--lue-color-bg-surface",
+    "--lue-motion-duration-fast"
+  ],
+  "platform": {
+    "baseline": [
+      "popover",
+      "command / commandfor",
+      ":popover-open",
+      "@starting-style",
+      "transition-behavior: allow-discrete"
+    ],
+    "enhancements": [
+      {
+        "feature": "Anchor positioning (position-area, position-try-fallbacks)",
+        "fallback": "The browser centres the popover"
+      }
+    ]
+  },
+  "rules": [
+    "Render it right after its button: popovers are never portalled (RFC-0001 §5), so reading and Tab order follow",
+    "Non-modal: for anything that needs an answer, use Dialog"
+  ],
+  "withoutJavaScript": "Works fully",
+  "motion": "Fades in and out; instant under reduced motion",
+  "contrast": "An opaque surface and a strong ring",
+  "forcedColors": "Canvas with a CanvasText border",
+  "deletionTrigger": null
+}

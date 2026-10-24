@@ -14,6 +14,8 @@
 @import "./components/choice.css";
 @import "./components/error-summary.css";
 @import "./components/dialog.css";
+@import "./components/drawer.css";
+@import "./components/popover.css";
 @import "./components/menu.css";
 @import "./components/alert.css";
 @import "./components/toast.css";

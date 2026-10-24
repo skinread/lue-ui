@@ -3,7 +3,7 @@ export { Field, TextInput, Textarea, type FieldProps, type TextInputProps, type 
 export { Checkbox, ChoiceGroup, Radio, Switch, type ChoiceGroupProps, type ChoiceProps } from './choice/index.js';
 export { ErrorSummary, useValidation, type ErrorSummaryProps, type Validation } from './error-summary/index.js';
 export { Select, type SelectProps } from './select/index.js';
-export { Dialog, DialogTrigger, type DialogProps, type DialogTriggerProps } from './dialog/index.js';
+export { Dialog, DialogTrigger, Drawer, type DialogProps, type DialogTriggerProps, type DrawerProps } from './dialog/index.js';
 export { Menu, MenuItem, MenuTrigger, type MenuProps, type MenuItemProps, type MenuTriggerProps } from './menu/index.js';
 export { LueElements } from './elements/index.js';
 export { invoker, type Command } from './invoker.js';
@@ -14,3 +14,6 @@ export { Icon, type IconProps } from './icon/index.js';
 export { Alert, type AlertProps } from './alert/index.js';
 export { Disclosure, Accordion, type DisclosureProps, type AccordionProps } from './disclosure/index.js';
 export { Stack, Cluster, Grid, Sidebar, Switcher, Center, type LayoutProps } from './layout/index.js';
+export { ToggleButton, type ToggleButtonProps } from './toggle-button/index.js';
+export { Popover, PopoverTrigger, Toggletip, type PopoverProps, type PopoverTriggerProps, type ToggletipProps } from './popover/index.js';
+export { ToastRegion, showToast, type ToastRegionProps, type ToastOptions } from './toast/index.js';

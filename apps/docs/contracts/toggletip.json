@@ -1,0 +1,101 @@
+{
+  "name": "Toggletip",
+  "status": "experimental",
+  "rung": "native-attribute",
+  "rungReason": "A popover=\"auto\" opened by a button: click, touch and keyboard all work, with Esc and light dismiss native.",
+  "anatomy": {
+    "button": {
+      "element": "button",
+      "class": "lue-button",
+      "required": true,
+      "attributes": {
+        "data-size": "sm",
+        "data-icon-only": "",
+        "aria-label": "More about {topic}",
+        "command": "toggle-popover",
+        "commandfor": "the tip's id"
+      }
+    },
+    "tip": {
+      "element": "span",
+      "class": "lue-popover",
+      "required": true,
+      "attributes": {
+        "popover": "auto",
+        "data-variant": "tip"
+      }
+    }
+  },
+  "a11y": {
+    "role": "button; the tip is plain text after it",
+    "name": "The button's aria-label names the topic",
+    "states": [
+      {
+        "state": "open",
+        "via": ":popover-open"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Enter",
+          "Space"
+        ],
+        "action": "Show or hide the help",
+        "on": "button"
+      },
+      {
+        "keys": [
+          "Escape"
+        ],
+        "action": "Hide it"
+      }
+    ],
+    "focus": {
+      "initial": "Stays on the button; the help follows it in reading order",
+      "indicator": "The button's"
+    },
+    "targetSize": "--lue-size-control-sm square, at least --lue-size-target-min"
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Toggletip",
+    "props": {
+      "id": "the tip's id",
+      "label": "the button's name",
+      "children": "the help text"
+    }
+  },
+  "tokens": [
+    "--lue-material-glass-overlay",
+    "--lue-glass-sheen",
+    "--lue-glass-filter",
+    "--lue-shadow-overlay",
+    "--lue-shadow-fringe",
+    "--lue-radius-m",
+    "--lue-color-bg-surface",
+    "--lue-motion-duration-fast"
+  ],
+  "platform": {
+    "baseline": [
+      "popover",
+      "command / commandfor"
+    ],
+    "enhancements": [
+      {
+        "feature": "Anchor positioning",
+        "fallback": "The browser centres the tip"
+      }
+    ]
+  },
+  "rules": [
+    "popover=\"auto\", not \"hint\": an unsupported value falls back to manual (no Esc, no light dismiss), and hint is for hover tooltips (changed 2026-10-24; inventory updated)",
+    "Not announced on open: like a disclosure, the help sits after the button in reading order",
+    "Help text only: no links or controls inside (use Popover)",
+    "The tip is a <span>, so the toggletip can sit inside a paragraph or a label"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "As Popover",
+  "forcedColors": "As Popover",
+  "deletionTrigger": null
+}

@@ -52,7 +52,7 @@ if (name === 'elements') {
     logLevel: 'warning',
   });
   const iife = fs.readFileSync(path.join(DIST, 'lue.iife.js'), 'utf8');
-  for (const tag of ['lue-menu']) if (!iife.includes(`"${tag}"`)) problems.push(`lue.iife.js doesn't define <${tag}>`);
+  for (const tag of ['lue-menu', 'lue-toast-region']) if (!iife.includes(`"${tag}"`)) problems.push(`lue.iife.js doesn't define <${tag}>`);
   for (const f of fs.readdirSync(path.join(DIST, 'define')).filter((f) => f.endsWith('.js'))) {
     report(`define/${f}`, await size(path.join(DIST, 'define', f)), 2 * KB);
   }

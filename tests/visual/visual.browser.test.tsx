@@ -89,7 +89,14 @@ const SECTIONS: Record<string, string> = {
         <details class="lue-disclosure" name="v-faq"><summary>Do you ship abroad?${chevron}</summary><div><p>Not yet.</p></div></details>
       </div>
     </div>`,
+  overlay: `
+    <div style="display:grid;gap:20px;justify-items:start">
+      <div class="lue-popover"><p>Anyone with the link can view this project.</p><a class="lue-link" href="#copy">Copy link</a></div>
+      <span class="lue-popover" data-variant="tip">Orders placed before 2pm go out today.</span>
+      <div class="lue-toast"><p class="lue-toast__message">Image removed</p><button type="button" class="lue-button" data-size="sm">Undo</button><button type="button" class="lue-button" data-size="sm" data-icon-only="" aria-label="Dismiss">${icon}</button></div>
+    </div>`,
   dialog: `
+    <div style="inline-size:480px">
     <dialog class="lue-dialog" open="" aria-labelledby="v-dialog-title" style="position:static;margin:0">
       <h2 class="lue-dialog__title" id="v-dialog-title">Delete this project?</h2>
       <p class="lue-dialog__body">You can't undo this.</p>
@@ -97,7 +104,8 @@ const SECTIONS: Record<string, string> = {
         <button type="button" class="lue-button">Cancel</button>
         <button type="button" class="lue-button" data-variant="danger">Delete</button>
       </div>
-    </dialog>`,
+    </dialog>
+    </div>`,
   menu: `
     <div class="lue-menu" role="menu" aria-label="Sort by">
       <button type="button" class="lue-menu__item" role="menuitem" tabindex="-1">Newest first</button>

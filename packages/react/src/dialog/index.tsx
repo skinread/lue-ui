@@ -66,3 +66,16 @@ export interface DialogTriggerProps extends ButtonProps {
 export function DialogTrigger({ dialog, ...props }: DialogTriggerProps): ReactNode {
   return <Button {...props} {...invoker('show-modal', dialog)} />;
 }
+
+export interface DrawerProps extends DialogProps {
+  /** The edge it docks to; the inline end by default. */
+  side?: 'inline-end' | 'inline-start' | 'block-end' | undefined;
+}
+
+/**
+ * A Dialog docked to an edge (`data-side`), sliding in from it. Everything else is Dialog's: open it with a
+ * `<DialogTrigger>` or `open`. Contract: apps/docs/contracts/drawer.json.
+ */
+export function Drawer({ side = 'inline-end', ...props }: DrawerProps): ReactNode {
+  return <Dialog {...props} data-side={side} />;
+}

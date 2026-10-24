@@ -2,3 +2,5 @@
 // bundles.
 import './define/menu.js';
 import './define/validate.js';
+import './define/toggle.js';
+import './define/toast.js';

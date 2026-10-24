@@ -1,13 +1,55 @@
-/* Toast — .lue-toast on an inverse surface. */
+/* Toast — <lue-toast-region>, which owns everything inside it: a visually hidden live region and a manual popover
+   (.lue-toast-region__list) holding .lue-toast messages on an inverse surface, at the viewport's block-end corner.
+   Contract: apps/docs/contracts/toast.json. */
 @layer lue.components {
-  .lue-toast { display: flex; align-items: center; gap: var(--lue-space-s); inline-size: fit-content; max-inline-size: 100%; padding-block: var(--lue-space-2xs); padding-inline: var(--lue-space-s) var(--lue-space-2xs); border-radius: var(--lue-radius-full); background: var(--lue-color-bg-inverse); color: var(--lue-color-fg-inverse); box-shadow: var(--lue-shadow-overlay); }
-  .lue-toast :where(.lue-button) { color: var(--lue-color-fg-inverse); background: transparent; box-shadow: none; text-decoration: underline; text-underline-offset: 0.18em; min-block-size: var(--lue-size-control-sm); }
+  .lue-toast-region__list {
+    position: fixed;
+    inset: auto;
+    inset-block-end: var(--lue-space-s);
+    inset-inline-end: var(--lue-space-s);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: visible;
+    background: transparent;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--lue-space-2xs);
+    max-inline-size: calc(100vi - 2 * var(--lue-space-s));
+  }
+  .lue-toast-region__list:where([popover]:not(:popover-open)) { display: none; }
+
+  .lue-toast {
+    display: flex;
+    align-items: center;
+    gap: var(--lue-space-xs);
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    padding-block: var(--lue-space-3xs);
+    padding-inline: var(--lue-space-s) var(--lue-space-3xs);
+    border-radius: var(--lue-radius-l);
+    background: var(--lue-color-bg-inverse);
+    color: var(--lue-color-fg-inverse);
+    box-shadow: var(--lue-shadow-overlay);
+    transition:
+      opacity var(--lue-motion-duration-moderate) var(--lue-motion-ease-enter),
+      translate var(--lue-motion-duration-moderate) var(--lue-motion-ease-enter);
+  }
+  @starting-style {
+    .lue-toast { opacity: 0; translate: 0 var(--lue-space-xs); }
+  }
+  .lue-toast__message { margin: 0; padding-block: var(--lue-space-3xs); }
+  .lue-toast :where(.lue-button) { color: var(--lue-color-fg-inverse); background: transparent; box-shadow: none; min-block-size: var(--lue-size-control-sm); }
+  .lue-toast :where(.lue-button:not([data-icon-only])) { text-decoration: underline; text-underline-offset: 0.18em; }
   .lue-toast :where(.lue-button)::before { content: none; }
+  .lue-toast :where(.lue-button:focus-visible) { outline-color: var(--lue-color-fg-inverse); }
 }
 
 /* Forced colours: Canvas with a visible border. */
 @layer lue.contrast {
   @media (forced-colors: active) {
-    :where(.lue-toast) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
+    :where(.lue-toast) { border-color: CanvasText; background-color: Canvas; color: CanvasText; background-image: none; backdrop-filter: none; }
   }
 }
