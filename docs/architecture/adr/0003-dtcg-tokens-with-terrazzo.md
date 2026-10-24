@@ -1,6 +1,6 @@
 # ADR-0003: DTCG 2025.10 tokens, built with Terrazzo
 
-- **Status:** Proposed — tool choice confirmed by spike B in Pass 3
+- **Status:** Accepted — tool choice confirmed by [Spike B](../spikes/spike-b-token-and-css-pipeline.md) on 2026-10-24
 - **Date:** 2026-10-05
 - **Principles:** 1 accessible by construction · 3 standards over invention · 10 legible to humans and agents
 
@@ -31,7 +31,12 @@ Claude Design system reads, and Figma-ready files — and we need every colour p
 - **Negative:** generated CSS is larger than a runtime-derived approach (mitigated by emitting per-axis differences
   only); we depend on Terrazzo's maturity (mitigated by pinning and golden-file tests); the resolver module is still
   evolving.
-- **Follow-ups:** spike B; golden files; the import script for Claude Design edits.
+- **Follow-ups:** golden files; the import script for Claude Design edits.
+- **Found in Spike B (2026-10-24):** Terrazzo 2.10 is pinned exactly. Its `a11y/min-contrast` rule checks one resolved
+  set at fixed AA/AAA levels, so the contrast gate is a small plugin of ours (`packages/tokens/plugins/lue.js`) that
+  checks every declared pair at its own minimum in every context; the Claude Design JSON and the Tailwind bridge are
+  plugins too. Terrazzo adds `@media (color-gamut: …)` copies of wide-gamut colours; ours are gamut-mapped at the source,
+  so the build drops them.
 
 ## Alternatives considered
 

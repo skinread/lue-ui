@@ -9,10 +9,13 @@ primary reference for agents working in this repo.
 ## Current state
 
 - **Pass 3 (tracer bullet) started on 2026-10-11.** Pass 2 is complete: the C2 · Chroma Luminous look is locked
-  (ADR-0009), the DTCG token source is in `packages/tokens/src`, and the private Claude Design System is built.
-  Follow [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-pass-3); progress is in
+  (ADR-0009), and the private Claude Design System is built. Spikes A and B are done: `packages/tokens/src` is the
+  hand-edited DTCG source, built by Terrazzo (`tools/directions/tokens.mjs` is retired), and the component CSS lives in
+  `packages/css/src`. Follow [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-pass-3); progress is in
   [HANDOVER.md](HANDOVER.md).
-- **pnpm workspace** (`packages/*`, `apps/*`). Run `pnpm check` (lint + token contrast) before committing. Every
+- **pnpm workspace** (`packages/*`, `apps/*`, `fixtures/*`). Run `pnpm check` (lint, types, token build with its
+  contrast gate) and `pnpm test` (builds, then three engines) before committing; `pnpm fixtures` after `pnpm build`
+  checks the consumer recipes. Every
   package is `"private": true` — **nothing is published to npm yet** (user's decision, 2026-10-11).
 - `tools/directions/` holds dependency-free design scripts (contrast checks, the Claude Design canvas and Design System
   generators) — see its [README](tools/directions/README.md).

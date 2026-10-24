@@ -66,7 +66,7 @@ Chromium 156 and WebKit 27.2** (46 runs).
 
 - ArrowDown and ArrowUp on the menu button, opening at the first or last item (optional in the APG).
 - A controlled `Dialog` needs `onOpenChange` to stay in sync after Esc. Document it, or warn in development.
-- Emulation rows from [ADR-0005](../adr/0005-three-engine-testing-and-a11y-gates.md) — forced colours, increased
-  contrast, reduced motion, 320 px, RTL — once the CSS is built from tokens (Spike B).
+- ~~Emulation rows from [ADR-0005](../adr/0005-three-engine-testing-and-a11y-gates.md)~~ — done in
+  [Spike B](spike-b-token-and-css-pipeline.md) (`tests/emulation/`), 2026-10-24.
 - A Chromium accessibility-tree check that the invoker exposes `aria-expanded` (ARIA snapshots can't prove it).
 - Draft the Menu contract from what these tests needed: no owned attributes; items carry `tabindex="-1"` in markup.

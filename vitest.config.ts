@@ -2,6 +2,7 @@ import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
 import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vitest/config';
+import { emulateMedia } from './tests/emulation/commands.js';
 
 const source = (path: string) => fileURLToPath(new URL(path, import.meta.url));
 
@@ -21,6 +22,7 @@ export default defineConfig({
       enabled: true,
       headless: true,
       provider: playwright(),
+      commands: { emulateMedia },
       instances: [{ browser: 'chromium' }, { browser: 'firefox' }, { browser: 'webkit' }],
     },
   },
