@@ -14,9 +14,9 @@ Output goes to `out/` (gitignored).
 | `luminous-canvas.mjs` | Luminous's per-scheme custom properties, its CSS (chrome ring, glass, prism slide, sparks, fallbacks) and its extra Foundations sections. Imported by `build-canvas.mjs` | — |
 | `luminous-pages.mjs` | Luminous's materials (satin folds, glass prism and orb, metal icon tiles, media art) and its fluid boards: block library, portfolio home, journal article | — |
 | `build-canvas.mjs` | Generates C2's six artboards and `canvas.json` into `out/canvas/project/`. Phase 1's cover and its Loom, Instrument and Chroma rows were removed on 2026-10-11; check out commit `18ec453` to regenerate them | `node build-canvas.mjs` |
-| `tokens.mjs` | Writes the DTCG 2025.10 token source for C2 into `packages/tokens/src/` (12 files: colour per theme context, materials per scheme, type, dimension, motion, components, resolver) | `node tokens.mjs` |
+| `tokens.mjs` | **Retired 2026-10-24** (Spike B). Wrote the DTCG token source; `packages/tokens/src` is now hand-edited and built by Terrazzo. It refuses to write there, but can still write elsewhere for comparison | `node tokens.mjs <folder>` |
 | `design-system.mjs` | Builds the **private** Claude Design System into `out/design-system/project/`: `tokens.json` (list shape) from `packages/tokens/src`, `components/bundle.css` (a generated per-theme header + `design-system/components.css`), the brand book (`design-system/README.md`), 44 component cards and previews (`design-system/components.mjs`), the cover, fonts and the icon records (`design-system/icon-uploads.json`) | `node design-system.mjs --uploads design-system/icon-uploads.json --created 2026-10-10T…` |
-| `check-tokens.mjs` | Checks that source: `$type` and `$description` on every token, aliases resolve, every declared pair passes in all four contexts, body ≥ 16 px. Exits non-zero on failure | `node check-tokens.mjs` |
+| `check-tokens.mjs` | Superseded by the Terrazzo build's `lue-contrast` and `lue-schema` plugins (`pnpm check-tokens`). Still runs: `$type` and `$description` on every token, aliases resolve, every declared pair passes in all four contexts, body ≥ 16 px | `node check-tokens.mjs` |
 
 ## Changing a direction
 
@@ -27,7 +27,8 @@ Output goes to `out/` (gitignored).
 3. `node report.mjs`, then replace everything after the appendix intro of
    [the brief](../../docs/design/claude-design-brief.md) with `out/palette-report.md`.
 4. `node build-canvas.mjs`, then republish (below).
-5. For C2: `node tokens.mjs && node check-tokens.mjs` to refresh the token source, and commit it with the change.
+5. For C2: palette changes no longer flow to the tokens automatically. Edit `packages/tokens/src` by hand to match and run
+   `pnpm check-tokens` (the Terrazzo build fails on any contrast pair below its minimum).
 
 ## Republishing the canvas
 
@@ -79,7 +80,7 @@ shares it.
 
 1. **Read it first** (Artifact `read` of `project/design-system.json` and any file you'll change): people can edit it
    on the page, and the type asks you to start from what's there.
-2. `node tokens.mjs && node check-tokens.mjs` if tokens changed, then
+2. `pnpm check-tokens` if tokens changed, then
    `node design-system.mjs --uploads design-system/icon-uploads.json --created <the index's createdOnFiles.at>`.
 3. **Publish only changed files** to its `url` with `root` = `out/design-system`; send `project/design-system.json`
    only when its own keys change (title, an asset record, `lastChange`), and last.

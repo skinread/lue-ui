@@ -1,6 +1,7 @@
 // Generates Lue UI's token source as DTCG 2025.10 JSON from the verified C2 · Chroma Luminous palettes.
-// Output: packages/tokens/src/ (or a folder passed as the first argument). JSON only — the Terrazzo build arrives in
-// Pass 3 (ADR-0003). Run check-tokens.mjs afterwards: every declared pair must pass in every context.
+// RETIRED as the source of truth (Pass 3, Spike B, 2026-10-24): packages/tokens/src is now hand-edited and built by
+// Terrazzo. This script only writes to a folder passed as the first argument (for comparing against the palettes); it
+// refuses to overwrite packages/tokens/src.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -9,7 +10,11 @@ import { oklch, toHex } from './contrast.mjs';
 import { lxVars, lxShadows } from './luminous-canvas.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.resolve(process.argv[2] ?? path.join(HERE, '..', '..', 'packages', 'tokens', 'src'));
+if (!process.argv[2] || path.resolve(process.argv[2]) === path.resolve(HERE, '..', '..', 'packages', 'tokens', 'src')) {
+  console.error('tokens.mjs is retired: packages/tokens/src is the hand-edited source. Pass another output folder to compare.');
+  process.exit(1);
+}
+const OUT = path.resolve(process.argv[2]);
 const PAL = directions.luminous;
 const CONTEXTS = ['dark', 'light', 'dark-more', 'light-more']; // primary first
 const SCHEMES = ['dark', 'light'];

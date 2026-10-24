@@ -1,18 +1,50 @@
-# Lue UI tokens — source
+# Lue UI tokens
 
-DTCG 2025.10 token source for Lue UI ([ADR-0003](../../docs/architecture/adr/0003-dtcg-tokens-with-terrazzo.md),
-[token spec](../../docs/design/tokens.md)). The package (`@lue-ui/tokens`, private for now) exists from Pass 3;
-the Terrazzo build arrives with Spike B.
+DTCG 2025.10 token source for Lue UI, built with Terrazzo ([ADR-0003](../../docs/architecture/adr/0003-dtcg-tokens-with-terrazzo.md),
+[token spec](../../docs/design/tokens.md)). The package (`@lue-ui/tokens`) is private for now.
 
-**Don't edit these files by hand during Pass 2.** They're generated from the verified C2 · Chroma Luminous palettes:
+**`src/` is the source of truth and is edited by hand** (since 2026-10-24). It was generated in Pass 2 by
+`tools/directions/tokens.mjs`, which is now retired.
 
 ```bash
-node tools/directions/tokens.mjs && node tools/directions/check-tokens.mjs
+pnpm --filter @lue-ui/tokens build   # or: pnpm check-tokens (adds the Pass 2 material rules)
 ```
 
-`check-tokens.mjs` fails if a token lacks a `$type` or `$description`, an alias doesn't resolve, a declared contrast
-pair misses its minimum in any of the four theme contexts, or body text drops below 16 px. In Pass 3 this JSON becomes
-the hand-edited source and the generator retires.
+## Outputs (`dist/`, not committed)
+
+| File | Contents |
+| --- | --- |
+| `tokens.css` | `@layer lue.tokens`, minified by Lightning CSS with no targets. Dark on `:root`; light, `dark-more` and `light-more` follow the OS (`prefers-color-scheme`, `prefers-contrast`) unless an element sets `data-theme`; `data-contrast="more"` raises contrast within a set theme; `data-density` sets density. Durations are `0s` under reduced motion, and the target minimum is 44 px under a coarse pointer. Budget: 6 KB Brotli (fails the build) |
+| `claude-design/tokens.json` | The list shape the Claude Design System reads ([outputs](../../docs/design/tokens.md#outputs)): literal values only, per theme where they vary, fluid sizes at 1280 px |
+
+`tokens.css` also declares the layer order for everything Lue ships:
+`@layer lue { @layer reset, tokens, base, layout, components, blocks, materials, contrast, utilities; }`.
+
+## The build fails when
+
+- a declared contrast pair (`$extensions.lue.pairs`) misses its minimum in any of the four theme contexts — raised to
+  7:1 for text and 4.5:1 for boundaries in the `-more` contexts (`plugins/lue.js`, `lue-contrast`);
+- a token has no `$description`, or body text drops below 16 px (`lue-schema`);
+- `tokens.css` passes its size budget (`scripts/finish.js`).
+
+The glass, chrome and prism worst-case rules (compositing over every backdrop) still live in
+`tools/directions/palettes.mjs` and check the Pass 2 palettes, not this source — port them to a plugin before the
+material tokens are edited by hand.
+
+## Extensions
+
+`$extensions.lue` carries what DTCG can't express yet; `terrazzo.config.js` turns it into CSS:
+
+| Key | Meaning | CSS |
+| --- | --- | --- |
+| `fluid` | The minimum size and viewport range of a fluid dimension | `clamp(min, rem + vi, max)` |
+| `unit` | `em` or `ch` for a number | `-0.035em`, `66ch` |
+| `css` | An easing the `cubicBezier` type can't hold | `linear(…)` as written |
+| `letterSpacingEm`, `textTransform` | On text styles | The style's `letter-spacing` and `text-transform` |
+| `coarse` | The target minimum under `(any-pointer: coarse)` | Added by `scripts/finish.js` |
+| `pairs` | Contrast pairs `{ on, min }` | Checked, not emitted |
+
+## Source
 
 | Path | Contents |
 | --- | --- |

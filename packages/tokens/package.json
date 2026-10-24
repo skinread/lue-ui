@@ -5,11 +5,27 @@
   "description": "Lue UI design tokens — DTCG 2025.10 source and built CSS",
   "license": "MIT",
   "type": "module",
-  "sideEffects": ["*.css"],
+  "sideEffects": [
+    "*.css"
+  ],
   "exports": {
     "./tokens.css": "./dist/tokens.css",
+    "./claude-design/tokens.json": "./dist/claude-design/tokens.json",
     "./resolver.json": "./src/lue.resolver.json",
     "./src/*": "./src/*"
   },
-  "files": ["dist", "src"]
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tz build && node scripts/finish.js"
+  },
+  "devDependencies": {
+    "@terrazzo/cli": "2.10.0",
+    "@terrazzo/parser": "2.10.0",
+    "@terrazzo/plugin-css": "2.10.0",
+    "@terrazzo/token-tools": "2.10.0",
+    "lightningcss": "1.33.0"
+  }
 }

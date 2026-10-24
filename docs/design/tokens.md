@@ -34,8 +34,8 @@ packages/tokens/src/
 └── lue.resolver.json                  # DTCG resolver: theme (4 contexts) × density
 ```
 
-Generated in Pass 2 by `tools/directions/tokens.mjs` and checked by `check-tokens.mjs` (see the
-[package README](../../packages/tokens/README.md)). Raw scales for type and space live directly in the semantic files,
+Generated in Pass 2 by `tools/directions/tokens.mjs`; hand-edited from Pass 3 (2026-10-24) and built by Terrazzo, whose
+build fails on any contrast pair below its minimum (see the [package README](../../packages/tokens/README.md)). Raw scales for type and space live directly in the semantic files,
 because they're fluid and have no separate primitive step.
 
 **Resolver.** DTCG 2025.10 modifiers are independent, but colour depends on scheme *and* contrast together, so one
