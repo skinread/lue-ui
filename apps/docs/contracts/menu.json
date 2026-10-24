@@ -1,0 +1,45 @@
+{
+  "name": "Menu",
+  "status": "experimental",
+  "rung": "light-dom-script",
+  "rungReason": "Popover, invoker commands and implicit anchoring open, place and dismiss the menu natively; only the APG keyboard model (arrows, Home/End, typeahead, Tab, focus return) needs <lue-menu>.",
+  "anatomy": {
+    "trigger": { "element": "button", "class": "lue-button", "attributes": { "aria-haspopup": "menu", "command": "toggle-popover", "commandfor": "{menu id}" } },
+    "root": { "element": "lue-menu", "class": "lue-menu", "attributes": { "popover": "", "role": "menu", "aria-labelledby": "{trigger id} (or aria-label)" } },
+    "item": { "element": "button", "class": "lue-menu__item", "attributes": { "role": "menuitem", "tabindex": "-1" }, "variants": { "tone": { "attribute": "data-tone", "values": ["critical"] } } },
+    "separator": { "element": "div", "class": "lue-menu__separator", "attributes": { "role": "separator" } }
+  },
+  "a11y": {
+    "role": "menu; items menuitem (menuitemcheckbox and menuitemradio stay open on activation)",
+    "name": "aria-labelledby → the trigger, or aria-label",
+    "states": [{ "state": "expanded", "via": "Exposed on the trigger by the browser (popover invoker); not authored" }],
+    "keyboard": [
+      { "keys": ["Enter", "Space"], "on": "trigger", "action": "Open, focus the first item (native button + toggle)" },
+      { "keys": ["ArrowDown"], "on": "trigger", "action": "Open, focus the first item" },
+      { "keys": ["ArrowUp"], "on": "trigger", "action": "Open, focus the last item" },
+      { "keys": ["ArrowDown", "ArrowUp"], "action": "Next / previous item, wrapping" },
+      { "keys": ["Home", "PageUp", "End", "PageDown"], "action": "First / last item" },
+      { "keys": ["a printable character"], "action": "Typeahead; repeating a letter cycles through matches" },
+      { "keys": ["Enter", "Space"], "action": "Activate the item and close (menuitem)" },
+      { "keys": ["Escape"], "action": "Close, focus the trigger (light dismiss)" },
+      { "keys": ["Tab"], "action": "Close and move on from the trigger" }
+    ],
+    "focus": { "initial": "First item (last with ArrowUp on the trigger)", "return": "The trigger, explicitly (WebKit doesn't restore it)", "indicator": ":focus-visible inset outline on items" }
+  },
+  "ownedAttributes": {},
+  "elementRules": "Writes nothing to the DOM: it listens and moves focus. Items carry tabindex=\"-1\" in the markup.",
+  "react": {
+    "components": { "Menu": "renders <lue-menu popover role=\"menu\">", "MenuTrigger": "the trigger button (command, commandfor, aria-haspopup)", "MenuItem": "a menuitem button with tabindex -1; tone=\"critical\"", "LueElements": "mount once to register <lue-menu> after hydration" },
+    "rule": "No portals: the menu stays where it's rendered, so it works inside a dialog"
+  },
+  "tokens": ["--lue-material-glass-overlay", "--lue-glass-filter", "--lue-shadow-overlay", "--lue-radius-m", "--lue-radius-s", "--lue-size-control-sm", "--lue-color-bg-accent-subtle", "--lue-color-fg-critical", "--lue-chrome-line"],
+  "platform": {
+    "baseline": ["popover", "invoker commands", "implicit anchor", "custom elements", "ToggleEvent"],
+    "enhancements": [{ "feature": "anchor positioning (position-area, position-try-fallbacks)", "fallback": "The browser centres the popover" }],
+    "knownGaps": [{ "where": "Safari < 26.2, HTML path", "gap": "the trigger's command does nothing", "policy": "ADR-0004 — no polyfill" }]
+  },
+  "withoutJavaScript": "Opens, closes with Esc and light dismiss, and anchors; items are reachable by pointer but not by arrow keys",
+  "contrast": "Increased contrast and reduced transparency: opaque surface, solid ring",
+  "forcedColors": "Canvas / CanvasText with a border; hovered and focused items Highlight / HighlightText; separators CanvasText",
+  "deletionTrigger": "A native menu element with the APG keyboard model (the <menu>/<menuitem> proposals)"
+}

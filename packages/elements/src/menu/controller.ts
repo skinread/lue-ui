@@ -55,3 +55,13 @@ export function typeaheadMatch(query: string, labels: readonly string[], current
   }
   return -1;
 }
+
+/**
+ * What a key on the closed menu's button does (APG Menu Button, optional keys): ArrowDown opens at the first item,
+ * ArrowUp at the last. Enter and Space are the native button's.
+ */
+export function triggerAction(key: string): 'first' | 'last' | null {
+  if (key === 'ArrowDown') return 'first';
+  if (key === 'ArrowUp') return 'last';
+  return null;
+}

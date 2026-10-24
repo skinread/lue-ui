@@ -1,4 +1,4 @@
-import { menuAction, typeaheadMatch, TYPEAHEAD_TIMEOUT } from './controller.js';
+import { menuAction, triggerAction, typeaheadMatch, TYPEAHEAD_TIMEOUT } from './controller.js';
 
 const ITEM = '[role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]';
 
@@ -10,6 +10,8 @@ const ITEM = '[role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio
  * opened it. Browsers only restore focus to whatever was focused before, and in WebKit that's often not the button
  * (it doesn't focus buttons on click, and `showModal()` focuses the dialog itself).
  *
+ * ArrowDown and ArrowUp on its closed button open it at the first or last item (APG, optional keys).
+ *
  * Element rules (ADR-0007): no DOM writes at all — it only listens and moves focus — so it never conflicts with
  * framework-rendered markup. Items carry `tabindex="-1"` in the markup; this element doesn't manage it.
  */
@@ -18,6 +20,7 @@ export class LueMenu extends HTMLElement {
   #query = '';
   #queryAt = 0;
   #invoker: HTMLElement | null = null;
+  #openAt: 'first' | 'last' = 'first';
 
   connectedCallback(): void {
     this.#connection?.abort();
@@ -27,6 +30,8 @@ export class LueMenu extends HTMLElement {
     this.addEventListener('toggle', this.#onToggle, options);
     this.addEventListener('keydown', this.#onKeydown, options);
     this.addEventListener('click', this.#onClick, options);
+    // The button that opens this menu lives outside it, so its arrow keys are heard at the document.
+    this.ownerDocument.addEventListener('keydown', this.#onTriggerKeydown, { ...options, capture: true });
   }
 
   disconnectedCallback(): void {
@@ -54,7 +59,22 @@ export class LueMenu extends HTMLElement {
   #onToggle = (event: Event): void => {
     if ((event as ToggleEvent).newState !== 'open') return;
     this.#query = '';
-    this.items[0]?.focus();
+    const items = this.items;
+    (this.#openAt === 'last' ? items.at(-1) : items[0])?.focus();
+    this.#openAt = 'first';
+  };
+
+  /** ArrowDown or ArrowUp on a closed menu's button opens it at the first or last item. */
+  #onTriggerKeydown = (event: KeyboardEvent): void => {
+    const button = event.target instanceof HTMLButtonElement ? event.target : null;
+    if (!button || !this.id || event.altKey || event.ctrlKey || event.metaKey) return;
+    if (button.getAttribute('commandfor') !== this.id && button.getAttribute('popovertarget') !== this.id) return;
+    const at = triggerAction(event.key);
+    if (!at || this.matches(':popover-open')) return;
+    event.preventDefault();
+    this.#openAt = at;
+    // Activating the button opens the menu the way Enter would, with the button as its source and anchor.
+    button.click();
   };
 
   #onKeydown = (event: KeyboardEvent): void => {
