@@ -1,7 +1,7 @@
-# Handover — Lue UI, Pass 3 done (but for Spike C), Pass 4 in progress
+# Handover — Lue UI, Pass 4 done (Spike C still waiting on you), Pass 5 next
 
 > Written 2026-10-05 when Phase 1 closed; updated through Pass 2 (complete 2026-10-10) and Pass 3 (2026-10-11 to
-> 2026-10-24). A fresh session should read this file, then [AGENTS.md](AGENTS.md), then
+> 2026-10-24) and Pass 4 (2026-10-24). A fresh session should read this file, then [AGENTS.md](AGENTS.md), then
 > [mission and principles](docs/foundations/mission-and-principles.md).
 
 ## Where things stand
@@ -13,8 +13,9 @@
   the private Claude Design System is built.
 - **Pass 3 (tracer bullet, 2026-10-11 to 2026-10-24) is done but for Spike C,** which you start. Step 0, Spikes A and B,
   the package builds and the first five components with Storybook 10 and every ADR-0005 gate are in place — see
-  [Pass 3](#pass-3--tracer-bullet-done-but-for-spike-c). **Pass 4 (Tier 1 components) is in progress:** every Tier 1
-  component is done (2026-10-24); the Pass 4 tooling is next. Every package is private.
+  [Pass 3](#pass-3--tracer-bullet-done-but-for-spike-c). **Pass 4 is done (2026-10-24):** every Tier 1 component, keyboard
+  coverage driven by the contracts, `llms.txt` with a Markdown page per component, and an MCP server. **Pass 5 (Tier 2
+  and a first public release) is next.** Every package is private.
 - **Repo:** `/Volumes/Code/never-ui` (the git root). `main` holds only the initial commit (MIT `LICENSE`,
   `.gitignore`, `.gitattributes`); all work happens on **`develop`**, where Phase 1 was committed on 2026-10-05. The
   remote is `origin`, private, `skinread/lue-ui` on GitHub.
@@ -40,11 +41,11 @@
 | [README.md](README.md), [AGENTS.md](AGENTS.md) | Front door and agent guide |
 | [docs/foundations/](docs/foundations/) | [Mission and principles](docs/foundations/mission-and-principles.md) (11 principles, each with "how we check") · [naming shortlist](docs/foundations/naming.md) · [landscape and positioning](docs/foundations/landscape-and-positioning.md) · [platform capabilities](docs/foundations/platform-capabilities.md) |
 | [docs/architecture/](docs/architecture/) | [RFC-0001](docs/architecture/rfc-0001-architecture.md), ADRs 0001–0009 and [spike reports](docs/architecture/spikes/) |
-| `packages/` | `tokens` (hand-edited DTCG source, Terrazzo build), `css` (per-component CSS and fonts, Lightning CSS build), `elements` (`<lue-menu>`, `data-lue-validate`, the IIFE), `react` (the five components' adapters) — all `"private": true`, each with a README |
-| `tests/` | Browser tests (Vitest browser mode, Chromium · Firefox · WebKit): Spike A, emulation, one folder per component, visual regression baselines (`visual/`), the static markup gate (`markup/`, Node), shared helpers in `support/` |
-| `apps/docs/` | Storybook 10 (stories are tests, axe set to `error`) and the component contracts |
+| `packages/` | `tokens` (hand-edited DTCG source, Terrazzo build), `css` (per-component CSS and fonts, Lightning CSS build), `elements` (`<lue-menu>`, `<lue-toast-region>`, `data-lue-validate`, `data-lue-toggle`, the IIFE), `react` (every component's adapter), `mcp` (the MCP server) — all `"private": true`, each with a README |
+| `tests/` | Browser tests (Vitest browser mode, Chromium · Firefox · WebKit): Spike A, emulation, one folder per component, visual regression baselines (`visual/`), the static markup gate (`markup/`, Node), the MCP server (`tools/`, Node), shared helpers in `support/` |
+| `apps/docs/` | Storybook 10 (stories are tests, axe set to `error`), the component contracts, and `public/` (generated, ignored): `llms.txt`, a page per component, tokens |
 | `fixtures/` | Consumer fixtures (Vite, Next, Tailwind v4) and the checker that fails if our CSS is lowered |
-| `tools/` | `build-js.mjs` (JS package builds), `check-contracts.mjs`, `check-text.mjs` (escaped dashes) |
+| `tools/` | `build-js.mjs` (JS package builds), `check-contracts.mjs` (schema, tokens, classes, tests, stories, keyboard coverage), `build-ai-docs.mjs` (`llms.txt` and the Markdown pages), `check-text.mjs` (escaped dashes) |
 | [docs/design/](docs/design/) | [Token spec](docs/design/tokens.md) · [component inventory and contract format](docs/design/components.md) · [Claude Design brief](docs/design/claude-design-brief.md) (with verified palettes in its appendix) |
 | [tools/directions/](tools/directions/README.md) | The Pass 2 design tools: seeded palettes, the canvas and Design System generators, with how to republish |
 
@@ -167,9 +168,22 @@ What exists now (all private, all on `develop`):
      `ToggleButton`. `<lue-toast-region>` owns its children: an always-rendered live region (`ariaNotify()` where it
      exists) and a manual-popover list; 6 s, paused on hover and focus, actions never time out, three at a time.
      Found on the way: `.lue-dialog` was content-box too, so its padding pushed it past its size (fixed).
-3. **Pass 4 tooling:** keyboard tests generated from contracts (schema v1 has what they need), `llms.txt` and a
-   Markdown page per component from the contracts, then the MCP endpoint for tokens and contracts.
-4. **Before a public release (Pass 5):** confirm the npm scope, make the repo public, publish — all yours to decide.
+3. ~~**Pass 4 tooling**~~ — done 2026-10-24.
+   - **Contracts → tests:** `check-contracts.mjs` fails unless every key a contract's keyboard map names is pressed,
+     with real input, in that component's tests. A contract's actions are prose, so the gate checks that the
+     hand-written tests cover the map rather than generating assertions. It found 34 untested keys, and the new tests
+     found two bugs: Firefox made an open popover a Tab stop (fixed: `overflow: visible`), and WebKit doesn't open a
+     customisable select with Alt+ArrowDown (contract narrowed to Chromium).
+   - **AI docs:** `pnpm docs-ai` (`tools/build-ai-docs.mjs`) renders every story on the server and writes `llms.txt`,
+     `llms-full.txt`, a Markdown page per component, `tokens.md`/`tokens.json` and the contracts to `apps/docs/public`,
+     which Storybook serves. Contracts gained a required one-line `summary`.
+   - **MCP:** `packages/mcp/server.js`, dependency-free MCP over stdio: `list_components`, `get_component`,
+     `find_tokens`, and every page as a resource. `claude mcp add lue-ui -- node packages/mcp/server.js`.
+4. **Pass 5 — Tier 2 and a first public 0.x release** ([inventory](docs/design/components.md#tier-2)). Before
+   publishing: confirm the npm scope, make the repo public, publish — all yours to decide. Also outstanding from
+   RFC-0001 §8: Storybook's `html` decorator (show each story's server-rendered HTML as its source), the Storybook MCP
+   addon's manifests, contract-generated component guidelines for the Claude Design System (after Spike C), and the
+   manual screen-reader pass (NVDA, JAWS, VoiceOver, TalkBack) that gates Stable.
 
 ## Things to know
 

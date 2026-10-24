@@ -35,6 +35,7 @@ Read in this order the first time; every later document traces back to the first
 | --- | --- |
 | [Token specification](design/tokens.md) | Tiers, naming grammar, colour roles, contrast bands, theming axes, outputs |
 | [Component inventory and contracts](design/components.md) | Every component's primitive, pattern, JavaScript need and tier; the contract format |
+| AI surfaces | `pnpm docs-ai` writes `llms.txt`, a Markdown page per component, tokens and contracts to `apps/docs/public` (served by Storybook); [`packages/mcp`](../packages/mcp/README.md) serves them over MCP |
 | [Component contracts](../apps/docs/contracts/) | The written contracts (22: every Tier 0 and Tier 1 component) and schema v1, checked by `pnpm check` |
 | [Claude Design brief](design/claude-design-brief.md) | Creative mandate, non-negotiables, the three seeded directions and their contrast matrices |
 

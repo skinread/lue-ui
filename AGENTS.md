@@ -8,17 +8,18 @@ primary reference for agents working in this repo.
 
 ## Current state
 
-- **Pass 3 (tracer bullet) is done but for Spike C** (the user starts `/design-sync`); **Pass 4, the rest of Tier 1, is
-  in progress.** `packages/tokens/src` is the hand-edited DTCG source, built by Terrazzo with contrast and material gates;
+- **Pass 3 (tracer bullet) is done but for Spike C** (the user starts `/design-sync`); **Pass 4 (all of Tier 1, contract-driven keyboard
+  coverage, `llms.txt` and an MCP server) is done; Pass 5 (Tier 2, first public release) is next.** `packages/tokens/src` is the hand-edited DTCG source, built by Terrazzo with contrast and material gates;
   `packages/css/src` holds one file per component; elements and React build per file with size budgets. Every Tier 1
   component is built: 22 contracts (one per component, Layout covering the six primitives) live in `apps/docs/contracts`
   (schema v1), each with a React adapter, Storybook 10 stories and keyboard, axe, emulation, static-markup and visual tests in
   three engines. Follow [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-pass-3); progress and
-  the Pass 4 plan are in [HANDOVER.md](HANDOVER.md).
+  the Pass 5 plan are in [HANDOVER.md](HANDOVER.md).
 - **pnpm workspace** (`packages/*`, `apps/*`, `fixtures/*`). Run `pnpm check` (lint, types, token build with its
-  contrast and material gates, contracts, static markup) and `pnpm test` (builds, then three engines; `pnpm test:engines` runs them one at a time, steadier on a
-  4-core machine) before committing; `pnpm fixtures` after `pnpm build` checks the consumer recipes. A new component needs a contract, an
-  adapter, stories and `tests/<component>/`, or `pnpm check` fails. Visual baselines are Linux-only: update them with
+  contrast and material gates, contracts and their keyboard coverage, the AI docs, static markup, the MCP server) and `pnpm test` (builds, then three engines; `pnpm test:engines` runs them one at a time, steadier on a
+  4-core machine) before committing; `pnpm fixtures` after `pnpm build` checks the consumer recipes. A new component needs a contract (with a
+  `summary`), an adapter, stories and `tests/<component>/` that press every key its keyboard map names, or `pnpm check`
+  fails. Visual baselines are Linux-only: update them with
   `pnpm vitest run tests/visual --update` on Linux and review the PNGs. Every
   package is `"private": true` — **nothing is published to npm yet** (user's decision, 2026-10-11).
 - `tools/directions/` holds dependency-free design scripts (contrast checks, the Claude Design canvas and Design System

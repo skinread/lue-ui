@@ -1,6 +1,6 @@
 # RFC-0001: System architecture
 
-> **Status:** Proposed · Phase 1 · 2026-10-05 · implemented through Pass 3 (2026-10-24; see §11)
+> **Status:** Proposed · Phase 1 · 2026-10-05 · implemented through Pass 4 (2026-10-24; see §11 and HANDOVER.md)
 > **Decisions recorded in:** [ADR-0001](./adr/0001-component-model.md) ·
 > [0002](./adr/0002-native-css-core-tailwind-bridge.md) · [0003](./adr/0003-dtcg-tokens-with-terrazzo.md) ·
 > [0004](./adr/0004-support-floors.md) · [0005](./adr/0005-three-engine-testing-and-a11y-gates.md) ·
