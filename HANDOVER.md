@@ -13,8 +13,9 @@
   the private Claude Design System is built.
 - **Pass 3 (tracer bullet, 2026-10-11 to 2026-10-24) is done but for Spike C,** which you start. Step 0, Spikes A and B,
   the package builds and the first five components with Storybook 10 and every ADR-0005 gate are in place — see
-  [Pass 3](#pass-3--tracer-bullet-done-but-for-spike-c). **Pass 4 (Tier 1 components) is in progress:** Textarea,
-  Checkbox, Radio group and Switch are done (2026-10-24). Every package is private.
+  [Pass 3](#pass-3--tracer-bullet-done-but-for-spike-c). **Pass 4 (Tier 1 components) is in progress:** the form
+  controls, the CSS-only components and the layout primitives are done (2026-10-24); the overlays, Toggle button and
+  Toast are next. Every package is private.
 - **Repo:** `/Volumes/Code/never-ui` (the git root). `main` holds only the initial commit (MIT `LICENSE`,
   `.gitignore`, `.gitattributes`); all work happens on **`develop`**, where Phase 1 was committed on 2026-10-05. The
   remote is `origin`, private, `skinread/lue-ui` on GitHub.
@@ -145,7 +146,7 @@ What exists now (all private, all on `develop`):
 - **Docs** (`apps/docs`): Storybook 10; contracts with schema v1 (`pnpm check` validates them against tokens, CSS,
   tests and stories).
 - **Gates:** `pnpm check` (lint, escaped-dash check, types, token build, contracts, static markup of every story);
-  `pnpm test` (unit, emulation, component, visual and story tests in Chromium, Firefox and WebKit: 584 tests, 9
+  `pnpm test` (unit, emulation, component, visual and story tests in Chromium, Firefox and WebKit: 866 tests, 14
   skipped by design); `pnpm fixtures` (Vite, Next with the built React adapters, Tailwind v4). CI runs all three.
 
 ## Next steps
@@ -157,8 +158,10 @@ What exists now (all private, all on `develop`):
      on its first radio, with `aria-invalid` on every radio; the React adapters are `ChoiceGroup`, `Checkbox`, `Radio`,
      `Switch` and `Textarea`. Building them found that text controls were content-box and overflowed their field by
      38 px (fixed; the reflow test now checks each control against its field).
-   - CSS only, styles already written: Link, Disclosure, Accordion, Alert, Icon, Visually hidden and Skip link, layout
-     primitives.
+   - ~~CSS only: Link, Disclosure, Accordion, Alert, Icon, Visually hidden and Skip link, layout primitives~~ — done
+     2026-10-24. Alert is a `<div>`, not an `<aside>` (a landmark per callout inside `<main>`), and says its tone in
+     words. The skip link moved out of `blocks.css` into its own component; `.lue-grid` moved into `layout.css` with
+     Stack, Cluster, Sidebar, Switcher and Center, all intrinsic (no media or container queries).
    - Platform overlays: Popover, Toggletip, Drawer.
    - Opt-in behaviour: Toggle button (`data-lue-toggle`).
    - Element: Toast (`<lue-toast-region>`).
