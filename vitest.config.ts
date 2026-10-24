@@ -16,6 +16,8 @@ const browser = () => ({
   provider: playwright(),
   commands: { emulateMedia },
   instances: [{ browser: 'chromium' as const }, { browser: 'firefox' as const }, { browser: 'webkit' as const }],
+  // Visual regression (tests/visual): tolerate anti-aliasing noise between machines, not a changed component.
+  expect: { toMatchScreenshot: { comparatorName: 'pixelmatch' as const, comparatorOptions: { allowedMismatchedPixelRatio: 0.005 } } },
 });
 
 // Tests run against package sources, not builds (tokens.css is the exception: `pnpm test` builds it first).

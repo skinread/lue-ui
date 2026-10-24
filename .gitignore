@@ -142,6 +142,8 @@ dist
 test-results/
 playwright-report/
 __screenshots__/
+# …except the visual regression baselines
+!tests/visual/__screenshots__/
 storybook-static/
 .vitest/
 
