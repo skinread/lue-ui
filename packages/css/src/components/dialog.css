@@ -3,6 +3,8 @@
    are the browser's; this file adds the material, an entry and exit transition, and scroll lock. */
 @layer lue.components {
   .lue-dialog {
+    /* Sizes include the padding: content-box would push the dialog past its inline-size and the viewport. */
+    box-sizing: border-box;
     margin: auto;
     display: grid;
     gap: var(--lue-space-s);
