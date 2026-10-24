@@ -1,6 +1,7 @@
 // Visual regression (ADR-0005): each component's resting states, in dark and light, in three engines, with the
 // self-hosted fonts. Baselines live in __screenshots__/ and are named per browser and platform; they're generated on
-// Linux, as CI runs, so other platforms skip this file. Update them with `pnpm vitest run tests/visual --update` on
+// Linux, as CI runs, with tests/fonts.conf making text rendering identical across machines; other platforms skip
+// this file. When one fails in CI, the job log prints the diff and actual images in base64. Update them with `pnpm vitest run tests/visual --update` on
 // Linux after an intended visual change, and review the PNG diff like code.
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { page, server } from 'vitest/browser';

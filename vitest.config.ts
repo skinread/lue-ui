@@ -7,6 +7,10 @@ import { emulateMedia } from './tests/emulation/commands.js';
 
 const source = (path: string) => fileURLToPath(new URL(path, import.meta.url));
 
+// Deterministic text rendering for the visual baselines: browsers on Linux read fontconfig, whose defaults differ between
+// machines (subpixel on one, greyscale on another). Other platforms don't use it.
+if (process.platform === 'linux') process.env.FONTCONFIG_FILE ??= source('./tests/fonts.conf');
+
 // Every test runs in Chromium, Firefox and WebKit (ADR-0005). Instances are named "<project> (<browser>)", so CI can
 // shard by engine with --project "*(chromium)".
 // A fresh object per project: Vitest writes the instance names into it.
