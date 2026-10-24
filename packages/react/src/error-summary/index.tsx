@@ -19,7 +19,7 @@ export interface ErrorSummaryProps extends Omit<ComponentPropsWithRef<'div'>, 'c
  */
 export function ErrorSummary({ errors, title = 'There is a problem', attempt, className, ...props }: ErrorSummaryProps): ReactNode {
   const ref = useRef<HTMLDivElement>(null);
-  const generated = useId().replace(/:/g, '');
+  const generated = `summary${useId().replace(/:/g, '')}`;
   const titleId = `${props.id ?? generated}-title`;
   const count = useRef(errors.length);
   count.current = errors.length;

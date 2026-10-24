@@ -26,7 +26,7 @@ function CheckoutForm() {
     <form {...formProps} style={{ display: 'grid', gap: '1.5rem', maxInlineSize: '28rem' }}>
       <ErrorSummary {...summaryProps} />
       <Field label="Full name" controlId="name" error={errorFor('name')}>
-        <TextInput name="name" autoComplete="name" required data-lue-message-value-missing="Enter your full name" />
+        <TextInput name="name" type="text" autoComplete="name" required data-lue-message-value-missing="Enter your full name" />
       </Field>
       <Field label="Email address" hint="We send your receipt here." controlId="email" error={errorFor('email')}>
         <TextInput

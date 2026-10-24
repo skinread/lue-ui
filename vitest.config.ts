@@ -41,6 +41,11 @@ export default defineConfig({
         },
       },
       {
+        // Static markup: every story rendered on the server must be valid HTML and pass html-eslint (ADR-0005).
+        extends: true,
+        test: { name: 'markup', environment: 'node', include: ['tests/markup/*.test.tsx'] },
+      },
+      {
         // Every story is a test: it renders, its play function passes, and axe finds nothing (a11y.test: 'error').
         extends: true,
         plugins: [storybookTest({ configDir: source('./apps/docs/.storybook') })],
