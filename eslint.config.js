@@ -3,7 +3,7 @@ import css from '@eslint/css';
 import html from '@html-eslint/eslint-plugin';
 
 export default [
-  { ignores: ['**/dist/**', '**/out/**', '**/.next/**', '**/node_modules/**', 'tools/**'] },
+  { ignores: ['**/dist/**', '**/out/**', '**/.next/**', '**/storybook-static/**', '**/node_modules/**', 'tools/**'] },
   {
     files: ['packages/*/src/**/*.css'],
     plugins: { css },

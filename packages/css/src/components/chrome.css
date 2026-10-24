@@ -1,4 +1,5 @@
-/* Chrome hairline ring shared by every glass and chrome component, the .lue-chrome pill, and icons. Moved from the Claude Design System seed (Pass 2). */
+/* Chrome hairline ring shared by every glass and chrome component, the .lue-chrome pill, and icons. Moved from the
+   Claude Design System seed (Pass 2). Components turn the ring by setting --lue-angle on their ::before. */
 @layer lue.components {
   /* ---------------------------------------------------------------- chrome hairline ring (shared) */
   :where(.lue-button, .lue-card, .lue-dialog:not(:modal), .lue-menu:not([popover]), .lue-tag, .lue-alert, .lue-toast:not([popover]), .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"]) { position: relative; }
@@ -14,6 +15,8 @@
     pointer-events: none;
     background: conic-gradient(from var(--lue-angle), var(--lue-chrome-stops));
     mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    /* The angle is set on the ring itself (--lue-angle doesn't inherit), so only the ring restyles as it turns. */
+    transition: --lue-angle var(--lue-motion-duration-slow) var(--lue-motion-ease-standard);
   }
   .lue-chrome { border-radius: var(--lue-radius-full); }
 

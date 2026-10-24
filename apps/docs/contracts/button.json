@@ -1,0 +1,51 @@
+{
+  "name": "Button",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "<button> provides the role, focusability, Enter/Space activation and form participation.",
+  "anatomy": {
+    "root": { "element": "button", "class": "lue-button", "attributes": { "type": "button" } },
+    "icon": { "element": "svg", "class": "lue-button__icon", "required": false, "attributes": { "aria-hidden": "true" } }
+  },
+  "variants": {
+    "variant": { "attribute": "data-variant", "values": ["primary", "danger", "quiet"], "default": "neutral (no attribute)" },
+    "size": { "attribute": "data-size", "values": ["sm", "lg"], "default": "md (no attribute)" },
+    "iconOnly": { "attribute": "data-icon-only", "type": "boolean", "requires": "aria-label or aria-labelledby" }
+  },
+  "a11y": {
+    "role": "button (implicit)",
+    "name": "Text content; aria-label when data-icon-only",
+    "states": [
+      { "state": "disabled", "via": ":disabled", "note": "Use aria-disabled=\"true\" when the button must stay focusable to explain why it is unavailable; then the click handler must ignore activation" },
+      { "state": "pressed", "via": "[aria-pressed]", "appliesTo": "toggle buttons only" }
+    ],
+    "keyboard": [
+      { "keys": ["Enter"], "action": "Activate" },
+      { "keys": ["Space"], "action": "Activate on release" }
+    ],
+    "focus": { "indicator": ":focus-visible outline (--lue-focus-width, --lue-color-focus-ring), offset --lue-focus-offset" },
+    "targetSize": "max(--lue-size-target-min, --lue-size-control-{sm,md,lg}); --lue-size-target-min is 44px under (any-pointer: coarse)"
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Button",
+    "props": { "variant": "data-variant", "size": "data-size", "iconOnly": "data-icon-only", "pressed": "aria-pressed" },
+    "defaults": { "type": "button" }
+  },
+  "tokens": [
+    "--lue-button-radius", "--lue-size-control-sm", "--lue-size-control-md", "--lue-size-control-lg", "--lue-size-target-min",
+    "--lue-color-fg-default", "--lue-color-fg-accent", "--lue-color-fg-muted", "--lue-color-fg-critical", "--lue-color-focus-ring",
+    "--lue-material-button-tint", "--lue-material-button-prism-base", "--lue-material-button-danger", "--lue-material-button-pressed",
+    "--lue-focus-width", "--lue-focus-offset", "--lue-density"
+  ],
+  "platform": {
+    "baseline": ["button", ":focus-visible", ":where()", "@layer", "backdrop-filter", "@property", "mask"],
+    "enhancements": [
+      { "feature": "backdrop-filter", "fallback": "Opaque tint; the glass blur is decoration" },
+      { "feature": "prefers-reduced-transparency", "fallback": "Ignored where unknown; increased contrast still applies" }
+    ]
+  },
+  "contrast": "Increased contrast (data-theme=*-more, data-contrast=more, prefers-contrast: more) and reduced transparency: opaque fill, solid ring",
+  "forcedColors": "ButtonFace / ButtonText / ButtonText border; pressed → SelectedItem / SelectedItemText; disabled → GrayText",
+  "deletionTrigger": null
+}

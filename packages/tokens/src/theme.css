@@ -2,10 +2,11 @@
    format can't express. They're declared on every element that sets a theme, so a themed subtree recomputes them
    from its own tokens instead of inheriting the root's. */
 
-/* The chrome ring's angle, moved by :hover and :focus-visible. Registered so it can transition. Not themeable. */
+/* The chrome ring's angle, moved by :hover and :focus-visible. Registered so it can transition, and not inherited:
+   components set it on the ring (::before) or on the element whose own background draws the ring (fields). */
 @property --lue-angle {
   syntax: "<angle>";
-  inherits: true;
+  inherits: false;
   initial-value: 0deg;
 }
 

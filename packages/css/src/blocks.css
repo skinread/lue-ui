@@ -61,13 +61,13 @@
   .lue-author__text { flex: 1 1 18rem; display: grid; gap: 4px; }
 
   /* cards and lists */
-  .lue-project { display: grid; gap: 18px; align-content: start; padding: 12px 12px 26px; border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-raised), var(--lue-shadow-fringe); transition: --lue-angle var(--lue-motion-duration-slow) var(--lue-motion-ease-standard); }
+  .lue-project { display: grid; gap: 18px; align-content: start; padding: 12px 12px 26px; border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-raised), var(--lue-shadow-fringe); }
   .lue-project__body { display: grid; gap: 10px; padding-inline: 14px; }
   .lue-project :where(h3) a, .lue-post :where(h3) a { color: var(--lue-color-fg-default); text-decoration: none; }
   .lue-project :where(h3) a::after, .lue-post :where(h3) a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 1; }
   .lue-project:where(:has(a:focus-visible)), .lue-post:where(:has(a:focus-visible)) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: 4px; }
   .lue-project :where(h3) a:where(:focus-visible), .lue-post :where(h3) a:where(:focus-visible) { outline: none; }
-  .lue-project:where(:hover), .lue-post:where(:hover) { --lue-angle: 120deg; }
+  .lue-project:where(:hover)::before, .lue-post:where(:hover)::before { --lue-angle: 120deg; }
   .lue-tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; position: relative; z-index: 2; }
   .lue-post { position: relative; display: grid; gap: 10px; align-content: start; padding-block: 26px; border-block-start: var(--lue-border-width-thin) solid transparent; border-image: linear-gradient(90deg, var(--lue-chrome-line), transparent) 1; }
   .lue-post:where([data-variant="card"]) { padding: 12px 12px 26px; border-image: none; border-radius: var(--lue-radius-l); gap: 16px; background-color: var(--lue-material-glass-overlay); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-raised), var(--lue-shadow-fringe); }

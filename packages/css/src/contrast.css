@@ -1,5 +1,6 @@
 /* Increased contrast, reduced transparency, no backdrop-filter: glass goes opaque, chrome is one solid line, light
-   and satin switch off. In the Design System the -more themes carry this; in the library, data-contrast="more". */
+   and satin switch off. In the Design System the -more themes carry this; in the library, data-contrast="more".
+   Components move their own rules into their files as they're built (Button has). */
 @layer lue.contrast {
   :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-glass, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"], .lue-site-header__bar),
   :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-glass, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"], .lue-site-header__bar) {
@@ -10,17 +11,11 @@
   :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-checkbox:checked, .lue-switch:checked) { background: linear-gradient(135deg, var(--lue-prism-fill)) padding-box, linear-gradient(var(--lue-color-fg-default), var(--lue-color-fg-default)) border-box; }
   :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-radio:checked) { background: radial-gradient(circle, var(--lue-color-fg-on-accent) 0 3.5px, transparent 4px) padding-box, linear-gradient(135deg, var(--lue-prism-fill)) padding-box, linear-gradient(var(--lue-color-fg-default), var(--lue-color-fg-default)) border-box; }
   :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-input, .lue-checkbox, .lue-radio)[aria-invalid="true"] { border-color: var(--lue-color-fg-critical); box-shadow: inset 0 0 0 1px var(--lue-color-fg-critical); }
-  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button) { backdrop-filter: none; background-color: var(--lue-color-bg-surface); background-image: none; }
-  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[data-variant="primary"]) { background-color: var(--lue-color-bg-accent-subtle); }
-  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[data-variant="danger"]) { background-color: var(--lue-color-bg-critical-subtle); }
-  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[data-variant="quiet"]) { background-color: transparent; }
-  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[aria-pressed="true"])::before { padding: 2px; background: var(--lue-color-fg-default); }
   :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-ambient, .lue-satin) { display: none; }
 
   @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
     :where(.lue-glass, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"], .lue-site-header__bar) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
     :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before { background: var(--lue-color-border-strong); }
-    :where(.lue-button) { backdrop-filter: none; background-image: none; }
     :where(.lue-ambient, .lue-satin) { display: none; }
   }
   @supports not (backdrop-filter: blur(1px)) {
@@ -29,15 +24,12 @@
 
   @media (forced-colors: active) {
     :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before,
-    :where(.lue-button)::after, :where(.lue-ambient, .lue-satin) { content: none; display: none; }
-    :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"]) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
+    :where(.lue-ambient, .lue-satin) { content: none; display: none; }
+    /* Button sets its own system colours in button.css. */
+    :where(.lue-card, .lue-dialog, .lue-menu, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"]) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
     :where(.lue-input, .lue-select, .lue-textarea, .lue-checkbox, .lue-radio, .lue-switch) { background: Field; border-color: FieldText; }
     :where(.lue-checkbox:checked, .lue-radio:checked, .lue-switch:checked) { background: SelectedItem; }
-    :where(.lue-button) { background: ButtonFace; color: ButtonText; border-color: ButtonText; }
     :where(.lue-chrome-text) { background: none; color: CanvasText; -webkit-text-fill-color: currentColor; }
     :where(.lue-tile, .lue-avatar) { background: Canvas; border: 1px solid CanvasText; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    :where(.lue-button)::after { transition: none; }
   }
 }
