@@ -69,11 +69,14 @@ describe('Dialog', () => {
     await openByKeyboard();
     expect(dialog().matches(':modal')).toBe(true);
     expect(document.activeElement).toBe($('#cancel'));
-    for (let i = 0; i < 4; i++) {
-      await tab();
-      const active = document.activeElement;
-      expect(active === document.body || dialog().contains(active), `Tab ${i + 1} stays out of the page`).toBe(true);
-    }
+    // Tab moves within the dialog; past its last control a native modal hands focus to the browser's own UI, which a
+    // test frame can't follow (WebKit hung there), so the page behind is checked by trying to focus it instead.
+    await tab();
+    expect(document.activeElement).toBe($('#delete'));
+    await shiftTab();
+    expect(document.activeElement).toBe($('#cancel'));
+    $('#behind').focus();
+    expect(document.activeElement, 'the page behind is inert').toBe($('#cancel'));
     await userEvent.keyboard('{Escape}');
     await frame();
     expect(dialog().open).toBe(false);

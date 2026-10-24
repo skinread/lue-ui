@@ -42,12 +42,14 @@ describe('Table', () => {
     const wrap = $('.lue-table-wrap');
     expect(document.activeElement).toBe(wrap);
     expect(getComputedStyle(wrap).outlineStyle).toBe('solid');
-    // Keyboard scrolling is smooth: wait for it to settle before reading the position.
+    // Keyboard scrolling is smooth and can start late: wait until the position holds for three readings in a row.
     const settled = async () => {
       let last = -1;
-      while (wrap.scrollLeft !== last) {
-        last = wrap.scrollLeft;
+      let steady = 0;
+      while (steady < 3) {
         await new Promise((resolve) => setTimeout(resolve, 100));
+        steady = wrap.scrollLeft === last ? steady + 1 : 0;
+        last = wrap.scrollLeft;
       }
       return last;
     };
