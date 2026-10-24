@@ -37,7 +37,8 @@ describe('Textarea', () => {
   it.runIf(CSS.supports('field-sizing', 'content'))('grows with its content', async () => {
     document.body.innerHTML = field();
     const before = textarea().getBoundingClientRect().height;
-    await userEvent.type(textarea(), 'One line.{Enter}Two.{Enter}Three.{Enter}Four.{Enter}Five.{Enter}Six.{Enter}Seven.{Enter}Eight.');
+    // One input event: typing key by key is slow enough under load to time out in Firefox.
+    await userEvent.fill(textarea(), 'One line.\nTwo.\nThree.\nFour.\nFive.\nSix.\nSeven.\nEight.');
     await frame();
     expect(textarea().getBoundingClientRect().height).toBeGreaterThan(before);
   });

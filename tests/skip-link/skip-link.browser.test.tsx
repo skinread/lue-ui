@@ -14,10 +14,17 @@ const page = `${html}
 <header><nav aria-label="Site"><a href="#one" id="nav">Work</a></nav></header>
 <main id="main" tabindex="-1"><h1>Title</h1><a href="#two" id="first-in-main">First link in main</a></main>`;
 const skip = () => $('.lue-skip-link');
+/** The page as it loads: focus on the document, so the first Tab is the page's first stop. */
+const load = () => {
+  document.body.innerHTML = page;
+  document.body.tabIndex = -1;
+  document.body.focus();
+};
 
 afterEach(async () => {
   document.documentElement.removeAttribute('data-theme');
   document.body.replaceChildren();
+  document.body.removeAttribute('tabindex');
   history.replaceState(null, '', location.pathname + location.search);
   await resetMedia();
 });
@@ -28,7 +35,7 @@ describe('Skip link', () => {
   });
 
   it('is hidden until it has focus, then shows inside the viewport', async () => {
-    document.body.innerHTML = page;
+    load();
     expect(skip().getBoundingClientRect().width).toBeLessThanOrEqual(1);
     await tab();
     expect(document.activeElement).toBe(skip());
@@ -41,7 +48,7 @@ describe('Skip link', () => {
   });
 
   it('moves the next Tab into main', async () => {
-    document.body.innerHTML = page;
+    load();
     await tab();
     await userEvent.keyboard('{Enter}');
     await frame();

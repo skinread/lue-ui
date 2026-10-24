@@ -17,6 +17,7 @@
     "check-markup": "vitest run --project markup",
     "check": "pnpm lint && pnpm typecheck && pnpm check-tokens && pnpm check-contracts && pnpm check-markup",
     "test": "pnpm build && vitest run",
+    "test:engines": "pnpm build && vitest run --project \"*(chromium)\" && vitest run --project \"*(firefox)\" && vitest run --project \"*(webkit)\"",
     "test:watch": "vitest",
     "fixtures": "pnpm --filter \"./fixtures/*\" run build && pnpm --filter \"./fixtures/*\" run check",
     "changeset": "changeset"
