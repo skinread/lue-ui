@@ -1,5 +1,6 @@
 {
   "name": "RadioGroup",
+  "summary": "Native radios in a fieldset, with a shared hint and one error per group.",
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "Radios sharing a name in a <fieldset> give the radiogroup semantics, roving focus and arrow-key selection natively.",

@@ -1,5 +1,6 @@
 {
   "name": "Switch",
+  "summary": "An on/off control: a checkbox with role=\"switch\".",
   "status": "experimental",
   "rung": "native-attribute",
   "rungReason": "A checkbox with role=\"switch\" keeps the native state, keyboard and form behaviour and announces on/off.",

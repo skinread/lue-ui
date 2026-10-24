@@ -1,5 +1,6 @@
 {
   "name": "Field",
+  "summary": "A label, hint, error and one text input, with in-page validation and an error summary.",
   "status": "experimental",
   "covers": [
     "Field",

@@ -1,5 +1,6 @@
 {
   "name": "Alert",
+  "summary": "A callout with an icon, a title and a body; its tone is said in words.",
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "A <div> with a paragraph title; role=\"status\" or role=\"alert\" is added only when it's injected after load.",

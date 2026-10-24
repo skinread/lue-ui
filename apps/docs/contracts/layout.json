@@ -1,5 +1,6 @@
 {
   "name": "Layout",
+  "summary": "Six intrinsic layout primitives: Stack, Cluster, Grid, Sidebar, Switcher and Center.",
   "status": "experimental",
   "rung": "css",
   "rungReason": "Flexbox and grid with intrinsic sizing respond to their container with no script and no queries.",

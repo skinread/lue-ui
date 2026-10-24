@@ -8,6 +8,8 @@ const source = (path: string) => fileURLToPath(new URL(path, import.meta.url));
 const config: StorybookConfig = {
   framework: '@storybook/react-vite',
   stories: ['../stories/**/*.stories.@(ts|tsx)'],
+  // llms.txt, a Markdown page per component, tokens and contracts (tools/build-ai-docs.mjs), served at the root.
+  staticDirs: ['../public'],
   addons: ['@storybook/addon-docs', '@storybook/addon-a11y', '@storybook/addon-vitest'],
   core: { disableTelemetry: true },
   // The JS packages aren't built yet; stories use their sources, as the tests do.

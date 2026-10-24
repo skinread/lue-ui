@@ -52,6 +52,11 @@ export default defineConfig({
         test: { name: 'markup', environment: 'node', include: ['tests/markup/*.test.tsx'] },
       },
       {
+        // The AI surfaces: the MCP server over stdio, reading the docs tools/build-ai-docs.mjs generates.
+        extends: true,
+        test: { name: 'tools', environment: 'node', include: ['tests/tools/*.test.ts'] },
+      },
+      {
         // Every story is a test: it renders, its play function passes, and axe finds nothing (a11y.test: 'error').
         extends: true,
         plugins: [storybookTest({ configDir: source('./apps/docs/.storybook') })],

@@ -1,5 +1,6 @@
 {
   "name": "Disclosure",
+  "summary": "A summary that shows and hides its content with no script.",
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<details> and <summary> give the expanded state, Enter and Space, find-in-page and no-JavaScript behaviour.",

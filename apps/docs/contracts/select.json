@@ -1,5 +1,6 @@
 {
   "name": "Select",
+  "summary": "A native select, customisable where the engine supports it.",
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<select> provides the role, the picker, keyboard selection, form participation and validation. Customisable select only restyles it.",

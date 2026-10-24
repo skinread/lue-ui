@@ -6,6 +6,7 @@
   "type": "object",
   "required": [
     "name",
+    "summary",
     "status",
     "rung",
     "rungReason",
@@ -26,6 +27,12 @@
     "name": {
       "type": "string",
       "pattern": "^[A-Z][A-Za-z]+$"
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 140,
+      "description": "One sentence: what it is. Listed in llms.txt."
     },
     "status": {
       "enum": [

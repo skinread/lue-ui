@@ -1,5 +1,6 @@
 {
   "name": "Button",
+  "summary": "A native button with primary, danger and quiet variants, three sizes, and icon-only and toggle forms.",
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<button> provides the role, focusability, Enter/Space activation and form participation.",

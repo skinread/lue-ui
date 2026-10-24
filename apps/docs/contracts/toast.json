@@ -1,5 +1,6 @@
 {
   "name": "Toast",
+  "summary": "Short status messages, announced and shown at the corner of the viewport.",
   "status": "experimental",
   "rung": "light-dom-script",
   "rungReason": "Announcing, timing, pausing and queueing need script; the element uses ariaNotify() or a live region, and a manual popover for the top layer.",

@@ -1,5 +1,6 @@
 {
   "name": "SkipLink",
+  "summary": "The first focusable link on a page, shown on focus, that skips to the main content.",
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "An in-page <a href=\"#main\"> moves the sequential focus starting point natively; CSS only hides it until focus.",

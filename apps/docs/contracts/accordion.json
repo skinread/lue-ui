@@ -1,5 +1,6 @@
 {
   "name": "Accordion",
+  "summary": "A group of disclosures where opening one closes the others, natively.",
   "status": "experimental",
   "rung": "native-attribute",
   "rungReason": "<details name> makes a group exclusive natively: opening one closes the others, with no script.",

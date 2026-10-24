@@ -1,5 +1,6 @@
 {
   "name": "Dialog",
+  "summary": "A modal dialog opened with no script; the browser handles focus, Esc and the inert page.",
   "status": "experimental",
   "rung": "native-attribute",
   "rungReason": "<dialog> gives modality, inertness, top layer and Esc; invoker commands open it without script; <form method=\"dialog\"> closes it with a return value.",

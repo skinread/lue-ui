@@ -1,5 +1,6 @@
 {
   "name": "Link",
+  "summary": "A text link, underlined always.",
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<a href> gives the link role, Enter activation, history, the context menu and visited state; the class only draws it.",

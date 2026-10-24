@@ -1,5 +1,6 @@
 {
   "name": "Menu",
+  "summary": "A menu button: a popover menu with the full keyboard model from <lue-menu>.",
   "status": "experimental",
   "rung": "light-dom-script",
   "rungReason": "Popover, invoker commands and implicit anchoring open, place and dismiss the menu natively; only the APG keyboard model (arrows, Home/End, typeahead, Tab, focus return) needs <lue-menu>.",

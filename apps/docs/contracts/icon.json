@@ -1,5 +1,6 @@
 {
   "name": "Icon",
+  "summary": "Inline SVG sized to the text and drawn in its colour; decorative unless labelled.",
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "Inline <svg> takes currentColor and scales with text; aria-hidden or role=\"img\" with a name are native attributes.",

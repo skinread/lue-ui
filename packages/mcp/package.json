@@ -1,0 +1,18 @@
+{
+  "name": "@lue-ui/mcp",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Lue UI MCP server - components, contracts and tokens for AI assistants, over stdio",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "lue-ui-mcp": "./server.js"
+  },
+  "exports": {
+    ".": "./server.js"
+  },
+  "files": [
+    "server.js"
+  ],
+  "dependencies": {}
+}

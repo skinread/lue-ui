@@ -1,5 +1,6 @@
 {
   "name": "VisuallyHidden",
+  "summary": "Text read by assistive technology but not shown.",
   "status": "experimental",
   "rung": "css",
   "rungReason": "There is no native element for text that's read but not shown; clipping keeps it in the accessibility tree where hidden or display: none would not.",

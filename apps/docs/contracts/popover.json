@@ -1,5 +1,6 @@
 {
   "name": "Popover",
+  "summary": "Non-modal content anchored to the button that opens it, with no script.",
   "status": "experimental",
   "rung": "native-attribute",
   "rungReason": "popover=\"auto\" with command=\"toggle-popover\" gives open and close, Esc, light dismiss, the top layer and the expanded state on its button, with no script.",

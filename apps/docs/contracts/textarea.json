@@ -1,5 +1,6 @@
 {
   "name": "Textarea",
+  "summary": "A multi-line text field that grows with its content.",
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<textarea> with a <label>; field-sizing: content grows it with its content where supported.",

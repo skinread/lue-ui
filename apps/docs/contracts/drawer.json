@@ -1,5 +1,6 @@
 {
   "name": "Drawer",
+  "summary": "A modal dialog docked to an edge of the viewport.",
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "A modal <dialog> docked to an edge with CSS; modality, Esc, focus and its return are the browser's, as for Dialog.",

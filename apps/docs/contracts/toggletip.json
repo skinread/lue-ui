@@ -1,5 +1,6 @@
 {
   "name": "Toggletip",
+  "summary": "A small button that shows a line of help on click, touch or keyboard.",
   "status": "experimental",
   "rung": "native-attribute",
   "rungReason": "A popover=\"auto\" opened by a button: click, touch and keyboard all work, with Esc and light dismiss native.",

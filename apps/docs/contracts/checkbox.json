@@ -1,5 +1,6 @@
 {
   "name": "Checkbox",
+  "summary": "A native checkbox, redrawn, alone or in a group with a shared hint and error.",
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<input type=\"checkbox\"> gives the role, state, Space activation, label activation and form participation; appearance: none only redraws it.",
