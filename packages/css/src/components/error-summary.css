@@ -1,0 +1,25 @@
+/* Error summary — the list of a form's errors, each linking to its field. Contract: apps/docs/contracts/field.json.
+   The container is focusable (tabindex="-1") and receives focus when it appears; the inner role="alert" announces it
+   where focus can't. Server-rendered summaries take autofocus. */
+@layer lue.components {
+  .lue-error-summary {
+    display: grid;
+    gap: var(--lue-space-xs);
+    padding: var(--lue-space-m);
+    border: var(--lue-border-width-thick) solid var(--lue-color-fg-critical);
+    border-radius: var(--lue-radius-m);
+    background: var(--lue-color-bg-surface);
+  }
+  .lue-error-summary:where(:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); }
+  .lue-error-summary__title { display: flex; gap: 0.5em; align-items: center; margin: 0; color: var(--lue-color-fg-critical); font-size: 1.1875rem; }
+  .lue-error-summary__list { margin: 0; padding-inline-start: 1.25em; display: grid; gap: var(--lue-space-3xs); }
+  .lue-error-summary__list :where(a) { color: var(--lue-color-fg-critical); font-weight: 600; }
+}
+
+@layer lue.contrast {
+  @media (forced-colors: active) {
+    :where(.lue-error-summary) { border-color: CanvasText; }
+    :where(.lue-error-summary__title) { color: CanvasText; }
+    :where(.lue-error-summary__list a) { color: LinkText; }
+  }
+}

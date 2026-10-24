@@ -1,59 +1,58 @@
-/* Field, TextInput, Select, Textarea, Checkbox, Radio, Switch and the error summary. Invalid state from aria-invalid and :user-invalid. */
+/* Field and TextInput — a label, an optional hint, an error message and one control. Contract:
+   apps/docs/contracts/field.json. The error message is in the markup from the start, hidden and empty, and is
+   referenced by the control's aria-describedby; the validate behaviour (or the React adapter) fills it and unhides it.
+   Invalid state comes from aria-invalid, or from :user-invalid when nothing manages it. The surface and states below
+   are shared by every text-like control: input, textarea and select. */
 @layer lue.components {
-  /* ---------------------------------------------------------------- fields */
   .lue-field { display: grid; gap: var(--lue-space-2xs); }
   .lue-field__label { font-weight: 600; font-size: 1rem; line-height: 1.3; }
-  .lue-field__hint { font-size: 0.9375rem; color: var(--lue-color-fg-muted); }
-  .lue-field__error { display: flex; gap: 0.4em; align-items: center; color: var(--lue-color-fg-critical); font-size: 0.9375rem; font-weight: 600; }
+  .lue-field__hint { margin: 0; font-size: 0.9375rem; color: var(--lue-color-fg-muted); }
+  .lue-field__error { display: flex; gap: 0.4em; align-items: center; margin: 0; color: var(--lue-color-fg-critical); font-size: 0.9375rem; font-weight: 600; }
+
   .lue-input, .lue-select, .lue-textarea, .lue-checkbox, .lue-radio, .lue-switch {
     border: var(--lue-border-width-thin) solid transparent;
     background: linear-gradient(var(--lue-field-bg), var(--lue-field-bg)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
     box-shadow: inset 0 1px 2px var(--lue-field-inset);
     color: var(--lue-color-fg-default);
-    transition: --lue-angle var(--lue-motion-duration-slow) var(--lue-motion-ease-standard), box-shadow var(--lue-motion-duration-slow) var(--lue-motion-ease-standard);
+    transition:
+      --lue-angle var(--lue-motion-duration-slow) var(--lue-motion-ease-standard),
+      box-shadow var(--lue-motion-duration-slow) var(--lue-motion-ease-standard);
   }
   .lue-input, .lue-select, .lue-textarea {
     inline-size: 100%;
-    min-block-size: var(--lue-size-control-md);
+    min-block-size: max(var(--lue-size-target-min), var(--lue-size-control-md));
     padding-inline: calc(1.125rem * var(--lue-density));
     border-radius: var(--lue-field-radius);
     font: 400 1.0625rem/1.4 var(--lue-font-family-body);
   }
   .lue-textarea { padding-block: 0.75rem; field-sizing: content; min-block-size: 6lh; }
-  .lue-select { appearance: none; padding-inline-end: calc(1.125rem + 1.75em); }
-  .lue-select-wrap { position: relative; display: grid; }
-  .lue-select-wrap > :where(.lue-icon) { position: absolute; inset-inline-end: 1.125rem; inset-block-start: 50%; translate: 0 -50%; pointer-events: none; }
-  .lue-input:where(:hover), .lue-select:where(:hover), .lue-textarea:where(:hover), .lue-checkbox:where(:hover), .lue-radio:where(:hover), .lue-switch:where(:hover) { --lue-angle: 120deg; }
-  .lue-input:where(:focus-visible), .lue-select:where(:focus-visible), .lue-textarea:where(:focus-visible) { --lue-angle: 220deg; outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); box-shadow: inset 0 1px 2px var(--lue-field-inset), 0 0 0 7px var(--lue-focus-glow); }
-  .lue-input:where([aria-invalid="true"], :user-invalid), .lue-textarea:where([aria-invalid="true"], :user-invalid), .lue-select:where([aria-invalid="true"]) {
+
+  /* ---- states (the ring is the element's own border box, so the angle is set on the element) */
+  .lue-input:where(:hover), .lue-select:where(:hover), .lue-textarea:where(:hover),
+  .lue-checkbox:where(:hover), .lue-radio:where(:hover), .lue-switch:where(:hover) { --lue-angle: 120deg; }
+  .lue-input:where(:focus-visible), .lue-select:where(:focus-visible), .lue-textarea:where(:focus-visible) {
+    --lue-angle: 220deg;
+    outline: var(--lue-focus-width) solid var(--lue-color-focus-ring);
+    outline-offset: var(--lue-focus-offset);
+    box-shadow: inset 0 1px 2px var(--lue-field-inset), 0 0 0 7px var(--lue-focus-glow);
+  }
+  .lue-input:where([aria-invalid="true"], :not([aria-invalid]):user-invalid),
+  .lue-textarea:where([aria-invalid="true"], :not([aria-invalid]):user-invalid),
+  .lue-select:where([aria-invalid="true"]) {
     background: linear-gradient(var(--lue-field-bg), var(--lue-field-bg)) padding-box, linear-gradient(var(--lue-color-fg-critical), var(--lue-color-fg-critical)) border-box;
     box-shadow: inset 0 0 0 1px var(--lue-color-fg-critical);
   }
+  .lue-input:where(:disabled), .lue-select:where(:disabled), .lue-textarea:where(:disabled) { color: var(--lue-color-fg-muted); cursor: not-allowed; }
+}
 
-  /* choices */
-  .lue-fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: var(--lue-space-2xs); min-inline-size: 0; }
-  .lue-fieldset > legend { font-weight: 600; padding: 0; margin-block-end: var(--lue-space-2xs); }
-  .lue-choice { display: flex; gap: var(--lue-space-xs); align-items: center; min-block-size: var(--lue-size-target-min); }
-  .lue-checkbox, .lue-radio { appearance: none; margin: 0; inline-size: 22px; block-size: 22px; display: inline-grid; place-content: center; flex: none; }
-  .lue-checkbox { border-radius: var(--lue-radius-xs); }
-  .lue-radio { border-radius: 50%; }
-  /* eslint-disable-next-line css/no-invalid-properties -- the stop list is one var() (a gradient token), which the parser can't expand */
-  .lue-checkbox:where(:checked) { background: linear-gradient(135deg, var(--lue-prism-fill)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-prism-ring)) border-box; box-shadow: var(--lue-shadow-glow-rest); }
-  .lue-checkbox:where(:checked)::after { content: ""; inline-size: 11px; block-size: 6px; border-inline-start: 2.5px solid var(--lue-color-fg-on-accent); border-block-end: 2.5px solid var(--lue-color-fg-on-accent); rotate: -45deg; translate: 0 -1px; }
-  /* eslint-disable-next-line css/no-invalid-properties -- the stop list is one var() (a gradient token), which the parser can't expand */
-  .lue-radio:where(:checked) { background: radial-gradient(circle, var(--lue-color-fg-on-accent) 0 3.5px, transparent 4px) padding-box, linear-gradient(135deg, var(--lue-prism-fill)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-prism-ring)) border-box; box-shadow: var(--lue-shadow-glow-rest); }
-  .lue-checkbox:where([aria-invalid="true"]), .lue-radio:where([aria-invalid="true"]) { background: linear-gradient(var(--lue-field-bg), var(--lue-field-bg)) padding-box, linear-gradient(var(--lue-color-fg-critical), var(--lue-color-fg-critical)) border-box; box-shadow: inset 0 0 0 1px var(--lue-color-fg-critical); }
-  .lue-checkbox:where(:focus-visible), .lue-radio:where(:focus-visible), .lue-switch:where(:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: 3px; box-shadow: 0 0 0 7px var(--lue-focus-glow); }
-  .lue-switch { appearance: none; margin: 0; inline-size: 48px; block-size: 28px; border-radius: var(--lue-radius-full); position: relative; flex: none; }
-  .lue-switch::before { content: ""; position: absolute; inset-block-start: 4px; inset-inline-start: 4px; inline-size: 18px; block-size: 18px; border-radius: 50%; background: var(--lue-bead); box-shadow: 0 0 0 1px var(--lue-bead-rim), 0 1px 3px oklch(0 0 0 / 0.3); transition: translate var(--lue-motion-duration-moderate) var(--lue-motion-ease-spring); }
-  /* eslint-disable-next-line css/no-invalid-properties -- the stop list is one var() (a gradient token), which the parser can't expand */
-  .lue-switch:where(:checked) { background: linear-gradient(100deg, var(--lue-prism-fill)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-prism-ring)) border-box; box-shadow: var(--lue-shadow-glow-rest); }
-  .lue-switch:where(:checked)::before { translate: 20px 0; background: var(--lue-bead-on); box-shadow: 0 0 0 1px var(--lue-bead-on-rim), 0 1px 3px oklch(0 0 0 / 0.3); }
-  .lue-switch:where(:checked:dir(rtl))::before { translate: -20px 0; }
-
-  /* error summary */
-  .lue-error-summary { display: grid; gap: var(--lue-space-xs); padding: var(--lue-space-m); border: var(--lue-border-width-thin) solid var(--lue-color-fg-critical); box-shadow: inset 0 0 0 1px var(--lue-color-fg-critical); border-radius: var(--lue-radius-m); background: var(--lue-color-bg-surface); }
-  .lue-error-summary__title { display: flex; gap: 0.5em; align-items: center; color: var(--lue-color-fg-critical); font-size: 1.1875rem; }
-  .lue-error-summary ul { margin: 0; padding-inline-start: 1.25em; display: grid; gap: var(--lue-space-3xs); }
-  .lue-error-summary a { color: var(--lue-color-fg-critical); font-weight: 600; }
+/* Increased contrast: a solid boundary instead of chrome; invalid fields get a thicker critical boundary. Forced
+   colours: Field / FieldText, and invalid fields keep a 2 px boundary so they don't rely on colour. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-input, .lue-select, .lue-textarea) { background: var(--lue-field-bg); border-color: var(--lue-color-border-strong); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-input, .lue-select, .lue-textarea)[aria-invalid="true"] { border-color: var(--lue-color-fg-critical); box-shadow: inset 0 0 0 1px var(--lue-color-fg-critical); }
+  @media (forced-colors: active) {
+    :where(.lue-input, .lue-select, .lue-textarea) { background: Field; color: FieldText; border-color: FieldText; }
+    :where(.lue-input, .lue-select, .lue-textarea)[aria-invalid="true"] { border-width: var(--lue-border-width-thick); }
+    :where(.lue-input, .lue-select, .lue-textarea):disabled { color: GrayText; border-color: GrayText; }
+  }
 }

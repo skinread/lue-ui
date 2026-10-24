@@ -1,0 +1,7 @@
+/* Select — a native <select class="lue-select"> in a .lue-select-wrap that holds its chevron. Shares the field
+   surface and states in field.css. */
+@layer lue.components {
+  .lue-select { appearance: none; padding-inline-end: calc(1.125rem + 1.75em); }
+  .lue-select-wrap { position: relative; display: grid; }
+  .lue-select-wrap > :where(.lue-icon) { position: absolute; inset-inline-end: 1.125rem; inset-block-start: 50%; translate: 0 -50%; pointer-events: none; }
+}
