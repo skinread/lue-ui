@@ -1,6 +1,6 @@
 # Spike A: a dialog containing a menu
 
-> **Status:** Done in Chromium and WebKit · Firefox runs in CI only (see below) · Pass 3 · 2026-10-11
+> **Status:** Done in Chromium, Firefox and WebKit (Firefox confirmed in CI, 2026-10-24) · Pass 3 · 2026-10-11
 
 [RFC-0001 §11](../rfc-0001-architecture.md#11-sequencing-pass-3) asked for the riskiest thing first: a menu inside a
 modal dialog, in raw HTML and in React with server rendering and hydration, in three engines. It tests invoker
@@ -58,17 +58,12 @@ Chromium 156 and WebKit 27.2** (46 runs).
 2. **Playwright's WebKit follows macOS's default Tab setting.** Tab skips buttons and links; Option+Tab reaches them.
    - `<lue-menu>` treats Option+Tab as Tab. On other platforms Alt+Tab never reaches the page.
    - WebKit tests press Option+Tab.
-3. **Firefox isn't verified locally.**
-   - macOS privacy protection stops the Claude app from reading `~/Library/Application Support/Firefox` ("Operation
-     not permitted").
-   - Playwright's Firefox build shares that profile folder with the installed Firefox, so it can't start ("Could not
-     find profile folder").
-   - CI runs Firefox on Linux. Locally, run `pnpm test --project firefox` from a terminal that macOS lets access other
-     apps' data.
+3. **Firefox passes in CI.** The Linux job on `develop` is green in Chromium, Firefox and WebKit (confirmed 2026-10-24).
+   Playwright's Firefox can't start from the Claude app on macOS (it shares the installed Firefox's profile folder,
+   which macOS blocks); that is a local-only limitation.
 
 ## Follow-ups
 
-- Run the suite in Firefox (CI on first push, or a permitted local terminal) and record the result here.
 - ArrowDown and ArrowUp on the menu button, opening at the first or last item (optional in the APG).
 - A controlled `Dialog` needs `onOpenChange` to stay in sync after Esc. Document it, or warn in development.
 - Emulation rows from [ADR-0005](../adr/0005-three-engine-testing-and-a11y-gates.md) — forced colours, increased

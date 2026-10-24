@@ -80,13 +80,9 @@
 
 ## Waiting on the user
 
-1. **Firefox tests can't run from the Claude app.** macOS blocks it from reading `~/Library/Application Support/Firefox`,
-   which Playwright's Firefox shares with the installed Firefox. Run `pnpm test --project firefox` from your own
-   terminal (macOS may ask to allow access to other apps' data), or let CI run it once the repo is on GitHub.
-2. **CI's first run** — the repo is on GitHub as a **private** repository, `skinread/lue-ui` (2026-10-24), so
-   `.github/workflows/ci.yml` runs on the first push. Check the Firefox job in particular. Making the repo public is yours
-   to decide.
-3. **Spike C** needs you to start `/design-sync` (it's a skill the user runs).
+1. **Making the repo public** is yours to decide (private on GitHub as `skinread/lue-ui`; CI is green on `develop` in Chromium,
+   Firefox and WebKit as of 2026-10-24).
+2. **Spike C** needs you to start `/design-sync` (it's a skill the user runs).
 
 Lower-priority open questions are listed at the end of [RFC-0001](docs/architecture/rfc-0001-architecture.md#open-questions).
 
@@ -126,8 +122,8 @@ Following [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequenci
    - CI: lint, types and token contrast, then browser tests sharded by engine.
    - Run `pnpm check` and `pnpm test`.
 2. ~~**Spike A** — a dialog containing a menu~~ — done 2026-10-11:
-   [report](docs/architecture/spikes/spike-a-dialog-menu.md). 23 tests pass in Chromium and WebKit. WebKit needed
-   explicit focus return in `<lue-menu>` and Option+Tab. Firefox is pending (see *Waiting on the user*).
+   [report](docs/architecture/spikes/spike-a-dialog-menu.md). 23 tests pass in Chromium, Firefox and WebKit (Firefox confirmed in
+   CI on 2026-10-24). WebKit needed explicit focus return in `<lue-menu>` and Option+Tab.
 3. **Spike B — next:** Terrazzo → `tokens.css` + Claude Design JSON + contrast lint → Lightning CSS → consumer
    fixtures.
    - Build from `packages/tokens/src`, retiring `tools/directions/tokens.mjs` as the source of truth.
@@ -165,7 +161,7 @@ Following [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequenci
   accessibility bugs.
 - **The Phase 1 session's scratchpad is gone.** Everything worth keeping is in this repo and on the canvas.
 - **Running tests from the Claude app:** if a browser fails to launch, set `TMPDIR` to a writable folder (the
-  session's scratchpad). Firefox needs a terminal with macOS permission (above).
+  session's scratchpad). Firefox can't start from the Claude app on macOS; CI covers it.
 - **Toolchain as installed on 2026-10-11:** pnpm 12.4, Node 26.10, TypeScript 7.0, Vitest 5.0 with
   `@vitest/browser-playwright`, Playwright 1.64 (Chromium 156, Firefox 157, WebKit 27.2), React 19.3, ESLint 10 with
   `@eslint/css` 2 and html-eslint 0.66, Changesets 3, axe-core 4.14. `pnpm-workspace.yaml` refuses versions under a day
