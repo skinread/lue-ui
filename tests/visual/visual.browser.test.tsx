@@ -72,6 +72,23 @@ const SECTIONS: Record<string, string> = {
         <textarea class="lue-textarea" id="v-notes">Side gate, code 1234</textarea>
       </div>
     </div>`,
+  alert: `
+    <div style="display:grid;gap:12px;inline-size:420px">
+      ${['info', 'warning', 'success', 'critical'].map((tone) => `
+      <div class="lue-alert" data-tone="${tone}">
+        <svg class="lue-icon" aria-hidden="true" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"></circle><path d="M8 7v4M8 5v.5" stroke="currentColor" stroke-width="1.5"></path></svg>
+        <p class="lue-alert__title"><span class="lue-visually-hidden">${tone}: </span>Delivery is delayed</p>
+        <div class="lue-alert__body">Orders placed today go out on Monday.</div>
+      </div>`).join('')}
+    </div>`,
+  disclosure: `
+    <div style="display:grid;gap:16px;inline-size:420px">
+      <p>Read our <a class="lue-link" href="#statement">accessibility statement</a> first.</p>
+      <div class="lue-accordion">
+        <details class="lue-disclosure" name="v-faq" open=""><summary>Can I return it?${chevron}</summary><div><p>Yes, within 30 days.</p></div></details>
+        <details class="lue-disclosure" name="v-faq"><summary>Do you ship abroad?${chevron}</summary><div><p>Not yet.</p></div></details>
+      </div>
+    </div>`,
   dialog: `
     <dialog class="lue-dialog" open="" aria-labelledby="v-dialog-title" style="position:static;margin:0">
       <h2 class="lue-dialog__title" id="v-dialog-title">Delete this project?</h2>

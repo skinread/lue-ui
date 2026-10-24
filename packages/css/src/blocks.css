@@ -2,8 +2,6 @@
    timeline, call to action, header and footer. Moved from the Claude Design System seed (Pass 2). */
 @layer lue.blocks {
   .lue-wrap { inline-size: min(100% - 2 * var(--lue-gutter), 75rem); margin-inline: auto; }
-  .lue-skip-link { position: absolute; inset-inline-start: 16px; inset-block-start: 12px; z-index: 20; translate: 0 -200%; }
-  .lue-skip-link:where(:focus-visible) { translate: 0 0; }
   .lue-display { font-family: var(--lue-font-family-display); font-weight: 300; font-size: clamp(2.875rem, 1.5rem + 4.4vi, 6rem); line-height: 1; letter-spacing: -0.035em; text-wrap: balance; margin: 0; }
   .lue-title { font-family: var(--lue-font-family-display); font-weight: 300; font-size: clamp(2.5rem, 1.45rem + 3.4vi, 4.75rem); line-height: 1.02; letter-spacing: -0.035em; max-inline-size: 18ch; text-wrap: balance; margin: 0; }
   .lue-h2 { font-family: var(--lue-font-family-display); font-weight: 350; font-size: clamp(1.9rem, 1.35rem + 1.9vi, 3.1rem); line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; margin: 0; }
@@ -12,7 +10,6 @@
   .lue-dek { font-size: clamp(1.2rem, 1.05rem + 0.6vi, 1.5rem); line-height: 1.5; color: var(--lue-color-fg-muted); max-inline-size: 44ch; text-wrap: pretty; }
   .lue-kicker { font: 600 0.75rem/1.4 var(--lue-font-family-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--lue-color-fg-muted); }
   .lue-actions { display: flex; flex-wrap: wrap; gap: var(--lue-space-xs); }
-  .lue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(var(--lue-grid-min, 18rem), 100%), 1fr)); gap: var(--lue-space-m); }
   .lue-split { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(26rem, 100%), 1fr)); gap: var(--lue-space-xl); align-items: center; }
   .lue-section { display: grid; gap: var(--lue-space-l); padding-block: var(--lue-space-2xl); }
   .lue-section__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--lue-space-s) var(--lue-space-l); }

@@ -1,0 +1,51 @@
+{
+  "name": "VisuallyHidden",
+  "status": "experimental",
+  "rung": "css",
+  "rungReason": "There is no native element for text that's read but not shown; clipping keeps it in the accessibility tree where hidden or display: none would not.",
+  "covers": [
+    "The focusable variant: it shows while something inside has focus"
+  ],
+  "anatomy": {
+    "text": {
+      "element": "span",
+      "class": "lue-visually-hidden",
+      "required": true
+    }
+  },
+  "a11y": {
+    "role": "none: its text joins the accessible name or description around it",
+    "name": "n/a",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Passes over it: nothing here takes focus"
+      }
+    ],
+    "focus": {
+      "indicator": "Shown while something inside it has focus (:focus-within), so a focusable child is never invisible"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "VisuallyHidden",
+    "props": {
+      "...": "every <span> prop"
+    }
+  },
+  "tokens": [],
+  "platform": {
+    "baseline": [
+      "clip-path: inset()",
+      ":focus-within"
+    ]
+  },
+  "rules": [
+    "Only for text that adds to what's on screen (\"Error: \", \", opens in a new tab\"), never to hide content sighted users need"
+  ],
+  "contrast": "n/a",
+  "forcedColors": "n/a",
+  "deletionTrigger": null
+}

@@ -1,0 +1,13 @@
+/* Link — <a class="lue-link" href>. Underlined always, in running text and alone; the underline thickens on hover.
+   Base styles cover a plain <a> in prose; the class is for links outside it. Contract: apps/docs/contracts/link.json. */
+@layer lue.components {
+  .lue-link {
+    color: var(--lue-color-fg-accent);
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    border-radius: var(--lue-radius-xs);
+  }
+  .lue-link:where(:hover) { text-decoration-thickness: 2px; }
+  .lue-link:where(:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); }
+}

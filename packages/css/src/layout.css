@@ -1,0 +1,41 @@
+/* Layout primitives — Stack, Cluster, Grid, Sidebar, Switcher and Center. Intrinsic: each responds to the space its
+   container gives it, with no media or container queries, so it works anywhere it's put. Gaps come from the space
+   scale through data-gap; continuous measures are custom properties. Contract: apps/docs/contracts/layout.json. */
+@layer lue.layout {
+  /* Stack: children in a column with one gap between them. */
+  .lue-stack { display: flex; flex-direction: column; gap: var(--lue-space-s); }
+
+  /* Cluster: children in a row that wraps, e.g. tags or actions. */
+  .lue-cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lue-space-xs); }
+  .lue-cluster:where([data-justify="center"]) { justify-content: center; }
+  .lue-cluster:where([data-justify="end"]) { justify-content: flex-end; }
+  .lue-cluster:where([data-justify="between"]) { justify-content: space-between; }
+
+  /* Grid: as many columns of at least --lue-grid-min as fit, never wider than the container. */
+  .lue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(var(--lue-grid-min, 18rem), 100%), 1fr)); gap: var(--lue-space-m); }
+
+  /* Sidebar: a sidebar of --lue-sidebar-width beside content that takes the rest; they stack when the content would
+     be narrower than --lue-sidebar-content-min. The sidebar is the first child, or the last with data-side="end". */
+  .lue-sidebar { display: flex; flex-wrap: wrap; gap: var(--lue-space-m); }
+  .lue-sidebar > :where(*) { flex-grow: 999; flex-basis: 0; min-inline-size: var(--lue-sidebar-content-min, 50%); }
+  .lue-sidebar:where(:not([data-side="end"])) > :where(:first-child),
+  .lue-sidebar:where([data-side="end"]) > :where(:last-child) { flex-grow: 1; flex-basis: var(--lue-sidebar-width, 20rem); min-inline-size: 0; }
+
+  /* Switcher: children side by side, or all stacked once the container is narrower than --lue-switcher-threshold. */
+  .lue-switcher { display: flex; flex-wrap: wrap; gap: var(--lue-space-m); }
+  .lue-switcher > :where(*) { flex-grow: 1; flex-basis: calc((var(--lue-switcher-threshold, 30rem) - 100%) * 999); }
+
+  /* Center: a column no wider than --lue-center-max (the reading measure by default), centred, with the page gutter. */
+  .lue-center { box-sizing: content-box; max-inline-size: var(--lue-center-max, var(--lue-size-measure)); margin-inline: auto; padding-inline: var(--lue-gutter); }
+
+  /* Gaps from the space scale. Last, so they win over each primitive's default. */
+  :where(.lue-stack, .lue-cluster, .lue-grid, .lue-sidebar, .lue-switcher)[data-gap="0"] { gap: 0; }
+  :where(.lue-stack, .lue-cluster, .lue-grid, .lue-sidebar, .lue-switcher)[data-gap="3xs"] { gap: var(--lue-space-3xs); }
+  :where(.lue-stack, .lue-cluster, .lue-grid, .lue-sidebar, .lue-switcher)[data-gap="2xs"] { gap: var(--lue-space-2xs); }
+  :where(.lue-stack, .lue-cluster, .lue-grid, .lue-sidebar, .lue-switcher)[data-gap="xs"] { gap: var(--lue-space-xs); }
+  :where(.lue-stack, .lue-cluster, .lue-grid, .lue-sidebar, .lue-switcher)[data-gap="s"] { gap: var(--lue-space-s); }
+  :where(.lue-stack, .lue-cluster, .lue-grid, .lue-sidebar, .lue-switcher)[data-gap="m"] { gap: var(--lue-space-m); }
+  :where(.lue-stack, .lue-cluster, .lue-grid, .lue-sidebar, .lue-switcher)[data-gap="l"] { gap: var(--lue-space-l); }
+  :where(.lue-stack, .lue-cluster, .lue-grid, .lue-sidebar, .lue-switcher)[data-gap="xl"] { gap: var(--lue-space-xl); }
+  :where(.lue-stack, .lue-cluster, .lue-grid, .lue-sidebar, .lue-switcher)[data-gap="2xl"] { gap: var(--lue-space-2xl); }
+}

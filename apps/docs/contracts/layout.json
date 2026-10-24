@@ -1,0 +1,141 @@
+{
+  "name": "Layout",
+  "status": "experimental",
+  "rung": "css",
+  "rungReason": "Flexbox and grid with intrinsic sizing respond to their container with no script and no queries.",
+  "covers": [
+    "Stack",
+    "Cluster",
+    "Grid",
+    "Sidebar",
+    "Switcher",
+    "Center"
+  ],
+  "anatomy": {
+    "stack": {
+      "element": "any",
+      "class": "lue-stack"
+    },
+    "cluster": {
+      "element": "any",
+      "class": "lue-cluster",
+      "attributes": {
+        "data-justify": "center, end or between"
+      }
+    },
+    "grid": {
+      "element": "any",
+      "class": "lue-grid",
+      "attributes": {
+        "style": "--lue-grid-min (18rem)"
+      }
+    },
+    "sidebar": {
+      "element": "any",
+      "class": "lue-sidebar",
+      "attributes": {
+        "data-side": "end puts the sidebar last",
+        "style": "--lue-sidebar-width (20rem), --lue-sidebar-content-min (50%)"
+      }
+    },
+    "switcher": {
+      "element": "any",
+      "class": "lue-switcher",
+      "attributes": {
+        "style": "--lue-switcher-threshold (30rem)"
+      }
+    },
+    "center": {
+      "element": "any",
+      "class": "lue-center",
+      "attributes": {
+        "style": "--lue-center-max (--lue-size-measure)"
+      }
+    }
+  },
+  "variants": {
+    "gap": {
+      "attribute": "data-gap",
+      "values": [
+        "0",
+        "3xs",
+        "2xs",
+        "xs",
+        "s",
+        "m",
+        "l",
+        "xl",
+        "2xl"
+      ]
+    },
+    "justify": {
+      "attribute": "data-justify",
+      "values": [
+        "center",
+        "end",
+        "between"
+      ]
+    },
+    "side": {
+      "attribute": "data-side",
+      "values": [
+        "end"
+      ]
+    }
+  },
+  "a11y": {
+    "role": "None of their own: the element they're on keeps its semantics",
+    "name": "n/a",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Passes over it: nothing here takes focus"
+      }
+    ],
+    "focus": {
+      "indicator": "n/a"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Stack, Cluster, Grid, Sidebar, Switcher, Center",
+    "props": {
+      "as": "the element (div by default)",
+      "gap": "data-gap",
+      "justify": "Cluster's data-justify",
+      "min": "Grid's --lue-grid-min",
+      "side, width, contentMin": "Sidebar",
+      "threshold": "Switcher",
+      "max": "Center"
+    }
+  },
+  "tokens": [
+    "--lue-space-3xs",
+    "--lue-space-2xs",
+    "--lue-space-xs",
+    "--lue-space-s",
+    "--lue-space-m",
+    "--lue-space-l",
+    "--lue-space-xl",
+    "--lue-space-2xl",
+    "--lue-size-measure",
+    "--lue-gutter"
+  ],
+  "platform": {
+    "baseline": [
+      "flexbox gap",
+      "grid auto-fit",
+      "min()",
+      "logical properties"
+    ]
+  },
+  "rules": [
+    "Visual order follows source order: none of them reorder, so reading and focus order match (WCAG 1.3.2, 2.4.3)",
+    "Reflow at 320 px with no sideways scrolling (WCAG 1.4.10)"
+  ],
+  "contrast": "n/a",
+  "forcedColors": "n/a",
+  "deletionTrigger": null
+}

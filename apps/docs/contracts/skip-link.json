@@ -1,0 +1,80 @@
+{
+  "name": "SkipLink",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "An in-page <a href=\"#main\"> moves the sequential focus starting point natively; CSS only hides it until focus.",
+  "anatomy": {
+    "link": {
+      "element": "a",
+      "class": "lue-skip-link",
+      "required": true,
+      "attributes": {
+        "href": "#main, or the main content's id"
+      }
+    },
+    "target": {
+      "element": "main",
+      "required": true,
+      "attributes": {
+        "id": "main",
+        "tabindex": "-1 (optional; lets every engine move focus to it)"
+      }
+    }
+  },
+  "a11y": {
+    "role": "link (implicit)",
+    "name": "Its text, e.g. \"Skip to main content\"",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "The first Tab stop on the page; it shows while focused"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "The next Tab goes into main"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline; the link is pinned to the viewport's inline-start corner"
+    },
+    "targetSize": "At least --lue-size-target-min tall"
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "SkipLink",
+    "props": {
+      "href": "defaults to #main",
+      "...": "every <a> prop"
+    }
+  },
+  "tokens": [
+    "--lue-space-xs",
+    "--lue-space-s",
+    "--lue-size-target-min",
+    "--lue-color-bg-surface",
+    "--lue-color-fg-default",
+    "--lue-color-border-strong",
+    "--lue-radius-full",
+    "--lue-color-focus-ring"
+  ],
+  "platform": {
+    "baseline": [
+      "a",
+      "fragment navigation",
+      "position: fixed",
+      "clip-path: inset()",
+      ":focus"
+    ]
+  },
+  "rules": [
+    "Render it first in <body>, before the header",
+    "Hidden with the visually-hidden technique, not display: none, so it stays in the Tab order"
+  ],
+  "contrast": "A strong border all the time",
+  "forcedColors": "CanvasText border on Canvas",
+  "deletionTrigger": null
+}

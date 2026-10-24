@@ -1,0 +1,66 @@
+{
+  "name": "Icon",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "Inline <svg> takes currentColor and scales with text; aria-hidden or role=\"img\" with a name are native attributes.",
+  "anatomy": {
+    "icon": {
+      "element": "svg",
+      "class": "lue-icon",
+      "required": true,
+      "attributes": {
+        "viewBox": "required",
+        "aria-hidden": "true when decorative",
+        "role": "img when labelled",
+        "aria-label": "when labelled",
+        "data-mirror": "flip in right-to-left text"
+      }
+    }
+  },
+  "variants": {
+    "mirror": {
+      "attribute": "data-mirror",
+      "type": "boolean"
+    }
+  },
+  "a11y": {
+    "role": "none when decorative (aria-hidden); img when labelled",
+    "name": "aria-label when it means something on its own; otherwise the text beside it",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Passes over it: nothing here takes focus"
+      }
+    ],
+    "focus": {
+      "indicator": "Never focusable"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Icon",
+    "props": {
+      "label": "makes it role=img with that name",
+      "mirror": "data-mirror",
+      "...": "every <svg> prop; children are the paths"
+    }
+  },
+  "tokens": [],
+  "platform": {
+    "baseline": [
+      "svg",
+      "currentColor",
+      ":dir()",
+      "scale"
+    ]
+  },
+  "rules": [
+    "1.25em square: it follows the text size",
+    "Icons are open-licensed (OFL, MIT, ISC) and self-hosted; Lue UI ships none yet"
+  ],
+  "contrast": "Inherits the text colour",
+  "forcedColors": "currentColor follows the forced text colour",
+  "deletionTrigger": null
+}

@@ -1,0 +1,62 @@
+{
+  "name": "Link",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "<a href> gives the link role, Enter activation, history, the context menu and visited state; the class only draws it.",
+  "anatomy": {
+    "link": {
+      "element": "a",
+      "class": "lue-link",
+      "required": true,
+      "attributes": {
+        "href": "required"
+      }
+    }
+  },
+  "a11y": {
+    "role": "link (implicit)",
+    "name": "Its text; an icon-only link needs aria-label",
+    "keyboard": [
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "Follow the link"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline at --lue-focus-offset"
+    },
+    "targetSize": "Inline links are exempt from WCAG 2.5.8; links on their own sit in a row at least --lue-size-target-min"
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Link",
+    "props": {
+      "...": "every <a> prop"
+    },
+    "note": "A router's link takes className=\"lue-link\" instead"
+  },
+  "tokens": [
+    "--lue-color-fg-accent",
+    "--lue-color-focus-ring",
+    "--lue-focus-width",
+    "--lue-focus-offset",
+    "--lue-radius-xs"
+  ],
+  "platform": {
+    "baseline": [
+      "a",
+      "text-decoration-thickness",
+      "text-underline-offset",
+      ":focus-visible"
+    ]
+  },
+  "rules": [
+    "Underlined always, in running text and alone: colour is never the only cue (WCAG 1.4.1)",
+    "--lue-color-fg-accent holds 4.5:1 on canvas, surfaces, glass and satin (token build gate)"
+  ],
+  "contrast": "The accent text token is raised in the -more themes",
+  "forcedColors": "LinkText from the browser; the underline stays",
+  "deletionTrigger": null
+}

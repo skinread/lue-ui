@@ -1,0 +1,115 @@
+{
+  "name": "Alert",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "A <div> with a paragraph title; role=\"status\" or role=\"alert\" is added only when it's injected after load.",
+  "anatomy": {
+    "alert": {
+      "element": "div",
+      "class": "lue-alert",
+      "required": true,
+      "attributes": {
+        "data-tone": "info (default), warning, success, critical",
+        "role": "status or alert, only when injected"
+      }
+    },
+    "icon": {
+      "element": "svg",
+      "class": "lue-icon",
+      "required": false,
+      "attributes": {
+        "aria-hidden": "true"
+      }
+    },
+    "title": {
+      "element": "p",
+      "class": "lue-alert__title",
+      "required": true,
+      "children": [
+        {
+          "element": "span",
+          "class": "lue-visually-hidden",
+          "text": "{tone word}: "
+        }
+      ]
+    },
+    "body": {
+      "element": "div",
+      "class": "lue-alert__body",
+      "required": false
+    }
+  },
+  "variants": {
+    "tone": {
+      "attribute": "data-tone",
+      "values": [
+        "info",
+        "warning",
+        "success",
+        "critical"
+      ],
+      "default": "info"
+    }
+  },
+  "messages": {
+    "info": "Information",
+    "warning": "Warning",
+    "success": "Success",
+    "critical": "Error"
+  },
+  "a11y": {
+    "role": "none when static; status (polite) or alert (assertive, errors only) when injected",
+    "name": "n/a",
+    "description": "The tone word (visually hidden) starts the title, so the tone is never colour or icon alone",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Passes over it: nothing here takes focus"
+      }
+    ],
+    "focus": {
+      "indicator": "Not focusable; links inside it have their own"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Alert",
+    "props": {
+      "tone": "data-tone",
+      "title": "the title",
+      "icon": "a decorative icon",
+      "toneLabel": "the tone word, translated",
+      "live": "polite → role=status, assertive → role=alert",
+      "children": "the body"
+    }
+  },
+  "tokens": [
+    "--lue-color-bg-info-subtle",
+    "--lue-color-bg-warning-subtle",
+    "--lue-color-bg-success-subtle",
+    "--lue-color-bg-critical-subtle",
+    "--lue-color-fg-info",
+    "--lue-color-fg-warning",
+    "--lue-color-fg-success",
+    "--lue-color-fg-critical",
+    "--lue-radius-m",
+    "--lue-space-s",
+    "--lue-space-m"
+  ],
+  "platform": {
+    "baseline": [
+      "div",
+      "role=status",
+      "role=alert"
+    ]
+  },
+  "rules": [
+    "Not an <aside>: inside <main> it maps to a complementary landmark (HTML-AAM), one per callout, and ARIA in HTML doesn't allow role=status or alert on it (checked 2026-10-24)",
+    "A live region announces changes, not its first render: render the status container empty, then fill it; role=alert announces on insertion"
+  ],
+  "contrast": "The chrome ring becomes one strong line",
+  "forcedColors": "Canvas with a CanvasText border; the icon and word carry the tone",
+  "deletionTrigger": null
+}

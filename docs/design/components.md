@@ -48,7 +48,7 @@ that open a Dialog or Drawer do nothing — ADR-0004), 2 use an opt-in behaviour
 | Toggletip | `[popover]` (`hint` as PE) | — (click-to-show help) | none | `popover="hint"` → `manual`/`auto` |
 | Disclosure | `<details>` / `<summary>` | Disclosure | none | `::details-content` animation as PE |
 | Accordion | `<details name>` group | Accordion | none | Exclusive open state is native |
-| Alert / callout | Static `<aside>`, or `role="status"`/`role="alert"` when injected | — | none | — |
+| Alert / callout | Static `<div>`, or `role="status"`/`role="alert"` when injected; the tone is said in words | — | none | Not `<aside>` (changed 2026-10-24): inside `<main>` each would be a complementary landmark, and it can't take `role="status"` |
 | Toast | `popover="manual"` region | — (status messages, WCAG 4.1.3) | element `<lue-toast-region>` | `ariaNotify()` → live-region fallback |
 | Icon | Inline SVG | — | none | — |
 | Layout primitives | CSS | — | none | Container queries |
@@ -122,7 +122,8 @@ drawn on the C2 canvas.
 Every component ships a machine-readable contract. Pass 3 hand-wrote the keyboard tests for the first five
 components, and **schema v1** was extracted from what those tests needed (2026-10-24):
 [`apps/docs/contracts/contract.schema.json`](../../apps/docs/contracts/contract.schema.json). The contracts live beside
-it (Button, Field, Textarea, Select, Checkbox, Radio group, Switch, Dialog, Menu). `pnpm check` validates them and also fails when a contract names a token that
+it: Button, Link, Field, Textarea, Select, Checkbox, Radio group, Switch, Dialog, Menu, Disclosure, Accordion, Alert, Icon,
+Skip link, Visually hidden and the layout primitives. `pnpm check` validates them and also fails when a contract names a token that
 isn't in `tokens.css`, a class that isn't in `packages/css` (parts marked `hook` are script hooks, not styled), or a
 component without tests and stories. The table below is the original draft; the schema adds `covers`, `messages`,
 `react`, `elementRules`, `withoutJavaScript`, `motion`, `contrast` and `rules`, and makes `a11y.keyboard` a list of

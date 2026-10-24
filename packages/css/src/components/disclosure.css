@@ -1,10 +1,31 @@
-/* Disclosure — <details class="lue-disclosure"> with a chrome rule underneath. */
+/* Disclosure and Accordion — <details class="lue-disclosure"> with a chrome rule underneath. An accordion is a
+   .lue-accordion group of disclosures sharing a name, so opening one closes the others (native). Contracts:
+   apps/docs/contracts/disclosure.json, accordion.json. */
 @layer lue.components {
-  /* disclosure */
+  .lue-accordion { display: grid; }
   .lue-disclosure { border-block-end: var(--lue-border-width-thin) solid transparent; border-image: linear-gradient(90deg, var(--lue-chrome-line), transparent) 1; }
-  .lue-disclosure > summary { display: flex; justify-content: space-between; align-items: center; gap: var(--lue-space-s); min-block-size: var(--lue-size-control-md); cursor: pointer; font-weight: 600; list-style: none; }
+  .lue-disclosure > summary { display: flex; justify-content: space-between; align-items: center; gap: var(--lue-space-s); min-block-size: var(--lue-size-control-md); cursor: pointer; font-weight: 600; list-style: none; border-radius: var(--lue-radius-xs); }
   .lue-disclosure > summary::-webkit-details-marker { display: none; }
+  .lue-disclosure > summary:where(:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); }
   .lue-disclosure > summary > :where(.lue-icon) { transition: rotate var(--lue-motion-duration-moderate) var(--lue-motion-ease-standard); }
   .lue-disclosure:where([open]) > summary > :where(.lue-icon) { rotate: 180deg; }
   .lue-disclosure > :where(:not(summary)) { margin: 0; padding-block-end: var(--lue-space-s); color: var(--lue-color-fg-muted); }
+
+  /* The content fades in. Durations are zero under reduced motion (tokens). */
+  .lue-disclosure::details-content {
+    opacity: 0;
+    transition:
+      opacity var(--lue-motion-duration-moderate) var(--lue-motion-ease-standard),
+      content-visibility var(--lue-motion-duration-moderate) allow-discrete;
+  }
+  .lue-disclosure:where([open])::details-content { opacity: 1; }
+}
+
+/* Increased contrast: a solid rule. Forced colours: border-image keeps author colours, so it's swapped for a
+   CanvasText border. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-disclosure) { border-image: none; border-block-end-color: var(--lue-color-border-strong); }
+  @media (forced-colors: active) {
+    :where(.lue-disclosure) { border-image: none; border-block-end-color: CanvasText; }
+  }
 }

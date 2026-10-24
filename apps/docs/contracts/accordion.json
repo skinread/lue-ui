@@ -1,0 +1,77 @@
+{
+  "name": "Accordion",
+  "status": "experimental",
+  "rung": "native-attribute",
+  "rungReason": "<details name> makes a group exclusive natively: opening one closes the others, with no script.",
+  "anatomy": {
+    "accordion": {
+      "element": "div",
+      "class": "lue-accordion",
+      "required": true
+    },
+    "item": {
+      "element": "details",
+      "class": "lue-disclosure",
+      "required": true,
+      "attributes": {
+        "name": "the same for every item"
+      }
+    }
+  },
+  "a11y": {
+    "role": "A group of disclosures (no accordion role exists)",
+    "name": "Each summary's text",
+    "states": [
+      {
+        "state": "expanded",
+        "via": "[open] on one item at a time"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Moves between summaries"
+      },
+      {
+        "keys": [
+          "Enter",
+          "Space"
+        ],
+        "action": "Open one; the open one closes",
+        "on": "summary"
+      }
+    ],
+    "focus": {
+      "indicator": "As Disclosure"
+    }
+  },
+  "ownedAttributes": {
+    "details": [
+      "open (the browser's)"
+    ]
+  },
+  "react": {
+    "component": "Accordion",
+    "props": {
+      "name": "shared name; generated without it",
+      "children": "Disclosures"
+    }
+  },
+  "tokens": [
+    "--lue-chrome-line"
+  ],
+  "platform": {
+    "baseline": [
+      "details name"
+    ]
+  },
+  "withoutJavaScript": "Works fully",
+  "rules": [
+    "For several open at once, leave out the name: it's then a stack of disclosures"
+  ],
+  "contrast": "As Disclosure",
+  "forcedColors": "As Disclosure",
+  "deletionTrigger": null
+}

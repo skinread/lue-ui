@@ -2,7 +2,7 @@
   "name": "@lue-ui/css",
   "version": "0.0.0",
   "private": true,
-  "description": "Lue UI component CSS — native CSS in @layer lue",
+  "description": "Lue UI component CSS - native CSS in @layer lue",
   "license": "MIT",
   "type": "module",
   "sideEffects": [
@@ -15,6 +15,7 @@
       "default": "./dist/lue.css"
     },
     "./base.css": "./dist/base.css",
+    "./layout.css": "./dist/layout.css",
     "./blocks.css": "./dist/blocks.css",
     "./materials.css": "./dist/materials.css",
     "./components/*.css": "./dist/components/*.css",

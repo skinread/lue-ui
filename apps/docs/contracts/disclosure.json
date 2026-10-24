@@ -1,0 +1,98 @@
+{
+  "name": "Disclosure",
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "<details> and <summary> give the expanded state, Enter and Space, find-in-page and no-JavaScript behaviour.",
+  "anatomy": {
+    "disclosure": {
+      "element": "details",
+      "class": "lue-disclosure",
+      "required": true,
+      "attributes": {
+        "open": "initially open",
+        "name": "shared by an accordion's disclosures"
+      }
+    },
+    "summary": {
+      "element": "summary",
+      "required": true,
+      "children": [
+        {
+          "element": "text"
+        },
+        {
+          "element": "svg",
+          "class": "lue-icon",
+          "attributes": {
+            "aria-hidden": "true"
+          }
+        }
+      ]
+    },
+    "content": {
+      "element": "div",
+      "required": true
+    }
+  },
+  "a11y": {
+    "role": "summary: button-like with expanded state (native)",
+    "name": "The summary's text",
+    "states": [
+      {
+        "state": "expanded",
+        "via": "[open] (exposed by the platform)"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Enter",
+          "Space"
+        ],
+        "action": "Open or close",
+        "on": "summary"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline on the summary"
+    },
+    "targetSize": "The summary is at least --lue-size-control-md tall"
+  },
+  "ownedAttributes": {
+    "details": [
+      "open (the browser's; React renders the initial value only)"
+    ]
+  },
+  "react": {
+    "component": "Disclosure",
+    "props": {
+      "summary": "summary text",
+      "defaultOpen": "initial open",
+      "name": "group name (Accordion sets it)",
+      "...": "every <details> prop but open"
+    }
+  },
+  "tokens": [
+    "--lue-chrome-line",
+    "--lue-space-s",
+    "--lue-size-control-md",
+    "--lue-color-fg-muted",
+    "--lue-motion-duration-moderate",
+    "--lue-motion-ease-standard",
+    "--lue-color-focus-ring",
+    "--lue-color-border-strong"
+  ],
+  "platform": {
+    "baseline": [
+      "details",
+      "summary",
+      "::details-content",
+      "transition-behavior: allow-discrete"
+    ]
+  },
+  "withoutJavaScript": "Works fully",
+  "motion": "The caret turns and the content fades in; both instant under reduced motion",
+  "contrast": "The fading chrome rule becomes a solid strong line",
+  "forcedColors": "The rule is a CanvasText border (border-image keeps author colours, so it's removed)",
+  "deletionTrigger": null
+}
