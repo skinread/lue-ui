@@ -25,5 +25,8 @@
   },
   "dependencies": {
     "@lue-ui/elements": "workspace:*"
+  },
+  "scripts": {
+    "build": "node ../../tools/build-js.mjs react"
   }
 }

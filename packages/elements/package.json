@@ -5,12 +5,41 @@
   "description": "Lue UI light-DOM custom elements and controllers",
   "license": "MIT",
   "type": "module",
-  "sideEffects": ["./dist/define.js", "./dist/define/*.js", "./dist/lue.iife.js"],
+  "sideEffects": [
+    "./dist/define.js",
+    "./dist/define/*.js",
+    "./dist/lue.iife.js"
+  ],
   "exports": {
-    ".": "./dist/index.js",
-    "./define": "./dist/define.js",
-    "./define/*": "./dist/define/*.js",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./validate": {
+      "types": "./dist/validate/controller.d.ts",
+      "default": "./dist/validate/controller.js"
+    },
+    "./menu": {
+      "types": "./dist/menu/controller.d.ts",
+      "default": "./dist/menu/controller.js"
+    },
+    "./define": {
+      "types": "./dist/define.d.ts",
+      "default": "./dist/define.js"
+    },
+    "./define/*": {
+      "types": "./dist/define/*.d.ts",
+      "default": "./dist/define/*.js"
+    },
     "./lue.iife.js": "./dist/lue.iife.js"
   },
-  "files": ["dist"]
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node ../../tools/build-js.mjs elements"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
 }

@@ -266,6 +266,9 @@ importers:
       '@lue-ui/css':
         specifier: workspace:*
         version: link:../../packages/css
+      '@lue-ui/react':
+        specifier: workspace:*
+        version: link:../../packages/react
       '@lue-ui/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens
@@ -327,7 +330,11 @@ importers:
         specifier: 1.33.0
         version: 1.33.0
 
-  packages/elements: {}
+  packages/elements:
+    devDependencies:
+      esbuild:
+        specifier: 0.28.2
+        version: 0.28.2
 
   packages/react:
     dependencies:

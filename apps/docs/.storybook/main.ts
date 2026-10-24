@@ -18,6 +18,8 @@ const config: StorybookConfig = {
       alias: [
         ...(Array.isArray(vite.resolve?.alias) ? vite.resolve.alias : Object.entries(vite.resolve?.alias ?? {}).map(([find, replacement]) => ({ find, replacement }))),
         { find: /^@lue-ui\/elements\/define$/, replacement: source('../../../packages/elements/src/define.ts') },
+        { find: /^@lue-ui\/elements\/validate$/, replacement: source('../../../packages/elements/src/validate/controller.ts') },
+        { find: /^@lue-ui\/elements\/menu$/, replacement: source('../../../packages/elements/src/menu/controller.ts') },
         { find: /^@lue-ui\/elements$/, replacement: source('../../../packages/elements/src/index.ts') },
         { find: /^@lue-ui\/react$/, replacement: source('../../../packages/react/src/index.ts') },
       ],

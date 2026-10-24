@@ -9,6 +9,8 @@
     "paths": {
       "@lue-ui/elements": ["./packages/elements/src/index.ts"],
       "@lue-ui/elements/define": ["./packages/elements/src/define.ts"],
+      "@lue-ui/elements/validate": ["./packages/elements/src/validate/controller.ts"],
+      "@lue-ui/elements/menu": ["./packages/elements/src/menu/controller.ts"],
       "@lue-ui/react": ["./packages/react/src/index.ts"]
     }
   },
