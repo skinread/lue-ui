@@ -2,7 +2,7 @@
 // props from react-docgen, which reads each prop's JSDoc), then the HTML it renders on the server - the HTML core's
 // markup, which works without React - then every story. Under the description: when to use it and what to use instead,
 // from the contract's guidance, and links to the contract, the guidelines and the Markdown page.
-import type { ComponentType, ReactNode } from 'react';
+import { useEffect, useState, type ComponentType, type ReactNode } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Controls, Description, Heading, Primary, Source, Stories, Subtitle, Title, useOf } from '@storybook/addon-docs/blocks';
 import { composeStories } from '@storybook/react-vite';
@@ -13,7 +13,6 @@ interface Guidance {
   insteadUse?: string[];
   content?: string[];
 }
-const contracts = import.meta.glob<{ guidance?: Guidance }>(['../contracts/*.json', '!../contracts/contract.schema.json'], { eager: true, import: 'default' });
 
 /** The contract's id from the story title: "Components/Radio group" → radio-group. */
 function useContractId(): string {
@@ -23,7 +22,19 @@ function useContractId(): string {
 
 function WhenToUse(): ReactNode {
   const id = useContractId();
-  const guidance = contracts[`../contracts/${id}.json`]?.guidance;
+  const [guidance, setGuidance] = useState<Guidance>();
+  // The contract as Storybook serves it (tools/build-ai-docs.mjs copies it to public/contracts). Fetched rather than
+  // imported, so the contracts stay out of every story's bundle.
+  useEffect(() => {
+    let current = true;
+    fetch(`./contracts/${id}.json`)
+      .then((response) => (response.ok ? response.json() : undefined))
+      .then((contract?: { guidance?: Guidance }) => current && setGuidance(contract?.guidance))
+      .catch(() => undefined);
+    return () => {
+      current = false;
+    };
+  }, [id]);
   if (!guidance) return null;
   return (
     <>
