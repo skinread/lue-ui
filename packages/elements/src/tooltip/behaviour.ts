@@ -6,9 +6,12 @@
  *
  * Owned (ADR-0007): nothing; it only opens and closes the popover.
  */
+/** Milliseconds a pointer rests on a trigger before its tooltip shows; keyboard focus shows it at once. */
 export const TOOLTIP_DELAY = 300;
+/** Milliseconds before a tooltip hides once the pointer leaves, so it can move onto the tooltip (WCAG 1.4.13). */
 export const TOOLTIP_HIDE_DELAY = 150;
 
+/** Starts the tooltip behaviour for every `[data-lue-tooltip]` trigger inside `root`; returns a function that stops it. */
 export function installTooltip(root: Document | HTMLElement = document): () => void {
   const connection = new AbortController();
   const options = { signal: connection.signal };

@@ -9,6 +9,9 @@ import { Link, Popover, PopoverTrigger } from '@lue-ui/react';
 const meta = {
   title: 'Components/Popover',
   component: Popover,
+  subcomponents: { PopoverTrigger },
+  // Each example in its own frame on the docs page: their ids would clash, and an open overlay would cover the page.
+  parameters: { docs: { story: { inline: false, height: '240px' } } },
   args: { id: 'share' },
   render: (args) => (
     <>

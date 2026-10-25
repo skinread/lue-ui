@@ -10,6 +10,7 @@ import { Button, ErrorSummary, Field, TextInput, useValidation } from '@lue-ui/r
 const meta = {
   title: 'Components/Field',
   component: Field,
+  subcomponents: { TextInput, ErrorSummary },
   args: { label: 'Email address', children: <TextInput type="email" autoComplete="email" /> },
 } satisfies Meta<typeof Field>;
 export default meta;

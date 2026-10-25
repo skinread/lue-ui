@@ -9,6 +9,7 @@ import { Accordion, Disclosure } from '@lue-ui/react';
 const meta = {
   title: 'Components/Accordion',
   component: Accordion,
+  subcomponents: { Disclosure },
   args: {
     children: (
       <>

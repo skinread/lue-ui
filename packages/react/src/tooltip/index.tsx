@@ -2,6 +2,7 @@ import type { ComponentPropsWithRef, ReactNode } from 'react';
 import { cx } from '../cx.js';
 
 export interface TooltipProps extends Omit<ComponentPropsWithRef<'span'>, 'popover' | 'role'> {
+  /** The tooltip's id; spread `tooltipTrigger(id)` onto the control it describes. */
   id: string;
   /** A short description of the trigger; nothing anyone must act on (that belongs in a Toggletip). */
   children: ReactNode;

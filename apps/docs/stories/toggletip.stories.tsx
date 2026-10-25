@@ -9,6 +9,8 @@ import { Toggletip } from '@lue-ui/react';
 const meta = {
   title: 'Components/Toggletip',
   component: Toggletip,
+  // Each example in its own frame on the docs page: their ids would clash, and an open overlay would cover the page.
+  parameters: { docs: { story: { inline: false, height: '200px' } } },
   args: { id: 'delivery-tip', label: 'More about delivery', children: 'Orders placed before 2pm go out today.' },
   render: (args) => (
     <p style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>

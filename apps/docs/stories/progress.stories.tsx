@@ -8,6 +8,7 @@ import { Meter, Progress, Stack } from '@lue-ui/react';
 const meta = {
   title: 'Components/Progress',
   component: Progress,
+  subcomponents: { Meter },
   args: { label: 'Uploading', valueText: '3 of 5 files', max: 5, value: 3 },
 } satisfies Meta<typeof Progress>;
 export default meta;

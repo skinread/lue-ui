@@ -18,6 +18,7 @@ const options = (
 const meta = {
   title: 'Components/Select',
   component: Select,
+  subcomponents: { Field },
   render: (args) => (
     <Field label="Delivery" hint="Express orders placed before 2pm go out today.">
       <Select {...args}>{options}</Select>

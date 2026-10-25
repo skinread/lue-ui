@@ -10,7 +10,9 @@ interface FieldContextValue {
 const FieldContext = createContext<FieldContextValue | null>(null);
 
 export interface FieldProps extends Omit<ComponentPropsWithRef<'div'>, 'children'> {
+  /** The visible label; it names the control. */
   label: ReactNode;
+  /** Help under the label (a format, a limit), read with the control. */
   hint?: ReactNode;
   /** The error message. Present → the control is invalid and the message shows. */
   error?: string | null | undefined;

@@ -3,9 +3,11 @@ import { cx } from '../cx.js';
 import { invoker } from '../invoker.js';
 
 export interface MenuProps extends Omit<HTMLAttributes<HTMLElement>, 'popover' | 'role'> {
+  /** The menu's id, which its `<MenuTrigger menu>` points at. */
   id: string;
   /** The menu's accessible name, usually the trigger's text. */
   'aria-label'?: string | undefined;
+  /** Or the id of the element that names it, usually the trigger. */
   'aria-labelledby'?: string | undefined;
 }
 
@@ -31,6 +33,7 @@ export function MenuTrigger({ menu, className, ...props }: MenuTriggerProps): Re
 }
 
 export interface MenuItemProps extends Omit<ComponentPropsWithRef<'button'>, 'role' | 'tabIndex'> {
+  /** "critical" for a destructive action (Delete); neutral without it. */
   tone?: 'critical' | undefined;
 }
 

@@ -10,6 +10,7 @@ import { Button, ChoiceGroup, ErrorSummary, Radio, useValidation } from '@lue-ui
 const meta = {
   title: 'Components/Radio group',
   component: ChoiceGroup,
+  subcomponents: { Radio, ErrorSummary },
   args: {
     legend: 'Delivery',
     children: (

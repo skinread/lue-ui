@@ -10,6 +10,8 @@ export interface ButtonProps extends ComponentPropsWithRef<'button'> {
   iconOnly?: boolean | undefined;
   /** Makes it a toggle button (`aria-pressed`). Leave it out for an ordinary button. */
   pressed?: boolean | undefined;
+  /** "button" by default, so it never submits a form by accident; "submit" for a form's submit button. */
+  type?: 'button' | 'submit' | 'reset' | undefined;
 }
 
 /**

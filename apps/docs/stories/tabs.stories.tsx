@@ -9,6 +9,8 @@ import { LueElements, Tabs } from '@lue-ui/react';
 const meta = {
   title: 'Components/Tabs',
   component: Tabs,
+  // Each example in its own frame on the docs page: their ids would clash, and an open overlay would cover the page.
+  parameters: { docs: { story: { inline: false, height: '260px' } } },
   args: {
     label: 'Project details',
     tabs: [

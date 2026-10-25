@@ -9,7 +9,9 @@ import { LueElements, Menu, MenuItem, MenuTrigger } from '@lue-ui/react';
 const meta = {
   title: 'Components/Menu',
   component: Menu,
-  parameters: { layout: 'centered' },
+  subcomponents: { MenuTrigger, MenuItem },
+  // Each example in its own frame on the docs page: their ids would clash, and an open overlay would cover the page.
+  parameters: { layout: 'centered', docs: { story: { inline: false, height: '300px' } } },
   render: () => (
     <>
       <LueElements />

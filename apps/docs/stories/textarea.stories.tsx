@@ -9,6 +9,7 @@ import { Field, Textarea } from '@lue-ui/react';
 const meta = {
   title: 'Components/Textarea',
   component: Textarea,
+  subcomponents: { Field },
   render: (args) => (
     <Field label="Delivery instructions" hint="Where to leave it if you're out.">
       <Textarea {...args} />

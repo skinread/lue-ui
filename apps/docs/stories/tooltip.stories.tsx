@@ -9,6 +9,8 @@ import { Button, LueElements, Tooltip, tooltipTrigger } from '@lue-ui/react';
 const meta = {
   title: 'Components/Tooltip',
   component: Tooltip,
+  // Each example in its own frame on the docs page: their ids would clash, and an open overlay would cover the page.
+  parameters: { docs: { story: { inline: false, height: '180px' } } },
   args: { id: 'save-tip', children: 'Saves a draft; nothing is published.' },
   render: (args) => (
     <div style={{ paddingBlockStart: '3rem' }}>

@@ -4,7 +4,9 @@ import { controlError, formErrors, type FieldError } from '@lue-ui/elements/vali
 import { cx } from '../cx.js';
 
 export interface ErrorSummaryProps extends Omit<ComponentPropsWithRef<'div'>, 'children' | 'title'> {
+  /** Each error, linking to its control: `useValidation().summaryProps` provides them. Empty renders nothing. */
   errors: readonly FieldError[];
+  /** The heading ("There is a problem" by default). Translate it here. */
   title?: ReactNode;
   /**
    * Changes once per submission (`useValidation` provides it), so the summary takes focus when it's submitted, not

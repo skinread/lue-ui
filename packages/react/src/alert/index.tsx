@@ -7,6 +7,7 @@ const WORDS: Record<Tone, string> = { info: 'Information', warning: 'Warning', s
 export interface AlertProps extends Omit<ComponentPropsWithRef<'div'>, 'title' | 'role'> {
   /** Info without it. */
   tone?: Tone | undefined;
+  /** The short headline, read after the tone word. */
   title: ReactNode;
   /** A decorative icon for the tone; the tone word carries the meaning. */
   icon?: ReactNode;
@@ -15,6 +16,7 @@ export interface AlertProps extends Omit<ComponentPropsWithRef<'div'>, 'title' |
   /** Leave it out for a callout that's there when the page loads. For one added later: "polite" (role="status") or
    *  "assertive" (role="alert", errors only). */
   live?: 'polite' | 'assertive' | undefined;
+  /** The detail under the title: text, a list, or a link to act on. */
   children?: ReactNode;
 }
 

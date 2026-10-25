@@ -2,13 +2,17 @@ import type { ChangeEventHandler, ComponentPropsWithRef, ReactNode } from 'react
 import { cx } from '../cx.js';
 
 export interface SegmentedControlProps extends Omit<ComponentPropsWithRef<'fieldset'>, 'children' | 'onChange' | 'defaultValue'> {
+  /** The group's name, e.g. "View"; visually hidden is fine when the options say enough. */
   legend: ReactNode;
   /** The radios' shared name. */
   name: string;
+  /** Each option: its value, its visible label, and whether it's unavailable. Two to five work best. */
   options: { value: string; label: ReactNode; disabled?: boolean | undefined }[];
+  /** The option chosen first, when uncontrolled. */
   defaultValue?: string | undefined;
   /** Controlled value; pair it with onChange. */
   value?: string | undefined;
+  /** Called with the radio's change event; `event.target.value` is the new value. */
   onChange?: ChangeEventHandler<HTMLInputElement> | undefined;
 }
 

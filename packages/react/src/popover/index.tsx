@@ -4,6 +4,7 @@ import { cx } from '../cx.js';
 import { invoker } from '../invoker.js';
 
 export interface PopoverProps extends Omit<ComponentPropsWithRef<'div'>, 'popover'> {
+  /** The popover's id, which its `<PopoverTrigger target>` points at. */
   id: string;
 }
 
@@ -27,6 +28,7 @@ export function PopoverTrigger({ target, ...props }: PopoverTriggerProps): React
 }
 
 export interface ToggletipProps extends Omit<ComponentPropsWithRef<'span'>, 'popover'> {
+  /** The help text's id; the button points at it. */
   id: string;
   /** The button's accessible name, e.g. "More about delivery". */
   label: string;

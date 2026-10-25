@@ -8,6 +8,7 @@ import { LueElements, ToggleButton, Toolbar } from '@lue-ui/react';
 const meta = {
   title: 'Components/Toolbar',
   component: Toolbar,
+  subcomponents: { ToggleButton },
   args: {
     'aria-label': 'Text formatting',
     children: (

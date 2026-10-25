@@ -8,6 +8,7 @@ export interface AvatarProps extends Omit<ComponentPropsWithRef<'span'>, 'childr
   src?: string | undefined;
   /** When the name is already written beside it: hidden from assistive technology so it isn't read twice. */
   decorative?: boolean | undefined;
+  /** Medium without it. */
   size?: 'lg' | undefined;
 }
 

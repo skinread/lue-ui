@@ -10,8 +10,14 @@ const config: StorybookConfig = {
   stories: ['../stories/**/*.stories.@(ts|tsx)'],
   // llms.txt, a Markdown page per component, tokens and contracts (tools/build-ai-docs.mjs), served at the root.
   staticDirs: ['../public'],
-  addons: ['@storybook/addon-docs', '@storybook/addon-a11y', '@storybook/addon-vitest'],
+  // addon-mcp serves an MCP endpoint at /mcp on the dev server (story-writing instructions, story previews, the
+  // components' docs and tests) and turns on the components manifest, which `storybook build` writes to
+  // manifests/components.json, so the published Storybook can be composed into an agent's MCP server too.
+  addons: ['@storybook/addon-docs', '@storybook/addon-a11y', '@storybook/addon-vitest', '@storybook/addon-mcp'],
   core: { disableTelemetry: true },
+  // react-docgen reads each adapter's own props and their JSDoc. react-docgen-typescript, which would also list every
+  // inherited DOM prop, needs the TypeScript compiler API, which TypeScript 7 doesn't ship.
+  typescript: { reactDocgen: 'react-docgen' },
   // The JS packages aren't built yet; stories use their sources, as the tests do.
   viteFinal: (vite) => ({
     ...vite,

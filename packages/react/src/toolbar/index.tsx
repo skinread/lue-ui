@@ -4,6 +4,7 @@ import { cx } from '../cx.js';
 export interface ToolbarProps extends Omit<HTMLAttributes<HTMLElement>, 'role'> {
   /** The toolbar's name, e.g. "Text formatting". */
   'aria-label': string;
+  /** Which arrow keys move between controls: left and right (the default) or up and down. */
   orientation?: 'horizontal' | 'vertical' | undefined;
   /** Buttons, toggle buttons, and `<span role="separator">`. */
   children: ReactNode;

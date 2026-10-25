@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "lue-ui": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["packages/mcp/server.js"]
+    },
+    "lue-ui-storybook": {
+      "type": "http",
+      "url": "http://localhost:6006/mcp"
+    }
+  }
+}

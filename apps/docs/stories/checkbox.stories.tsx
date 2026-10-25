@@ -10,6 +10,7 @@ import { Checkbox, ChoiceGroup } from '@lue-ui/react';
 const meta = {
   title: 'Components/Checkbox',
   component: Checkbox,
+  subcomponents: { ChoiceGroup },
   args: { label: 'Email me about new collections' },
 } satisfies Meta<typeof Checkbox>;
 export default meta;

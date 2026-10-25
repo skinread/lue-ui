@@ -2,11 +2,15 @@ import type { ChangeEventHandler, ComponentPropsWithRef, CSSProperties, ReactNod
 import { cx } from '../cx.js';
 
 export interface SwatchPickerProps extends Omit<ComponentPropsWithRef<'fieldset'>, 'children' | 'onChange' | 'defaultValue'> {
+  /** The group's name, e.g. "Colour". */
   legend: ReactNode;
+  /** The radios' shared name, submitted with the form. */
   name: string;
   /** Each colour with its name, which is always shown: never colour alone. */
   swatches: { value: string; label: ReactNode; color: string; disabled?: boolean | undefined }[];
+  /** The swatch chosen first. */
   defaultValue?: string | undefined;
+  /** Called with the radio's change event; `event.target.value` is the new value. */
   onChange?: ChangeEventHandler<HTMLInputElement> | undefined;
 }
 

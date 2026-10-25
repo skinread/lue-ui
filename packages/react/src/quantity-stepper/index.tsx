@@ -5,8 +5,11 @@ import { Field, TextInput, type TextInputProps } from '../field/index.js';
 const MESSAGES = { decrease: 'Decrease {label}', increase: 'Increase {label}' };
 
 export interface QuantityStepperProps extends Omit<TextInputProps, 'type'> {
+  /** The visible label, e.g. "Quantity"; it names the input and, as text, the buttons. */
   label: ReactNode;
+  /** Help under the label (a limit), read with the input. */
   hint?: ReactNode;
+  /** The error message. Present → the input is invalid and the message shows. */
   error?: string | null | undefined;
   /** The buttons' names, translated; {label} is the field's label when it's a string ("Decrease Quantity"). */
   messages?: Partial<typeof MESSAGES> | undefined;

@@ -8,6 +8,7 @@ import { Button, Card, CardLink, Grid, Tag } from '@lue-ui/react';
 const meta = {
   title: 'Components/Card',
   component: Card,
+  subcomponents: { CardLink },
 } satisfies Meta<typeof Card>;
 export default meta;
 type Story = StoryObj<typeof meta>;

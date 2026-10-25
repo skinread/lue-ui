@@ -7,6 +7,8 @@ export interface IconProps extends Omit<ComponentPropsWithRef<'svg'>, 'aria-labe
   label?: string | undefined;
   /** Flip the icon in right-to-left text (arrows, chevrons that point along the line). */
   mirror?: boolean | undefined;
+  /** The SVG's coordinate box ("0 0 16 16" by default, the size Lue's icons are drawn at). */
+  viewBox?: string | undefined;
 }
 
 /**

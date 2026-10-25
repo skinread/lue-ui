@@ -13,6 +13,7 @@ const Tile = ({ children }: { children: ReactNode }) => (
 const meta = {
   title: 'Components/Layout',
   component: Stack,
+  subcomponents: { Cluster, Grid, Sidebar, Switcher, Center },
 } satisfies Meta<typeof Stack>;
 export default meta;
 type Story = StoryObj<typeof meta>;

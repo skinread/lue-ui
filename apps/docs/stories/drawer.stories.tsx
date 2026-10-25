@@ -9,6 +9,9 @@ import { Button, Checkbox, ChoiceGroup, DialogTrigger, Drawer } from '@lue-ui/re
 const meta = {
   title: 'Components/Drawer',
   component: Drawer,
+  subcomponents: { DialogTrigger },
+  // Each example in its own frame on the docs page: their ids would clash, and an open overlay would cover the page.
+  parameters: { docs: { story: { inline: false, height: '480px' } } },
   args: { id: 'filters', side: 'inline-end' },
   argTypes: { side: { control: 'inline-radio', options: ['inline-end', 'inline-start', 'block-end'] } },
   render: (args) => (

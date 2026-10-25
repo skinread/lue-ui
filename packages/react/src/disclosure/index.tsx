@@ -5,9 +5,11 @@ import { cx } from '../cx.js';
 const AccordionName = createContext<string | undefined>(undefined);
 
 export interface DisclosureProps extends Omit<ComponentPropsWithRef<'details'>, 'open'> {
+  /** The always-visible heading that opens and closes it (the `<summary>`). */
   summary: ReactNode;
   /** Open when it first renders. The browser owns `open` after that; listen with `onToggle`. */
   defaultOpen?: boolean | undefined;
+  /** The content that shows when it's open. */
   children: ReactNode;
 }
 

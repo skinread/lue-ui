@@ -11,7 +11,9 @@ import { Button, Dialog, DialogTrigger } from '@lue-ui/react';
 const meta = {
   title: 'Components/Dialog',
   component: Dialog,
-  parameters: { layout: 'centered' },
+  subcomponents: { DialogTrigger },
+  // Each example in its own frame on the docs page: their ids would clash, and an open overlay would cover the page.
+  parameters: { layout: 'centered', docs: { story: { inline: false, height: '360px' } } },
 } satisfies Meta<typeof Dialog>;
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -37,7 +39,7 @@ export const Confirm: Story = {
     await expect(canvasElement.ownerDocument.activeElement).toHaveTextContent('Cancel');
     // Play functions dispatch synthetic events, which can't press Esc on a native dialog (ADR-0005); the real
     // keyboard is tested in tests/dialog.
-    await userEvent.click(canvasElement.ownerDocument.activeElement!);
+    await userEvent.click(canvas.getByRole('button', { name: 'Cancel' }));
     await waitFor(() => expect(dialog.open).toBe(false));
     await expect(dialog.returnValue).toBe('cancel');
   },

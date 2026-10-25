@@ -4,6 +4,7 @@ import { cx } from '../cx.js';
 export interface PaginationProps extends Omit<ComponentPropsWithRef<'nav'>, 'children'> {
   /** The current page, from 1. */
   page: number;
+  /** How many pages there are. Long ranges are shortened to the first, last and nearby pages. */
   pages: number;
   /** The URL of a page. */
   href: (page: number) => string;

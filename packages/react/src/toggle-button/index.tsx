@@ -7,6 +7,7 @@ export interface ToggleButtonProps extends Omit<ButtonProps, 'pressed'> {
   pressed?: boolean | undefined;
   /** Initial state when uncontrolled. */
   defaultPressed?: boolean | undefined;
+  /** Called with the new state after each press. */
   onPressedChange?: ((pressed: boolean) => void) | undefined;
 }
 

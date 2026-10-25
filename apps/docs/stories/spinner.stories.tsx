@@ -8,6 +8,7 @@ import { Cluster, Skeleton, Spinner, Stack } from '@lue-ui/react';
 const meta = {
   title: 'Components/Spinner',
   component: Spinner,
+  subcomponents: { Skeleton },
   args: { label: 'Loading projects' },
 } satisfies Meta<typeof Spinner>;
 export default meta;

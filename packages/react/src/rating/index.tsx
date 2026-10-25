@@ -2,7 +2,9 @@ import type { ComponentPropsWithRef, CSSProperties, ReactNode } from 'react';
 import { cx } from '../cx.js';
 
 export interface RatingProps extends Omit<ComponentPropsWithRef<'span'>, 'children'> {
+  /** The score; halves show as half stars. */
   value: number;
+  /** The best score (5 by default). */
   max?: number | undefined;
   /** The score in words, which is what's read; "{value} out of {max}" by default. Translate it here. */
   text?: string | undefined;

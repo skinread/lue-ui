@@ -11,7 +11,10 @@ export interface SearchProps extends Omit<ComponentPropsWithRef<'form'>, 'childr
   name?: string | undefined;
   /** The button's text ("Search" by default). */
   buttonLabel?: ReactNode;
+  /** The query already searched for, so the results page shows it. */
   defaultValue?: string | undefined;
+  /** "get" by default, so a search has a URL to share and go back to. */
+  method?: string | undefined;
 }
 
 /**

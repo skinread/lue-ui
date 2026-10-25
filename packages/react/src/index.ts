@@ -13,7 +13,7 @@ export { VisuallyHidden, type VisuallyHiddenProps } from './visually-hidden/inde
 export { Icon, type IconProps } from './icon/index.js';
 export { Alert, type AlertProps } from './alert/index.js';
 export { Disclosure, Accordion, type DisclosureProps, type AccordionProps } from './disclosure/index.js';
-export { Stack, Cluster, Grid, Sidebar, Switcher, Center, type LayoutProps } from './layout/index.js';
+export { Stack, Cluster, Grid, Sidebar, Switcher, Center, type LayoutProps, type ClusterProps, type GridProps, type SidebarProps, type SwitcherProps, type CenterProps } from './layout/index.js';
 export { ToggleButton, type ToggleButtonProps } from './toggle-button/index.js';
 export { Popover, PopoverTrigger, Toggletip, type PopoverProps, type PopoverTriggerProps, type ToggletipProps } from './popover/index.js';
 export { ToastRegion, showToast, type ToastRegionProps, type ToastOptions } from './toast/index.js';

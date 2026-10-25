@@ -21,6 +21,7 @@ function LabelRow({ id, label, valueText }: Labelled & { id: string }): ReactNod
 export interface ProgressProps extends Labelled, Omit<ComponentPropsWithRef<'progress'>, 'children'> {
   /** Leave it out for an indeterminate bar (working, amount unknown). */
   value?: number | undefined;
+  /** The value when done (1 by default). */
   max?: number | undefined;
 }
 
@@ -38,6 +39,7 @@ export function Progress({ label, valueText, className, id, ...props }: Progress
 }
 
 export interface MeterProps extends Labelled, Omit<ComponentPropsWithRef<'meter'>, 'children'> {
+  /** The measurement, between `min` and `max` (0 and 1 by default). Use `low`, `high` and `optimum` for ranges. */
   value: number;
 }
 

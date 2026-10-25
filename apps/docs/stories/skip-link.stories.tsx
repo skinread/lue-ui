@@ -9,6 +9,8 @@ import { SkipLink } from '@lue-ui/react';
 const meta = {
   title: 'Components/Skip link',
   component: SkipLink,
+  // Each example in its own frame on the docs page: their ids would clash, and an open overlay would cover the page.
+  parameters: { docs: { story: { inline: false, height: '200px' } } },
   args: { children: 'Skip to main content' },
   render: (args) => (
     <>

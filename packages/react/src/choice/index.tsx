@@ -5,7 +5,9 @@ import { cx } from '../cx.js';
 const GroupContext = createContext<{ invalid: boolean } | null>(null);
 
 export interface ChoiceGroupProps extends Omit<ComponentPropsWithRef<'fieldset'>, 'children'> {
+  /** The group's question or name, e.g. "Rooms"; it names every choice in it. */
   legend: ReactNode;
+  /** Help under the legend, read with each choice. */
   hint?: ReactNode;
   /** The error message for the whole group. Present → every choice is invalid and the message shows. */
   error?: string | null | undefined;
