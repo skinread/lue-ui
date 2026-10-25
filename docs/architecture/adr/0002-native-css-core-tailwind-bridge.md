@@ -14,7 +14,7 @@ customers). Many consumers will still use Tailwind.
 
 ## Decision
 
-1. **Component CSS is authored as standard CSS** — nesting, `@layer`, custom properties — and published without
+1. **Component CSS is authored as standard CSS** - nesting, `@layer`, custom properties - and published without
    proprietary syntax.
 2. **Lightning CSS bundles and minifies with no targets**, so nothing is lowered or rewritten.
 3. **Tailwind support is a generated bridge:** `@lue-ui/tokens` emits a Tailwind v4 `@theme` file so utilities use the

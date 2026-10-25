@@ -14,7 +14,7 @@ export interface ErrorSummaryProps extends Omit<ComponentPropsWithRef<'div'>, 'c
 }
 
 /**
- * `<div class="lue-error-summary">` — every error in a form, each linking to its control. Takes focus after each
+ * `<div class="lue-error-summary">` - every error in a form, each linking to its control. Takes focus after each
  * submission that has errors; hidden while there are none (it stays in the page, as in the HTML core).
  */
 export function ErrorSummary({ errors, title = 'There is a problem', attempt, className, ...props }: ErrorSummaryProps): ReactNode {

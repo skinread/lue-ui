@@ -12,7 +12,7 @@ Cr Chrome/Edge · Fx Firefox · Sf Safari · TP Safari Technology Preview · PE 
 
 ## Support policy
 
-- **Fidelity floor: Baseline newly available.** The full design — look, behaviour, accessibility — uses only features
+- **Fidelity floor: Baseline newly available.** The full design - look, behaviour, accessibility - uses only features
   available in all three engines.
 - **Progressive enhancement above the floor.** Anything newer sits behind `@supports` or feature detection and
   degrades to an accessible equivalent. The base experience must be complete without it.
@@ -28,11 +28,11 @@ Cr Chrome/Edge · Fx Firefox · Sf Safari · TP Safari Technology Preview · PE 
    `width: var(--w)` becomes *invalid at computed-value time* in engines without `if()` and resets to `unset` instead
    of falling back. Use the function directly on the property after a static declaration, or wrap in `@supports`.
 2. **Never put `light-dark()` in token custom properties.** Lightning CSS (Vite 8's default minifier) lowers it into
-   `--lightningcss-light/dark` variables, which are invalid inside a custom-property value — colours vanish in
+   `--lightningcss-light/dark` variables, which are invalid inside a custom-property value - colours vanish in
    production builds. Tokens emit literal values per scheme; `light-dark()` is allowed only on real properties.
 3. **Never `@property`-register themeable colours.** Registered `<color>` properties inherit the *resolved* colour,
    which breaks nested light/dark "scheme islands". Register only private, non-inheriting knobs.
-4. **Focus rings use `outline`**, not `box-shadow` — forced-colours mode removes box-shadows.
+4. **Focus rings use `outline`**, not `box-shadow` - forced-colours mode removes box-shadows.
 5. **Fluid type mixes `rem` with container units.** Pure viewport units break text zoom (WCAG 1.4.4).
 6. **Forced colours keeps `backdrop-filter` and background alpha** (Chromium and Firefox; checked 2026-10-05). Glass
    becomes see-through Canvas over a blurred page unless forced-colours styles set `backdrop-filter: none` and an
@@ -51,7 +51,7 @@ Cr Chrome/Edge · Fx Firefox · Sf Safari · TP Safari Technology Preview · PE 
 | `@property` | N Jul 2024 | Typed, animatable private knobs (`inherits: false`) |
 | Container size queries · style queries · name-only | W · N May 2026 (Fx 151) · N May 2026 | Components that adapt to where they're placed |
 | Style-query ranges · scroll-state · anchored container queries | L: Cr 142 · Cr 133 (TP) · Cr 143 | PE only (stuck-header shadow, tooltip arrow flip) |
-| `if()`, `@function` | L: Cr 137 / 139; TP | PE only — see trap 1 |
+| `if()`, `@function` | L: Cr 137 / 139; TP | PE only - see trap 1 |
 | `@mixin` / `@apply`, `@custom-media` | No engine | Avoid; Lightning CSS `drafts.customMedia` if ever needed at build time |
 | `sibling-index()` / `sibling-count()` | N Aug 2026 (Fx 154) | Staggered motion; fall back to inline `--i` |
 | Typed `attr()` | L: Cr 133, Fx 155; TP | PE; Interop 2026 area |
@@ -65,7 +65,7 @@ Cr Chrome/Edge · Fx Firefox · Sf Safari · TP Safari Technology Preview · PE 
 | `oklch()` / `oklab()`, `color(display-p3 …)`, `color-mix()` | W | Ramps in OKLCH; wide gamut behind `@media (color-gamut: p3)` |
 | Relative colour syntax | N Sep 2024 | Runtime derivation for ad-hoc brand colours only (tokens precompute states) |
 | `alpha()` | N 14 Sep 2026 | Very new; relative colour is the fallback |
-| `light-dark()` · with images | N May 2024 · N Sep 2026 | Real properties only — see trap 2; needs `color-scheme`, set it on popovers and dialogs too |
+| `light-dark()` · with images | N May 2024 · N Sep 2026 | Real properties only - see trap 2; needs `color-scheme`, set it on popovers and dialogs too |
 | `contrast-color()` | N Apr 2026 | Black or white only; mid-tones can miss 4.5:1, so on-colours stay precomputed and tested |
 | `forced-colors`, `prefers-contrast`, system colours | W | Per-component forced-colours styles |
 | `prefers-reduced-transparency` | L: Cr | Honour where present; `prefers-contrast: more` covers the rest |
@@ -83,7 +83,7 @@ Cr Chrome/Edge · Fx Firefox · Sf Safari · TP Safari Technology Preview · PE 
 | `cap`, `lh`, `rlh`, `ic` · `rcap`, `rch`, `rex`, `ric` | W · N Jan 2026 | Icons sized `1cap`; rhythm in `rlh` |
 | `font-size-adjust` | N Jul 2024 | Match fallback-font metrics |
 | `hanging-punctuation` | L: Sf | PE |
-| `<meta name="text-scale">` | L: Cr 146 | Root size follows OS text size — PE, real accessibility gain |
+| `<meta name="text-scale">` | L: Cr 146 | Root size follows OS text size - PE, real accessibility gain |
 
 ## Layout
 
@@ -92,7 +92,7 @@ Cr Chrome/Edge · Fx Firefox · Sf Safari · TP Safari Technology Preview · PE 
 | Subgrid | W | Aligning cards and form rows |
 | Anchor positioning (`position-area`, `position-try-fallbacks`, `anchor-size()`, implicit anchor from popover invoker) | Core in Cr 125, Sf 26, Fx 147. Trackers say L because newer pieces (transformed anchors, `position-anchor: normal`, `anchor-visible`) are complete only in Sf 27 | Core, with explicit `anchor-scope`/`position-anchor` and **no transformed anchors** (weak in Fx) |
 | `display: grid-lanes` (masonry) | L: Sf 26.4; Cr/Fx flags | PE over grid |
-| `reading-flow` | L: Cr 137 | Never rely on it — keep DOM order logical (WCAG 1.3.2, 2.4.3) |
+| `reading-flow` | L: Cr 137 | Never rely on it - keep DOM order logical (WCAG 1.3.2, 2.4.3) |
 | `shape()` | N Feb 2026 | Responsive clip paths |
 | `corner-shape` | L: Cr 139; TP (on by default in WebKit main since 14 Aug 2026, not in Safari 27.0 notes); Fx Nightly | PE over `border-radius` |
 | Gap decorations · `border-shape` · `flex-wrap: balance` | L: Cr | Decorative PE |
@@ -117,24 +117,24 @@ emulated; Firefox from its source and BCD (it wouldn't launch under Playwright).
 
 | Feature | Status | Note |
 | --- | --- | --- |
-| `backdrop-filter` | N Sep 2024 (Safari 18 last) | Unprefixed. If a `-webkit-` line is kept, give it a literal value (some Safari 18.x builds rejected `var()` there). SVG `url()` filters — real refraction — are Chromium-only. An ancestor with opacity < 1, `filter`, `mask`, `clip-path` or `will-change` is a backdrop root, so glass inside glass shows nothing behind the outer pane |
-| Masks, `mask-composite: exclude` | W (Jun 2026) | Unprefixed: Cr 120, Fx 53, Sf 15.4. The chrome ring (`mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0)`) works in WebKit 26.6 although BCD says Safari lacks `content-box` in masks — keep a WebKit visual test. `background-clip: border-area` (Cr 150, Sf 18.2) is a simpler PE |
-| `@property <angle>` animating a `conic-gradient` | N Jul 2024 | Animates in all three. Firefox steps when a keyframe value is `var()` — use literal angles. Repaints on the main thread, so keep it to short interaction transitions; prefer `inherits: false` and animate on the pseudo-element itself |
+| `backdrop-filter` | N Sep 2024 (Safari 18 last) | Unprefixed. If a `-webkit-` line is kept, give it a literal value (some Safari 18.x builds rejected `var()` there). SVG `url()` filters - real refraction - are Chromium-only. An ancestor with opacity < 1, `filter`, `mask`, `clip-path` or `will-change` is a backdrop root, so glass inside glass shows nothing behind the outer pane |
+| Masks, `mask-composite: exclude` | W (Jun 2026) | Unprefixed: Cr 120, Fx 53, Sf 15.4. The chrome ring (`mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0)`) works in WebKit 26.6 although BCD says Safari lacks `content-box` in masks - keep a WebKit visual test. `background-clip: border-area` (Cr 150, Sf 18.2) is a simpler PE |
+| `@property <angle>` animating a `conic-gradient` | N Jul 2024 | Animates in all three. Firefox steps when a keyframe value is `var()` - use literal angles. Repaints on the main thread, so keep it to short interaction transitions; prefer `inherits: false` and animate on the pseudo-element itself |
 | `background-clip: text` | L (Fx partial: breaks with multi-layer backgrounds and `fixed` attachment) | PE inside `@supports`, one background layer, with `-webkit-text-fill-color: transparent` and a solid `color` (trap 7) |
 | `prefers-reduced-transparency` | L: Cr 118 (Fx behind a pref; Sf no, privacy concerns) | Honour it, but also turn glass opaque under `prefers-contrast: more` and `[data-contrast="more"]` |
 | Out-of-gamut OKLCH | W, but every engine clips per channel | Clipping shifts hue and contrast, worst for light tints. Gamut-map tokens at build time; put P3 values only inside `@media (color-gamut: p3)` |
-| Forced colours and decoration | — | Gradients and `box-shadow` become `none`; `background-color` is forced but keeps its alpha; `backdrop-filter` stays on in Cr and Fx (trap 6); WebKit changes nothing |
+| Forced colours and decoration | - | Gradients and `box-shadow` become `none`; `background-color` is forced but keeps its alpha; `backdrop-filter` stays on in Cr and Fx (trap 6); WebKit changes nothing |
 | `backdrop-filter` on `<dialog>` / `::backdrop` | W | `::backdrop` reads its dialog's custom properties in all three. Blur the dialog *or* the backdrop, not both. `overlay` is Cr-only, so exit blur can't animate in Fx and Sf. On iOS 26, `::backdrop` doesn't reach under the address bar ([WebKit 303167](https://bugs.webkit.org/show_bug.cgi?id=303167)) |
-| Performance | — | No engine publishes a budget; each `backdrop-filter` is an extra rendering pass, Firefox lags without GPU rendering, and large fixed blurred layers are slow to first paint on iOS. Keep few glass surfaces live; fade with opacity, never animate the blur radius |
+| Performance | - | No engine publishes a budget; each `backdrop-filter` is an extra rendering pass, Firefox lags without GPU rendering, and large fixed blurred layers are slow to first paint on iOS. Keep few glass surfaces live; fade with opacity, never animate the blur radius |
 
 ## Interactive HTML
 
 | Feature | Status | Note |
 | --- | --- | --- |
-| `popover` (auto/manual), `:popover-open` | N Jan 2025 | Top layer, light dismiss, Esc, focus return — by the browser |
+| `popover` (auto/manual), `:popover-open` | N Jan 2025 | Top layer, light dismiss, Esc, focus return - by the browser |
 | `popover="hint"` | L: Cr, Fx 153; TP | Unknown values fall back to `manual`; detect via the property value; no polyfill |
 | Invoker commands (`command`/`commandfor`, custom `--commands`) | N Dec 2025 (Sf 26.2 last) | No-JS dialogs and popovers; custom commands fire a `command` event |
-| `interestfor` | L: Cr 142 | Excluded — WebKit opposed, not in Interop 2026 |
+| `interestfor` | L: Cr 142 | Excluded - WebKit opposed, not in Interop 2026 |
 | `dialog.requestClose()` · `closedby` | N May 2025 · L: Cr 134, Fx 141; TP | `closedby` is an enhancement: in Safari, Esc and the dialog's buttons close it (no light dismiss) |
 | `:open`, `ToggleEvent.source` | N May 2026 | |
 | `<details name>` · `::details-content` | N Sep 2024 · N Sep 2025 | Exclusive accordions without JS |
@@ -142,7 +142,7 @@ emulated; Firefox from its source and BCD (it wouldn't launch under Playwright).
 | Customizable `<select>` (`appearance: base-select`, `::picker(select)`, `<selectedcontent>`, `::picker-icon`, `::checkmark`) | L: Cr 135, Sf 27; Fx prototyping | Gate with `@supports`; the native select is a perfect fallback; text-only options in v1 |
 | CSS carousels (`::scroll-marker`, `::scroll-button()`) | L: Cr 135 (`scroll-marker-group` modes Cr 154) | PE over scroll-snap |
 | `:user-valid` / `:user-invalid`, `inert`, `<search>`, `:focus-visible` | W | |
-| `focusgroup` | L: Cr/Edge 150 | Feature-detect; otherwise one roving-tabindex code path — never handle arrows twice |
+| `focusgroup` | L: Cr/Edge 150 | Feature-detect; otherwise one roving-tabindex code path - never handle arrows twice |
 | `<input type="checkbox" switch>` | L: Sf 17.4 | Use `role="switch"` |
 | `accent-color` | All desktop engines | |
 | Navigation API | N Jan 2026 | Focus management on route changes (docs site, examples) |
@@ -161,41 +161,41 @@ emulated; Firefox from its source and BCD (it wouldn't launch under Playwright).
 
 ## Accessibility standards
 
-- **WCAG 2.2 numbering:** 2.4.11 is *Focus Not Obscured (Minimum)*, AA — not focus appearance. Use `scroll-padding` /
+- **WCAG 2.2 numbering:** 2.4.11 is *Focus Not Obscured (Minimum)*, AA - not focus appearance. Use `scroll-padding` /
   `scroll-margin` so sticky UI never hides the focused element.
-- **2.4.13 Focus Appearance (AAA)** — we adopt it: outline ≥ 2 px with ≥ 3:1 change of contrast, via `:focus-visible`.
-- **2.5.8 Target Size (Minimum), AA** — ≥ 24 × 24 CSS px (spacing exception applies). We use 44 × 44 under coarse
+- **2.4.13 Focus Appearance (AAA)** - we adopt it: outline ≥ 2 px with ≥ 3:1 change of contrast, via `:focus-visible`.
+- **2.5.8 Target Size (Minimum), AA** - ≥ 24 × 24 CSS px (spacing exception applies). We use 44 × 44 under coarse
   pointers.
-- **2.5.7 Dragging Movements, AA** — single-pointer alternative for every drag.
-- **3.3.7 Redundant Entry (A)** — `autocomplete`; `formStateRestoreCallback` in any form-associated element.
-- **3.3.8 Accessible Authentication (Minimum), AA** — never block paste or password managers; support passkeys.
-- **WCAG 3.0** — Working Draft of 10 Sep 2026; contrast method "yet to be determined", so **APCA is not normative**.
-- **ARIA 1.3** — Working Draft (4 Jun 2026): `aria-description`, braille labels, suggestion/comment/mark roles.
+- **2.5.7 Dragging Movements, AA** - single-pointer alternative for every drag.
+- **3.3.7 Redundant Entry (A)** - `autocomplete`; `formStateRestoreCallback` in any form-associated element.
+- **3.3.8 Accessible Authentication (Minimum), AA** - never block paste or password managers; support passkeys.
+- **WCAG 3.0** - Working Draft of 10 Sep 2026; contrast method "yet to be determined", so **APCA is not normative**.
+- **ARIA 1.3** - Working Draft (4 Jun 2026): `aria-description`, braille labels, suggestion/comment/mark roles.
   Chrome 151 shipped `aria-actions`.
-- **`ariaNotify()`** — Baseline newly available 14 Sep 2026 (Cr 141, Fx 150, Sf 27). Detect it, keep a live-region
+- **`ariaNotify()`** - Baseline newly available 14 Sep 2026 (Cr 141, Fx 150, Sf 27). Detect it, keep a live-region
   fallback, and verify with screen readers before relying on it.
-- **European Accessibility Act** — in force since 28 Jun 2025. ETSI published **EN 301 549 v4.1.1** (Sep 2026),
+- **European Accessibility Act** - in force since 28 Jun 2025. ETSI published **EN 301 549 v4.1.1** (Sep 2026),
   referencing WCAG 2.2 AA; until it's cited in the EU Official Journal the legal reference remains v3.2.1
   (WCAG 2.1 AA). Build to 2.2 AA now.
 
 ## The 15 highest-leverage features
 
-1. **Popover + invoker commands** — disclosure, menus and dialogs; the browser manages top layer, dismissal, focus
+1. **Popover + invoker commands** - disclosure, menus and dialogs; the browser manages top layer, dismissal, focus
    return.
-2. **Anchor positioning** — no Floating UI for tooltips, menus, listboxes.
-3. **`<dialog>` + `requestClose()` + `closedby` + `:open`** — correct modal semantics and inertness for free.
-4. **`@layer` + `@scope` + nesting** — a predictable override contract.
-5. **Container size and style queries + `:has()`** — components adapt to placement.
-6. **The colour stack** — OKLCH, relative colour, `color-mix()`, `light-dark()`, `contrast-color()`.
-7. **`forced-colors`, `prefers-*` and system colours** — robust under user settings.
-8. **`:focus-visible` + `:user-invalid` + `field-sizing`** — WCAG 2.2 focus and error handling without JS.
-9. **`<details name>` + `::details-content`** — accordions.
-10. **Customizable `<select>`** — the hardest widget, made native, with a perfect fallback.
-11. **`@starting-style` + same-document view transitions** — motion without libraries.
-12. **ElementInternals + `:state()`** — when a light-DOM element needs semantics or custom states.
-13. **`ariaNotify()`** — announcements without live-region plumbing (with fallback).
-14. **Navigation API** — focus management on route changes.
-15. **`focusgroup`** (enhancement) — deletes roving-tabindex code when it lands everywhere.
+2. **Anchor positioning** - no Floating UI for tooltips, menus, listboxes.
+3. **`<dialog>` + `requestClose()` + `closedby` + `:open`** - correct modal semantics and inertness for free.
+4. **`@layer` + `@scope` + nesting** - a predictable override contract.
+5. **Container size and style queries + `:has()`** - components adapt to placement.
+6. **The colour stack** - OKLCH, relative colour, `color-mix()`, `light-dark()`, `contrast-color()`.
+7. **`forced-colors`, `prefers-*` and system colours** - robust under user settings.
+8. **`:focus-visible` + `:user-invalid` + `field-sizing`** - WCAG 2.2 focus and error handling without JS.
+9. **`<details name>` + `::details-content`** - accordions.
+10. **Customizable `<select>`** - the hardest widget, made native, with a perfect fallback.
+11. **`@starting-style` + same-document view transitions** - motion without libraries.
+12. **ElementInternals + `:state()`** - when a light-DOM element needs semantics or custom states.
+13. **`ariaNotify()`** - announcements without live-region plumbing (with fallback).
+14. **Navigation API** - focus management on route changes.
+15. **`focusgroup`** (enhancement) - deletes roving-tabindex code when it lands everywhere.
 
 ## Trail-blazing vs table stakes (Oct 2026)
 
@@ -218,7 +218,7 @@ emulated; Firefox from its source and BCD (it wouldn't launch under Playwright).
 | `popover="hint"` | Cr, Fx | Falls back to `manual`; content also reachable by click and keyboard |
 | `focusgroup` | Cr/Edge 150 | Feature-detect; else the roving-focus element |
 | `closedby` | Cr, Fx | Enhancement only: elsewhere Esc and the dialog's buttons close it |
-| Invoker commands on old Safari (< 26.2) | — | None: HTML-path buttons are inert. A conditional polyfill is a possible future enhancement (ADR-0004) |
+| Invoker commands on old Safari (< 26.2) | - | None: HTML-path buttons are inert. A conditional polyfill is a possible future enhancement (ADR-0004) |
 | Cross-document / nested / element view transitions; scroll-driven and scroll-triggered animations; carousels; `grid-lanes`; `corner-shape`; gap decorations | One or two engines | Pure PE inside `@supports` (`selector(::scroll-marker)` for carousels) |
 | `hidden="until-found"` · `reading-flow` | No Sf · Cr only | Accept weaker find-in-page · fix source order |
 
@@ -226,7 +226,7 @@ emulated; Firefox from its source and BCD (it wouldn't launch under Playwright).
 
 Interop 2025 closed at 97%. Interop 2026 focus areas include anchor positioning, `attr()`, style queries,
 `contrast-color()`, dialog/popover additions (`closedby`, `hint`), scroll-driven animations, view transitions
-(including cross-document) and scoped registries — most Firefox and Safari gaps should close by early 2027. Safari TP
+(including cross-document) and scoped registries - most Firefox and Safari gaps should close by early 2027. Safari TP
 already has `if()`, `@function`, `attr()`, `closedby`, `popover="hint"` and `corner-shape`. Open UI's menu elements
 (`<menubar>`, `<menulist>`) are at Chromium intent-to-prototype.
 

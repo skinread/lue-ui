@@ -1,7 +1,7 @@
 # Claude Design brief
 
-> **Status:** v0.3 · Pass 2 · 2026-10-05 — **C2 · Chroma Luminous** locked ([ADR-0009](../architecture/adr/0009-visual-direction-chroma-luminous.md), [§7](#c2-chroma-luminous--luminous--luxurious--prismatic))
-> **For:** Claude Design sessions — first three visual directions, then the chosen direction codified as a Design System.
+> **Status:** v0.3 · Pass 2 · 2026-10-05 - **C2 · Chroma Luminous** locked ([ADR-0009](../architecture/adr/0009-visual-direction-chroma-luminous.md), [§7](#c2-chroma-luminous--luminous--luxurious--prismatic))
+> **For:** Claude Design sessions - first three visual directions, then the chosen direction codified as a Design System.
 > **Art direction:** Sean Kinread. **Name:** Lue UI ([ADR-0008](../architecture/adr/0008-name-lue-ui.md)).
 
 ## How to use this brief
@@ -15,15 +15,15 @@
 ## 1. What we're designing
 
 An **open-source design system** whose mission is to *make accessible, standards-based interfaces the path of least
-resistance — by building with the web platform, not on top of it*
+resistance - by building with the web platform, not on top of it*
 ([mission and principles](../foundations/mission-and-principles.md)).
 
 - **The default theme is the system's identity**, and the system is **multi-brand**: other brands are token files.
-  So identity must live in **structure** — type, shape, rhythm, motion, the focus ring — not only in colour. It
+  So identity must live in **structure** - type, shape, rhythm, motion, the focus ring - not only in colour. It
   should still feel like itself after a hue swap.
 - **Who builds with it:** product teams making websites and apps (commerce, content, services, tools) in any
   framework, or none.
-- **Who uses what they build:** everyone — including people using screen readers, magnification, high-contrast
+- **Who uses what they build:** everyone - including people using screen readers, magnification, high-contrast
   modes, keyboards, switches, touch and voice.
 
 ## 2. Creative mandate
@@ -31,7 +31,7 @@ resistance — by building with the web platform, not on top of it*
 - **Original.** Not derived from, or reminiscent of, any existing design system.
 - **Distinctive at a glance, calm in use.** Personality in type, shape, rhythm and one signature detail; restraint in
   everyday UI.
-- **Honest materials, verified.** The web's own materials — text, borders, outlines, colour, real focus rings.
+- **Honest materials, verified.** The web's own materials - text, borders, outlines, colour, real focus rings.
   Translucency and reflective depth are allowed (C2 builds on them), but only when they're verified: glass must pass
   contrast over its worst possible backdrop and turn opaque when the user asks for less transparency
   ([§4](#glass-chrome-and-light)).
@@ -54,7 +54,7 @@ resistance — by building with the web platform, not on top of it*
 
 ## 4. Non-negotiables
 
-### Contrast (WCAG 2.x ratios — the gate; APCA is reported, not enforced)
+### Contrast (WCAG 2.x ratios - the gate; APCA is reported, not enforced)
 
 | What | Minimum |
 | --- | --- |
@@ -75,7 +75,7 @@ underlined. Status chips always carry a word.
 
 ### Focus
 
-`:focus-visible` outline at least 2 px with a 2 px offset — designed per direction, because it's a brand moment.
+`:focus-visible` outline at least 2 px with a 2 px offset - designed per direction, because it's a brand moment.
 It must survive forced-colours mode (outline, not shadow).
 
 ### Targets
@@ -99,8 +99,8 @@ system colours take over.
 
 ### Buildable on the platform
 
-The core look uses Baseline CSS only: flat colour, borders, outlines, radii, shadows, gradients, OKLCH. Extras —
-`corner-shape` squircles, `text-box` trimming, Display P3 colour, scroll-driven effects — are allowed only with a
+The core look uses Baseline CSS only: flat colour, borders, outlines, radii, shadows, gradients, OKLCH. Extras -
+`corner-shape` squircles, `text-box` trimming, Display P3 colour, scroll-driven effects - are allowed only with a
 defined fallback. No visual state may need JavaScript.
 
 ### Glass, chrome and light
@@ -108,7 +108,7 @@ defined fallback. No visual state may need JavaScript.
 Added in Pass 2 for C2; every rule is checked by `tools/directions/palettes.mjs`.
 
 - **Glass carries text only at verified contrast.** Each glass tier is composited over white, black and every fill in
-  the palette — through the scrim for modals, with the backdrop filter read both ways engines apply it — and the
+  the palette - through the scrim for modals, with the backdrop filter read both ways engines apply it - and the
   worst result must still meet the text minimums above.
 - **Glass steps aside.** Under `prefers-reduced-transparency: reduce` (Chromium only so far), `prefers-contrast: more`,
   `[data-contrast="more"]`, or where `backdrop-filter` is missing, glass turns opaque and chrome becomes one solid
@@ -116,16 +116,16 @@ Added in Pass 2 for C2; every rule is checked by `tools/directions/palettes.mjs`
 - **Chrome that identifies a control is a real boundary.** Every stop of the hairline gradient reaches 3:1 against
   canvas, surfaces and worst-case glass. Glints that are fainter are decoration and carry no meaning.
 - **Fills that change hue keep their lightness.** Interactive colour shifts move tones that share one lightness, and
-  every tone — up to three overlapping — meets the text minimum, so contrast never changes mid-animation.
+  every tone - up to three overlapping - meets the text minimum, so contrast never changes mid-animation.
 - **Glass buttons are verified where they live:** over canvas, surfaces, satin, ambient light and worst-case glass. On
-  photography they sit on a glass panel (verified over white and black) — never straight on the image.
+  photography they sit on a glass panel (verified over white and black) - never straight on the image.
 - **Light moves only when the user does.** Slides, glints, glows and sparks answer hover, press and focus, last
   ≤ 320 ms and never loop. Sparks never sit over text. Under reduced motion every duration is 0 s.
 - **Ambient light and satin are checked where text can sit on them,** including where two glows overlap and across
   every satin fold. The dispersion band in chrome is part of the boundary, so each of its stops reaches 3:1.
-- **Forced colours removes the decoration** — chrome, glow, sparks, ambient light — and transparent borders appear.
+- **Forced colours removes the decoration** - chrome, glow, sparks, ambient light - and transparent borders appear.
 - **Performance:** `backdrop-filter` on overlays, cards, sticky bars and buttons (a small 10 px blur), never on fields
-  or choice controls. Buttons inside a glass parent don't blur again — the parent is a backdrop root, and it saves a
+  or choice controls. Buttons inside a glass parent don't blur again - the parent is a backdrop root, and it saves a
   pass.
 
 ### Icons
@@ -138,17 +138,17 @@ direction mirror in right-to-left layouts.
 1. **Foundations:** palette in light and dark with contrast labels · type specimen (display, headings 1–4, body,
    small, label, code) · spacing scale · radii · elevation · the focus ring · motion notes.
 2. **Component sheet:**
-   - Buttons — primary, neutral, danger, quiet; small/medium/large; rest, hover, active, focus, disabled; a pressed
+   - Buttons - primary, neutral, danger, quiet; small/medium/large; rest, hover, active, focus, disabled; a pressed
      toggle; an icon-only button.
-   - Field — label, hint, error message, and the error summary.
-   - Checkbox, radio, switch — unchecked, checked, focus, invalid.
-   - Select — closed (the open picker is an enhancement).
-   - Dialog — title, body, actions.
-   - Menu — open, with focus on an item.
+   - Field - label, hint, error message, and the error summary.
+   - Checkbox, radio, switch - unchecked, checked, focus, invalid.
+   - Select - closed (the open picker is an enhancement).
+   - Dialog - title, body, actions.
+   - Menu - open, with focus on an item.
    - Disclosure / accordion, toast, alert.
 3. **One composed screen: "Checkout details".** A delivery-details form with an error summary listing two problems,
    an order-summary card with item rows, and a "Remove this item?" dialog open over it. Generic content only.
-   *For C2 (2026-10-05): portfolio and editorial screens instead — a block library of heroes and content blocks, a
+   *For C2 (2026-10-05): portfolio and editorial screens instead - a block library of heroes and content blocks, a
    portfolio home page and a journal article; the checkout remains as the forms example. Blocks are listed in the
    [component inventory](./components.md#content-blocks--portfolio-and-editorial-pass-2).*
 
@@ -156,35 +156,35 @@ direction mirror in right-to-left layouts.
 
 Names follow [tokens](./tokens.md). Each direction proposes values for:
 
-- **Colour** — `bg-canvas`, `bg-surface`, `bg-surface-subtle`, `fg-default`, `fg-muted`, `border-subtle`,
+- **Colour** - `bg-canvas`, `bg-surface`, `bg-surface-subtle`, `fg-default`, `fg-muted`, `border-subtle`,
   `border-strong`, `bg-accent` (+ hover, active, subtle), `fg-accent`, `fg-on-accent`, `focus-ring`, critical /
   warning / success / info (fill or text + subtle), `bg-inverse`, `fg-inverse`.
-- **Type** — families; scale steps −2 … 5 with sizes at 360 px and 1280 px widths; line heights; weights.
-- **Space** — `3xs … 3xl`. **Radius** — `none, xs, s, m, l, full`. **Border** — thin, thick.
-- **Elevation** — `raised`, `overlay`, per scheme. **Motion** — durations and easings.
-- **Focus** — width, offset, colour. **Size** — control heights (sm/md/lg), target minimum.
+- **Type** - families; scale steps −2 … 5 with sizes at 360 px and 1280 px widths; line heights; weights.
+- **Space** - `3xs … 3xl`. **Radius** - `none, xs, s, m, l, full`. **Border** - thin, thick.
+- **Elevation** - `raised`, `overlay`, per scheme. **Motion** - durations and easings.
+- **Focus** - width, offset, colour. **Size** - control heights (sm/md/lg), target minimum.
 
 ## 7. The directions
 
 Seeded palettes below are **verified**: all 36 declared pairs pass in light and dark for every direction (216 checks;
 see the appendix). They are starting points, not final values.
 
-### A. Loom — calm · tactile · warm
+### A. Loom - calm · tactile · warm
 
 > Interfaces with the quiet confidence of good cloth.
 
 - **Colour:** warm parchment neutrals (hue 80, low chroma) and a deep **spruce** accent `oklch(0.45 0.075 200)` with
   near-white text; warm charcoal in dark mode with a lighter spruce fill and dark text.
 - **Type:** *Besley* for display (a sturdy, letterpress-warm Clarendon), *Atkinson Hyperlegible Next* for body,
-  *Atkinson Hyperlegible Mono* for code — a body face designed for low-vision readers.
+  *Atkinson Hyperlegible Mono* for code - a body face designed for low-vision readers.
 - **Shape:** radii around 6 / 10 / 16 px; 1 px warm borders; soft, warm-tinted shadows.
 - **Space and density:** airy by default.
 - **Motion:** gentle ease-out, 200–280 ms; short fades and small rises.
-- **Signature:** a *selvedge* — a finished-edge detail on surfaces and section headers, and a fine twill texture in
+- **Signature:** a *selvedge* - a finished-edge detail on surfaces and section headers, and a fine twill texture in
   brand areas only, never behind text. The focus ring is spruce with a soft halo.
 - **Icons:** Phosphor (MIT), regular weight.
 
-### B. Instrument — precise · technical · cool
+### B. Instrument - precise · technical · cool
 
 > The clarity of a well-made instrument panel.
 
@@ -194,13 +194,13 @@ see the appendix). They are starting points, not final values.
   paper in dark mode.
 - **Type:** *Instrument Sans* (variable width and weight) for everything; *Martian Mono* for labels and data.
   Tabular numerals wherever numbers appear.
-- **Shape:** radii 2 / 4 / 6 px; hairline borders; no shadows — edges instead, which also survive forced colours.
+- **Shape:** radii 2 / 4 / 6 px; hairline borders; no shadows - edges instead, which also survive forced colours.
 - **Space and density:** compact by default.
 - **Motion:** snappy, 100–160 ms; no bounce.
-- **Signature:** measurement ticks — fine tick-mark rules on dividers and progress — and short mono micro-labels.
+- **Signature:** measurement ticks - fine tick-mark rules on dividers and progress - and short mono micro-labels.
 - **Icons:** Tabler (MIT), 1.5 px stroke.
 
-### C. Chroma — expressive · vivid · playful
+### C. Chroma - expressive · vivid · playful
 
 > Colour as a material.
 
@@ -215,52 +215,52 @@ see the appendix). They are starting points, not final values.
 - **Signature:** large flat colour fields behind section content, and display type that uses its width axis.
 - **Icons:** Phosphor (MIT), bold weight.
 
-### C2. Chroma Luminous — luminous · luxurious · prismatic
+### C2. Chroma Luminous - luminous · luxurious · prismatic
 
 > Light, caught in chrome and glass.
 
 **Art direction (2026-10-05):** continue with Chroma, made more luminous and luxurious. Playing on the *chrome* in
 Chroma, UI elements get sleek, highly reflective chrome-silver outlines, almost hairline. Borrow the qualities of
-liquid-glass interfaces — a delicate, diffuse, slightly prismatic and rounded depth — without copying any vendor's
+liquid-glass interfaces - a delicate, diffuse, slightly prismatic and rounded depth - without copying any vendor's
 components. Colours gently dance as elements are used; any glitter or glow is very subtle and refined. Expand the
 palette towards a subdued, futuristic, prismatic neon, and see where it leads.
 
-- **Colour:** pearl (light) and obsidian (dark) neutrals at hue 285–290. An expanded **prism** of eight hues — rose,
-  orchid, iris, azure, aqua, mint, citron, amber — ramped at subdued-neon chroma (the user likes these hues). Small
+- **Colour:** pearl (light) and obsidian (dark) neutrals at hue 285–290. An expanded **prism** of eight hues - rose,
+  orchid, iris, azure, aqua, mint, citron, amber - ramped at subdued-neon chroma (the user likes these hues). Small
   controls (checkboxes, radios, switches, step numbers) use **multi-tone fills** at one lightness: pastel aqua, mint,
   citron, rose and orchid with obsidian marks in light; jewel aqua, mint, amber, rose and orchid with pearl marks in
   dark. Selected and on states trade chrome for a multi-tone ring dark (or light) enough to stay a 3:1 boundary.
   Focus is iris in light and aqua in dark. **Dark is the primary scheme** (2026-10-05).
 - **Buttons (revised 2026-10-05):** frosted glass panes, more transparent than solid fills. Neutral buttons are
-  clear glass; primaries carry several prism tones at one lightness — aqua, citron, rose, mint and orchid in light
-  (pastel, with obsidian text); aqua, amber, rose, mint and orchid in dark (jewel tones, with pearl text) — which drift
+  clear glass; primaries carry several prism tones at one lightness - aqua, citron, rose, mint and orchid in light
+  (pastel, with obsidian text); aqua, amber, rose, mint and orchid in dark (jewel tones, with pearl text) - which drift
   on hover. Danger is rose-tinted glass in a solid critical ring. This replaces the rose → orchid → iris → azure fill,
   which read as a blue-to-purple gradient.
-- **Chrome:** a 1 px conic-gradient hairline on controls and surfaces — gunmetal on pearl, bright silver on
+- **Chrome:** a 1 px conic-gradient hairline on controls and surfaces - gunmetal on pearl, bright silver on
   obsidian. Its reflection turns as the pointer arrives and on focus. **Selected and on states trade chrome for
-  prism** — the signature.
+  prism** - the signature.
 - **Glass:** two tiers. *Overlay* (menus, popovers, cards, sticky bars) and *modal* (dialogs, over a scrim): a tint
   over `blur(22px) saturate(1.6)` with `contrast()` and `brightness()` compressing the backdrop's range, a faint
   sheen, a prism fringe at the edge, and soft coloured depth. Squircle corners via `corner-shape` as an enhancement.
 - **Type:** **Epilogue** at a light 300 weight for display and headings (decided 2026-10-10, after Bricolage Grotesque
-  — whose *f* was hard to read — was compared with Funnel Display, Host Grotesk and Schibsted Grotesk; wider faces had
+  - whose *f* was hard to read - was compared with Funnel Display, Host Grotesk and Schibsted Grotesk; wider faces had
   been tried and rejected on 2026-10-05), Figtree for body, Spline Sans Mono for uppercase micro-labels tracked wide. Chrome lettering (gradient-clipped text)
   for the display wordmark only, with a forced-colours fallback.
 - **Shape:** pills for buttons, tags and toasts; radii 8 / 12 / 20 / 28 px; 1 px hairlines replace Chroma's 2 px
   borders.
 - **Space and density:** balanced, a little airier than Chroma.
-- **Motion:** 320 ms ease-out on interaction only — the tones inside a primary drift, the chrome glints, a diffuse
+- **Motion:** 320 ms ease-out on interaction only - the tones inside a primary drift, the chrome glints, a diffuse
   glow rises, and a few sparks drift across the edge of primaries.
 - **Ambient light:** a wide, softly feathered band of refracted prism light and two soft orbs, behind content in
   brand areas and composed screens; never a wash, and contrast-checked where text sits on it.
-- **Metal and light (round 3, 2026-10-05):** from reference images of a polished-metal, thick-glass app icon — the
+- **Metal and light (round 3, 2026-10-05):** from reference images of a polished-metal, thick-glass app icon - the
   *material qualities*, not the icon. Forms with volume; light that disperses into a short spectrum (amber → citron
   → mint → aqua → azure) where it meets the lower edge of chrome; buttons as thicker glass with light pooling at their
   base; liquid-metal icon tiles and avatars (pearl in light, graphite in dark); satin folds behind heroes; a glass
   prism and a glass orb as hero objects; warm-to-cool diffuse ambient light. Colour appears as light, never as paint.
 - **Icons:** Phosphor (MIT), **regular weight** (decided 2026-10-05); feature icons sit in metal tiles with
   chrome-gradient strokes.
-- **Composed screens:** the focus moved from commerce to **portfolio and editorial sites** — a block library, a
+- **Composed screens:** the focus moved from commerce to **portfolio and editorial sites** - a block library, a
   portfolio home page and a journal article (fluid boards that reflow to one column). The checkout stays as the forms
   example.
 - **Decided 2026-10-05 and locked in [ADR-0009](../architecture/adr/0009-visual-direction-chroma-luminous.md):**
@@ -269,26 +269,26 @@ palette towards a subdued, futuristic, prismatic neon, and see where it leads.
 #### Future exploration
 
 - **Neon spectrum.** Push the prism further into wide-gamut neon (Display P3) inside `@media (color-gamut: p3)`, with
-  sRGB fallbacks and contrast checked in both. Parked by the user on 2026-10-05 — not needed yet. (Also a sticky on
+  sRGB fallbacks and contrast checked in both. Parked by the user on 2026-10-05 - not needed yet. (Also a sticky on
   the canvas.)
 
 ## 8. How we'll judge
 
 Score each direction 1–5:
 
-1. **Principles fit** — access first, buildable on the platform.
-2. **Distinctiveness** — recognisable at thumbnail size; unrelated to existing systems.
-3. **Coherence** — one voice across components and modes.
-4. **Re-brandability** — does the identity survive a hue swap?
-5. **Legibility and comfort** — long forms, dense data.
-6. **Visible accessibility** — focus, errors and targets as designed features.
+1. **Principles fit** - access first, buildable on the platform.
+2. **Distinctiveness** - recognisable at thumbnail size; unrelated to existing systems.
+3. **Coherence** - one voice across components and modes.
+4. **Re-brandability** - does the identity survive a hue swap?
+5. **Legibility and comfort** - long forms, dense data.
+6. **Visible accessibility** - focus, errors and targets as designed features.
 7. **Dark-mode quality.**
-8. **Performance** — font weight, no heavy effects.
-9. **The composed screen** — does "Checkout details" feel calm, clear and trustworthy?
+8. **Performance** - font weight, no heavy effects.
+9. **The composed screen** - does "Checkout details" feel calm, clear and trustworthy?
 
 ## 9. Process and deliverables
 
-1. **Now:** one canvas with three direction boards — foundations, component sheet, composed screen — in light and
+1. **Now:** one canvas with three direction boards - foundations, component sheet, composed screen - in light and
    dark.
 2. **Art direction:** comments on the canvas; revise or blend. *2026-10-05: Chroma chosen and evolved into C2 ·
    Chroma Luminous, the first row on the canvas.*
@@ -296,15 +296,15 @@ Score each direction 1–5:
    `light`, `dark`, `light-more` and `dark-more` themes, type, spacing, radius, shadow, component guidelines, and
    static HTML + CSS previews. Values are then mirrored into the DTCG source, and the contrast matrix must stay green.
 
-## Appendix — seeded palettes and contrast matrices
+## Appendix - seeded palettes and contrast matrices
 
 Generated 2026-10-05 by a dependency-free script (OKLCH → sRGB → WCAG 2.x ratio; APCA Lc in brackets, advisory).
 Values shown are after sRGB gamut mapping. All 360 palette pairs pass (4 palettes × light and dark × 36, plus C2's
-`dark-more` and `light-more` at raised minimums — text 7:1, boundaries 4.5:1), and all 86 Chroma Luminous prism,
+`dark-more` and `light-more` at raised minimums - text 7:1, boundaries 4.5:1), and all 86 Chroma Luminous prism,
 chrome, glass, glass-button, multi-tone, satin, metal and increased-contrast rules pass.
 
 <details>
-<summary><strong>A. Loom</strong> — values and contrast (light · dark)</summary>
+<summary><strong>A. Loom</strong> - values and contrast (light · dark)</summary>
 
 | Token | Light | Dark |
 | --- | --- | --- |
@@ -377,7 +377,7 @@ chrome, glass, glass-button, multi-tone, satin, metal and increased-contrast rul
 </details>
 
 <details>
-<summary><strong>B. Instrument</strong> — values and contrast (light · dark)</summary>
+<summary><strong>B. Instrument</strong> - values and contrast (light · dark)</summary>
 
 | Token | Light | Dark |
 | --- | --- | --- |
@@ -450,7 +450,7 @@ chrome, glass, glass-button, multi-tone, satin, metal and increased-contrast rul
 </details>
 
 <details>
-<summary><strong>C. Chroma</strong> — values and contrast (light · dark)</summary>
+<summary><strong>C. Chroma</strong> - values and contrast (light · dark)</summary>
 
 | Token | Light | Dark |
 | --- | --- | --- |
@@ -523,7 +523,7 @@ chrome, glass, glass-button, multi-tone, satin, metal and increased-contrast rul
 </details>
 
 <details>
-<summary><strong>C2. Chroma Luminous</strong> — values and contrast (light · dark · dark-more · light-more)</summary>
+<summary><strong>C2. Chroma Luminous</strong> - values and contrast (light · dark · dark-more · light-more)</summary>
 
 | Token | Light | Dark | Dark (more contrast) | Light (more contrast) |
 | --- | --- | --- | --- | --- |
@@ -596,7 +596,7 @@ chrome, glass, glass-button, multi-tone, satin, metal and increased-contrast rul
 </details>
 
 <details>
-<summary><strong>C2. Chroma Luminous</strong> — prism, chrome and glass rules (light · dark)</summary>
+<summary><strong>C2. Chroma Luminous</strong> - prism, chrome and glass rules (light · dark)</summary>
 
 Worst case over every backdrop (white, black, canvas, surface, inverse, text, prism fills, ambient light), with both readings of the backdrop filter.
 
@@ -644,7 +644,7 @@ Worst case over every backdrop (white, black, canvas, surface, inverse, text, pr
 </details>
 
 <details>
-<summary><strong>C2. Chroma Luminous</strong> — increased-contrast rules (light-more · dark-more)</summary>
+<summary><strong>C2. Chroma Luminous</strong> - increased-contrast rules (light-more · dark-more)</summary>
 
 Glass is opaque and chrome is one solid line in these contexts, so only the flat pairs above and these rules apply.
 

@@ -32,11 +32,11 @@ emulation rows, which needed CSS built from tokens.
 - **Lightning CSS with no targets lowers nothing,** but its minifier drops layer names a file doesn't use. Every file
   we ship re-adds the full layer order after minifying.
 - **Consumers:** Vite 8 and Tailwind 4 keep our CSS intact (they add `-webkit-` prefixes). **Next 16 rewrites every
-  `oklch()` token to hex plus a `lab()` copy unless the consumer sets a Baseline browserslist** — now in the recipe.
+  `oklch()` token to hex plus a `lab()` copy unless the consumer sets a Baseline browserslist** - now in the recipe.
   TypeScript rejected `import '@lue-ui/css'`; the package now has a `types` condition.
 - **Emulation (computed styles, not `matchMedia`):** colour scheme and subtree themes, increased contrast (OS and
   `data-contrast`), forced colours (Chromium, Firefox), reduced motion, 320 px reflow with fluid space at 16 → 18 px,
-  and RTL — 10 tests × 3 engines. Breaking the forced-colours block or widening a card makes them fail.
+  and RTL - 10 tests × 3 engines. Breaking the forced-colours block or widening a card makes them fail.
 
 ## What surprised us
 
@@ -51,10 +51,10 @@ emulation rows, which needed CSS built from tokens.
 
 ## Follow-ups
 
-- ~~Port the glass, chrome and prism worst-case rules into a plugin~~ — done 2026-10-24 (`lue-materials`, 78 rules from
+- ~~Port the glass, chrome and prism worst-case rules into a plugin~~ - done 2026-10-24 (`lue-materials`, 78 rules from
   the token source). The port found that the `-more` contexts had the standard dark fills (marks at 5.5:1, not 7:1);
   the Pass 2 `-more` fills are now tokens.
-- ~~Per-component forced-colours and contrast styles instead of one `contrast.css`~~ — done 2026-10-24; `contrast.css` is gone.
+- ~~Per-component forced-colours and contrast styles instead of one `contrast.css`~~ - done 2026-10-24; `contrast.css` is gone.
 - `--lue-angle` on the pseudo-element with `inherits: false` (the handover's CSS trap), with the Button work.
-- `tokens.js` + `.d.ts` and `figma/*.tokens.json` outputs (RFC-0001 §1) — not needed for the tracer bullet.
+- `tokens.js` + `.d.ts` and `figma/*.tokens.json` outputs (RFC-0001 §1) - not needed for the tracer bullet.
 - Ship a browserslist config package if the Next finding repeats in other pipelines.

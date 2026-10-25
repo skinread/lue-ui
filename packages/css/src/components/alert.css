@@ -1,4 +1,4 @@
-/* Alert — .lue-alert with data-tone (info by default, warning, success, critical). Always an icon and a word, never colour alone. */
+/* Alert - .lue-alert with data-tone (info by default, warning, success, critical). Always an icon and a word, never colour alone. */
 @layer lue.components {
   .lue-alert { display: grid; grid-template-columns: auto 1fr; gap: var(--lue-space-3xs) var(--lue-space-s); padding: var(--lue-space-s) var(--lue-space-m); border-radius: var(--lue-radius-m); background: var(--lue-color-bg-info-subtle); }
   .lue-alert > :where(.lue-icon) { grid-row: span 2; color: var(--lue-color-fg-info); margin-block-start: 3px; }

@@ -1,4 +1,4 @@
-/* Checkbox, Radio group and Switch — native inputs drawn with appearance: none, so they keep their semantics, keyboard
+/* Checkbox, Radio group and Switch - native inputs drawn with appearance: none, so they keep their semantics, keyboard
    and form behaviour. Groups are a <fieldset class="lue-fieldset"> with a <legend>; each choice sits inside its
    <label class="lue-choice">. Switch is <input type="checkbox" role="switch">. Contracts: apps/docs/contracts/
    checkbox.json, radio-group.json, switch.json. The field surface and focus come from field.css. */

@@ -1,4 +1,4 @@
-/* Select — a native <select class="lue-select"> in a .lue-select-wrap, which holds the chevron. Contract:
+/* Select - a native <select class="lue-select"> in a .lue-select-wrap, which holds the chevron. Contract:
    apps/docs/contracts/select.json. The field surface, focus and invalid states are shared with field.css.
    Where the browser supports customisable select, the picker becomes overlay glass with text-only options (v1:
    no <selectedcontent>, no rich option content). Elsewhere the native picker is the fallback. */

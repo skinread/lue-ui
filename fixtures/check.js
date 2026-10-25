@@ -1,5 +1,5 @@
 // Checks a consumer fixture's built CSS (ADR-0002, RFC-0001 §9): our CSS must come out of a consumer's pipeline
-// unlowered — the layer order intact, OKLCH colours, logical viewport units, zero-specificity theme selectors and
+// unlowered - the layer order intact, OKLCH colours, logical viewport units, zero-specificity theme selectors and
 // the registered angle all still there. Usage: node fixtures/check.js <build folder> [--tailwind] [--fonts]
 import fs from 'node:fs';
 import path from 'node:path';

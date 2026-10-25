@@ -1,6 +1,6 @@
 # Token specification
 
-> **Status:** v0.2 · Pass 2 · 2026-10-05 — values filled for C2 · Chroma Luminous in [`packages/tokens/src`](../../packages/tokens/README.md)
+> **Status:** v0.2 · Pass 2 · 2026-10-05 - values filled for C2 · Chroma Luminous in [`packages/tokens/src`](../../packages/tokens/README.md)
 > **Decision:** [ADR-0003](../architecture/adr/0003-dtcg-tokens-with-terrazzo.md) · **Architecture:**
 > [RFC-0001 §3](../architecture/rfc-0001-architecture.md#3-tokens-and-theming)
 > Names use the prefix `lue` ([ADR-0008](../architecture/adr/0008-name-lue-ui.md)). Values are chosen in Claude Design (Pass 2); this page fixes the *structure*.
@@ -20,7 +20,7 @@
 ```
 packages/tokens/src/
 ├── primitive/
-│   └── color.tokens.json              # neutral ramp + eight-hue prism — never public CSS
+│   └── color.tokens.json              # neutral ramp + eight-hue prism - never public CSS
 ├── semantic/                          # the public CSS API
 │   ├── color.dark.tokens.json         # one file per theme context, literal values, contrast pairs
 │   ├── color.light.tokens.json
@@ -39,7 +39,7 @@ build fails on any contrast pair below its minimum (see the [package README](../
 because they're fluid and have no separate primitive step.
 
 **Resolver.** DTCG 2025.10 modifiers are independent, but colour depends on scheme *and* contrast together, so one
-`theme` modifier carries four contexts — `dark` (default), `light`, `dark-more`, `light-more` — each pulling its scheme's
+`theme` modifier carries four contexts - `dark` (default), `light`, `dark-more`, `light-more` - each pulling its scheme's
 material file and its own colour file. `density` is a second modifier. A `brand` modifier will join them when there's a
 second brand.
 
@@ -72,7 +72,7 @@ A token in the source:
 | Tier | Example | Public? | Purpose |
 | --- | --- | --- | --- |
 | Primitive | `color.neutral.24`, `dimension.4` | No (JSON/TS only) | The palette and raw scales a theme draws from |
-| Semantic | `--lue-color-fg-default` | **Yes — the CSS API** | Meaning: what a value is *for* |
+| Semantic | `--lue-color-fg-default` | **Yes - the CSS API** | Meaning: what a value is *for* |
 | Component | `--lue-button-radius` | Yes, few | Documented knobs for one component, defaulting to semantic tokens |
 
 ## Naming
@@ -120,22 +120,22 @@ reaches exactly 4.5:1), so **the bands guide design; the contrast matrix is the 
 
 | Token | Use | Must contrast with | Minimum |
 | --- | --- | --- | --- |
-| `bg-canvas` | Page background | — | — |
-| `bg-surface` | Cards, menus, dialogs, popovers | — | — |
-| `bg-surface-subtle` | Wells, input fills, table stripes | — | — |
+| `bg-canvas` | Page background | - | - |
+| `bg-surface` | Cards, menus, dialogs, popovers | - | - |
+| `bg-surface-subtle` | Wells, input fills, table stripes | - | - |
 | `bg-accent` (+ `-hover`, `-active`) | Primary actions, selected states | `fg-on-accent` | 4.5:1 |
 | `bg-accent-subtle` | Accent tints behind text | `fg-default`, `fg-accent` | 7:1 · 4.5:1 |
 | `bg-critical` · `bg-critical-subtle` | Destructive actions · error backgrounds | `fg-on-critical` · `fg-critical` | 4.5:1 |
 | `bg-warning-subtle`, `bg-success-subtle`, `bg-info-subtle` | Status backgrounds | `fg-default` and the matching `fg-{role}` | 7:1 · 4.5:1 |
 | `bg-inverse` | Toasts, tooltips | `fg-inverse` | 7:1 |
-| `overlay-scrim` | Dialog `::backdrop` | — | — |
+| `overlay-scrim` | Dialog `::backdrop` | - | - |
 | `fg-default` | Body text, icons | `bg-canvas`, `bg-surface`, `bg-surface-subtle` | **7:1** |
 | `fg-muted` | Secondary text, hints | `bg-canvas`, `bg-surface` | 4.5:1 |
 | `fg-accent` | Links, accent text | `bg-canvas`, `bg-surface` | 4.5:1 |
 | `fg-critical`, `fg-warning`, `fg-success`, `fg-info` | Status text and icons | `bg-canvas`, `bg-surface`, matching `-subtle` | 4.5:1 |
 | `fg-on-accent`, `fg-on-critical` | Text on filled backgrounds | the filled background in every state | 4.5:1 |
-| `fg-disabled` | Disabled labels | `bg-canvas`, `bg-surface` | 3:1 (advisory — WCAG exempts inactive controls, we don't hide them) |
-| `border-subtle` | Decorative dividers | — | — (decorative) |
+| `fg-disabled` | Disabled labels | `bg-canvas`, `bg-surface` | 3:1 (advisory - WCAG exempts inactive controls, we don't hide them) |
+| `border-subtle` | Decorative dividers | - | - (decorative) |
 | `border-strong` | Boundaries that identify a control (inputs, checkboxes) | `bg-canvas`, `bg-surface` | 3:1 |
 | `border-critical` | Invalid field boundary | `bg-canvas`, `bg-surface` | 3:1 |
 | `focus-ring` | `:focus-visible` outline | every background it can sit on | 3:1 |
@@ -156,7 +156,7 @@ predictable:
 | Selected, checked, pressed | `SelectedItem` / `SelectedItemText` |
 | Focus ring | `Highlight` (outline, never box-shadow) |
 | Disabled | `GrayText` |
-| Shadows, tints | Removed — components carry **transparent borders** that become visible |
+| Shadows, tints | Removed - components carry **transparent borders** that become visible |
 
 ## Theming axes
 
@@ -190,7 +190,7 @@ preference still wins. Design tools list dark first. (The example below shows th
 
 ## Materials (C2 · Chroma Luminous)
 
-Lue UI's look needs tokens a flat palette can't express. They're **decoration with an opaque fallback** — glass turns
+Lue UI's look needs tokens a flat palette can't express. They're **decoration with an opaque fallback** - glass turns
 opaque, chrome becomes `border-strong`, satin and ambient light switch off under `prefers-reduced-transparency`,
 `prefers-contrast: more`, `[data-contrast="more"]` or without `backdrop-filter`, and forced colours removes them.
 
@@ -206,13 +206,13 @@ opaque, chrome becomes `border-strong`, satin and ambient light switch off under
 | `shadow.{raised, overlay, control, fringe}` · `shadow.glow.{rest, hover, soft, critical}` | shadow | Depth, the prism fringe (inset) and diffuse glows |
 
 Every material that text or a boundary depends on has a worst-case rule in `tools/directions/palettes.mjs` (glass over
-white, black and every fill; tones up to three deep; satin folds; ambient light doubled) — 86 rules, all passing on
+white, black and every fill; tones up to three deep; satin folds; ambient light doubled) - 86 rules, all passing on
 2026-10-05. They move into the Pass 3 contrast gate.
 
 ## Space and density
 
 - **Fluid space scale** in `rem` with a small viewport-relative term (never pure viewport units):
-  `3xs · 2xs · xs · s · m · l · xl · 2xl · 3xl` — multiples 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6 of the base step, which
+  `3xs · 2xs · xs · s · m · l · xl · 2xl · 3xl` - multiples 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6 of the base step, which
   is **16 px at 360 and 18 px at 1280** (so `m` runs 24 → 27 px, `3xl` 96 → 108 px).
 - **One-up pairs** (`s-m`, `m-l`, …) interpolate between neighbouring steps for gaps that should grow with space.
 - **Density** multiplies a component's *internal* padding and gaps only:

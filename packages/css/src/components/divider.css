@@ -1,4 +1,4 @@
-/* Divider — <hr class="lue-divider">, a chrome line that fades at both ends. A thematic break (role separator).
+/* Divider - <hr class="lue-divider">, a chrome line that fades at both ends. A thematic break (role separator).
    Contract: apps/docs/contracts/divider.json. */
 @layer lue.components {
   .lue-divider { block-size: 1px; margin-block: var(--lue-space-m); border: 0; background: linear-gradient(90deg, transparent, var(--lue-chrome-line) 20%, var(--lue-chrome-line) 80%, transparent); }

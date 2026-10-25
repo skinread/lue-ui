@@ -1,4 +1,4 @@
-/* Spinner and Skeleton — loading indicators. The spinner sits in a role="status" with its words visually hidden; a
+/* Spinner and Skeleton - loading indicators. The spinner sits in a role="status" with its words visually hidden; a
    skeleton is a decorative placeholder (aria-hidden), and the region it fills carries aria-busy="true" until the
    content arrives. Contract: apps/docs/contracts/spinner.json. */
 @layer lue.components {

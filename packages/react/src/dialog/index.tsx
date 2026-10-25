@@ -12,7 +12,7 @@ export interface DialogProps extends Omit<ComponentPropsWithRef<'dialog'>, 'open
   /** Light dismiss. `any` closes on a backdrop click as well as Esc (an enhancement: Safari has Esc only). */
   closedby?: 'any' | 'closerequest' | 'none' | undefined;
   /**
-   * Controlled open state. Opens with `showModal()` — never React's `open` prop, which opens a dialog non-modally.
+   * Controlled open state. Opens with `showModal()` - never React's `open` prop, which opens a dialog non-modally.
    * Leave it out to open the dialog with a `<DialogTrigger>` instead.
    */
   open?: boolean | undefined;
@@ -21,7 +21,7 @@ export interface DialogProps extends Omit<ComponentPropsWithRef<'dialog'>, 'open
 }
 
 /**
- * `<dialog class="lue-dialog">` — modal dialog. Markup matches the HTML core exactly. Contract:
+ * `<dialog class="lue-dialog">` - modal dialog. Markup matches the HTML core exactly. Contract:
  * apps/docs/contracts/dialog.json. Controlled use needs `onOpenChange` as well as `open`.
  */
 export function Dialog({ className, closedby = 'any', open, onOpenChange, onClose, ref, ...props }: DialogProps): ReactNode {
@@ -62,7 +62,7 @@ export interface DialogTriggerProps extends ButtonProps {
   dialog: string;
 }
 
-/** A Button that opens a dialog with `command="show-modal"` — no script. Takes every Button prop. */
+/** A Button that opens a dialog with `command="show-modal"` - no script. Takes every Button prop. */
 export function DialogTrigger({ dialog, ...props }: DialogTriggerProps): ReactNode {
   return <Button {...props} {...invoker('show-modal', dialog)} />;
 }

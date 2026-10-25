@@ -4,7 +4,7 @@
 > **Status:** Pass 3, the tracer bullet, is complete apart from Spike C: tokens, CSS, elements and React adapters build,
 > and the first five components are tested in three engines. Every package is private; nothing is on npm yet.
 
-**Mission:** make accessible, standards-based interfaces the path of least resistance — by building _with_ the web
+**Mission:** make accessible, standards-based interfaces the path of least resistance - by building _with_ the web
 platform, not on top of it.
 
 ## What's different
@@ -69,16 +69,16 @@ Storybook is published to GitHub Pages by hand: Actions → **Storybook to GitHu
 
 ## Roadmap
 
-1. **Phase 1 — foundations and design kickoff** _(done)_: principles, research, architecture, token and component
+1. **Phase 1 - foundations and design kickoff** _(done)_: principles, research, architecture, token and component
    specs, and three visual directions in Claude Design.
-2. **Pass 2 — codify the chosen direction** _(done)_: C2 · Chroma Luminous, a private Claude Design system and the DTCG
+2. **Pass 2 - codify the chosen direction** _(done)_: C2 · Chroma Luminous, a private Claude Design system and the DTCG
    token source.
-3. **Pass 3 — tracer bullet** _(done, but for Spike C)_: workspace, token and CSS pipelines, package builds, consumer
+3. **Pass 3 - tracer bullet** _(done, but for Spike C)_: workspace, token and CSS pipelines, package builds, consumer
    fixtures, and Button, Field, Select, Dialog and Menu tested in three engines. Spike C (one Claude Design preview
    from the script-tag build) is next.
-4. **Pass 4 — Tier 1 components** _(done)_: every Tier 1 component, keyboard coverage driven by the contracts,
+4. **Pass 4 - Tier 1 components** _(done)_: every Tier 1 component, keyboard coverage driven by the contracts,
    `llms.txt` and a Markdown page per component, and an MCP server.
-5. **Pass 5 — Tier 2 and a first public 0.x release** _(in progress)_: every Tier 2 component is done. The first public
+5. **Pass 5 - Tier 2 and a first public 0.x release** _(in progress)_: every Tier 2 component is done. The first public
    release waits on you: the npm scope, making the repo public, and publishing.
 
 ## Licence

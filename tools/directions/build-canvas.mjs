@@ -30,7 +30,7 @@ const DIRS = {
     motto: 'Light, caught in chrome and glass.',
     tags: ['Chrome hairlines', 'Liquid glass', 'Prismatic neon', 'Light that moves'],
     fonts: LX_FONTS,
-    fontNames: ['Epilogue — display and headings, light', 'Figtree — body', 'Spline Sans Mono — micro-labels and code'],
+    fontNames: ['Epilogue - display and headings, light', 'Figtree - body', 'Spline Sans Mono - micro-labels and code'],
     H: { foundations: 7700, components: 2560, checkout: 1240 },
     interactive: true,
     vars: {
@@ -56,7 +56,7 @@ const DIRS = {
     },
     shadows: lxShadows,
     extra: { light: lxVars('light'), dark: lxVars('dark'), 'light-more': lxVars('light-more'), 'dark-more': lxVars('dark-more') },
-    motion: ['Dance — 320 ms ease-out, on interaction only', 'Fills slide along an iso-lightness prism; chrome glints round the rim; glow rises', 'Instant and still under reduced motion; opaque under reduced transparency'],
+    motion: ['Dance - 320 ms ease-out, on interaction only', 'Fills slide along an iso-lightness prism; chrome glints round the rim; glow rises', 'Instant and still under reduced motion; opaque under reduced transparency'],
     signature: 'A chrome hairline that catches the light as you move, over glass that refracts a quiet prism. Selected and on states trade chrome for prism. Light moves only when you do.',
     sig: LX_CSS,
   },
@@ -295,7 +295,7 @@ const componentSheet = (d, s) => {
       <p class="t-label">Preferences</p>
       <label class="ns-choice"><input class="ns-check" type="checkbox" checked="checked" /><span>Save these details</span></label>
       <label class="ns-choice"><input class="ns-check" type="checkbox" /><span>Send me updates</span></label>
-      <label class="ns-choice"><input class="ns-switch" type="checkbox" role="switch" checked="checked" /><span>Leave at door — on</span></label>
+      <label class="ns-choice"><input class="ns-switch" type="checkbox" role="switch" checked="checked" /><span>Leave at door - on</span></label>
     </div>
   </section>
 
@@ -444,11 +444,11 @@ ${lx.afterColour}
     <div class="section-head"><h2 class="t-h2">Type</h2><p class="t-micro">${t.fontNames.join(' · ')}</p></div>
     <div style="display: grid; gap: 18px">
       <p class="t-display">Made for everyone</p>
-      <p class="t-h1">Heading one — clear, calm checkout</p>
-      <p class="t-h2">Heading two — delivery details</p>
-      <p class="t-h3">Heading three — order summary</p>
-      <p class="t-h4">Heading four — payment</p>
-      <p class="t-body" style="max-inline-size: 66ch">Make accessible, standards-based interfaces the path of least resistance — by building with the web platform, not on top of it. Body text holds 7:1 contrast on every surface and a comfortable measure.</p>
+      <p class="t-h1">Heading one - clear, calm checkout</p>
+      <p class="t-h2">Heading two - delivery details</p>
+      <p class="t-h3">Heading three - order summary</p>
+      <p class="t-h4">Heading four - payment</p>
+      <p class="t-body" style="max-inline-size: 66ch">Make accessible, standards-based interfaces the path of least resistance - by building with the web platform, not on top of it. Body text holds 7:1 contrast on every surface and a comfortable measure.</p>
       <p class="t-small t-muted">Small text for hints and secondary detail, at 4.5:1 or better.</p>
       <div style="display: flex; flex-wrap: wrap; gap: 28px; align-items: baseline">
         <p class="t-label">Label text</p>
@@ -505,8 +505,8 @@ ${lx.beforeSignature ? `${lx.beforeSignature}
     <p class="t-body" style="max-inline-size: 70ch">${t.signature}</p>
   </section>
 </div>`;
-  files[`${fileOf(t)}-Foundations.dc.html`] = { w: W, h: H, title: `${t.letter} · ${t.name} — foundations`, interactive: !!t.interactive,
-    html: page(`${t.name} — foundations`, t.fonts, [d], body, { $preview: { width: W, height: H } }) };
+  files[`${fileOf(t)}-Foundations.dc.html`] = { w: W, h: H, title: `${t.letter} · ${t.name} - foundations`, interactive: !!t.interactive,
+    html: page(`${t.name} - foundations`, t.fonts, [d], body, { $preview: { width: W, height: H } }) };
 }
 
 // Components
@@ -516,15 +516,15 @@ for (const d of Object.keys(DIRS)) {
   const body = `
 <div class="board dir-${d}" data-scheme="${d === 'luminous' ? 'dark' : 'light'}" style="width: ${W}px; min-height: ${H}px; display: grid; align-content: start; gap: 32px; padding: 56px 56px 72px">
   <header style="display: flex; justify-content: space-between; align-items: end; gap: 24px">
-    <div style="display: grid; gap: 8px"><p class="t-micro">${d === 'luminous' ? 'Lue UI · direction' : 'Direction'} ${t.letter} · components</p><h1 class="t-h1">${t.name} — Tier 1 sheet</h1></div>
+    <div style="display: grid; gap: 8px"><p class="t-micro">${d === 'luminous' ? 'Lue UI · direction' : 'Direction'} ${t.letter} · components</p><h1 class="t-h1">${t.name} - Tier 1 sheet</h1></div>
     <p class="t-small t-muted" style="max-inline-size: 46ch">Real elements: buttons, inputs with labels, fieldsets, a dialog with a method="dialog" form. States drawn: hover, active, focus, disabled, pressed, invalid.</p>
   </header>
   <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; align-items: start">
 ${(d === 'luminous' ? ['dark', 'light'] : ['light', 'dark']).map((s) => componentSheet(d, s)).join('\n')}
   </div>
 </div>`;
-  files[`${fileOf(t)}-Components.dc.html`] = { w: W, h: H, title: `${t.letter} · ${t.name} — components`, interactive: !!t.interactive,
-    html: page(`${t.name} — components`, t.fonts, [d], body, { $preview: { width: W, height: H } }) };
+  files[`${fileOf(t)}-Components.dc.html`] = { w: W, h: H, title: `${t.letter} · ${t.name} - components`, interactive: !!t.interactive,
+    html: page(`${t.name} - components`, t.fonts, [d], body, { $preview: { width: W, height: H } }) };
 }
 
 // Checkout (composed screen), with dark + dialog tweaks
@@ -566,8 +566,8 @@ for (const d of Object.keys(DIRS)) {
       <fieldset class="ns-fieldset" id="co-dl" aria-describedby="co-dle">
         <legend>Delivery option</legend>
         <p class="ns-field__error" id="co-dle">${icon('alert')}<span>Choose a delivery option</span></p>
-        <label class="ns-choice"><input class="ns-radio" type="radio" name="co-dl" aria-invalid="true" /><span>Standard — 3 to 5 business days</span></label>
-        <label class="ns-choice"><input class="ns-radio" type="radio" name="co-dl" aria-invalid="true" /><span>Express — next business day</span></label>
+        <label class="ns-choice"><input class="ns-radio" type="radio" name="co-dl" aria-invalid="true" /><span>Standard - 3 to 5 business days</span></label>
+        <label class="ns-choice"><input class="ns-radio" type="radio" name="co-dl" aria-invalid="true" /><span>Express - next business day</span></label>
       </fieldset>
       <label class="ns-choice"><input class="ns-check" type="checkbox" checked="checked" /><span>Save these details for next time</span></label>
       <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
@@ -603,8 +603,8 @@ for (const d of Object.keys(DIRS)) {
   </sc-if>
 </div>`;
   const darkDefault = lum;
-  files[`${fileOf(t)}-Checkout.dc.html`] = { w: W, h: H, title: `${t.letter} · ${t.name} — checkout`, interactive: !!t.interactive,
-    html: page(`${t.name} — checkout details`, t.fonts, [d], body,
+  files[`${fileOf(t)}-Checkout.dc.html`] = { w: W, h: H, title: `${t.letter} · ${t.name} - checkout`, interactive: !!t.interactive,
+    html: page(`${t.name} - checkout details`, t.fonts, [d], body,
       { dark: { editor: 'boolean', default: darkDefault }, dialog: { editor: 'boolean', default: false }, $preview: { width: W, height: H } },
       `return { scheme: ${darkDefault ? '(this.props.dark ?? true)' : 'this.props.dark'} ? 'dark' : 'light', showDialog: !!this.props.dialog };`) };
 }
@@ -617,8 +617,8 @@ for (const d of Object.keys(DIRS)) {
     ['Portfolio', 'portfolio home', portfolioBoard, 5400, true],
     ['Article', 'journal article', articleBoard, 6600, true],
   ]) {
-    files[`Luminous-${f}.dc.html`] = { w: 1440, h: H, title: `${t.letter} · ${t.name} — ${label}`, interactive: true, expand: 'fill',
-      html: page(`${t.name} — ${label}`, t.fonts, ['luminous'], build({ icon }),
+    files[`Luminous-${f}.dc.html`] = { w: 1440, h: H, title: `${t.letter} · ${t.name} - ${label}`, interactive: true, expand: 'fill',
+      html: page(`${t.name} - ${label}`, t.fonts, ['luminous'], build({ icon }),
         { dark: { editor: 'boolean', default: dark }, $preview: { width: 1440, height: H } },
         `return { scheme: ${dark ? '(this.props.dark ?? true)' : 'this.props.dark'} ? 'dark' : 'light' };`) };
   }
@@ -647,18 +647,18 @@ const placeRow = (key, row, text, y, page) => {
 {
   const t = DIRS.luminous;
   const y2 = placeRow('luminous', ['Luminous-Foundations.dc.html', 'Luminous-Components.dc.html', 'Luminous-Blocks.dc.html'],
-    `${t.letter} · ${t.name} — the system: foundations, components, blocks`, titleSpace, 'luminous');
+    `${t.letter} · ${t.name} - the system: foundations, components, blocks`, titleSpace, 'luminous');
   placeRow('luminous-pages', ['Luminous-Portfolio.dc.html', 'Luminous-Article.dc.html', 'Luminous-Checkout.dc.html'],
-    `${t.letter} · ${t.name} — in use: portfolio, journal, a form`, y2, 'luminous');
+    `${t.letter} · ${t.name} - in use: portfolio, journal, a form`, y2, 'luminous');
   // Parked ideas, as stickies beside the system row.
   notes['future-neon'] = { x: 4320, y: titleSpace, w: 380, fill: 'purple', page: 'luminous',
-    text: 'Future exploration · neon spectrum — push the prism further into wide-gamut neon (Display P3) inside @media (color-gamut: p3), keeping sRGB fallbacks and checking contrast in both. Parked 2026-10-05: not needed yet.' };
+    text: 'Future exploration · neon spectrum - push the prism further into wide-gamut neon (Display P3) inside @media (color-gamut: p3), keeping sRGB fallbacks and checking contrast in both. Parked 2026-10-05: not needed yet.' };
 }
 const canvas = {
   v: 3,
   attachments: {}, // added by the canvas editor; kept so republishing doesn't fight it
-  createdOnFiles: { v: 1, at: '2026-10-04T22:01:56Z' }, // the published canvas's marker — never change it
-  title: 'Lue UI — design directions',
+  createdOnFiles: { v: 1, at: '2026-10-04T22:01:56Z' }, // the published canvas's marker - never change it
+  title: 'Lue UI - design directions',
   launch: { view: 'canvas', page: 'luminous' },
   pages,
   boards, order, notes,

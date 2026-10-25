@@ -1,4 +1,4 @@
-/* Search — <search class="lue-search"> around a GET form: a Field with <input type="search"> and a submit button, on
+/* Search - <search class="lue-search"> around a GET form: a Field with <input type="search"> and a submit button, on
    one line while there's room. Contract: apps/docs/contracts/search.json. */
 @layer lue.components {
   .lue-search > :where(form) { display: flex; flex-wrap: wrap; align-items: end; gap: var(--lue-space-2xs); }

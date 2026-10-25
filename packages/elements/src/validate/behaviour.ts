@@ -1,7 +1,7 @@
 import { controlError, formErrors, type FieldError } from './controller.js';
 
 /**
- * `<form data-lue-validate>` — the HTML path's validation behaviour (RFC-0001 §4). The browser still decides what's
+ * `<form data-lue-validate>` - the HTML path's validation behaviour (RFC-0001 §4). The browser still decides what's
  * invalid; this replaces its bubbles with messages in the page:
  *
  * - When a submission fails validation, each invalid control gets `aria-invalid="true"` and its error message (the

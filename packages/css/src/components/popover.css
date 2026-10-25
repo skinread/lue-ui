@@ -1,4 +1,4 @@
-/* Popover and Toggletip — <div class="lue-popover" popover>, opened by a button with command="toggle-popover" (or
+/* Popover and Toggletip - <div class="lue-popover" popover>, opened by a button with command="toggle-popover" (or
    popovertarget). Non-modal: Esc, light dismiss, the top layer and focus order are the browser's. Anchored to its
    invoker where anchor positioning exists; otherwise the browser centres it. data-variant="tip" is the small
    click-to-show help bubble. Contracts: apps/docs/contracts/popover.json, toggletip.json. */

@@ -1,5 +1,5 @@
 /**
- * `<button aria-pressed data-lue-toggle>` — the HTML path's toggle button (RFC-0001 §4). A click (and so Enter or
+ * `<button aria-pressed data-lue-toggle>` - the HTML path's toggle button (RFC-0001 §4). A click (and so Enter or
  * Space) flips `aria-pressed` between "true" and "false", then fires a bubbling `lue-toggle` event whose
  * `detail.pressed` is the new state. A "mixed" button becomes pressed.
  *

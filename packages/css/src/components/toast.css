@@ -1,4 +1,4 @@
-/* Toast — <lue-toast-region>, which owns everything inside it: a visually hidden live region and a manual popover
+/* Toast - <lue-toast-region>, which owns everything inside it: a visually hidden live region and a manual popover
    (.lue-toast-region__list) holding .lue-toast messages on an inverse surface, at the viewport's block-end corner.
    Contract: apps/docs/contracts/toast.json. */
 @layer lue.components {

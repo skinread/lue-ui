@@ -1,4 +1,4 @@
-/* Carousel — <lue-carousel> around <section class="lue-carousel" aria-roledescription="carousel" aria-label="…">: a scroll-snap track of slides (.lue-carousel__track > .lue-carousel__slide, each a group named "n of count") and
+/* Carousel - <lue-carousel> around <section class="lue-carousel" aria-roledescription="carousel" aria-label="…">: a scroll-snap track of slides (.lue-carousel__track > .lue-carousel__slide, each a group named "n of count") and
    previous/next buttons (.lue-carousel__controls), shown once the element is defined. No auto-rotation. Contract:
    apps/docs/contracts/carousel.json. */
 @layer lue.components {

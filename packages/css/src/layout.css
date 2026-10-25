@@ -1,4 +1,4 @@
-/* Layout primitives — Stack, Cluster, Grid, Sidebar, Switcher and Center. Intrinsic: each responds to the space its
+/* Layout primitives - Stack, Cluster, Grid, Sidebar, Switcher and Center. Intrinsic: each responds to the space its
    container gives it, with no media or container queries, so it works anywhere it's put. Gaps come from the space
    scale through data-gap; continuous measures are custom properties. Contract: apps/docs/contracts/layout.json. */
 @layer lue.layout {

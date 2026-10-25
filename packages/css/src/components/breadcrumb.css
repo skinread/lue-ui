@@ -1,4 +1,4 @@
-/* Breadcrumb — <nav class="lue-breadcrumb" aria-label="Breadcrumb"><ol>, the current page from aria-current="page".
+/* Breadcrumb - <nav class="lue-breadcrumb" aria-label="Breadcrumb"><ol>, the current page from aria-current="page".
    The separator is generated content with empty alt text, so screen readers don't read it. Contract:
    apps/docs/contracts/breadcrumb.json. */
 @layer lue.components {

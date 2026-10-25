@@ -28,7 +28,7 @@ them.
 
 ## The build fails when
 
-- a declared contrast pair (`$extensions.lue.pairs`) misses its minimum in any of the four theme contexts — raised to
+- a declared contrast pair (`$extensions.lue.pairs`) misses its minimum in any of the four theme contexts - raised to
   7:1 for text and 4.5:1 for boundaries in the `-more` contexts (`plugins/lue.js`, `lue-contrast`);
 - a token has no `$description`, or body text drops below 16 px (`lue-schema`);
 - `tokens.css` passes its size budget (`scripts/finish.js`);

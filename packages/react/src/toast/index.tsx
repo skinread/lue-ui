@@ -14,7 +14,7 @@ export interface ToastRegionProps extends HTMLAttributes<HTMLElement> {
 }
 
 /**
- * `<lue-toast-region>` — render it once, empty, near the end of the page, and mount `<LueElements/>`. The element owns
+ * `<lue-toast-region>` - render it once, empty, near the end of the page, and mount `<LueElements/>`. The element owns
  * everything inside it. Contract: apps/docs/contracts/toast.json.
  */
 export function ToastRegion(props: ToastRegionProps): ReactNode {

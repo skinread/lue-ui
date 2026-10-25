@@ -18,12 +18,12 @@ With Tailwind v4, add the bridge and put Lue in Tailwind's components layer so u
 @import "@lue-ui/css" layer(components);
 ```
 
-If your pipeline lowers CSS for older browsers (Next does by default), set a Baseline browserslist —
-`"browserslist": ["baseline newly available"]` — or it rewrites every colour token. The
+If your pipeline lowers CSS for older browsers (Next does by default), set a Baseline browserslist -
+`"browserslist": ["baseline newly available"]` - or it rewrites every colour token. The
 [consumer fixtures](../../fixtures/README.md) check these recipes on every push.
 
-Component files assume only the tokens (`tokens.css` also carries the theme compositions — filters, gradients, layered
-shadows — in `@layer lue.tokens`). Every built file starts with the full layer order, so the order you load files in
+Component files assume only the tokens (`tokens.css` also carries the theme compositions - filters, gradients, layered
+shadows - in `@layer lue.tokens`). Every built file starts with the full layer order, so the order you load files in
 never changes which rules win:
 
 ```css
@@ -32,7 +32,7 @@ never changes which rules win:
 
 ## Build
 
-`pnpm --filter @lue-ui/css build` — Lightning CSS with **no targets**, so nothing is lowered or rewritten
+`pnpm --filter @lue-ui/css build` - Lightning CSS with **no targets**, so nothing is lowered or rewritten
 ([ADR-0002](../../docs/architecture/adr/0002-native-css-core-tailwind-bridge.md)). It fails when a component passes
 1.5 KB Brotli or `lue.css` passes 30 KB.
 

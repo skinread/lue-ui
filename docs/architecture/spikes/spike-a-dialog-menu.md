@@ -12,7 +12,7 @@ commands, anchoring, Esc stacking, focus hand-off and the element ownership rule
 | Piece | Where |
 | --- | --- |
 | Menu keyboard model, as pure functions (arrows, Home/End, typeahead, Tab) | `packages/elements/src/menu/controller.ts` |
-| `<lue-menu>` — light DOM, listens and moves focus, writes nothing | `packages/elements/src/menu/lue-menu.ts` |
+| `<lue-menu>` - light DOM, listens and moves focus, writes nothing | `packages/elements/src/menu/lue-menu.ts` |
 | Dialog and menu CSS, with anchoring behind `@supports` | `packages/css/src/components/{dialog,menu}.css` |
 | React adapters: `Dialog` (controlled via `showModal()`), `DialogTrigger`, `Menu`, `MenuTrigger`, `MenuItem`, `LueElements`, `invoker()` | `packages/react/src/` |
 | One fixture as HTML and as React, and the behaviour scenario | `tests/spike-a/` |
@@ -64,10 +64,10 @@ Chromium 156 and WebKit 27.2** (46 runs).
 
 ## Follow-ups
 
-- ~~ArrowDown and ArrowUp on the menu button, opening at the first or last item~~ — done in `<lue-menu>` (2026-10-24).
-- ~~A controlled `Dialog` needs `onOpenChange` to stay in sync after Esc~~ — documented, and warned once in development
+- ~~ArrowDown and ArrowUp on the menu button, opening at the first or last item~~ - done in `<lue-menu>` (2026-10-24).
+- ~~A controlled `Dialog` needs `onOpenChange` to stay in sync after Esc~~ - documented, and warned once in development
   (Pass 3 components, 2026-10-24).
-- ~~Emulation rows from [ADR-0005](../adr/0005-three-engine-testing-and-a11y-gates.md)~~ — done in
+- ~~Emulation rows from [ADR-0005](../adr/0005-three-engine-testing-and-a11y-gates.md)~~ - done in
   [Spike B](spike-b-token-and-css-pipeline.md) (`tests/emulation/`), 2026-10-24.
 - A Chromium accessibility-tree check that the invoker exposes `aria-expanded` (ARIA snapshots can't prove it).
-- ~~Draft the Menu contract~~ — `apps/docs/contracts/menu.json` (2026-10-24).
+- ~~Draft the Menu contract~~ - `apps/docs/contracts/menu.json` (2026-10-24).

@@ -1,4 +1,4 @@
-/* Tag — <span class="lue-tag">, a glass pill in uppercase mono; removable with a .lue-tag__remove button inside.
+/* Tag - <span class="lue-tag">, a glass pill in uppercase mono; removable with a .lue-tag__remove button inside.
    Contract: apps/docs/contracts/tag.json. */
 @layer lue.components {
   .lue-tag { display: inline-flex; align-items: center; min-block-size: 30px; padding-inline: var(--lue-space-xs); border-radius: var(--lue-radius-full); background-color: var(--lue-material-glass-overlay); backdrop-filter: var(--lue-glass-filter); font: 500 0.75rem/1 var(--lue-font-family-mono); letter-spacing: 0.12em; text-transform: uppercase; }

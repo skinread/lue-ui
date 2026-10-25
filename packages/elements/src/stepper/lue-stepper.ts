@@ -1,5 +1,5 @@
 /**
- * `<lue-stepper>` — − and + buttons (`[data-lue-step="down"]`, `[data-lue-step="up"]`) for the number input inside
+ * `<lue-stepper>` - − and + buttons (`[data-lue-step="down"]`, `[data-lue-step="up"]`) for the number input inside
  * it: they call stepDown() and stepUp(), so min, max and step are the input's own, then fire input and change as
  * typing would. At a limit a button says so with aria-disabled (keeping its focus). The input keeps its native arrow
  * keys; the buttons stay hidden (CSS, `:not(:defined)`) until this element is defined.

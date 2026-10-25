@@ -1,4 +1,4 @@
-/* Field and TextInput — a label, an optional hint, an error message and one control. Contract:
+/* Field and TextInput - a label, an optional hint, an error message and one control. Contract:
    apps/docs/contracts/field.json. The error message is in the markup from the start, hidden and empty, and is
    referenced by the control's aria-describedby; the validate behaviour (or the React adapter) fills it and unhides it.
    Invalid state comes from aria-invalid, or from :user-invalid when nothing manages it. The surface and states below

@@ -3,7 +3,7 @@ import { menuAction, triggerAction, typeaheadMatch, TYPEAHEAD_TIMEOUT } from './
 const ITEM = '[role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]';
 
 /**
- * `<lue-menu popover role="menu">` — adds the APG menu keyboard model to a popover menu. Opening, closing, Escape,
+ * `<lue-menu popover role="menu">` - adds the APG menu keyboard model to a popover menu. Opening, closing, Escape,
  * light dismiss and top layer stay with the browser.
  *
  * Focus return is made explicit: when the menu closes with focus inside it, focus goes back to the button that
@@ -12,7 +12,7 @@ const ITEM = '[role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio
  *
  * ArrowDown and ArrowUp on its closed button open it at the first or last item (APG, optional keys).
  *
- * Element rules (ADR-0007): no DOM writes at all — it only listens and moves focus — so it never conflicts with
+ * Element rules (ADR-0007): no DOM writes at all - it only listens and moves focus - so it never conflicts with
  * framework-rendered markup. Items carry `tabindex="-1"` in the markup; this element doesn't manage it.
  */
 export class LueMenu extends HTMLElement {

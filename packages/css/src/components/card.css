@@ -1,4 +1,4 @@
-/* Card — <article class="lue-card">, overlay glass, optionally one link (.lue-card__link) that covers the whole card.
+/* Card - <article class="lue-card">, overlay glass, optionally one link (.lue-card__link) that covers the whole card.
    Contract: apps/docs/contracts/card.json. */
 @layer lue.components {
   .lue-card { padding: var(--lue-space-l); border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-raised), var(--lue-shadow-fringe); }

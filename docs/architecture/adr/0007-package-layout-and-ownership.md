@@ -1,6 +1,6 @@
 # ADR-0007: Package layout, versioning and element ↔ framework ownership
 
-- **Status:** Proposed — implemented in Pass 3, step 0
+- **Status:** Proposed - implemented in Pass 3, step 0
 - **Date:** 2026-10-05
 - **Principles:** 9 one core, many frameworks · 7 lean by default · 4 CSS is the API
 
@@ -47,7 +47,7 @@ lue-ui/
 ### Ownership rules (elements ↔ frameworks)
 
 1. Elements **never insert, move or remove nodes** inside framework-rendered subtrees.
-2. **No DOM writes in the constructor or `connectedCallback`** — listeners and ElementInternals only.
+2. **No DOM writes in the constructor or `connectedCallback`** - listeners and ElementInternals only.
 3. **Every attribute an element owns is declared in its contract;** frameworks render its initial value only.
 4. **DOM-changing behaviours act only on opt-in `data-lue-*` markup.** Adapters never emit those attributes; they
    implement the behaviour with state, reusing the element's pure controller.

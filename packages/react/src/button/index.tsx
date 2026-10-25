@@ -13,7 +13,7 @@ export interface ButtonProps extends ComponentPropsWithRef<'button'> {
 }
 
 /**
- * `<button class="lue-button">` — the same markup as the HTML core. `type` defaults to `"button"`; pass
+ * `<button class="lue-button">` - the same markup as the HTML core. `type` defaults to `"button"`; pass
  * `type="submit"` for a form's submit button. Contract: apps/docs/contracts/button.json.
  */
 export function Button({ variant, size, iconOnly, pressed, className, type = 'button', ...props }: ButtonProps): ReactNode {

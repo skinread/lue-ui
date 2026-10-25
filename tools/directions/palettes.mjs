@@ -312,7 +312,7 @@ export function evaluateLuminous(s) {
     worst(`chrome boundary on ${tier} glass`, chrome, glass, 3);
   }
 
-  // Glass buttons sit on system surfaces, ambient light or glass — never straight on photography (put them on a glass
+  // Glass buttons sit on system surfaces, ambient light or glass - never straight on photography (put them on a glass
   // panel there). Outside glass they blur their own backdrop; inside glass they don't (a glass parent is a backdrop
   // root), so both the raw and the filtered readings are checked.
   const B = X.buttons;

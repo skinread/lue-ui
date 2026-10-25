@@ -1,4 +1,4 @@
-/* Kbd — <kbd class="lue-kbd">, a key cap for keyboard input. Nest them for a combination: <kbd><kbd>Ctrl</kbd>+<kbd>K</kbd></kbd>.
+/* Kbd - <kbd class="lue-kbd">, a key cap for keyboard input. Nest them for a combination: <kbd><kbd>Ctrl</kbd>+<kbd>K</kbd></kbd>.
    Contract: apps/docs/contracts/kbd.json. */
 @layer lue.components {
   .lue-kbd {

@@ -1,7 +1,7 @@
-// lueJs — tokens.js and tokens.d.ts (RFC-0001 §1): every public token's name as a `var(--lue-…)` string, and its
+// lueJs - tokens.js and tokens.d.ts (RFC-0001 §1): every public token's name as a `var(--lue-…)` string, and its
 // literal value in each theme context (fluid sizes at their 1280 px maximum, rem as px), for scripts, tests and React.
 //
-// lueFigma — figma/<context>.tokens.json: one DTCG file per theme context, aliases resolved, for importing as Figma
+// lueFigma - figma/<context>.tokens.json: one DTCG file per theme context, aliases resolved, for importing as Figma
 // variable modes. Only the types Figma variables hold (colour, dimension, number, font family and weight, duration);
 // gradients, shadows and text styles stay in CSS.
 import { contexts, inputFor, literal, pxOf } from './lue.js';

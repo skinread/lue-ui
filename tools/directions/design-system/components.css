@@ -1,4 +1,4 @@
-/* Lue UI — component layer for the Claude Design System previews (Pass 2).
+/* Lue UI - component layer for the Claude Design System previews (Pass 2).
    Conventions from RFC-0001 §2: everything in @layer lue; one class of specificity, qualifiers and states in :where();
    variants as data-* attributes; state only from the platform; logical properties; no !important.
    Order inside each component: base → variants → states. Increased contrast and forced colours come last, in their

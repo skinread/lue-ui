@@ -12,7 +12,7 @@ export interface DisclosureProps extends Omit<ComponentPropsWithRef<'details'>, 
 }
 
 /**
- * `<details class="lue-disclosure">` — a summary that shows and hides its content, with no script.
+ * `<details class="lue-disclosure">` - a summary that shows and hides its content, with no script.
  * Contract: apps/docs/contracts/disclosure.json.
  */
 export function Disclosure({ summary, defaultOpen, className, name, children, ...props }: DisclosureProps): ReactNode {

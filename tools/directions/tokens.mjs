@@ -58,7 +58,7 @@ function shadows(css) {
 // ---------------------------------------------------------------- semantic colour
 const COLOR_USE = {
   'bg-canvas': 'Page background.',
-  'bg-surface': 'Opaque cards, menus, dialogs and popovers — and the fallback for every glass surface.',
+  'bg-surface': 'Opaque cards, menus, dialogs and popovers - and the fallback for every glass surface.',
   'bg-surface-subtle': 'Wells, input fills and table stripes.',
   'fg-default': 'Body text and icons on canvas, surfaces, glass and satin.',
   'fg-muted': 'Secondary text and hints.',

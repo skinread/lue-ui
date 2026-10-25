@@ -1,4 +1,4 @@
-/* Table — <table class="lue-table"> with a <caption>, inside a scrollable <section class="lue-table-wrap"> (a region
+/* Table - <table class="lue-table"> with a <caption>, inside a scrollable <section class="lue-table-wrap"> (a region
    named by the caption, tabindex="0" so keyboard users can scroll it). Numbers align to the end with data-numeric. Contract:
    apps/docs/contracts/table.json. */
 @layer lue.components {

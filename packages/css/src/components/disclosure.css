@@ -1,4 +1,4 @@
-/* Disclosure and Accordion — <details class="lue-disclosure"> with a chrome rule underneath. An accordion is a
+/* Disclosure and Accordion - <details class="lue-disclosure"> with a chrome rule underneath. An accordion is a
    .lue-accordion group of disclosures sharing a name, so opening one closes the others (native). Contracts:
    apps/docs/contracts/disclosure.json, accordion.json. */
 @layer lue.components {

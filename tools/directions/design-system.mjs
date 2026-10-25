@@ -152,7 +152,7 @@ const themeBlock = (s) => {
   };
   return Object.entries(lines).map(([k, val]) => `    ${k}: ${val};`).join('\n');
 };
-const header = `/* Lue UI — generated from packages/tokens/src by tools/directions/design-system.mjs. Do not edit; edit the tokens. */
+const header = `/* Lue UI - generated from packages/tokens/src by tools/directions/design-system.mjs. Do not edit; edit the tokens. */
 @layer lue {
   @layer tokens, base, components, blocks, materials, contrast;
 }
@@ -208,7 +208,7 @@ const cover = `<!-- @dsCard height=288 -->
 <div class="art" aria-hidden="true">
 <svg viewBox="0 0 480 288" width="480" height="288">
 <!--
-  blocks      fg-default (pearl on obsidian, obsidian on pearl) 72×400 · prism-fill-1 aqua 54×340 · prism-fill-5 orchid 36×300 · prism-fill-4 rose 36×180 — about a third of 960×288
+  blocks      fg-default (pearl on obsidian, obsidian on pearl) 72×400 · prism-fill-1 aqua 54×340 · prism-fill-5 orchid 36×300 · prism-fill-4 rose 36×180 - about a third of 960×288
   arrangement a staggered stack of pills bleeding off the right edge, like bands of light leaving a prism; tops on space-s steps
   pattern     pills, from "pills for buttons, tags and toasts" (radius-full) and colour-as-light: a row of fourteen space-2xs light dots in prism-fill-3 at a space-s pitch under the stack
   scales      heights space-2xl / space-xl / space-l; gaps space-s (18); pitch space-s; pills rx = half the short side
@@ -241,7 +241,7 @@ for (const c of COMPONENTS) {
 }
 for (const f of fs.readdirSync(path.join(DS, 'fonts'))) write(`fonts/${f}`, fs.readFileSync(path.join(DS, 'fonts', f)));
 const icons = fs.readdirSync(path.join(DS, 'icons')).filter((f) => f.endsWith('.svg')).sort();
-write('assets/Icons/README.md', `# Icons\n\nPhosphor (MIT, © 2023 Phosphor Icons — see LICENSE.txt), regular weight, on a 256-unit grid. Each is a single-ink SVG filled with \`currentColor\`: inline it in markup with \`class="lue-icon"\` so it takes the text colour (as an \`<img>\` it renders black). Size with the text (1.25 em); \`aria-hidden="true"\` unless it is the only label, then give the control an \`aria-label\`. Arrows mirror in right-to-left layouts (\`data-mirror\`).\n\n${icons.map((f) => `- \`${f}\``).join('\n')}\n`);
+write('assets/Icons/README.md', `# Icons\n\nPhosphor (MIT, © 2023 Phosphor Icons - see LICENSE.txt), regular weight, on a 256-unit grid. Each is a single-ink SVG filled with \`currentColor\`: inline it in markup with \`class="lue-icon"\` so it takes the text colour (as an \`<img>\` it renders black). Size with the text (1.25 em); \`aria-hidden="true"\` unless it is the only label, then give the control an \`aria-label\`. Arrows mirror in right-to-left layouts (\`data-mirror\`).\n\n${icons.map((f) => `- \`${f}\``).join('\n')}\n`);
 write('assets/Icons/LICENSE.txt', fs.readFileSync(path.join(DS, 'icons', 'LICENSE.txt')));
 write('components/Cover/preview.html', cover);
 

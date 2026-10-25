@@ -2,7 +2,7 @@
   "name": "@lue-ui/tokens",
   "version": "0.0.0",
   "private": true,
-  "description": "Lue UI design tokens — DTCG 2025.10 source and built CSS",
+  "description": "Lue UI design tokens - DTCG 2025.10 source and built CSS",
   "license": "MIT",
   "type": "module",
   "sideEffects": [

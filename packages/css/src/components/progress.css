@@ -1,4 +1,4 @@
-/* Progress and Meter — native <progress class="lue-progress"> (a task's completion; no value = indeterminate) and
+/* Progress and Meter - native <progress class="lue-progress"> (a task's completion; no value = indeterminate) and
    <meter class="lue-meter"> (a measurement in a known range, coloured by its low/high/optimum). Both are labelable:
    give each a <label for>. Drawn through the engines' own parts, the only way to style them. Contract:
    apps/docs/contracts/progress.json. */

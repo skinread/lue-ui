@@ -6,52 +6,52 @@
 
 ## How to read the inventory
 
-- **Primitive** — the native element or attribute the component is built on.
-- **Pattern** — the WAI-ARIA Authoring Practices pattern it follows ("—" when native semantics are the whole story).
-- **JS** — `none` (works with HTML + CSS alone), `opt-in` (a delegated `data-lue-*` behaviour for the HTML path; React
+- **Primitive** - the native element or attribute the component is built on.
+- **Pattern** - the WAI-ARIA Authoring Practices pattern it follows ("-" when native semantics are the whole story).
+- **JS** - `none` (works with HTML + CSS alone), `opt-in` (a delegated `data-lue-*` behaviour for the HTML path; React
   uses state), `element` (a light-DOM custom element). No polyfills ship ([ADR-0004](../architecture/adr/0004-support-floors.md)).
-- **Depends on / fallback** — the Baseline features it relies on, and what happens without anything newer.
+- **Depends on / fallback** - the Baseline features it relies on, and what happens without anything newer.
 
 Of the 22 Tier 1 components, **18 need no JavaScript in current engines** (on Safari older than 26.2, HTML-path buttons
-that open a Dialog or Drawer do nothing — ADR-0004), 2 use an opt-in behaviour, and 2 use a custom element.
+that open a Dialog or Drawer do nothing - ADR-0004), 2 use an opt-in behaviour, and 2 use a custom element.
 
-## Tier 0 — Foundations
+## Tier 0 - Foundations
 
 | Item | Notes |
 | --- | --- |
 | Tokens | [Token specification](./tokens.md) |
 | Reset and base | Opt-in `reset.css` / `base.css`: element typography, links, `:focus-visible`, `::selection`, `[hidden]`, `scroll-padding` for sticky UI (WCAG 2.4.11) |
 | Visually hidden | `.lue-visually-hidden` (and a focusable variant for skip links) |
-| Skip link | `<a class="lue-skip-link" href="#main">` — first focusable element |
+| Skip link | `<a class="lue-skip-link" href="#main">` - first focusable element |
 | Icon | Inline SVG, `aria-hidden="true"` by default, `currentColor`, sized in `cap`/`em`; direction-implying icons carry `data-mirror` |
 | Layout primitives | CSS-only, container-query aware: Stack, Cluster, Grid, Sidebar, Switcher, Center |
 
-## Tier 1 — the first release
+## Tier 1 - the first release
 
 | Component | Primitive | Pattern | JS | Depends on / fallback |
 | --- | --- | --- | --- | --- |
-| Button | `<button type="button">` | Button | none | — |
-| Toggle button | `<button aria-pressed>` | Button (toggle) | opt-in `data-lue-toggle` | — |
-| Link | `<a href>` | — | none | — |
-| Field | `<label>`, hint `<p>`, error `<p>`, `aria-describedby`, `aria-invalid` | — | none | Errors rendered by the server work without JS |
-| Text input | `<input>` (correct `type`, `autocomplete`, `inputmode`) | — | none | `:user-invalid`; `field-sizing` where useful |
-| Textarea | `<textarea>` | — | none | `field-sizing: content` with min/max rows |
+| Button | `<button type="button">` | Button | none | - |
+| Toggle button | `<button aria-pressed>` | Button (toggle) | opt-in `data-lue-toggle` | - |
+| Link | `<a href>` | - | none | - |
+| Field | `<label>`, hint `<p>`, error `<p>`, `aria-describedby`, `aria-invalid` | - | none | Errors rendered by the server work without JS |
+| Text input | `<input>` (correct `type`, `autocomplete`, `inputmode`) | - | none | `:user-invalid`; `field-sizing` where useful |
+| Textarea | `<textarea>` | - | none | `field-sizing: content` with min/max rows |
 | Checkbox | `<input type="checkbox">` | Checkbox | none | Custom drawing via `appearance: none`, keeps native semantics |
-| Radio group | `<fieldset>` + `<legend>` + `<input type="radio">` | Radio group (native arrow keys) | none | — |
+| Radio group | `<fieldset>` + `<legend>` + `<input type="radio">` | Radio group (native arrow keys) | none | - |
 | Switch | `<input type="checkbox" role="switch">` | Switch | none | Safari's `switch` attribute as PE |
-| Select | `<select>` | — (native) | none | `appearance: base-select` as PE → styled native select |
-| Form validation + error summary | Constraint validation, `<form data-lue-validate>` | — | opt-in `data-lue-validate` | Without JS: browser messages + server-rendered summary |
+| Select | `<select>` | - (native) | none | `appearance: base-select` as PE → styled native select |
+| Form validation + error summary | Constraint validation, `<form data-lue-validate>` | - | opt-in `data-lue-validate` | Without JS: browser messages + server-rendered summary |
 | Dialog | `<dialog>` + `command="show-modal"` + `closedby="any"`; close with `<form method="dialog">` | Dialog (modal) | none | `closedby` is an enhancement (Safari: Esc and buttons close it). Safari < 26.2: `command` buttons are inert in the HTML path |
 | Drawer | `<dialog>` positioned to an inline/block edge | Dialog (modal) | none | As Dialog |
 | Popover | `[popover]` + `popovertarget`, anchor positioning | Disclosure (non-modal) | none | Without anchoring: browser-centred popover |
 | Menu button | `[popover]` with `role="menu"`, anchored | Menu button | element `<lue-menu>` | Keyboard model needs the element; opening works without it |
-| Toggletip | `<span popover="auto">` after its button | — (click-to-show help) | none | Not `hint` (changed 2026-10-24): an unsupported value falls back to `manual`, losing Esc and light dismiss |
+| Toggletip | `<span popover="auto">` after its button | - (click-to-show help) | none | Not `hint` (changed 2026-10-24): an unsupported value falls back to `manual`, losing Esc and light dismiss |
 | Disclosure | `<details>` / `<summary>` | Disclosure | none | `::details-content` animation as PE |
 | Accordion | `<details name>` group | Accordion | none | Exclusive open state is native |
-| Alert / callout | Static `<div>`, or `role="status"`/`role="alert"` when injected; the tone is said in words | — | none | Not `<aside>` (changed 2026-10-24): inside `<main>` each would be a complementary landmark, and it can't take `role="status"` |
-| Toast | `popover="manual"` region | — (status messages, WCAG 4.1.3) | element `<lue-toast-region>` | `ariaNotify()` → live-region fallback |
-| Icon | Inline SVG | — | none | — |
-| Layout primitives | CSS | — | none | Container queries |
+| Alert / callout | Static `<div>`, or `role="status"`/`role="alert"` when injected; the tone is said in words | - | none | Not `<aside>` (changed 2026-10-24): inside `<main>` each would be a complementary landmark, and it can't take `role="status"` |
+| Toast | `popover="manual"` region | - (status messages, WCAG 4.1.3) | element `<lue-toast-region>` | `ariaNotify()` → live-region fallback |
+| Icon | Inline SVG | - | none | - |
+| Layout primitives | CSS | - | none | Container queries |
 
 ## Tier 2
 
@@ -59,24 +59,24 @@ that open a Dialog or Drawer do nothing — ADR-0004), 2 use an opt-in behaviour
 | --- | --- | --- | --- |
 | Tabs | `<lue-tabs>` enhancing a `<nav>` of in-page links + panels (changed 2026-10-24: links work without script) | Tabs | element |
 | Toolbar | `role="toolbar"` + `<lue-roving>` | Toolbar | element (deleted when `focusgroup` is Baseline) |
-| Tooltip (hover/focus) | `[popover]` + `data-lue-tooltip` | Tooltip | opt-in (Esc to dismiss, hover persistence — WCAG 1.4.13) |
+| Tooltip (hover/focus) | `[popover]` + `data-lue-tooltip` | Tooltip | opt-in (Esc to dismiss, hover persistence - WCAG 1.4.13) |
 | Segmented control | Radio group, styled | Radio group | none |
 | Breadcrumb | `<nav aria-label>` + `<ol>` + `aria-current="page"` | Breadcrumb | none |
-| Pagination | `<nav>` + links + `aria-current="page"` | — | none |
-| Badge / tag | `<span>`; removable tag = button with a label | — | none |
-| Card | `<article>` / `<section>`; whole-card link via a stretched pseudo-element | — | none |
-| Progress / meter | `<progress>` / `<meter>` | — | none |
-| Spinner / skeleton | `aria-busy` on the region + status text | — | none |
-| Avatar | `<img alt>` with initials fallback | — | none |
-| Table | `<table>` + `<caption>`, container-aware overflow | — | none |
+| Pagination | `<nav>` + links + `aria-current="page"` | - | none |
+| Badge / tag | `<span>`; removable tag = button with a label | - | none |
+| Card | `<article>` / `<section>`; whole-card link via a stretched pseudo-element | - | none |
+| Progress / meter | `<progress>` / `<meter>` | - | none |
+| Spinner / skeleton | `aria-busy` on the region + status text | - | none |
+| Avatar | `<img alt>` with initials fallback | - | none |
+| Table | `<table>` + `<caption>`, container-aware overflow | - | none |
 | Carousel | scroll-snap track + previous/next buttons, no auto-rotation (so no pause); `::scroll-marker` as PE | Carousel | element `<lue-carousel>` (changed 2026-10-24: hides its buttons until defined) |
-| Search | `<search>` + `<input type="search">` | — | none |
+| Search | `<search>` + `<input type="search">` | - | none |
 | Rating | display: text equivalent ("4.5 out of 5"); input: radio group | Radio group | none |
-| Swatch picker | Radio group with visible names — never colour alone | Radio group | none |
+| Swatch picker | Radio group with visible names - never colour alone | Radio group | none |
 | Quantity stepper | `<input type="number">` + − / + buttons calling `stepUp()`/`stepDown()` | Spinbutton (native) | element `<lue-stepper>` (changed 2026-10-24: hides its buttons until defined) |
-| Divider · kbd | `<hr>` · `<kbd>` | — | none |
+| Divider · kbd | `<hr>` · `<kbd>` | - | none |
 
-## Tier 3 — later
+## Tier 3 - later
 
 | Component | Plan |
 | --- | --- |
@@ -89,7 +89,7 @@ that open a Dialog or Drawer do nothing — ADR-0004), 2 use an opt-in behaviour
 | Tree | `<lue-tree>` (APG tree view) |
 | Steps | `<ol>` + `aria-current="step"` |
 
-## Content blocks — portfolio and editorial (Pass 2)
+## Content blocks - portfolio and editorial (Pass 2)
 
 Added 2026-10-05, when the user moved the focus from commerce to portfolio and blog sites. Blocks are **compositions**
 of the components above, shipped as documented HTML recipes first (React adapters render the same markup). Each is
@@ -98,24 +98,24 @@ drawn on the C2 canvas.
 | Block | Structure | Pattern | JS | Depends on / fallback |
 | --- | --- | --- | --- | --- |
 | Site header | `<header>` + `<nav aria-label="Main">` + list of links, `aria-current="page"` | Disclosure navigation on small screens | none | Sticky glass bar; `scroll-padding-top` keeps focused targets clear of it (WCAG 2.4.11); opaque without `backdrop-filter` |
-| Hero — statement | `<section aria-labelledby>`: kicker, `<h1>`, lede, up to two actions | — | none | Satin background is decorative (`aria-hidden` SVG); text contrast is checked against its lightest and darkest folds; flat canvas fallback |
-| Hero — split | Statement hero + `<figure>` (`<img alt>`, or decorative media with empty `alt`) | — | none | Stacks through a container query |
-| Hero — article | `<header>` inside `<article>`: kicker, `<h1>`, dek, byline with `<time datetime>` | — | none | — |
-| Feature grid | `<ul>` of items: icon tile (decorative), `<h3>`, `<p>` | — | none | `repeat(auto-fit, minmax(min(…, 100%), 1fr))` |
+| Hero - statement | `<section aria-labelledby>`: kicker, `<h1>`, lede, up to two actions | - | none | Satin background is decorative (`aria-hidden` SVG); text contrast is checked against its lightest and darkest folds; flat canvas fallback |
+| Hero - split | Statement hero + `<figure>` (`<img alt>`, or decorative media with empty `alt`) | - | none | Stacks through a container query |
+| Hero - article | `<header>` inside `<article>`: kicker, `<h1>`, dek, byline with `<time datetime>` | - | none | - |
+| Feature grid | `<ul>` of items: icon tile (decorative), `<h3>`, `<p>` | - | none | `repeat(auto-fit, minmax(min(…, 100%), 1fr))` |
 | Project card | `<article>`: `<h3><a>` stretched over the card, media, tag list | Card (Tier 2) | none | One link per card; tags stay outside the stretched link's text |
-| Post list item | `<article>`: kicker, `<h3><a>`, excerpt, `<time datetime>` | — | none | — |
-| Quote | `<figure>` + `<blockquote>` + `<figcaption>` | — | none | — |
-| Pull quote | `<aside aria-hidden="true">` repeating a line from the body | — | none | Hidden from assistive tech because the line is already read in the body |
-| Media + text | `<section>` + `<figure>` + text column | — | none | Container query stacks it |
-| Timeline | `<ol>` of `<li>` with `<time datetime>` | — | none | — |
-| Table of contents | `<nav aria-label="On this page">` + `<ol>` of in-page links | — | none | Current-section highlight via scroll-state queries as PE |
-| Code block | `<figure>` + `<pre tabindex="0"><code>` + caption naming the language | — | none (copy button opt-in) | `tabindex="0"` so a scrolling block is reachable by keyboard (WCAG 2.1.1) |
-| Figure | `<figure>` + `<img alt>` + `<figcaption>` | — | none | — |
-| Author card | `<aside aria-label="About the author">`: avatar, name, short bio, links | — | none | Avatar from Tier 2 |
-| Newsletter / CTA band | `<section>` + `<form>`: label, email input, button | — | none | Field + validation from Tier 1 |
+| Post list item | `<article>`: kicker, `<h3><a>`, excerpt, `<time datetime>` | - | none | - |
+| Quote | `<figure>` + `<blockquote>` + `<figcaption>` | - | none | - |
+| Pull quote | `<aside aria-hidden="true">` repeating a line from the body | - | none | Hidden from assistive tech because the line is already read in the body |
+| Media + text | `<section>` + `<figure>` + text column | - | none | Container query stacks it |
+| Timeline | `<ol>` of `<li>` with `<time datetime>` | - | none | - |
+| Table of contents | `<nav aria-label="On this page">` + `<ol>` of in-page links | - | none | Current-section highlight via scroll-state queries as PE |
+| Code block | `<figure>` + `<pre tabindex="0"><code>` + caption naming the language | - | none (copy button opt-in) | `tabindex="0"` so a scrolling block is reachable by keyboard (WCAG 2.1.1) |
+| Figure | `<figure>` + `<img alt>` + `<figcaption>` | - | none | - |
+| Author card | `<aside aria-label="About the author">`: avatar, name, short bio, links | - | none | Avatar from Tier 2 |
+| Newsletter / CTA band | `<section>` + `<form>`: label, email input, button | - | none | Field + validation from Tier 1 |
 | Tag filter | Group of toggle buttons (`aria-pressed`), or links when filtering is a navigation | Button (toggle) | opt-in | Without JS: links to filtered URLs |
-| Site footer | `<footer>` + `<nav aria-label="Footer">` | — | none | — |
-| Icon tile | Decorative `<span>` with inline SVG, `aria-hidden="true"`; meaning lives in the adjacent text | — | none | Forced colours: the tile drops its material and keeps a border |
+| Site footer | `<footer>` + `<nav aria-label="Footer">` | - | none | - |
+| Icon tile | Decorative `<span>` with inline SVG, `aria-hidden="true"`; meaning lives in the adjacent text | - | none | Forced colours: the tile drops its material and keeps a border |
 
 ## Contract format
 
@@ -239,7 +239,7 @@ component without tests and stories. The table below is the original draft; the 
   "platform": {
     "baseline": ["dialog", "showModal", "invoker commands", "@starting-style", "transition-behavior: allow-discrete"],
     "enhancements": [{ "feature": "closedby", "fallback": "No light dismiss; Esc and the dialog's buttons close it (Safari)" }],
-    "knownGaps": [{ "where": "Safari < 26.2, HTML path", "gap": "command buttons do nothing", "policy": "ADR-0004 — no polyfill" }]
+    "knownGaps": [{ "where": "Safari < 26.2, HTML path", "gap": "command buttons do nothing", "policy": "ADR-0004 - no polyfill" }]
   },
   "forcedColors": "Canvas / CanvasText with a visible border; ::backdrop stays transparent-dark",
   "rules": [

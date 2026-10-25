@@ -14,7 +14,7 @@ export interface ChoiceGroupProps extends Omit<ComponentPropsWithRef<'fieldset'>
 }
 
 /**
- * `<fieldset class="lue-fieldset">` — a legend, an optional hint, an error message and a set of checkboxes or radios.
+ * `<fieldset class="lue-fieldset">` - a legend, an optional hint, an error message and a set of checkboxes or radios.
  * The hint and error describe the whole group. Contracts: apps/docs/contracts/checkbox.json, radio-group.json.
  */
 export function ChoiceGroup({ legend, hint, error, children, className, id, ...props }: ChoiceGroupProps): ReactNode {

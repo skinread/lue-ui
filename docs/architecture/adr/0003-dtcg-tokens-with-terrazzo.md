@@ -1,6 +1,6 @@
 # ADR-0003: DTCG 2025.10 tokens, built with Terrazzo
 
-- **Status:** Accepted — tool choice confirmed by [Spike B](../spikes/spike-b-token-and-css-pipeline.md) on 2026-10-24
+- **Status:** Accepted - tool choice confirmed by [Spike B](../spikes/spike-b-token-and-css-pipeline.md) on 2026-10-24
 - **Date:** 2026-10-05
 - **Principles:** 1 accessible by construction · 3 standards over invention · 10 legible to humans and agents
 
@@ -9,7 +9,7 @@
 The predecessor stored hex colours in JavaScript objects duplicated in three places, with no tiers and no contrast
 checks. The DTCG format reached its first stable version (2025.10) with Format, Color and Resolver modules. We need
 one source that produces CSS for every theming context, a Tailwind bridge, the list-shaped `tokens.json` that the
-Claude Design system reads, and Figma-ready files — and we need every colour pair contrast-tested.
+Claude Design system reads, and Figma-ready files - and we need every colour pair contrast-tested.
 
 ## Decision
 

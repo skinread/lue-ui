@@ -1,4 +1,4 @@
-/* Tabs — <lue-tabs class="lue-tabs">: a named <nav class="lue-tabs__list"> of links to .lue-tabs__panel sections. With the element, the
+/* Tabs - <lue-tabs class="lue-tabs">: a named <nav class="lue-tabs__list"> of links to .lue-tabs__panel sections. With the element, the
    links are tabs and one panel shows; without it, a list of links to every section. Contract:
    apps/docs/contracts/tabs.json. */
 @layer lue.components {

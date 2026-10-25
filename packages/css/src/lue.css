@@ -1,4 +1,4 @@
-/* Lue UI — everything in @layer lue. Import @lue-ui/tokens/tokens.css first (or alongside); this file assumes only
+/* Lue UI - everything in @layer lue. Import @lue-ui/tokens/tokens.css first (or alongside); this file assumes only
    tokens. base.css is included here and is also available on its own. The layer statement (also in tokens.css) has to
    come before the imports. */
 @layer lue.reset, lue.tokens, lue.base, lue.layout, lue.components, lue.blocks, lue.materials, lue.contrast, lue.utilities;

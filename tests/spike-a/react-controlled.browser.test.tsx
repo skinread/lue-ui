@@ -1,4 +1,4 @@
-// Spike A, React path: a dialog opened from state calls showModal() — never React's `open` prop — so it works
+// Spike A, React path: a dialog opened from state calls showModal() - never React's `open` prop - so it works
 // without invoker commands (Safari < 26.2, ADR-0004).
 import { useState, type ReactNode } from 'react';
 import { describe, expect, it } from 'vitest';

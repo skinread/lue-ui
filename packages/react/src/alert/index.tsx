@@ -19,7 +19,7 @@ export interface AlertProps extends Omit<ComponentPropsWithRef<'div'>, 'title' |
 }
 
 /**
- * `<div class="lue-alert">` — an icon, a title and a body on a tinted surface. Not an `<aside>`: inside `<main>`
+ * `<div class="lue-alert">` - an icon, a title and a body on a tinted surface. Not an `<aside>`: inside `<main>`
  * that's a landmark, and it can't take role="status". Contract: apps/docs/contracts/alert.json.
  */
 export function Alert({ tone, title, icon, toneLabel, live, className, children, ...props }: AlertProps): ReactNode {

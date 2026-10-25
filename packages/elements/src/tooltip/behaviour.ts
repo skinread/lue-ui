@@ -1,5 +1,5 @@
 /**
- * `[data-lue-tooltip="id"]` — the HTML path's tooltip (WCAG 1.4.13): the popover="manual" element with that id shows
+ * `[data-lue-tooltip="id"]` - the HTML path's tooltip (WCAG 1.4.13): the popover="manual" element with that id shows
  * after a short hover or at once on keyboard focus, stays while the pointer moves onto it, hides when the pointer and
  * focus leave, and Escape hides it without moving focus. The trigger names it in aria-describedby, so the text is read
  * with or without this script. Touch doesn't show tooltips: anything a user needs belongs in a Toggletip.

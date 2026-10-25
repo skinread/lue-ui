@@ -25,7 +25,7 @@ interface Entry {
 }
 
 /**
- * `<lue-toast-region>` — short status messages (WCAG 4.1.3). `region.show(message, options)` announces the message
+ * `<lue-toast-region>` - short status messages (WCAG 4.1.3). `region.show(message, options)` announces the message
  * and shows it at the viewport's block-end corner; it leaves after its duration, paused while the pointer is over the
  * toasts or focus is inside them. Escape dismisses the focused toast; focus then goes back where it came from. At most
  * three show at once; the rest wait.

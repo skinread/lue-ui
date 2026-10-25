@@ -2,7 +2,7 @@
   "name": "@lue-ui/docs",
   "private": true,
   "type": "module",
-  "description": "Lue UI documentation — Storybook 10 (react-vite)",
+  "description": "Lue UI documentation - Storybook 10 (react-vite)",
   "scripts": {
     "dev": "storybook dev -p 6006",
     "build": "node ../../tools/build-ai-docs.mjs && storybook build -o storybook-static"

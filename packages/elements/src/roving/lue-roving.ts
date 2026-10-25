@@ -4,7 +4,7 @@ const ITEM = 'button, a[href], input, select, textarea, [data-lue-roving-item]';
 const TEXT = 'input:not([type="checkbox"], [type="radio"], [type="button"], [type="submit"], [type="reset"]), textarea, select';
 
 /**
- * `<lue-roving role="toolbar">` — one Tab stop for a group of controls: Tab enters at the last one used, arrow keys
+ * `<lue-roving role="toolbar">` - one Tab stop for a group of controls: Tab enters at the last one used, arrow keys
  * move between them (Left/Right, or Up/Down with aria-orientation="vertical"; mirrored in right-to-left text), Home and
  * End go to the ends. Arrows inside a text field stay with the field. Deleted when `focusgroup` is Baseline.
  *

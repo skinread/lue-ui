@@ -10,9 +10,9 @@ Output goes to `out/` (gitignored).
 | --- | --- | --- |
 | `contrast.mjs` | OKLCH → sRGB (gamut-mapped) → WCAG 2.x ratio, plus APCA Lc (advisory). Run directly, it prints the lightness bands used in [tokens.md](../../docs/design/tokens.md#contrast-by-construction) | `node contrast.mjs` |
 | `palettes.mjs` | The seeded palettes (4 directions × light/dark), the 12 pair rules (36 checks per scheme, raised minimums in C2's `-more` contexts), and Luminous's prism, chrome, glass, glass-button, ambient-light, satin and metal rules (36 per scheme). Prints pass/fail and the tightest margin; `--all` lists every Luminous rule | `node palettes.mjs` |
-| `report.mjs` | Writes `out/palette-values.json` and `out/palette-report.md` — the brief's appendix, already in `<details>` blocks | `node report.mjs` |
-| `luminous-canvas.mjs` | Luminous's per-scheme custom properties, its CSS (chrome ring, glass, prism slide, sparks, fallbacks) and its extra Foundations sections. Imported by `build-canvas.mjs` | — |
-| `luminous-pages.mjs` | Luminous's materials (satin folds, glass prism and orb, metal icon tiles, media art) and its fluid boards: block library, portfolio home, journal article | — |
+| `report.mjs` | Writes `out/palette-values.json` and `out/palette-report.md` - the brief's appendix, already in `<details>` blocks | `node report.mjs` |
+| `luminous-canvas.mjs` | Luminous's per-scheme custom properties, its CSS (chrome ring, glass, prism slide, sparks, fallbacks) and its extra Foundations sections. Imported by `build-canvas.mjs` | - |
+| `luminous-pages.mjs` | Luminous's materials (satin folds, glass prism and orb, metal icon tiles, media art) and its fluid boards: block library, portfolio home, journal article | - |
 | `build-canvas.mjs` | Generates C2's six artboards and `canvas.json` into `out/canvas/project/`. Phase 1's cover and its Loom, Instrument and Chroma rows were removed on 2026-10-11; check out commit `18ec453` to regenerate them | `node build-canvas.mjs` |
 | `tokens.mjs` | **Retired 2026-10-24** (Spike B). Wrote the DTCG token source; `packages/tokens/src` is now hand-edited and built by Terrazzo. It refuses to write there, but can still write elsewhere for comparison | `node tokens.mjs <folder>` |
 | `design-system.mjs` | Builds the **private** Claude Design System into `out/design-system/project/`: `tokens.json` (list shape) from `packages/tokens/src`, `components/bundle.css` (a generated per-theme header + `design-system/components.css`), the brand book (`design-system/README.md`), 44 component cards and previews (`design-system/components.mjs`), the cover, fonts and the icon records (`design-system/icon-uploads.json`) | `node design-system.mjs --uploads design-system/icon-uploads.json --created 2026-10-10T…` |
@@ -33,7 +33,7 @@ Output goes to `out/` (gitignored).
 
 ## Republishing the canvas
 
-Canvas: <https://claude.ai/artifact/9DKJGmK7kPdEt2giN4qDgP> — a Claude Design "Design" artifact, private until its owner
+Canvas: <https://claude.ai/artifact/9DKJGmK7kPdEt2giN4qDgP> - a Claude Design "Design" artifact, private until its owner
 shares it.
 
 1. **Read it first** (Artifact `read` with the url). A publish to an artifact the conversation hasn't read is refused,
@@ -66,17 +66,17 @@ shares it.
   article, checkout). Every board and title note carries its `page`. The `phase-1` page was removed on 2026-10-11 by
   publishing `null` for its ten files and dropping its page, boards and notes from `canvas.json`.
 - Portfolio, journal and block boards are **fluid** (`expand: "fill"`, no root width, `$preview` 1440 wide) and reflow
-  to one column. Their heights are estimates (Blocks 8000 — set on the canvas by the user, Portfolio 5400, Article 6600) — raise them if clipped.
+  to one column. Their heights are estimates (Blocks 8000 - set on the canvas by the user, Portfolio 5400, Article 6600) - raise them if clipped.
 - SVG gradients, masks and filters use IDs from one counter per build, so they stay unique across boards. Use
-  `gradientUnits="userSpaceOnUse"` on stroked icons — a straight line has a zero-height bounding box and an
+  `gradientUnits="userSpaceOnUse"` on stroked icons - a straight line has a zero-height bounding box and an
   object-bounding-box gradient won't paint it.
-- A registered `@property` that a `::before` must read needs `inherits: true` — pseudo-elements don't inherit
+- A registered `@property` that a `::before` must read needs `inherits: true` - pseudo-elements don't inherit
   non-inherited properties from their host.
 - The Design type asks agents not to screenshot or re-verify a canvas unless the user asks.
 
 ## The Claude Design System (private)
 
-<https://claude.ai/artifact/Er8XMd9VquWgK1q1ZrdCWe> — **never share it within the organisation or make it public**
+<https://claude.ai/artifact/Er8XMd9VquWgK1q1ZrdCWe> - **never share it within the organisation or make it public**
 (the user's rule). It is built from this repository; edit the sources, not the artifact's files.
 
 1. **Read it first** (Artifact `read` of `project/design-system.json` and any file you'll change): people can edit it

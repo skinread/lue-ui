@@ -1,4 +1,4 @@
-/* Link — <a class="lue-link" href>. Underlined always, in running text and alone; the underline thickens on hover.
+/* Link - <a class="lue-link" href>. Underlined always, in running text and alone; the underline thickens on hover.
    Base styles cover a plain <a> in prose; the class is for links outside it. Contract: apps/docs/contracts/link.json. */
 @layer lue.components {
   .lue-link {

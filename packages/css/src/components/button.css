@@ -1,4 +1,4 @@
-/* Button — <button type="button" class="lue-button">. Contract: apps/docs/contracts/button.json.
+/* Button - <button type="button" class="lue-button">. Contract: apps/docs/contracts/button.json.
    Variants: data-variant (primary, danger, quiet; neutral without it), data-size (sm, lg), data-icon-only.
    State comes from the platform only: :hover, :active, :focus-visible, :disabled, [aria-disabled], [aria-pressed].
    The chrome ring is the shared ::before from chrome.css; its angle is set on the ring itself, literally. */

@@ -1,7 +1,7 @@
 import { rovingIndex } from '../roving/controller.js';
 
 /**
- * `<lue-tabs>` — turns a named `<nav>` of in-page links (`.lue-tabs__list`) and the sections they point to into tabs (WAI-ARIA
+ * `<lue-tabs>` - turns a named `<nav>` of in-page links (`.lue-tabs__list`) and the sections they point to into tabs (WAI-ARIA
  * APG, automatic activation): arrow keys move between tabs and show their panel (mirrored in right-to-left text, and
  * wrapping), Home and End go to the ends, Tab moves from the tab into its panel. A link to a panel in the page's URL
  * (#id) opens that tab first.

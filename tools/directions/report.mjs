@@ -8,7 +8,7 @@ for (const [dir, schemes] of Object.entries(directions)) {
   const names = Object.keys(schemes);
   const label = (n) => n.replace('-more', ' (more contrast)').replace(/^./, (c) => c.toUpperCase());
   const ev = Object.fromEntries(names.map((n) => [n, evaluate(schemes[n], n.endsWith('-more'))]));
-  const md = ['<details>', `<summary><strong>${NAMES[dir] ?? dir}</strong> — values and contrast (${names.join(' · ')})</summary>`, '',
+  const md = ['<details>', `<summary><strong>${NAMES[dir] ?? dir}</strong> - values and contrast (${names.join(' · ')})</summary>`, '',
     `| Token | ${names.map(label).join(' | ')} |`, `| --- |${names.map(() => ' --- |').join('')}`];
   for (const k of Object.keys(schemes.light)) {
     md.push(`| \`${k}\` | ${names.map((n) => `\`${fmt(ev[n].col[k])}\` ${toHex(ev[n].col[k])}`).join(' | ')} |`);
@@ -24,14 +24,14 @@ for (const [dir, schemes] of Object.entries(directions)) {
 }
 {
   const L = evaluateLuminous('light').rows, D = evaluateLuminous('dark').rows;
-  const md = ['<details>', '<summary><strong>C2. Chroma Luminous</strong> — prism, chrome and glass rules (light · dark)</summary>', '', 'Worst case over every backdrop (white, black, canvas, surface, inverse, text, prism fills, ambient light), with both readings of the backdrop filter.', '', '| Rule | Min | Light | Dark |', '| --- | --- | --- | --- |'];
+  const md = ['<details>', '<summary><strong>C2. Chroma Luminous</strong> - prism, chrome and glass rules (light · dark)</summary>', '', 'Worst case over every backdrop (white, black, canvas, surface, inverse, text, prism fills, ambient light), with both readings of the backdrop filter.', '', '| Rule | Min | Light | Dark |', '| --- | --- | --- | --- |'];
   L.forEach((r, i) => md.push(`| ${r.what} | ${r.min}:1 | ${r.ratio.toFixed(2)} | ${D[i].ratio.toFixed(2)} |`));
   md.push('', '</details>');
   out.md.push(md.join('\n'));
 }
 {
   const L = evaluateLuminousMore('light-more').rows, D = evaluateLuminousMore('dark-more').rows;
-  const md = ['<details>', '<summary><strong>C2. Chroma Luminous</strong> — increased-contrast rules (light-more · dark-more)</summary>', '', 'Glass is opaque and chrome is one solid line in these contexts, so only the flat pairs above and these rules apply.', '', '| Rule | Min | Light (more) | Dark (more) |', '| --- | --- | --- | --- |'];
+  const md = ['<details>', '<summary><strong>C2. Chroma Luminous</strong> - increased-contrast rules (light-more · dark-more)</summary>', '', 'Glass is opaque and chrome is one solid line in these contexts, so only the flat pairs above and these rules apply.', '', '| Rule | Min | Light (more) | Dark (more) |', '| --- | --- | --- | --- |'];
   L.forEach((r, i) => md.push(`| ${r.what} | ${r.min}:1 | ${r.ratio.toFixed(2)} | ${D[i].ratio.toFixed(2)} |`));
   md.push('', '</details>');
   out.md.push(md.join('\n'));

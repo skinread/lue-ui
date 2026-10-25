@@ -17,7 +17,7 @@ export const frame = (): Promise<unknown> => new Promise((resolve) => requestAni
 /**
  * Emulates media features through Playwright, then waits for a restyle. Playwright's Firefox updates matchMedia for
  * `contrast` but doesn't re-evaluate stylesheets already in the page (a freshly inserted sheet does see it), so there
- * every <style> is re-inserted — a harness gap, not a browser one (checked 2026-10-24, Playwright 1.64).
+ * every <style> is re-inserted - a harness gap, not a browser one (checked 2026-10-24, Playwright 1.64).
  */
 export async function emulate(media: MediaEmulation): Promise<void> {
   await commands.emulateMedia(media);

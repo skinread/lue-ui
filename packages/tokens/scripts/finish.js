@@ -6,7 +6,7 @@
 //      material tokens (filters, gradients, layered shadows) that components use;
 //   3. bundles and minifies with Lightning CSS and no targets, so nothing is lowered (ADR-0002), then prepends the
 //      layer order;
-//   4. fails if a themed token (colour, material, shadow) is missing from any theme block — the default plus six;
+//   4. fails if a themed token (colour, material, shadow) is missing from any theme block - the default plus six;
 //   5. fails if tokens.js references a variable tokens.css doesn't define, or a value didn't serialise;
 //   6. fails if the Brotli size passes the RFC-0001 §9 budget (6 KB).
 import fs from 'node:fs';

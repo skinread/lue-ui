@@ -1,5 +1,5 @@
 /**
- * `<lue-carousel>` — previous and next buttons for a scroll-snap track (`.lue-carousel__track`): each moves one slide
+ * `<lue-carousel>` - previous and next buttons for a scroll-snap track (`.lue-carousel__track`): each moves one slide
  * (smoothly unless motion is reduced; right-to-left aware through scrollIntoView), and says it can't go further with
  * aria-disabled, so a focused button keeps its focus. The track scrolls, swipes and snaps on its own; the buttons stay
  * hidden (CSS, `:not(:defined)`) until this element is defined. No auto-rotation.

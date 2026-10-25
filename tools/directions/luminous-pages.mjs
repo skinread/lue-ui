@@ -1,4 +1,4 @@
-// C2 · Chroma Luminous — materials (satin folds, glass prism, glass orb, metal icon tiles) and the portfolio and
+// C2 · Chroma Luminous - materials (satin folds, glass prism, glass orb, metal icon tiles) and the portfolio and
 // editorial boards built from them: a block library, a portfolio home page and a journal article.
 // Imported by build-canvas.mjs and luminous-canvas.mjs. All colours come from custom properties, so every piece follows
 // the board's scheme.
@@ -122,7 +122,7 @@ export function lxBlocks({ icon }) {
       <div class="lx-hero__text">
         <p class="t-micro">Design and engineering studio</p>
         <h1 class="lx-display" id="${hid}">Interfaces that hold their light.</h1>
-        <p class="lx-lede">[Studio name] designs and builds accessible, platform-native products — calm to use, alive to touch.</p>
+        <p class="lx-lede">[Studio name] designs and builds accessible, platform-native products - calm to use, alive to touch.</p>
         <div class="lx-actions"><a class="ns-button" data-variant="primary" data-size="lg" href="#work">View selected work</a><a class="ns-button" data-size="lg" href="#journal">Read the journal</a></div>
       </div>
       ${center ? '' : `<div class="lx-hero__object">${OBJECTS[object]()}</div>`}
@@ -164,7 +164,7 @@ export function lxBlocks({ icon }) {
   const features = () => `
     <ul class="lx-grid" style="--min: 240px; list-style: none; margin: 0; padding: 0">
       ${[
-        ['layers', 'Design systems', 'Tokens, components and guidance your team can build on — accessible by default.'],
+        ['layers', 'Design systems', 'Tokens, components and guidance your team can build on - accessible by default.'],
         ['window', 'Interface design', 'Product screens that are calm to use and quick to understand, in light and dark.'],
         ['code', 'Front-end engineering', 'Standards-based HTML and CSS first, with just enough JavaScript to make it sing.'],
         ['access', 'Accessibility', 'Audits and fixes against WCAG 2.2, tested with the assistive technology people use.'],
@@ -203,14 +203,14 @@ export function lxBlocks({ icon }) {
       <div style="display: grid; gap: 18px; justify-items: start">
         <p class="t-micro">Approach</p>
         <h2 class="lx-h2">Colour as light, not paint</h2>
-        <p class="lx-excerpt" style="font-size: 1.125rem">Surfaces stay neutral — pearl by day, obsidian by night. Colour arrives the way it does through glass: gathered at an edge, pooled where light lands, never spread evenly across everything.</p>
+        <p class="lx-excerpt" style="font-size: 1.125rem">Surfaces stay neutral - pearl by day, obsidian by night. Colour arrives the way it does through glass: gathered at an edge, pooled where light lands, never spread evenly across everything.</p>
         <a class="ns-button" href="#">How we work ${arrow}</a>
       </div>
     </div>`;
 
   const timeline = () => `
     <ol class="lx-timeline">
-      ${[['[Year] — now', '[Role]', '[Studio or company] · [What you did there, in a line.]'], ['[Year] — [Year]', '[Role]', '[Company] · [A line on the work and its outcome.]'], ['[Year] — [Year]', '[Role]', '[Company] · [A line on the work and its outcome.]']]
+      ${[['[Year] - now', '[Role]', '[Studio or company] · [What you did there, in a line.]'], ['[Year] - [Year]', '[Role]', '[Company] · [A line on the work and its outcome.]'], ['[Year] - [Year]', '[Role]', '[Company] · [A line on the work and its outcome.]']]
         .map(([y, r, d]) => `<li><time class="t-micro">${y}</time><div><p class="t-label">${r}</p><p class="t-small t-muted">${d}</p></div></li>`).join('')}
     </ol>`;
 
@@ -325,13 +325,13 @@ export function articleBoard(ctx) {
   <main id="main">
     <article aria-labelledby="ar-h">
       ${B.articleHead('ar-h')}
-      <figure class="lx-wrap lx-figure">${media('prism', 0)}<figcaption>Light pools where glass meets the surface — the idea behind every edge in the system.</figcaption></figure>
+      <figure class="lx-wrap lx-figure">${media('prism', 0)}<figcaption>Light pools where glass meets the surface - the idea behind every edge in the system.</figcaption></figure>
       <div class="lx-wrap lx-article__body">
         <nav class="lx-toc lx-glass" aria-label="On this page"><p class="t-micro">On this page</p><ol>${toc.map(([id, t], i) => `<li><a href="#ar-${id}"${i === 1 ? ' aria-current="true"' : ''}>${t}</a></li>`).join('')}</ol></nav>
         <div class="lx-prose">
           <h2 id="ar-colour">Colour as light</h2>
-          <p>In this system colour behaves like light rather than paint. Surfaces stay neutral — pearl by day, obsidian by night — and colour arrives the way it does through a glass prism: concentrated at an edge, gathered in a pool, never spread evenly across everything.</p>
-          <p>Eight hues make up the prism: rose, orchid, iris, azure, aqua, mint, citron and amber. They're ramped at a subdued chroma — bright enough to glow, quiet enough to sit beside long-form reading like this.</p>
+          <p>In this system colour behaves like light rather than paint. Surfaces stay neutral - pearl by day, obsidian by night - and colour arrives the way it does through a glass prism: concentrated at an edge, gathered in a pool, never spread evenly across everything.</p>
+          <p>Eight hues make up the prism: rose, orchid, iris, azure, aqua, mint, citron and amber. They're ramped at a subdued chroma - bright enough to glow, quiet enough to sit beside long-form reading like this.</p>
           <h2 id="ar-contrast">Contrast that holds while colour moves</h2>
           <p>Hover a primary button and its tones drift. Every tone sits at the same perceptual lightness, so the label's contrast doesn't change while the colours do. The checker tests the label against up to three tones overlapping, over every surface a button can sit on.</p>
           <aside class="lx-pull" aria-hidden="true">Contrast stays fixed. Only the colour moves.</aside>
@@ -347,10 +347,10 @@ export function articleBoard(ctx) {
           <ul>
             <li>Body text holds 7:1 on every surface, glass and satin included.</li>
             <li>Labels on buttons hold 4.5:1 in every state.</li>
-            <li>Boundaries that identify a control hold 3:1 — chrome, dispersion and all.</li>
+            <li>Boundaries that identify a control hold 3:1 - chrome, dispersion and all.</li>
           </ul>
           <h2 id="ar-glass">Glass that steps aside</h2>
-          <p>Glass is checked against its worst backdrop — pure white, pure black and every fill in the palette. When someone asks their device for less transparency or more contrast, it turns opaque; in forced colours it gives way to system colours entirely.</p>
+          <p>Glass is checked against its worst backdrop - pure white, pure black and every fill in the palette. When someone asks their device for less transparency or more contrast, it turns opaque; in forced colours it gives way to system colours entirely.</p>
           <div class="ns-alert" data-tone="info">${icon('info')}<p class="ns-alert__title">Nothing moves on its own</p><p class="ns-alert__body">Light shifts only in answer to hover, focus and press, and every movement is instant under reduced motion.</p></div>
         </div>
       </div>

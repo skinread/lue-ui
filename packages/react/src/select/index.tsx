@@ -6,7 +6,7 @@ import { useFieldControl } from '../field/index.js';
 export type SelectProps = ComponentPropsWithRef<'select'>;
 
 /**
- * `<select class="lue-select">` in its `.lue-select-wrap`, with the chevron — the same markup as the HTML core. Options
+ * `<select class="lue-select">` in its `.lue-select-wrap`, with the chevron - the same markup as the HTML core. Options
  * are plain `<option>` text (v1: no `<selectedcontent>`). Inside a Field it's wired up like TextInput.
  * Contract: apps/docs/contracts/select.json.
  */

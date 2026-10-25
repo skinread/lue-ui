@@ -1,4 +1,4 @@
-/* Menu — <lue-menu class="lue-menu" popover role="menu">, opened with command="toggle-popover". Contract:
+/* Menu - <lue-menu class="lue-menu" popover role="menu">, opened with command="toggle-popover". Contract:
    apps/docs/contracts/menu.json. Opening, closing, Esc, light dismiss and the top layer are the browser's; <lue-menu>
    adds the keyboard model. */
 @layer lue.components {

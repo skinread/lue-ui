@@ -37,7 +37,7 @@
   "platform": {
     "baseline": ["popover", "invoker commands", "implicit anchor", "custom elements", "ToggleEvent"],
     "enhancements": [{ "feature": "anchor positioning (position-area, position-try-fallbacks)", "fallback": "The browser centres the popover" }],
-    "knownGaps": [{ "where": "Safari < 26.2, HTML path", "gap": "the trigger's command does nothing", "policy": "ADR-0004 — no polyfill" }]
+    "knownGaps": [{ "where": "Safari < 26.2, HTML path", "gap": "the trigger's command does nothing", "policy": "ADR-0004 - no polyfill" }]
   },
   "withoutJavaScript": "Opens, closes with Esc and light dismiss, and anchors; items are reachable by pointer but not by arrow keys",
   "contrast": "Increased contrast and reduced transparency: opaque surface, solid ring",

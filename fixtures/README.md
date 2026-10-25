@@ -16,7 +16,7 @@ pnpm build && pnpm fixtures
 
 `check.js` fails unless the built CSS keeps: the layer order (checked as the order in which layer names first appear,
 since minifiers split our one statement), colours as `oklch()`, fluid sizes in `vi`, the zero-specificity OS-theme
-selector, the increased-contrast media query, `@property --lue-angle`, component CSS with logical properties — and has
+selector, the increased-contrast media query, `@property --lue-angle`, component CSS with logical properties - and has
 no `light-dark()` and no colour token lowered to `rgb()` or hex. With `--tailwind` it also wants a utility that reads our
 variables and Lue inside Tailwind's `components` layer.
 

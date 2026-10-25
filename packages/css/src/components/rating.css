@@ -1,4 +1,4 @@
-/* Rating — a read-only score: .lue-rating holds the stars (aria-hidden, drawn with a mask and filled to
+/* Rating - a read-only score: .lue-rating holds the stars (aria-hidden, drawn with a mask and filled to
    --lue-rating-value out of --lue-rating-max) and the score in words, which is what assistive technology reads. To
    ask for a rating, use a Radio group or Segmented control with words ("4 stars"). Contract:
    apps/docs/contracts/rating.json. */

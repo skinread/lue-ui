@@ -4,7 +4,7 @@ import { expect, userEvent, waitFor } from 'storybook/test';
 import { Button, Dialog, DialogTrigger } from '@lue-ui/react';
 
 /**
- * `<dialog class="lue-dialog">`, opened with `command="show-modal"` — no script — or from state with `open` and
+ * `<dialog class="lue-dialog">`, opened with `command="show-modal"` - no script - or from state with `open` and
  * `onOpenChange`. Modality, Esc, focus return and light dismiss are the browser's. Contract:
  * `apps/docs/contracts/dialog.json`.
  */

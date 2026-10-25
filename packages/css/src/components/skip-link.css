@@ -1,4 +1,4 @@
-/* Skip link — <a class="lue-skip-link" href="#main">, the first focusable element on the page. Hidden like
+/* Skip link - <a class="lue-skip-link" href="#main">, the first focusable element on the page. Hidden like
    .lue-visually-hidden until it has focus, then pinned to the top of the viewport. Contract:
    apps/docs/contracts/skip-link.json. */
 @layer lue.components {

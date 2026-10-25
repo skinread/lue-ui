@@ -34,7 +34,7 @@
           ],
           "hex": "#14131f"
         },
-        "$description": "Opaque cards, menus, dialogs and popovers — and the fallback for every glass surface."
+        "$description": "Opaque cards, menus, dialogs and popovers - and the fallback for every glass surface."
       },
       "surface-subtle": {
         "$type": "color",

@@ -21,7 +21,7 @@ export interface FieldProps extends Omit<ComponentPropsWithRef<'div'>, 'children
 }
 
 /**
- * `<div class="lue-field">` — a label, an optional hint, an error message and one control, wired together with `for`,
+ * `<div class="lue-field">` - a label, an optional hint, an error message and one control, wired together with `for`,
  * `aria-describedby` and `aria-invalid`. The error message is always rendered (hidden while empty), as in the HTML core.
  * Contract: apps/docs/contracts/field.json.
  */

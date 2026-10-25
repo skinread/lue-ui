@@ -1,4 +1,4 @@
-/* Segmented control — a radio group drawn as one pill of options: <fieldset class="lue-segmented"> with a legend and
+/* Segmented control - a radio group drawn as one pill of options: <fieldset class="lue-segmented"> with a legend and
    .lue-segmented__options holding <label class="lue-segmented__option"><input type="radio">Text</label>. The radio
    covers its label invisibly, so it keeps its keyboard model (arrow keys), its name and its form value. Contract:
    apps/docs/contracts/segmented-control.json. */

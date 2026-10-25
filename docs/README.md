@@ -2,7 +2,7 @@
 
 Read in this order the first time; every later document traces back to the first one.
 
-## Foundations — why
+## Foundations - why
 
 | Document | What it settles |
 | --- | --- |
@@ -11,7 +11,7 @@ Read in this order the first time; every later document traces back to the first
 | [Landscape and positioning](foundations/landscape-and-positioning.md) | Library survey, trends, gaps, what we follow and where we lead |
 | [Platform capabilities](foundations/platform-capabilities.md) | The browser capability matrix, support policy, CSS traps and progressive enhancement |
 
-## Architecture — how
+## Architecture - how
 
 | Document | What it settles |
 | --- | --- |
@@ -24,12 +24,12 @@ Read in this order the first time; every later document traces back to the first
 | [ADR-0006](architecture/adr/0006-licence-and-governance.md) | MIT licence and open governance |
 | [ADR-0007](architecture/adr/0007-package-layout-and-ownership.md) | Package layout, versioning, element ↔ framework ownership |
 | [ADR-0008](architecture/adr/0008-name-lue-ui.md) | The name Lue UI and its identifiers (`lue`, `lue-ui`, `@lue-ui/*`, `LueUI`) |
-| [ADR-0009](architecture/adr/0009-visual-direction-chroma-luminous.md) | The visual direction: C2 · Chroma Luminous — chrome, glass, colour as light |
-| [Spike A](architecture/spikes/spike-a-dialog-menu.md) | A menu inside a modal dialog, HTML and React, SSR and hydration — what held and what each engine needed |
+| [ADR-0009](architecture/adr/0009-visual-direction-chroma-luminous.md) | The visual direction: C2 · Chroma Luminous - chrome, glass, colour as light |
+| [Spike A](architecture/spikes/spike-a-dialog-menu.md) | A menu inside a modal dialog, HTML and React, SSR and hydration - what held and what each engine needed |
 | [Spike B](architecture/spikes/spike-b-token-and-css-pipeline.md) | Terrazzo tokens → Lightning CSS → Vite, Next and Tailwind fixtures, and the emulation tests |
 | [Consumer fixtures](../fixtures/README.md) | The import recipes for Vite, Next and Tailwind v4, and what each pipeline does to our CSS |
 
-## Design — what
+## Design - what
 
 | Document | What it settles |
 | --- | --- |

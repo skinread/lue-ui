@@ -1,53 +1,53 @@
 # Naming
 
-> **Status:** Decided · 2026-10-05 — **Lue UI** ([ADR-0008](../architecture/adr/0008-name-lue-ui.md))
+> **Status:** Decided · 2026-10-05 - **Lue UI** ([ADR-0008](../architecture/adr/0008-name-lue-ui.md))
 > `never-ui` was the working title. This page records how the name was reached and what was free to claim.
 
 ## Decision: Lue UI
 
-After three rounds the user found the name themselves while exploring French words: ***lueur***, a glimmer — a faint
-gleam of light — shortened to **Lue UI**. It fits C2 · Chroma Luminous, where colour appears as light caught at an
+After three rounds the user found the name themselves while exploring French words: ***lueur***, a glimmer - a faint
+gleam of light - shortened to **Lue UI**. It fits C2 · Chroma Luminous, where colour appears as light caught at an
 edge, and *lue* ("read") is a quiet nod to legibility.
 
 | Use | Value | Checked 2026-10-05 |
 | --- | --- | --- |
 | Slug: repository, unscoped npm package, GitHub organisation | `lue-ui` | npm package free · GitHub free |
-| npm scope | `@lue-ui/*` | **An empty npm user scope `lue-ui` exists** — usable only if that account is ours; fallback `@lueui/*` (free) |
-| CSS prefix | `lue` | — |
-| JavaScript global | `LueUI` | — |
+| npm scope | `@lue-ui/*` | **An empty npm user scope `lue-ui` exists** - usable only if that account is ours; fallback `@lueui/*` (free) |
+| CSS prefix | `lue` | - |
+| JavaScript global | `LueUI` | - |
 
 Also checked: `lueur` (npm package, scope and GitHub all taken), `lue` (all taken), `lueui` (npm package and scope
 free; GitHub taken by an empty 2020 account). A web search found no product called "Lue UI"; the nearest names are
 small packages (`@lookwe/lui`, `le-ui`). Trademarks and domains aren't checked yet.
 
 The library will be published to npm and GitHub, so availability matters again. (Only the Claude Design files stay
-private — user's rule, 2026-10-05.)
+private - user's rule, 2026-10-05.)
 
 ## What the name has to do
 
-- Say something true about the mission — access, the platform, craft — without being a generic word.
+- Say something true about the mission - access, the platform, craft - without being a generic word.
 - Be **original**: not borrowed from, or confusable with, an existing design system.
 - Be **claimable**: an unscoped npm package, an npm scope (`@name/css`, `@name/react`, …) and a GitHub organisation.
 - Be easy to say and spell, and give a short CSS prefix (2–3 letters) that doesn't collide with legacy `--vui-*`
   variables or read as "Tailwind" (`tw-`).
 
-## Round 3 — prismatic, chroma, lumination
+## Round 3 - prismatic, chroma, lumination
 
 The user asked to riff on three themes: *prismatic*, *chroma* and *lumination*.
 
 | Theme | Name | The story | Clash |
 | --- | --- | --- | --- |
-| Chroma | **Isochroma** | "Equal colour." The button tones share one lightness, so contrast never moves — and everyone gets the same access. It names the system's actual technique. | None found |
-| Chroma | **Chromalume** | Colour and light; reads like a luxury lighting atelier. | Mild — Chromalume steel alloys; close to Sondheim's *Chromolume* |
-| Chroma | **Chromalis** | Chroma as a constellation or species name. | Mild — a Wolf-Gordon wallcovering collection, a moth |
-| Chroma | **Aurachrome** | An aura of light around a chrome rim. | Mild — a French theatre company, a nail-art trend |
-| Light | **Lumiris** | Light plus Iris — goddess of the rainbow, and the part of the eye that lets light in. Light, rainbow and sight. | Mild — several small companies |
-| Light | **Lumachroma** | Luma and chroma, the two halves of every colour signal: hold luma steady for legibility, let chroma dance. | Mild — a Swiss projection group, a music project |
-| Light | **Lucentia** | From *lucent*: glowing, translucent. | Mild — a research group, a cardiac-imaging company |
-| Light | **Luminelle** | Light, made soft and luxurious. | Mild — small skincare brands, a game creature |
-| Prismatic | **Prismara** | A made-up word with a jewel-like sound, like "tiara". | Mild — a jewellery brand, a studio; echoes Prisma |
-| Prismatic | **Dichro** | Dichroic glass shifts colour with the viewing angle, like the drifting button tones. | Mild — glass-art slang, a band |
-| Prismatic | **Prismel** | A small prism. | Mild — an OCaml graphics framework |
+| Chroma | **Isochroma** | "Equal colour." The button tones share one lightness, so contrast never moves - and everyone gets the same access. It names the system's actual technique. | None found |
+| Chroma | **Chromalume** | Colour and light; reads like a luxury lighting atelier. | Mild - Chromalume steel alloys; close to Sondheim's *Chromolume* |
+| Chroma | **Chromalis** | Chroma as a constellation or species name. | Mild - a Wolf-Gordon wallcovering collection, a moth |
+| Chroma | **Aurachrome** | An aura of light around a chrome rim. | Mild - a French theatre company, a nail-art trend |
+| Light | **Lumiris** | Light plus Iris - goddess of the rainbow, and the part of the eye that lets light in. Light, rainbow and sight. | Mild - several small companies |
+| Light | **Lumachroma** | Luma and chroma, the two halves of every colour signal: hold luma steady for legibility, let chroma dance. | Mild - a Swiss projection group, a music project |
+| Light | **Lucentia** | From *lucent*: glowing, translucent. | Mild - a research group, a cardiac-imaging company |
+| Light | **Luminelle** | Light, made soft and luxurious. | Mild - small skincare brands, a game creature |
+| Prismatic | **Prismara** | A made-up word with a jewel-like sound, like "tiara". | Mild - a jewellery brand, a studio; echoes Prisma |
+| Prismatic | **Dichro** | Dichroic glass shifts colour with the viewing angle, like the drifting button tones. | Mild - glass-art slang, a band |
+| Prismatic | **Prismel** | A small prism. | Mild - an OCaml graphics framework |
 | Prismatic | **Iridesce** | The verb for shimmering with rainbow colour. | None, but too ordinary a word |
 
 **Leading:** Isochroma (no clash found at all, and the strongest story), Lumiris, Chromalume. The *chroma* names keep
@@ -71,18 +71,18 @@ The web checks were quick searches, not trademark searches.
 | lucentia | free | taken (publishes a package) | taken |
 | iridesce | free | taken (empty user scope) | taken |
 
-## Round 2 — light, prism and glass (not chosen)
+## Round 2 - light, prism and glass (not chosen)
 
 Round 1's weaving and kerb names didn't connect. Round 2 follows the chosen look, **C2 · Chroma Luminous** (chrome,
 glass, a prism of subdued neon), and keeps the mission in the story. The thread: white light holds every colour, and
-a prism shows them all — nothing added, nobody left out.
+a prism shows them all - nothing added, nobody left out.
 
 | Name | The story | Prefix |
 | --- | --- | --- |
-| **Prismway** | Light through a prism takes the path of least time (Fermat's principle). The system makes accessible, standard markup the path of least resistance — the mission, almost word for word. | `pw` |
+| **Prismway** | Light through a prism takes the path of least time (Fermat's principle). The system makes accessible, standard markup the path of least resistance - the mission, almost word for word. | `pw` |
 | **Clearprism** | A clear prism adds no colour of its own; it reveals what's already in the light. The system adds little, shows what the platform already gives, and includes everyone. | `cp` |
 | **Everyhue** | Every hue is already in white light. A system that leaves no one out, named for the palette it wears. | `evh` |
-| **Plainlight** | Plain HTML in plain daylight, nothing hidden — and daylight already holds every colour. | `pl` |
+| **Plainlight** | Plain HTML in plain daylight, nothing hidden - and daylight already holds every colour. | `pl` |
 | **Fullhue** | The full range of hue and of people; a shorter cousin of Everyhue. | `fh` |
 
 **Leading candidates: Prismway** (the strongest mission story) **and Clearprism** (the strongest platform story).
@@ -101,8 +101,8 @@ scope, so it counts as taken. Prismway, Clearprism and Everyhue were re-checked 
 | plainlight | free | free | free |
 | fullhue | free | free | free |
 | huewise, clearhue, allspectra, lucentry, prismset, hueway, spectrawise | free | free | free |
-| prismkit | free | free | free — but close to PrismJS and Prisma, and "kit" is generic |
-| chromawork | free | free | free — but clashes with chroma.js and the Chroma vector database, and "Chrom-" reads as Chromium-only |
+| prismkit | free | free | free - but close to PrismJS and Prisma, and "kit" is generic |
+| chromawork | free | free | free - but clashes with chroma.js and the Chroma vector database, and "Chrom-" reads as Chromium-only |
 | lightwell | free | free | **taken** (an organisation since 2012) |
 | everhue, prismline | free | free | **taken** by near-empty 2026 accounts (`-ui` organisation free) |
 | prismwork, lumenwork, dichroic, allhue, clearsight | free | free | **taken** |
@@ -112,16 +112,16 @@ opaline, sightline, fullspectrum (also too close to Adobe Spectrum), glasswork, 
 brightline, allcolour, prismwise, clearpane, whiteprism, openprism, prismlight, truehue, opalith, prismfold,
 chromaline, everylight, prismpath, lightwise, glassway, huekit, lumenkit.
 
-## Round 1 — weave and kerb (not chosen)
+## Round 1 - weave and kerb (not chosen)
 
 | Name | The story | Prefix |
 | --- | --- | --- |
-| **Evenweave** | Evenweave cloth has the same number of threads in both directions, so every square is equal. Equal access, a regular structure — and the web is a weave. | `ev` |
+| **Evenweave** | Evenweave cloth has the same number of threads in both directions, so every square is equal. Equal access, a regular structure - and the web is a weave. | `ev` |
 | **Kerbcut** | The kerb-cut effect: a ramp built for wheelchair users also helps prams, bikes and suitcases. Design for disability and everyone benefits. The Australian spelling marks where it started. | `kc` |
-| **Plainweave** | The simplest and strongest of all weaves — one thread over, one under. A system woven from plain HTML. | `pw` |
+| **Plainweave** | The simplest and strongest of all weaves - one thread over, one under. A system woven from plain HTML. | `pw` |
 | **Withgrain** | Work *with* the grain of the web: use each material the way it wants to be used. | `wg` |
 | **Grainwise** | The same idea, said more softly. | `gw` |
-| **Stepfree** | "Step-free access" means no barriers — and the system needs no build step. | `sf` |
+| **Stepfree** | "Step-free access" means no barriers - and the system needs no build step. | `sf` |
 
 **Favourites: Evenweave and Kerbcut.** Evenweave carries both equity and structure, and suggests a visual language
 (grids, even rhythm, woven texture) for the Claude Design directions. Kerbcut tells the accessibility story most
@@ -149,10 +149,10 @@ waymark, plumbline, handhold, openweave, warpweft, weftwise.
 
 ## Once a name is chosen
 
-1. ⏸ **npm scope and organisations — not yet** (user, 2026-10-11): nothing is published to npm for now, so `@lue-ui/*`
+1. ⏸ **npm scope and organisations - not yet** (user, 2026-10-11): nothing is published to npm for now, so `@lue-ui/*`
    stays provisional (fallback `@lueui/*`). When publishing starts: confirm the scope, create the npm and GitHub
    organisations, and hold the names. *These publish things, so the user does them or approves each step.*
 2. ✗ **No trademark** (user, 2026-10-11). A domain can still be registered later.
 3. ✅ Replace `never-ui` and the `ns` prefix across the docs (2026-10-05). The Claude Design System will be built with
    `lue` from the start; the direction canvas's internal mockup classes keep `ns-`.
-4. ✅ Record the decision as an ADR — [ADR-0008](../architecture/adr/0008-name-lue-ui.md).
+4. ✅ Record the decision as an ADR - [ADR-0008](../architecture/adr/0008-name-lue-ui.md).

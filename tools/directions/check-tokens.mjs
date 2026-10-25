@@ -1,7 +1,7 @@
 // Checks the DTCG token source in packages/tokens/src (or a folder passed as the first argument):
 //   1. every token has a $type and a $description (a token without a usage note doesn't ship);
 //   2. every alias resolves in every theme context;
-//   3. every declared pair ($extensions.lue.pairs) meets its minimum in every context — raised to 7:1 for text and
+//   3. every declared pair ($extensions.lue.pairs) meets its minimum in every context - raised to 7:1 for text and
 //      4.5:1 for boundaries in the -more contexts;
 //   4. body text (type step 0) is never below 16 px.
 // Exits non-zero on any failure. The glass, chrome and prism worst-case rules stay in palettes.mjs until Pass 3.

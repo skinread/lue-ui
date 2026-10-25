@@ -6,7 +6,7 @@
 > [0004](./adr/0004-support-floors.md) · [0005](./adr/0005-three-engine-testing-and-a11y-gates.md) ·
 > [0006](./adr/0006-licence-and-governance.md) · [0007](./adr/0007-package-layout-and-ownership.md) ·
 > [0008](./adr/0008-name-lue-ui.md) · [0009](./adr/0009-visual-direction-chroma-luminous.md)
-> **Name:** Lue UI — CSS prefix `lue`, npm scope `@lue-ui/*` (provisional), global `LueUI`.
+> **Name:** Lue UI - CSS prefix `lue`, npm scope `@lue-ui/*` (provisional), global `LueUI`.
 
 ## Summary
 
@@ -116,7 +116,7 @@ Class names already prevent leaks; scoping every component would add reasoning c
 ### Internationalisation
 
 Logical properties only. Anchored UI positions with `position-area` and `flip-inline`. Icons that imply direction
-carry `data-mirror` and flip under `:dir(rtl)`. Custom elements never generate user-visible text — all strings come
+carry `data-mirror` and flip under `:dir(rtl)`. Custom elements never generate user-visible text - all strings come
 from markup or adapter props.
 
 ### Banned in component CSS (lint-enforced)
@@ -153,32 +153,32 @@ Every interactive component follows the [platform ladder](../foundations/mission
 
 | Need | Platform primitive | Gap filled by |
 | --- | --- | --- |
-| Open/close dialogs | `<dialog>` + `command="show-modal"`, `<form method="dialog">` to close | — (Safari < 26.2: no polyfill, ADR-0004) |
-| Light dismiss for modal dialogs | `closedby="any"` | — (where `closedby` is missing, Esc and buttons close it) |
+| Open/close dialogs | `<dialog>` + `command="show-modal"`, `<form method="dialog">` to close | - (Safari < 26.2: no polyfill, ADR-0004) |
+| Light dismiss for modal dialogs | `closedby="any"` | - (where `closedby` is missing, Esc and buttons close it) |
 | Menus, popovers | `popover` + `popovertarget` / `command`, anchor positioning | `<lue-menu>` keyboard model (arrows, Home/End, typeahead, Tab closes) |
-| Disclosure, accordion | `<details>`, `<details name>` | — |
-| Select | `<select>`, `appearance: base-select` as PE | — |
+| Disclosure, accordion | `<details>`, `<details name>` | - |
+| Select | `<select>`, `appearance: base-select` as PE | - |
 | Validation | Constraint validation, `:user-invalid` | `data-lue-validate`: custom messages, `aria-invalid`, error summary, focus |
 | Toggle buttons | `<button aria-pressed>` | `data-lue-toggle` (HTML-only path) |
 | Roving focus (toolbar, tabs, radio-like groups) | `focusgroup` (Chromium only) | `<lue-roving>`, deleted when `focusgroup` is Baseline |
-| Tabs | — | `<lue-tabs>` (APG tabs) |
+| Tabs | - | `<lue-tabs>` (APG tabs) |
 | Toasts / announcements | `popover="manual"`, `ariaNotify()` | `<lue-toast-region>` (queue, pause on hover/focus, live-region fallback) |
-| Combobox (later) | — | `<lue-combobox>` (APG combobox), Tier 3 |
+| Combobox (later) | - | `<lue-combobox>` (APG combobox), Tier 3 |
 
 ### Light-DOM element rules
 
 1. Elements **enhance markup that already works**; they never insert, move or remove nodes inside a
    framework-rendered subtree.
-2. **No DOM writes in the constructor or `connectedCallback`** — only listeners and ElementInternals (`:state()`,
+2. **No DOM writes in the constructor or `connectedCallback`** - only listeners and ElementInternals (`:state()`,
    default ARIA on the host). Upgrade can happen before hydration.
 3. **Every attribute an element owns is declared in its contract;** frameworks render only its initial value and
    never change it.
-4. **Behaviours that change the DOM act only on opt-in `data-lue-*` markup.** Adapters never emit those attributes —
+4. **Behaviours that change the DOM act only on opt-in `data-lue-*` markup.** Adapters never emit those attributes -
    they implement the same behaviour with state, reusing the element's **pure controller** code.
 5. **Inputs are string attributes; outputs are native events.** Works with server rendering and any framework.
 6. **Connect/disconnect is idempotent** (one `AbortController` per connection).
 7. **Registered once**, guarded with `customElements.get`; React apps mount `<LueElements/>` at the root.
-8. **Each element names its deletion trigger** — the platform feature that will make it unnecessary.
+8. **Each element names its deletion trigger** - the platform feature that will make it unnecessary.
 
 ## 5. React adapters
 
@@ -190,7 +190,7 @@ Every interactive component follows the [platform ladder](../foundations/mission
   `<Button {...invoker("confirm", "show-modal")}>`. A codemod switches casing when React adds support.
 - **Dialogs** are uncontrolled by default (opened by invokers); controlled mode calls `showModal()`/`close()` through
   a ref. **React's `open` prop is never passed to a modal dialog** (it opens non-modal, without inertness).
-- **Popovers stay as DOM children of their trigger's container — never portalled.** Inside a modal dialog, a portal
+- **Popovers stay as DOM children of their trigger's container - never portalled.** Inside a modal dialog, a portal
   lands in the inert background.
 - **Menus that open a dialog** call `hidePopover()` and return focus to their trigger before the command runs
   (`showModal()` hides open popovers, which would otherwise drop focus to `<body>`).
@@ -203,7 +203,7 @@ Every interactive component follows the [platform ladder](../foundations/mission
 Each component has a machine-readable contract: **anatomy** (parts and their elements), **roles and names**,
 **keyboard map**, **states and how they're exposed**, **owned attributes**, **tokens used**, **platform rung** and
 **fallbacks**. The format is drafted in [components](../design/components.md) and finalised from the hand-written
-tests of the first five components in Pass 3 — we extract the schema from working tests rather than designing it in
+tests of the first five components in Pass 3 - we extract the schema from working tests rather than designing it in
 the abstract.
 
 One contract feeds: generated keyboard and ARIA tests · docs pages · `llms.txt` and MCP answers · the component
@@ -230,26 +230,26 @@ Decision and detail: [ADR-0005](./adr/0005-three-engine-testing-and-a11y-gates.m
 ## 8. Docs, AI surfaces and Claude Design
 
 - **One Storybook 10 (react-vite).** An `html` decorator renders each React story with `renderToStaticMarkup`,
-  inserts it as `innerHTML` with the elements defined, and shows that HTML as the canonical source — proving the
+  inserts it as `innerHTML` with the elements defined, and shows that HTML as the canonical source - proving the
   no-React path on every story.
 - **The same static markup** feeds Claude Design previews, html-validate and html-eslint.
 - **AI surfaces:** `llms.txt`, a Markdown page per component, contracts as JSON, the Storybook MCP addon (manifests),
   and an MCP endpoint for tokens and contracts.
 - **Claude Design:** the Design System artifact holds the brand-book README, list-shaped `tokens.json`, component
   guidelines (generated from contracts) and previews. Previews are **static HTML + `bundle.css` (= `@lue-ui/css`) +
-  `bundle.js` (= the elements IIFE, `window.LueUI`)**, with `libraries: []` — no React needed, so Claude Design renders
+  `bundle.js` (= the elements IIFE, `window.LueUI`)**, with `libraries: []` - no React needed, so Claude Design renders
   production CSS. `/design-sync` appears React-centric, so this path is spiked first in Pass 3.
 - **Round trip:** tokens flow DTCG → Claude Design `tokens.json`; edits made in Claude Design come back through an
   import script as a reviewed DTCG diff, never a silent overwrite.
 
 ## 9. Build and distribution
 
-- **CSS:** Lightning CSS for bundling (`@import … layer()`) and minification with **no targets** — nothing is
+- **CSS:** Lightning CSS for bundling (`@import … layer()`) and minification with **no targets** - nothing is
   lowered. We ship a browserslist config and document `exclude: Features.LightDark` for consumers whose pipelines
   run Lightning CSS.
 - **JS:** ESM only; `types` first in every export condition; per-file builds so `'use client'` survives;
   `sideEffects` declared.
-- **Versioning:** Changesets with all packages `fixed` (lockstep) — CSS and markup are coupled.
+- **Versioning:** Changesets with all packages `fixed` (lockstep) - CSS and markup are coupled.
 - **Initial budgets** (Brotli; revisited after Pass 3):
 
 | Artefact | Budget |
@@ -279,7 +279,7 @@ Decision and detail: [ADR-0005](./adr/0005-three-engine-testing-and-a11y-gates.m
 ## 11. Sequencing (Pass 3)
 
 1. **Step 0:** pnpm workspace, Changesets, CI. _(Done 2026-10-11.)_
-2. **Spike A — riskiest first:** a dialog containing a menu, in raw HTML and in React with SSR + hydration, in all
+2. **Spike A - riskiest first:** a dialog containing a menu, in raw HTML and in React with SSR + hydration, in all
    three engines (commands, anchoring, Esc stacking, focus hand-off and the element rules together).
    _(Done 2026-10-11; [report](./spikes/spike-a-dialog-menu.md).)_
 3. **Spike B:** Terrazzo → `tokens.css` + Claude Design JSON + contrast lint → Lightning CSS → consumer fixtures.
@@ -311,14 +311,14 @@ Decision and detail: [ADR-0005](./adr/0005-three-engine-testing-and-a11y-gates.m
 
 ## Open questions
 
-1. ~~**Final name and prefix**~~ — Lue UI, prefix `lue` ([ADR-0008](./adr/0008-name-lue-ui.md)); the npm scope is still to confirm.
-2. ~~**When to retire the inclusion exception**~~ — moot: the exception was declined (ADR-0004, 2026-10-11) and kept
+1. ~~**Final name and prefix**~~ - Lue UI, prefix `lue` ([ADR-0008](./adr/0008-name-lue-ui.md)); the npm scope is still to confirm.
+2. ~~**When to retire the inclusion exception**~~ - moot: the exception was declined (ADR-0004, 2026-10-11) and kept
    as a possible future enhancement.
-3. **Copy-paste components** — *future consideration* (2026-10-11): if Lue UI ever offers copy-paste React
+3. **Copy-paste components** - *future consideration* (2026-10-11): if Lue UI ever offers copy-paste React
    components, it will use the shadcn registry tooling rather than a registry of its own. Not now; copied code drifts.
-4. ~~**Storybook long-term**~~ — Storybook 10 for now (2026-10-11); revisit a lighter docs site once contracts generate
+4. ~~**Storybook long-term**~~ - Storybook 10 for now (2026-10-11); revisit a lighter docs site once contracts generate
    most pages.
-5. **`/design-sync` constraints** — confirmed by spike C.
+5. **`/design-sync` constraints** - confirmed by spike C.
 
 ## Sources
 

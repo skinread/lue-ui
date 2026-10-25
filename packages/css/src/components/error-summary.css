@@ -1,4 +1,4 @@
-/* Error summary — the list of a form's errors, each linking to its field. Contract: apps/docs/contracts/field.json.
+/* Error summary - the list of a form's errors, each linking to its field. Contract: apps/docs/contracts/field.json.
    The container is focusable (tabindex="-1") and receives focus when it appears; the inner role="alert" announces it
    where focus can't. Server-rendered summaries take autofocus. */
 @layer lue.components {

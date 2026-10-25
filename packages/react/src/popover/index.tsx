@@ -8,7 +8,7 @@ export interface PopoverProps extends Omit<ComponentPropsWithRef<'div'>, 'popove
 }
 
 /**
- * `<div class="lue-popover" popover>` — non-modal content anchored to the button that opens it. Esc and light
+ * `<div class="lue-popover" popover>` - non-modal content anchored to the button that opens it. Esc and light
  * dismiss close it (the browser's). Render it right after its trigger: popovers are never portalled. Contract:
  * apps/docs/contracts/popover.json.
  */

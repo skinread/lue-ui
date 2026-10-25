@@ -1,19 +1,19 @@
 // Lue UI's Terrazzo plugins (ADR-0003).
 //
-// lueContrast — the contrast lint. Terrazzo's own `a11y/min-contrast` checks one resolved set at fixed AA/AAA levels;
+// lueContrast - the contrast lint. Terrazzo's own `a11y/min-contrast` checks one resolved set at fixed AA/AAA levels;
 // ours checks every pair declared in `$extensions.lue.pairs` at its own minimum, in every theme context, raised in the
 // -more contexts (text 7:1, boundaries 4.5:1). Colours are compared as their sRGB `hex` (gamut-mapped exactly as
 // the Pass 2 checker saw them). A failure fails the build.
 //
-// lueClaudeDesign — writes claude-design/tokens.json, the list shape the Claude Design System reads
+// lueClaudeDesign - writes claude-design/tokens.json, the list shape the Claude Design System reads
 // (docs/design/tokens.md#outputs): `color.themes` primary first; each token `{ name, value, usage }` with `value` per
 // theme when it varies; literal values only; `type.groups` of text styles; the rest as `{ tokens: [...] }` lists.
 //
-// lueTailwind — writes tailwind.css, the Tailwind v4 bridge (ADR-0002): `@theme inline` names that point at our
+// lueTailwind - writes tailwind.css, the Tailwind v4 bridge (ADR-0002): `@theme inline` names that point at our
 // variables, so utilities follow subtree theming. Background roles drop their prefix (`bg-surface`), `fg.default`
 // becomes `fg` (`text-fg`), and the rest keep their group (`text-fg-muted`, `border-border-strong`).
 //
-// lueSchema — fails the build if a token has no $description (a token without a usage note doesn't ship), two
+// lueSchema - fails the build if a token has no $description (a token without a usage note doesn't ship), two
 // tokens would share a CSS name (`a.b-c` and `a.b.c` both become --lue-a-b-c), or body text drops below 16 px at its
 // fluid minimum.
 

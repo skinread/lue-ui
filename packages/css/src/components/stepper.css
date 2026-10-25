@@ -1,4 +1,4 @@
-/* Quantity stepper — <lue-stepper class="lue-stepper"> around − / + buttons ([data-lue-step]) and an
+/* Quantity stepper - <lue-stepper class="lue-stepper"> around − / + buttons ([data-lue-step]) and an
    <input type="number" class="lue-input">, usually in a Field. The buttons show once the element is defined; the
    native spin buttons are hidden then. Contract: apps/docs/contracts/quantity-stepper.json. */
 @layer lue.components {

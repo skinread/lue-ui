@@ -1,4 +1,4 @@
-/* Toolbar — <lue-roving class="lue-toolbar" role="toolbar" aria-label="…">: a row (or column, with
+/* Toolbar - <lue-roving class="lue-toolbar" role="toolbar" aria-label="…">: a row (or column, with
    aria-orientation="vertical") of controls that is one Tab stop. Separators are <span role="separator">. Contract:
    apps/docs/contracts/toolbar.json. */
 @layer lue.components {

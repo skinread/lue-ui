@@ -1,7 +1,7 @@
 # Landscape and positioning
 
 > **Status:** Research snapshot · data as of **2026-10-03** · written 2026-10-05
-> **Scope:** architecture, process and gaps. We study other systems to learn how they are *built* — never to borrow
+> **Scope:** architecture, process and gaps. We study other systems to learn how they are *built* - never to borrow
 > their look. Our visual identity is original ([principle 11](./mission-and-principles.md#11-distinctive-not-decorative)).
 
 ## Summary
@@ -11,7 +11,7 @@
 - **Distribution moved to open-code registries** (shadcn-style), shipped with AI tooling: MCP servers, `llms.txt`,
   agent skills.
 - **Tokens have a stable standard:** DTCG 2025.10.
-- **Most native overlay primitives are Baseline** — popover, invoker commands, anchor positioning, `<dialog>`.
+- **Most native overlay primitives are Baseline** - popover, invoker commands, anchor positioning, `<dialog>`.
 - **The opening:** no mainstream system combines native overlays with full keyboard models, native validation,
   multi-brand OKLCH theming from DTCG, forced-colours rigour, and a light-DOM core that works with any framework.
 
@@ -31,17 +31,17 @@
 
 ### CSS-first and methodologies
 
-- **[daisyUI 5](https://daisyui.com/docs/changelog/)** — Tailwind v4 plugin, zero JS, OKLCH theme variables, size and
+- **[daisyUI 5](https://daisyui.com/docs/changelog/)** - Tailwind v4 plugin, zero JS, OKLCH theme variables, size and
   radius variables, popover + anchor dropdowns. Accessibility is left to the author
   ([validator docs](https://daisyui.com/components/validator/) don't cover ARIA wiring).
-- **Pico CSS** — classless; maintainer gap since March 2025 ([community fork](https://github.com/Yohn/PicoCSS)).
-- **[Open Props UI](https://open-props-ui.netlify.app/html/)** — copy-paste components; themes from hue/chroma inputs;
+- **Pico CSS** - classless; maintainer gap since March 2025 ([community fork](https://github.com/Yohn/PicoCSS)).
+- **[Open Props UI](https://open-props-ui.netlify.app/html/)** - copy-paste components; themes from hue/chroma inputs;
   no stated accessibility method.
-- **[Basecoat](https://basecoatui.com/introduction/)** — plain HTML + Tailwind + a little vanilla JS.
-- **[Tailwind Plus Elements](https://tailwindcss.com/blog/vanilla-js-support-for-tailwind-plus)** — headless light-DOM
+- **[Basecoat](https://basecoatui.com/introduction/)** - plain HTML + Tailwind + a little vanilla JS.
+- **[Tailwind Plus Elements](https://tailwindcss.com/blog/vanilla-js-support-for-tailwind-plus)** - headless light-DOM
   custom elements on `<dialog>`, popover, invoker commands and ElementInternals. **Closest architecture to ours**, but
   paid, and closed to new customers since Sep 2026.
-- **Methodologies:** Every Layout (intrinsic layout primitives), CUBE CSS, and Utopia fluid scales — now with
+- **Methodologies:** Every Layout (intrinsic layout primitives), CUBE CSS, and Utopia fluid scales - now with
   [container-unit scales](https://utopia.fyi/space/calculator/).
 
 ### Web components
@@ -49,7 +49,7 @@
 | System | Notes |
 | --- | --- |
 | Web Awesome 3.x | Shadow DOM + tokens + cascade layers; ["native styles"](https://webawesome.com/docs/utilities/native/) for plain elements; [`llms.txt`](https://webawesome.com/llms.txt) |
-| [Polaris web components](https://shopify.dev/changelog/polaris-unified-web-components-are-now-stable) | Stable since Oct 2025, CDN-served, invoker-style API ([`commandFor` + `--show`](https://shopify.dev/docs/api/app-home/polaris-web-components/overlays/modal)) — the commerce peer |
+| [Polaris web components](https://shopify.dev/changelog/polaris-unified-web-components-are-now-stable) | Stable since Oct 2025, CDN-served, invoker-style API ([`commandFor` + `--show`](https://shopify.dev/docs/api/app-home/polaris-web-components/overlays/modal)) - the commerce peer |
 | Spectrum Web Components 2nd gen | [Abstract core classes separated from rendering](https://github.com/adobe/spectrum-web-components/blob/main/CONTRIBUTOR-DOCS/README.md) |
 | Material Web | [Maintenance mode](https://github.com/material-components/material-web/discussions/5642) since 2024 |
 | Fluent v3 / FAST | [RFC (Sep 2026)](https://github.com/microsoft/fluentui/pull/36807) makes CSS anchor positioning the default |
@@ -60,38 +60,38 @@
 
 ### Public-sector leaders
 
-- **GOV.UK Frontend [v6](https://github.com/alphagov/govuk-frontend/releases/tag/v6.0.0)** — roadmap covers dark mode
+- **GOV.UK Frontend [v6](https://github.com/alphagov/govuk-frontend/releases/tag/v6.0.0)** - roadmap covers dark mode
   and more custom properties ([roadmap](https://design-system.service.gov.uk/community/roadmap/)); its validation
   guidance is to [turn off HTML5 validation](https://design-system.service.gov.uk/patterns/validation).
-- **USWDS Elements** — [pre-release](https://github.com/uswds/uswds-elements).
-- **Australia** — the federal AGDS was
+- **USWDS Elements** - [pre-release](https://github.com/uswds/uswds-elements).
+- **Australia** - the federal AGDS was
   [discontinued in 2021](https://www.morpht.com/blog/australian-government-design-system-dead-long-live-gold);
   the live reference is [AgDS](https://design-system.agriculture.gov.au/about) (React + runtime CSS-in-JS, independently
   audited to WCAG 2.1 AA with assistive-technology users).
-- **NL Design System** — [brand → common → component token tiers](https://nldesignsystem.nl/handboek/huisstijl/design-tokens/),
+- **NL Design System** - [brand → common → component token tiers](https://nldesignsystem.nl/handboek/huisstijl/design-tokens/),
   a theme per organisation, and a [relay maturity model](https://nldesignsystem.nl/handboek/estafettemodel/) where a
   component must work in at least two brand themes to progress.
 
 ## Tokens and colour
 
 - **[DTCG 2025.10 is stable](https://www.w3.org/community/design-tokens/2025/10/28/design-tokens-specification-reaches-first-stable-version/)**
-  — Format (types, composites, aliases, `$extends`), Color (CSS Color 4 spaces incl. OKLCH and Display P3) and
+  - Format (types, composites, aliases, `$extends`), Color (CSS Color 4 spaces incl. OKLCH and Display P3) and
   [Resolver](https://www.designtokens.org/tr/2025.10/resolver/) (sets, modifiers, contexts). The resolver is still
   evolving ([Sep 2026 draft](https://www.designtokens.org/tr/drafts/resolver/)).
 - **Tooling:** [Style Dictionary](https://styledictionary.com/info/dtcg/) says its 2025.10 support is incomplete;
   [Terrazzo](https://terrazzo.app/docs/integrations/css/) supports resolvers, permutations, OKLCH gamut mapping and a
-  [plugin API](https://terrazzo.app/docs/reference/plugin-api/) — our choice
+  [plugin API](https://terrazzo.app/docs/reference/plugin-api/) - our choice
   ([ADR-0003](../architecture/adr/0003-dtcg-tokens-with-terrazzo.md)).
-- **[Tailwind v4 `@theme`](https://tailwindcss.com/docs/theme)** turns tokens into utilities but isn't DTCG-aware —
+- **[Tailwind v4 `@theme`](https://tailwindcss.com/docs/theme)** turns tokens into utilities but isn't DTCG-aware -
   a generated bridge covers it.
 - **Contrast:** APCA is not part of the WCAG 3 draft ([status](https://yatil.net/blog/wcag-3-is-not-ready-yet)), so
   WCAG 2.x ratios stay the legal gate. `contrast-color()` is Baseline but only returns black or white.
 
 ## AI-era distribution
 
-- **Open code is overtaking packages** — shadcn supports three bases, private registries and registry validation.
-- **Machine-readable surfaces are expected** — `llms.txt` (Base UI, React Aria, Web Awesome, daisyUI, Nord), MCP
-  servers (shadcn, React Aria, daisyUI, [Storybook](https://storybook.js.org/docs/ai/mcp/overview) — preview, React/
+- **Open code is overtaking packages** - shadcn supports three bases, private registries and registry validation.
+- **Machine-readable surfaces are expected** - `llms.txt` (Base UI, React Aria, Web Awesome, daisyUI, Nord), MCP
+  servers (shadcn, React Aria, daisyUI, [Storybook](https://storybook.js.org/docs/ai/mcp/overview) - preview, React/
   Angular/Vue manifests only), agent skills, and design-to-code links such as
   [Code Connect](https://help.figma.com/hc/en-us/articles/23920389749655-Code-Connect).
 - **Still missing everywhere:** a shared, *checkable* format for accessibility behaviour, token meaning and usage
@@ -99,17 +99,17 @@
 
 ## Trends, 2025–2026
 
-1. **Headless consolidation** — Base UI rising, React Aria as the accessibility-rigour tier.
+1. **Headless consolidation** - Base UI rising, React Aria as the accessibility-rigour tier.
 2. **Open-code registries** with a choice of primitive base replace monolithic kits.
 3. **AI-readable surfaces** (llms.txt, MCP, skills, manifests) are baseline expectations.
-4. **Web components for multi-surface organisations** — and light DOM is coming back
+4. **Web components for multi-surface organisations** - and light DOM is coming back
    ([Progressive Web Components](https://arielsalminen.com/2026/progressive-web-components/), Nord 5, Tailwind Elements).
-5. **Exit from runtime CSS-in-JS** — Primer to CSS Modules; MUI's Pigment CSS [on hold](https://mui.com/blog/2026-and-beyond/);
+5. **Exit from runtime CSS-in-JS** - Primer to CSS Modules; MUI's Pigment CSS [on hold](https://mui.com/blog/2026-and-beyond/);
    cascade layers become architecture.
 6. **OKLCH and P3 by default;** stable DTCG pulls token pipelines together.
-7. **Native primitives displace JS positioning** — Fluent now, Carbon planning.
+7. **Native primitives displace JS positioning** - Fluent now, Carbon planning.
 8. **RTL and logical properties are table stakes.**
-9. **CSS-tooling vendors are commercially fragile** — favour standards over vendors.
+9. **CSS-tooling vendors are commercially fragile** - favour standards over vendors.
 
 ## Gap assessment
 
@@ -122,17 +122,17 @@
 | Forced-colours / high-contrast excellence | **Open in the Tailwind ecosystem** | `outline-none` removes outlines in forced colours; shadcn's button relies on it |
 | i18n and RTL via logical properties | Closed | shadcn, daisyUI 5, Base UI, React Aria all do it |
 | `reading-flow` | Premature | Chrome only |
-| Framework-agnostic core with thin adapters | **Partly open** | Zag/Ark, Spectrum, Polaris do it — but no *open*, light-DOM core on native primitives with React 19 adapters |
+| Framework-agnostic core with thin adapters | **Partly open** | Zag/Ark, Spectrum, Polaris do it - but no *open*, light-DOM core on native primitives with React 19 adapters |
 | Machine-readable accessibility contracts | **Open** | Docs are machine-readable; behaviour contracts aren't |
 
 ## Our position
 
-### Follow — table stakes
+### Follow - table stakes
 
 DTCG tokens · OKLCH colour · cascade layers · logical properties and RTL · container queries · native `<dialog>`,
 popover and `<details>` · `llms.txt`, Markdown docs and MCP · an optional open-code registry for the React adapters.
 
-### Trail-blaze — where we lead
+### Trail-blaze - where we lead
 
 1. **Platform-native interaction layer.** Popover + anchor positioning + invoker commands + `<dialog>` + customizable
    `<select>` + `<details name>`; no portals (the top layer handles stacking); tiny light-DOM elements only for the

@@ -10,7 +10,7 @@ export interface IconProps extends Omit<ComponentPropsWithRef<'svg'>, 'aria-labe
 }
 
 /**
- * `<svg class="lue-icon">` — sized to the text (1.25em) and drawn in `currentColor`. Pass the paths as children.
+ * `<svg class="lue-icon">` - sized to the text (1.25em) and drawn in `currentColor`. Pass the paths as children.
  * Contract: apps/docs/contracts/icon.json.
  */
 export function Icon({ label, mirror, className, viewBox = '0 0 16 16', ...props }: IconProps): ReactNode {

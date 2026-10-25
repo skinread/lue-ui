@@ -1,4 +1,4 @@
-/* Swatch picker — a radio group of colours, each with its name always visible: <fieldset class="lue-fieldset"> holding
+/* Swatch picker - a radio group of colours, each with its name always visible: <fieldset class="lue-fieldset"> holding
    .lue-swatches of <label class="lue-swatch"><input type="radio"><span class="lue-swatch__chip"
    style="--lue-swatch: …"></span>Name</label>. Never colour alone. Contract: apps/docs/contracts/swatch-picker.json. */
 @layer lue.components {

@@ -7,7 +7,7 @@ export interface SkipLinkProps extends ComponentPropsWithRef<'a'> {
 }
 
 /**
- * `<a class="lue-skip-link">` — render it first in the page. Hidden until it has focus.
+ * `<a class="lue-skip-link">` - render it first in the page. Hidden until it has focus.
  * Contract: apps/docs/contracts/skip-link.json.
  */
 export function SkipLink({ className, href = '#main', ...props }: SkipLinkProps): ReactNode {

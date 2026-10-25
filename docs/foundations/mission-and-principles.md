@@ -1,10 +1,10 @@
 # Mission, values and principles
 
 > **Status:** Draft v0.1 · Phase 1 (foundations) · 2026-10-05
-> **Name:** Lue UI, from the French *lueur* — a glimmer of light ([ADR-0008](../architecture/adr/0008-name-lue-ui.md)).
+> **Name:** Lue UI, from the French *lueur* - a glimmer of light ([ADR-0008](../architecture/adr/0008-name-lue-ui.md)).
 > The CSS prefix is `lue`.
 
-Every later decision in this project — tokens, components, APIs, tooling, visual design — must trace back to
+Every later decision in this project - tokens, components, APIs, tooling, visual design - must trace back to
 something on this page. If a decision can't, either the decision is wrong or this page is incomplete, and we fix
 whichever it is in the open.
 
@@ -13,7 +13,7 @@ whichever it is in the open.
 ## Why this exists
 
 1. **Most UI libraries rebuild the browser in JavaScript.** Popovers, dialogs, focus traps, positioning, disclosure
-   and validation are re-implemented in every framework. That costs bytes and hydration time, and — worst — it
+   and validation are re-implemented in every framework. That costs bytes and hydration time, and - worst - it
    costs accessibility, because every re-implementation can drift from the platform behaviour that assistive
    technology expects.
 2. **The platform has caught up.** As of October 2026, popover, invoker commands, anchor positioning, `<dialog>`,
@@ -29,7 +29,7 @@ whichever it is in the open.
 
 ## Mission
 
-**Make accessible, standards-based interfaces the path of least resistance — by building _with_ the web platform,
+**Make accessible, standards-based interfaces the path of least resistance - by building _with_ the web platform,
 not on top of it.**
 
 ## Vision
@@ -53,8 +53,8 @@ What we care about. Values explain _why_; principles (below) say _how_.
 | --- | --- |
 | **People first** | The measure of a component is whether every person can use it. |
 | **The platform is the framework** | Browsers are the most tested UI runtime there is; we build on them, not around them. |
-| **Open by default** | Open source (MIT), open standards, open decisions — RFCs and ADRs are public. |
-| **Less, but better** | Fewer components, fewer variants, fewer bytes — each one excellent. |
+| **Open by default** | Open source (MIT), open standards, open decisions - RFCs and ADRs are public. |
+| **Less, but better** | Fewer components, fewer variants, fewer bytes - each one excellent. |
 | **Evidence over opinion** | Tests, research and real assistive-technology use settle debates. |
 | **Craft and delight** | Accessible never means austere. Beauty and personality are part of usability. |
 
@@ -62,7 +62,7 @@ What we care about. Values explain _why_; principles (below) say _how_.
 
 ## Principles
 
-Each principle has three parts: **we do**, **we don't**, and **how we check** — an automated gate or a named
+Each principle has three parts: **we do**, **we don't**, and **how we check** - an automated gate or a named
 review step. A principle without a check is a wish.
 
 ### 1. Accessible by construction
@@ -74,7 +74,7 @@ use; the inaccessible use is hard or impossible.
   - Treat WCAG 2.2 AA as the floor, and adopt selected AAA criteria (see
     [accessibility commitments](#accessibility-commitments)).
   - Follow the WAI-ARIA Authoring Practices keyboard model for every interactive pattern.
-  - Make accessible names part of the API — an icon-only button can't be built without a label, at the type level
+  - Make accessible names part of the API - an icon-only button can't be built without a label, at the type level
     and in the HTML contract.
   - Write an **accessibility contract** per component: roles, names, states, keyboard map, focus behaviour.
   - Test with real assistive technology before a component is called stable.
@@ -103,7 +103,7 @@ native element → native attribute → CSS → ARIA → small light-DOM script 
   - Write scripts as progressive enhancement of markup that already works.
 - **We don't**
   - Re-implement focus trapping, light dismiss, top-layer stacking, positioning or validation the browser provides.
-  - Portal overlays to `<body>` — the top layer already solves stacking.
+  - Portal overlays to `<body>` - the top layer already solves stacking.
   - Add a JavaScript dependency for something CSS can do.
 - **How we check**
   - Each component spec names its rung, with a justification, and review checks it.
@@ -111,7 +111,7 @@ native element → native attribute → CSS → ARIA → small light-DOM script 
 
 ### 3. Standards over invention
 
-When a standard exists, we use it — and where it falls short, we say so to the people who write it.
+When a standard exists, we use it - and where it falls short, we say so to the people who write it.
 
 - **We do**
   - Emit valid HTML; follow WAI-ARIA 1.2 and the Authoring Practices; store tokens in the DTCG 2025.10 format;
@@ -128,7 +128,7 @@ When a standard exists, we use it — and where it falls short, we say so to the
 ### 4. CSS is the API
 
 The styling contract is plain CSS: tokens as custom properties, cascade layers for predictable overrides, a small set
-of class and attribute hooks — and **state comes from the platform**.
+of class and attribute hooks - and **state comes from the platform**.
 
 - **We do**
   - Ship everything inside `@layer`, so ordinary unlayered CSS always wins.
@@ -163,7 +163,7 @@ People configure their devices for a reason. We honour every preference the plat
 
 ### 6. Intrinsic and resilient
 
-Components adapt to their container, their content, their language and their input — not to device breakpoints.
+Components adapt to their container, their content, their language and their input - not to device breakpoints.
 
 - **We do**
   - Use container queries, intrinsic sizing (`min()`, `clamp()`, `fit-content`, `field-sizing`) and logical
@@ -198,7 +198,7 @@ The core relies only on features that are Baseline across Chrome, Firefox and Sa
 experience better but are never required.
 
 - **We do**
-  - Use **Baseline "newly available"** as the fidelity floor, with no polyfills — see
+  - Use **Baseline "newly available"** as the fidelity floor, with no polyfills - see
     [ADR-0004](../architecture/adr/0004-support-floors.md).
   - Gate enhancements with `@supports` and feature detection, each with an accessible fallback.
   - Track Baseline and Interop, promote features into the core when they land, and keep the
@@ -213,7 +213,7 @@ experience better but are never required.
 
 ### 9. One core, many frameworks
 
-Behaviour and styling are implemented once — in HTML, CSS and small standard custom elements. Framework adapters
+Behaviour and styling are implemented once - in HTML, CSS and small standard custom elements. Framework adapters
 wrap the core; they never fork it.
 
 - **We do**
@@ -230,7 +230,7 @@ wrap the core; they never fork it.
 
 ### 10. Legible to humans and agents
 
-Everything the system knows — tokens, contracts, usage rules — is published as data, so people and AI agents build
+Everything the system knows - tokens, contracts, usage rules - is published as data, so people and AI agents build
 on-system and accessible by default.
 
 - **We do**
@@ -247,7 +247,7 @@ on-system and accessible by default.
 
 ### 11. Distinctive, not decorative
 
-The system has its own visual voice — expressive in type, colour, shape and motion — and every expressive choice
+The system has its own visual voice - expressive in type, colour, shape and motion - and every expressive choice
 passes the same accessibility and performance bars as everything else.
 
 - **We do**
@@ -295,8 +295,8 @@ Resolve in this order:
 | 2.4.11 Focus Not Obscured (Minimum) | AA | `scroll-padding` and `scroll-margin` keep focused items clear of sticky UI. |
 | 2.5.7 Dragging Movements | AA | Every drag interaction has a single-pointer alternative. |
 | 3.3.7 Redundant Entry · 3.3.8 Accessible Authentication | A · AA | Correct `autocomplete`; never block paste or password managers. |
-| Forced colours, reduced motion, increased contrast | — | Designed and tested per component, not left to defaults. |
-| APCA | Advisory | Reported for information. WCAG 2.x ratios are the gate — WCAG 3's contrast method is still undecided. |
+| Forced colours, reduced motion, increased contrast | - | Designed and tested per component, not left to defaults. |
+| APCA | Advisory | Reported for information. WCAG 2.x ratios are the gate - WCAG 3's contrast method is still undecided. |
 
 ## Open source
 

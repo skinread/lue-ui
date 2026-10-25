@@ -1,4 +1,4 @@
-/* Tooltip — <span class="lue-tooltip" popover="manual" role="tooltip" id="…">, named by its trigger's
+/* Tooltip - <span class="lue-tooltip" popover="manual" role="tooltip" id="…">, named by its trigger's
    aria-describedby and data-lue-tooltip. A short, inverse bubble above the trigger (anchor positioning; centred by the
    browser without it). It never holds anything a user must act on. Contract: apps/docs/contracts/tooltip.json. */
 @layer lue.components {

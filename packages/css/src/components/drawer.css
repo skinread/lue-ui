@@ -1,4 +1,4 @@
-/* Drawer — a .lue-dialog with data-side="inline-end" | "inline-start" | "block-end": the same modal <dialog>, docked
+/* Drawer - a .lue-dialog with data-side="inline-end" | "inline-start" | "block-end": the same modal <dialog>, docked
    to an edge and sliding in from it. Everything else (modality, Esc, focus, scroll lock) is Dialog's. Contract:
    apps/docs/contracts/drawer.json. */
 @layer lue.components {

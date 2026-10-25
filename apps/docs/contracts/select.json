@@ -100,7 +100,7 @@
   "react": {
     "component": "Select",
     "props": "every <select> prop; renders the wrap and chevron; Field context as TextInput",
-    "rule": "v1 renders text options only — no <selectedcontent> (hydration risk, RFC-0001 §5)"
+    "rule": "v1 renders text options only - no <selectedcontent> (hydration risk, RFC-0001 §5)"
   },
   "tokens": [
     "--lue-field-radius",

@@ -1,4 +1,4 @@
-// Server-render the React fixture, put the HTML in the page, then hydrate it — the way a framework would.
+// Server-render the React fixture, put the HTML in the page, then hydrate it - the way a framework would.
 import { act } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import { renderToString } from 'react-dom/server';

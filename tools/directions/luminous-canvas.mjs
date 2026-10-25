@@ -1,4 +1,4 @@
-// C2 · Chroma Luminous — the pieces of the canvas a flat palette can't express: chrome hairlines, glass tiers,
+// C2 · Chroma Luminous - the pieces of the canvas a flat palette can't express: chrome hairlines, glass tiers,
 // the prism fill that slides on interaction, sparks, ambient prism light, and the fallbacks that switch them off.
 // Imported by build-canvas.mjs. Values come from palettes.mjs, where every rule here is contrast-checked.
 import { directions as PAL, luminous as LUM, evaluateLuminous, prismRamp, ambientGlows, buttonBlobs, tones, chromeStops } from './palettes.mjs';
@@ -97,7 +97,7 @@ export function lxVars(s) {
       ? 'radial-gradient(circle at 34% 30%, oklch(0.99 0.004 270), oklch(0.84 0.01 270) 42%, oklch(0.62 0.014 280))'
       : 'radial-gradient(circle at 34% 30%, oklch(1 0 0), oklch(0.78 0.008 270) 46%, oklch(0.52 0.012 280))',
     '--bead-rim': dark ? 'oklch(0.64 0.016 285)' : 'oklch(0.38 0.012 285)',
-    // On: a pearl bead on the jewel track (dark), a graphite bead on the pastel track (light) — 3:1 either way.
+    // On: a pearl bead on the jewel track (dark), a graphite bead on the pastel track (light) - 3:1 either way.
     '--bead-on': dark
       ? 'radial-gradient(circle at 34% 30%, oklch(1 0 0), oklch(0.96 0.006 285) 50%, oklch(0.86 0.012 285))'
       : 'radial-gradient(circle at 34% 30%, oklch(0.6 0.02 285), oklch(0.3 0.015 285) 48%, oklch(0.2 0.02 285))',
@@ -434,7 +434,7 @@ export function lxFoundations({ icon }) {
       <span></span>${LUM.prismSteps.map((L) => `<span class="t-micro" style="text-align: center">L ${L}</span>`).join('')}
       ${Object.entries(ramp).map(([name, steps]) => `<span class="t-micro">${name}</span>${steps.map((v) => `<span title="${raw(v)}" style="block-size: 40px; border-radius: var(--radius-s); background: ${raw(v)}"></span>`).join('')}`).join('\n      ')}
     </div>
-    <p class="t-small t-muted" style="max-inline-size: 72ch">Ambient light comes from the whole prism. Glass buttons carry several of its tones at once — ${LUM.light.buttons.prism.hues.join(', ')} in light; ${LUM.dark.buttons.prism.hues.join(', ')} in dark — all at one lightness, so they can drift without changing contrast. Small solid fills (checkboxes, switches, steps) keep an iso-lightness slice.</p>
+    <p class="t-small t-muted" style="max-inline-size: 72ch">Ambient light comes from the whole prism. Glass buttons carry several of its tones at once - ${LUM.light.buttons.prism.hues.join(', ')} in light; ${LUM.dark.buttons.prism.hues.join(', ')} in dark - all at one lightness, so they can drift without changing contrast. Small solid fills (checkboxes, switches, steps) keep an iso-lightness slice.</p>
     <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
       ${['dark', 'light'].map((s) => panel(s, `
         <p class="t-micro">${label(s)} · glass buttons</p>
@@ -492,7 +492,7 @@ export function lxFoundations({ icon }) {
           <p class="t-small">Dialogs, over the scrim. Body text ≥ ${r(s, 'fg-default on modal')}:1; muted ≥ ${r(s, 'fg-muted on modal')}:1.</p>
         </div>`, '; min-block-size: 440px')).join('\n      ')}
     </div>
-    <p class="t-small t-muted" style="max-inline-size: 76ch">Glass is a tint over a blurred, range-compressed backdrop (<code class="t-code">contrast()</code> and <code class="t-code">brightness()</code> in the backdrop filter), plus a faint sheen and a prism fringe at the edge. The checker composites it over white, black and every fill in the palette, reading the filter both ways engines apply it, and keeps the worst result. Buttons are a lighter, clearer pane: verified over surfaces, ambient light and glass — on photography they sit on a glass panel.</p>
+    <p class="t-small t-muted" style="max-inline-size: 76ch">Glass is a tint over a blurred, range-compressed backdrop (<code class="t-code">contrast()</code> and <code class="t-code">brightness()</code> in the backdrop filter), plus a faint sheen and a prism fringe at the edge. The checker composites it over white, black and every fill in the palette, reading the filter both ways engines apply it, and keeps the worst result. Buttons are a lighter, clearer pane: verified over surfaces, ambient light and glass - on photography they sit on a glass panel.</p>
   </section>`;
 
   const motion = `

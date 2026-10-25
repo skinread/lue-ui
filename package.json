@@ -2,7 +2,7 @@
   "name": "lue-ui-workspace",
   "private": true,
   "type": "module",
-  "description": "Lue UI — a platform-native, accessibility-first design system (workspace root)",
+  "description": "Lue UI - a platform-native, accessibility-first design system (workspace root)",
   "license": "MIT",
   "packageManager": "pnpm@12.4.1",
   "engines": {

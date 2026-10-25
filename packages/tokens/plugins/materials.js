@@ -1,4 +1,4 @@
-// lueMaterials — the material contrast rules (ADR-0009): text and boundaries on glass, glass buttons, ambient light,
+// lueMaterials - the material contrast rules (ADR-0009): text and boundaries on glass, glass buttons, ambient light,
 // satin and metal, checked worst-case against every backdrop they can meet, in every theme context, from the token
 // source. Ported from tools/directions/palettes.mjs (Pass 2), which checked the palette seeds instead.
 //
@@ -116,7 +116,7 @@ function rules(set) {
     worst(`chrome ring on ${tier} glass`, chrome, glass, 3);
   }
 
-  // Glass buttons sit on surfaces, ambient light, glass or satin — never straight on photography. Outside glass they
+  // Glass buttons sit on surfaces, ambient light, glass or satin - never straight on photography. Outside glass they
   // blur their own backdrop; inside glass they don't (a glass parent is a backdrop root), so both are checked.
   const glassAll = ['overlay', 'modal'].flatMap((tier) => backdrops.flatMap((b) => glassOver(tier, b)));
   const satin = group('material.satin.').map((id) => solid(id));
