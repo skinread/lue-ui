@@ -8,7 +8,9 @@
   "sideEffects": [
     "./dist/define.js",
     "./dist/define/*.js",
-    "./dist/lue.iife.js"
+    "./dist/lue.iife.js",
+    "./src/define.ts",
+    "./src/define/*.ts"
   ],
   "exports": {
     ".": {
