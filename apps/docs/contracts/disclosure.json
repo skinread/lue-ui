@@ -1,6 +1,17 @@
 {
   "name": "Disclosure",
   "summary": "A summary that shows and hides its content with no script.",
+  "guidance": {
+    "useFor": "Secondary detail people may want: more about delivery, the full specification, the terms.",
+    "insteadUse": [
+      "Content everyone needs: show it",
+      "Several related sections where one should be open at a time: Accordion"
+    ],
+    "content": [
+      "The summary says what's inside",
+      "Don't hide errors or required fields in a closed disclosure"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<details> and <summary> give the expanded state, Enter and Space, find-in-page and no-JavaScript behaviour.",

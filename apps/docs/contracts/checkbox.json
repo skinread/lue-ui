@@ -1,6 +1,17 @@
 {
   "name": "Checkbox",
   "summary": "A native checkbox, redrawn, alone or in a group with a shared hint and error.",
+  "guidance": {
+    "useFor": "Choosing any number of options, or agreeing to one statement.",
+    "insteadUse": [
+      "One choice from several: Radio group",
+      "A setting that applies at once: Switch"
+    ],
+    "content": [
+      "Labels say what's chosen when checked, in the positive (\"Email me order updates\", not \"Don't email me\")",
+      "A group has a legend that asks the question"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<input type=\"checkbox\"> gives the role, state, Space activation, label activation and form participation; appearance: none only redraws it.",

@@ -1,6 +1,17 @@
 {
   "name": "QuantityStepper",
   "summary": "A number field with − and + buttons that respect its min, max and step.",
+  "guidance": {
+    "useFor": "Choosing a small whole number: items in the cart, guests, nights.",
+    "insteadUse": [
+      "Large or free numbers (prices, measurements): a text field with inputmode=\"decimal\"",
+      "A fixed set of options: Select or Segmented control"
+    ],
+    "content": [
+      "Label it with what's counted (\"Quantity\")",
+      "State limits in the hint (\"Up to 10\")"
+    ]
+  },
   "status": "experimental",
   "rung": "light-dom-script",
   "rungReason": "<input type=\"number\"> is the spinbutton; <lue-stepper> wires the buttons to stepUp() and stepDown().",

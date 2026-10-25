@@ -1,6 +1,18 @@
 {
   "name": "Table",
   "summary": "A data table with a caption, scrollable sideways inside a named, keyboard-reachable region.",
+  "guidance": {
+    "useFor": "Data people compare across rows and columns: specifications, orders, prices.",
+    "insteadUse": [
+      "Layout: the layout primitives",
+      "A list of items with one or two facts each: a list or Cards"
+    ],
+    "content": [
+      "The caption says what the table holds",
+      "Headers are short; units go in the header, not every cell",
+      "Right-align numbers (the numeric variant)"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<table>, <caption> and <th scope> give the structure; a <section> named by the caption is the focusable scrolling region.",

@@ -1,6 +1,16 @@
 {
   "name": "Progress",
   "summary": "How much of a task is done (progress), or a measurement in a known range (meter).",
+  "guidance": {
+    "useFor": "Showing how far a task has got (an upload, a multi-step form) or a measure in a range (storage used, password strength).",
+    "insteadUse": [
+      "Waiting with no measurable progress: Spinner",
+      "A score: Rating"
+    ],
+    "content": [
+      "Say the value in words when it matters (\"3 of 5 files\")"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<progress> and <meter> carry their role, value and range natively and are labelable; CSS only draws them.",

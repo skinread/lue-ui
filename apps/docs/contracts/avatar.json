@@ -1,6 +1,16 @@
 {
   "name": "Avatar",
   "summary": "A person's photo or initials in a circle.",
+  "guidance": {
+    "useFor": "Showing who someone is next to their content: an author, a reviewer, an account.",
+    "insteadUse": [
+      "A company or product logo: an image with alt text",
+      "Decoration with no person behind it: an icon"
+    ],
+    "content": [
+      "Use the person's own photo, or let the initials show; never a stock face"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<img alt> for a photo; initials are an image too (role=\"img\" with the name), so they're read as the person, not as letters.",

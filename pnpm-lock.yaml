@@ -226,6 +226,9 @@ importers:
       react:
         specifier: ^19.3.0
         version: 19.3.0
+      react-docgen:
+        specifier: 8.0.4
+        version: 8.0.4
       react-dom:
         specifier: ^19.3.0
         version: 19.3.0(react@19.3.0)

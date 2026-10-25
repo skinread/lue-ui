@@ -1,6 +1,16 @@
 {
   "name": "Link",
   "summary": "A text link, underlined always.",
+  "guidance": {
+    "useFor": "Going somewhere: another page, a section of this one, a file.",
+    "insteadUse": [
+      "Doing something on the page: Button"
+    ],
+    "content": [
+      "Link text says where it goes and makes sense alone: \"Delivery times\", never \"click here\"",
+      "Say when a link opens a new tab or downloads a file"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<a href> gives the link role, Enter activation, history, the context menu and visited state; the class only draws it.",

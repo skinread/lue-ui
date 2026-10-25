@@ -1,6 +1,16 @@
 {
   "name": "Search",
   "summary": "A search landmark with a labelled search field and a button; a plain GET form.",
+  "guidance": {
+    "useFor": "Site or catalogue search: a labelled field and a button that submits to a results page.",
+    "insteadUse": [
+      "Filtering a short list on the page: a field that filters as you type, with its results announced"
+    ],
+    "content": [
+      "Keep the label (\"Search\" or what's searched, \"Search products\")",
+      "Show the query on the results page"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<search> is the landmark; a GET form with <input type=\"search\"> submits with no script.",

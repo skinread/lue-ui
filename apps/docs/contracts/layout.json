@@ -1,6 +1,13 @@
 {
   "name": "Layout",
   "summary": "Six intrinsic layout primitives: Stack, Cluster, Grid, Sidebar, Switcher and Center.",
+  "guidance": {
+    "useFor": "Arranging any content: Stack for vertical rhythm, Cluster for rows that wrap, Grid for equal columns, Sidebar for a fixed side, Switcher for side by side or stacked, Center for a readable column.",
+    "insteadUse": [
+      "Reordering content visually: change the source order instead",
+      "Tables of data: Table"
+    ]
+  },
   "status": "experimental",
   "rung": "css",
   "rungReason": "Flexbox and grid with intrinsic sizing respond to their container with no script and no queries.",

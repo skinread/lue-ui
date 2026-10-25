@@ -1,6 +1,15 @@
 {
   "name": "Rating",
   "summary": "A read-only score shown as stars, and said in words.",
+  "guidance": {
+    "useFor": "Showing a score: product reviews, an average rating.",
+    "insteadUse": [
+      "Asking for a rating: Radio group or Segmented control with words"
+    ],
+    "content": [
+      "Show the number of reviews next to it so the score means something"
+    ]
+  },
   "status": "experimental",
   "rung": "css",
   "rungReason": "The score is text; the stars are a CSS mask filled to the value, hidden from assistive technology.",

@@ -1,6 +1,18 @@
 {
   "name": "Accordion",
   "summary": "A group of disclosures where opening one closes the others, natively.",
+  "guidance": {
+    "useFor": "A set of related questions or sections where people read one at a time: FAQs, delivery and returns details.",
+    "insteadUse": [
+      "Content everyone needs: leave it on the page",
+      "Several sections worth comparing side by side: let them all open (a stack of Disclosures)",
+      "Switching between views of one thing: Tabs"
+    ],
+    "content": [
+      "Each summary is the question or the section's name, in sentence case",
+      "Keep each panel short; long content belongs on its own page"
+    ]
+  },
   "status": "experimental",
   "rung": "native-attribute",
   "rungReason": "<details name> makes a group exclusive natively: opening one closes the others, with no script.",

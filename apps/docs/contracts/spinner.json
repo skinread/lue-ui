@@ -1,6 +1,16 @@
 {
   "name": "Spinner",
   "summary": "Loading indicators: a spinner with its words read as a status, and decorative skeleton placeholders.",
+  "guidance": {
+    "useFor": "Waiting for something with no measurable progress: loading results, saving. Skeletons for the shape of content that's on its way.",
+    "insteadUse": [
+      "Progress that can be measured: Progress",
+      "Waits under a second: show nothing"
+    ],
+    "content": [
+      "The spinner's words say what's happening (\"Loading results\")"
+    ]
+  },
   "status": "experimental",
   "rung": "aria",
   "rungReason": "No element says \"loading\": role=\"status\" with visually hidden words announces it, and aria-busy on the region marks what's loading.",

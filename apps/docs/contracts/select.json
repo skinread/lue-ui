@@ -1,6 +1,17 @@
 {
   "name": "Select",
   "summary": "A native select, customisable where the engine supports it.",
+  "guidance": {
+    "useFor": "Choosing one option from a long, familiar list: country, state, month.",
+    "insteadUse": [
+      "Few options people should compare: Radio group",
+      "Free text with suggestions: a text field"
+    ],
+    "content": [
+      "The label says what's chosen",
+      "Default to the most likely option only when it's safe; otherwise ask people to choose"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<select> provides the role, the picker, keyboard selection, form participation and validation. Customisable select only restyles it.",

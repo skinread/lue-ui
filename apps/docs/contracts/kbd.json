@@ -1,6 +1,16 @@
 {
   "name": "Kbd",
   "summary": "A key cap for keyboard input, nested for combinations.",
+  "guidance": {
+    "useFor": "Telling people which keys to press: shortcuts in help text and menus.",
+    "insteadUse": [
+      "Code or file names: <code>"
+    ],
+    "content": [
+      "Write key names as words where a symbol is unclear (\"Shift\")",
+      "Nest keys for a combination: Ctrl + K"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<kbd> is user input; nested <kbd> elements are a key combination.",

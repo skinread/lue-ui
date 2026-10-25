@@ -1,6 +1,18 @@
 {
   "name": "Dialog",
   "summary": "A modal dialog opened with no script; the browser handles focus, Esc and the inert page.",
+  "guidance": {
+    "useFor": "A task or decision that must be finished before going on: confirming a deletion, a short form.",
+    "insteadUse": [
+      "Information people may want beside the page: Popover or Toggletip",
+      "Long or multi-step tasks: a page",
+      "Filters or navigation from an edge: Drawer"
+    ],
+    "content": [
+      "The title asks or names the task (\"Delete this project?\")",
+      "Buttons say what they do (\"Delete\", \"Cancel\"), never \"Yes\" and \"No\""
+    ]
+  },
   "status": "experimental",
   "rung": "native-attribute",
   "rungReason": "<dialog> gives modality, inertness, top layer and Esc; invoker commands open it without script; <form method=\"dialog\"> closes it with a return value.",

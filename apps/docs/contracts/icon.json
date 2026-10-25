@@ -1,6 +1,16 @@
 {
   "name": "Icon",
   "summary": "Inline SVG sized to the text and drawn in its colour; decorative unless labelled.",
+  "guidance": {
+    "useFor": "Supporting a word: in buttons, alerts, list items; or standing alone with a label when the meaning is universal (close, search).",
+    "insteadUse": [
+      "Meaning only an icon would carry: add the words",
+      "Decoration that adds nothing: leave it out"
+    ],
+    "content": [
+      "Decorative icons say nothing; a labelled icon's label says what it means (\"Warning\"), not what it shows (\"Triangle\")"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "Inline <svg> takes currentColor and scales with text; aria-hidden or role=\"img\" with a name are native attributes.",

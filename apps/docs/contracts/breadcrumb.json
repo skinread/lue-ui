@@ -1,6 +1,17 @@
 {
   "name": "Breadcrumb",
   "summary": "Where the page sits in the site: a named list of links, the last one the current page.",
+  "guidance": {
+    "useFor": "Pages deep in a hierarchy (categories, help articles), so people can see where they are and go up a level.",
+    "insteadUse": [
+      "Flat sites or single-level pages",
+      "Steps in a process: show progress in the page instead"
+    ],
+    "content": [
+      "Use each page's short title",
+      "Start from the home page or the section's top"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<nav> with a name, an <ol> and links: the landmark, the list count and aria-current carry it all.",

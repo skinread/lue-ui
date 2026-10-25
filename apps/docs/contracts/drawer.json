@@ -1,6 +1,17 @@
 {
   "name": "Drawer",
   "summary": "A modal dialog docked to an edge of the viewport.",
+  "guidance": {
+    "useFor": "Secondary tasks that slide in from an edge without leaving the page: filters, a mini cart, mobile navigation.",
+    "insteadUse": [
+      "A decision that needs an answer: Dialog",
+      "A small amount of help: Popover or Toggletip"
+    ],
+    "content": [
+      "The title names the panel (\"Filters\")",
+      "Close and apply actions say what they do (\"Show 24 results\")"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "A modal <dialog> docked to an edge with CSS; modality, Esc, focus and its return are the browser's, as for Dialog.",

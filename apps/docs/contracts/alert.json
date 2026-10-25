@@ -1,6 +1,18 @@
 {
   "name": "Alert",
   "summary": "A callout with an icon, a title and a body; its tone is said in words.",
+  "guidance": {
+    "useFor": "A message about the page or the task that people should notice: a delay, a change, a success after a step, an error that blocks.",
+    "insteadUse": [
+      "A short-lived confirmation of an action: Toast",
+      "A problem with one field: the field's error message",
+      "A form's list of problems: the error summary"
+    ],
+    "content": [
+      "The title says what happened (\"Delivery is delayed\"); the body says what it means or what to do",
+      "Critical is for errors only; never colour alone: the icon and the tone word carry it"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "A <div> with a paragraph title; role=\"status\" or role=\"alert\" is added only when it's injected after load.",

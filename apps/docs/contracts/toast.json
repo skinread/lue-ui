@@ -1,6 +1,17 @@
 {
   "name": "Toast",
   "summary": "Short status messages, announced and shown at the corner of the viewport.",
+  "guidance": {
+    "useFor": "Confirming something that just happened, with an undo where it helps: \"Item removed\".",
+    "insteadUse": [
+      "Errors that need action: Alert or the field's error",
+      "Anything people must read: put it on the page"
+    ],
+    "content": [
+      "A few words in the past tense (\"Saved\", \"Image removed\")",
+      "At most one action, and it says what it does (\"Undo\")"
+    ]
+  },
   "status": "experimental",
   "rung": "light-dom-script",
   "rungReason": "Announcing, timing, pausing and queueing need script; the element uses ariaNotify() or a live region, and a manual popover for the top layer.",

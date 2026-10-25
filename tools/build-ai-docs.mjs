@@ -2,15 +2,20 @@
 // Storybook serves at its root:
 //   llms.txt                 the index (llmstxt.org): what Lue UI is, and a link per component
 //   llms-full.txt            every page below, in one file
-//   components/<id>.md       one page per contract: summary, the HTML each story renders on the server, React props,
-//                            the accessibility contract, anatomy, platform needs and tokens
+//   components/<id>.md       one page per contract: summary, when to use it, the HTML each story renders on the server,
+//                            React props, the accessibility contract, anatomy, platform needs and tokens
+//   guidelines/<id>.md       the design guidelines: when to use it and what instead, content, markup, variants and
+//                            accessibility essentials (the shape of a Claude Design System component README)
 //   tokens.md, tokens.json   every token with its value in each theme
 //   contracts/<id>.json      the contracts themselves, and contracts/index.json
 // Stories are rendered with renderToStaticMarkup (as in the markup gate), so the HTML shown is the no-JavaScript
-// markup. Fails when a contract has no summary or a story doesn't render. Run by `pnpm check` and the docs build.
+// markup. React props come from react-docgen, so each prop's JSDoc is the one description. Fails when a contract has no
+// summary or a story doesn't render. Run by `pnpm check` and the docs build.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { builtinImporters, builtinResolvers, parse } from 'react-docgen';
+import { formatHtml } from './format-html.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'apps/docs/public');
@@ -24,6 +29,7 @@ const ids = fs.readdirSync(CONTRACTS).filter((f) => f.endsWith('.json') && f !==
 const contracts = Object.fromEntries(ids.map((id) => [id, JSON.parse(fs.readFileSync(path.join(CONTRACTS, `${id}.json`), 'utf8'))]));
 
 // ---- render every story to static HTML, through a small esbuild bundle run in Node
+const exportOrder = (id) => [...fs.readFileSync(path.join(STORIES, `${id}.stories.tsx`), 'utf8').matchAll(/^export const (\w+)/gm)].map((m) => m[1]);
 const ALIASES = [
   [/^@lue-ui\/elements\/define$/, 'packages/elements/src/define.ts'],
   [/^@lue-ui\/elements\/validate$/, 'packages/elements/src/validate/controller.ts'],
@@ -37,7 +43,10 @@ const entry = [
   "import { composeStories } from '@storybook/react-vite';",
   ...ids.map((id, i) => `import * as s${i} from ${JSON.stringify(path.join(STORIES, `${id}.stories.tsx`))};`),
   `const modules = { ${ids.map((id, i) => `${JSON.stringify(id)}: s${i}`).join(', ')} };`,
-  'export default Object.fromEntries(Object.entries(modules).map(([id, mod]) => [id, Object.entries(composeStories(mod)).map(([key, Story]) => {',
+  `const order = ${JSON.stringify(Object.fromEntries(ids.map((id) => [id, exportOrder(id)])))};`,
+  // A module's export names come sorted; order the stories as the file does.
+  'const inOrder = (id, mod) => Object.entries(composeStories(mod)).sort(([a], [b]) => order[id].indexOf(a) - order[id].indexOf(b));',
+  'export default Object.fromEntries(Object.entries(modules).map(([id, mod]) => [id, inOrder(id, mod).map(([key, Story]) => {',
   '  try { return { name: Story.storyName ?? key, html: renderToStaticMarkup(createElement(Story)) }; }',
   '  catch (error) { return { name: Story.storyName ?? key, error: String(error) }; }',
   '})]));',
@@ -63,6 +72,26 @@ await build({
 });
 const rendered = (await import(`${pathToFileURL(outfile).href}?${Date.now()}`)).default;
 
+// ---- the React adapters' own props and JSDoc, as Storybook's docs page reads them
+const REACT = path.join(ROOT, 'packages/react/src');
+const docgen = {};
+for (const dir of fs.readdirSync(REACT)) {
+  const file = path.join(REACT, dir, 'index.tsx');
+  if (!fs.existsSync(file)) continue;
+  try {
+    const found = parse(fs.readFileSync(file, 'utf8'), {
+      resolver: new builtinResolvers.FindExportedDefinitionsResolver(),
+      importer: builtinImporters.fsImporter,
+      filename: file,
+      babelOptions: { babelrc: false, configFile: false },
+    });
+    for (const doc of found) if (doc.displayName) docgen[doc.displayName] = doc;
+  } catch {
+    // A module with no component (LueElements renders nothing).
+  }
+}
+const typeOf = (p) => (p.tsType?.raw ?? p.tsType?.name ?? '').replace(/\s*\|\s*undefined\b/g, '').replace(/\s+/g, ' ');
+
 /** A story file's title (its Storybook name, e.g. "Radio group") and the JSDoc above `const meta`, less the pointer
  *  back to the contract. */
 function storyMeta(id) {
@@ -87,6 +116,70 @@ function anatomyRows(anatomy) {
   return Object.entries(anatomy).map(([part, p]) => [part, `<${p.element}>`, p.class ? code(`.${p.class.split('|').join(', .')}`) : '', p.required === false ? 'optional' : 'required', attrs(p.attributes)]);
 }
 
+/** The contract's own words for a name that react-docgen doesn't document (a hook, a function). */
+function contractProps(entry) {
+  if (typeof entry === 'string') return entry;
+  const props = entry?.props ?? entry?.returns;
+  if (typeof props === 'string') return props;
+  return table(['Prop', 'Meaning'], Object.entries(props ?? {}).map(([k, v]) => [k === '...' ? 'other props' : code(k), v]));
+}
+
+function reactSection(id, r) {
+  const names = r.component ? String(r.component).split(/,\s*/) : Object.keys(r.components ?? {});
+  const parts = [`\`import { ${names.join(', ')} } from '@lue-ui/react'\``];
+  for (const name of names) {
+    const doc = docgen[name];
+    const fallback = r.components?.[name] ?? (names.length === 1 ? r : undefined);
+    let body;
+    if (doc) {
+      const rows = Object.entries(doc.props ?? {}).map(([prop, p]) => [code(prop), typeOf(p) ? code(typeOf(p)) : '', p.required ? 'yes' : '', p.description || '']);
+      for (const [prop, p] of Object.entries(doc.props ?? {})) if (!p.description) problems.push(`${id}: ${name}'s prop ${prop} has no JSDoc`);
+      body = [doc.description.replace(/\s+/g, ' ').replace(/\s*Contracts?: .*$/, ''), table(['Prop', 'Type', 'Required', 'Description'], rows) || 'Every prop of the element it renders.'].filter(Boolean).join('\n\n');
+    } else {
+      body = fallback ? contractProps(fallback) : '';
+    }
+    parts.push(names.length > 1 ? `### ${name}\n\n${body}` : body);
+  }
+  if (names.length > 0 && names.every((n) => docgen[n])) parts.push(table(['Other props', 'Goes to'], [['Every other prop', 'the element it renders (`className` adds to its class)']]));
+  for (const extra of [r.note, r.rule, ...(r.warnings ?? [])]) if (extra) parts.push(extra);
+  return parts.filter(Boolean).join('\n\n');
+}
+
+/** The guidance's "instead" list: "situation: what to use" becomes a row. */
+const insteadRows = (items) => items.map((item) => {
+  const at = item.indexOf(': ');
+  return at > -1 ? [item.slice(0, at), item.slice(at + 2)] : [item, ''];
+});
+
+function guidanceSection(g) {
+  return [
+    `**Use it for** ${g.useFor.charAt(0).toLowerCase()}${g.useFor.slice(1)}`,
+    g.insteadUse?.length ? table(['When', 'Use instead'], insteadRows(g.insteadUse)) : '',
+    g.content?.length ? `**Content**\n\n${list(g.content)}` : '',
+  ].filter(Boolean).join('\n\n');
+}
+
+/** The design guidelines: a Claude Design System component README (first sentence = summary). */
+function guidelines(id) {
+  const c = contracts[id];
+  const a = c.a11y;
+  const first = (rendered[id] ?? []).find((s) => s.html);
+  const keys = a.keyboard.filter((k) => !/^\(/.test(k.keys[0] ?? '')).map((k) => `${k.keys.map(code).join(', ')}: ${k.action.charAt(0).toLowerCase()}${k.action.slice(1)}`);
+  const variants = Object.entries(c.variants ?? {}).map(([k, v]) => `**${k}:** ${code(v.attribute)}${v.values ? ` = ${v.values.map(code).join(' | ')}` : ' (present or absent)'}${v.description ? `. ${v.description}` : ''}`);
+  const states = (a.states ?? []).map((s) => `${s.state}: ${code(s.via)}`);
+  return [
+    `# ${meta[id].title}\n\n${c.summary}`,
+    guidanceSection(c.guidance),
+    first ? `**Markup**: what a server renders, before any script.\n\n\`\`\`html\n${formatHtml(first.html)}\n\`\`\`` : '',
+    variants.length ? `**Variants**\n\n${list(variants)}` : '',
+    states.length ? `**States** come from the platform: ${states.join('; ')}.` : '',
+    `**Accessibility**\n\n${list([`Name: ${a.name}`, a.targetSize ? `Target: ${a.targetSize}` : '', ...keys].filter(Boolean))}`,
+    c.rules?.length ? `**Rules**\n\n${list(c.rules)}` : '',
+    [c.withoutJavaScript ? `**Without JavaScript:** ${c.withoutJavaScript}` : '', c.contrast ? `**Increased contrast:** ${c.contrast}` : '', c.forcedColors ? `**Forced colours:** ${c.forcedColors}` : ''].filter(Boolean).join('\n\n'),
+    `Reference: [${id}.md](../components/${id}.md) · Contract: [${id}.json](../contracts/${id}.json)`,
+  ].filter(Boolean).join('\n\n') + '\n';
+}
+
 function page(id) {
   const c = contracts[id];
   const stories = rendered[id] ?? [];
@@ -100,20 +193,17 @@ function page(id) {
     table(['Enhancement', 'Fallback', 'Where'], (c.platform.enhancements ?? []).map((e) => [e.feature, e.fallback, e.where])),
     table(['Known gap', 'Where', 'Policy'], (c.platform.knownGaps ?? []).map((g) => [g.gap, g.where, g.policy])),
   ].filter(Boolean).join('\n\n');
-  const react = c.react ? [
-    `\`import { ${String(c.react.component).split(/,\s*/).join(', ')} } from '@lue-ui/react'\``,
-    table(['Prop', 'Meaning'], Object.entries(c.react.props ?? {}).map(([k, v]) => [k === '...' ? 'other props' : code(k), v])),
-    c.react.note ?? '',
-  ].filter(Boolean).join('\n\n') : '';
+  const react = c.react ? reactSection(id, c.react) : '';
   const variants = table(['Variant', 'Attribute', 'Values'], Object.entries(c.variants ?? {}).map(([k, v]) => [k, code(v.attribute), v.values?.join(', ') ?? (v.type === 'boolean' ? 'present or absent' : '')]));
   const owned = Object.keys(c.ownedAttributes ?? {}).length ? list(Object.entries(c.ownedAttributes).map(([el, v]) => `${code(el)}: ${Array.isArray(v) ? v.join(', ') : typeof v === 'object' ? JSON.stringify(v) : v}`)) + (c.elementRules ? `\n\n${c.elementRules}` : '') : 'Nothing: no script writes to its DOM.';
   // Stories that only add a play function render the same markup as one before them: show each markup once.
   const seen = new Set();
-  const html = stories.filter((s) => s.html && !seen.has(s.html) && seen.add(s.html)).map((s) => `### ${s.name}\n\n\`\`\`html\n${s.html}\n\`\`\``).join('\n\n');
+  const html = stories.filter((s) => s.html && !seen.has(s.html) && seen.add(s.html)).map((s) => `### ${s.name}\n\n\`\`\`html\n${formatHtml(s.html)}\n\`\`\``).join('\n\n');
   return [
     `# ${meta[id].title}\n\n> ${c.summary}\n`,
     meta[id].description ? `${meta[id].description}\n` : '',
     `Status: ${c.status} · Platform rung: ${c.rung}. ${c.rungReason}${c.covers ? `\n\nCovers: ${c.covers.join('; ')}.` : ''}\n`,
+    section('When to use it', guidanceSection(c.guidance)),
     section('HTML', html ? `Each example is what a server renders: it works before any script loads.\n\n${html}` : ''),
     section('React', react),
     section('Accessibility', [
@@ -164,6 +254,10 @@ const llms = [
   '## Components\n',
   ids.map((id) => `- [${meta[id].title}](components/${id}.md): ${contracts[id].summary}`).join('\n'),
   '',
+  '## Guidelines\n',
+  'When to use each component and what to use instead, how to write its content, and its markup in brief.\n',
+  ids.map((id) => `- [${meta[id].title}](guidelines/${id}.md)`).join('\n'),
+  '',
   '## Foundations\n',
   '- [Tokens](tokens.md): every token with its value in each theme',
   '- [Contracts](contracts/index.json): the machine-readable contracts every page is built from',
@@ -177,8 +271,10 @@ const llms = [
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, 'components'), { recursive: true });
 fs.mkdirSync(path.join(OUT, 'contracts'), { recursive: true });
+fs.mkdirSync(path.join(OUT, 'guidelines'), { recursive: true });
 const pages = ids.map((id) => [id, page(id)]);
 for (const [id, md] of pages) fs.writeFileSync(path.join(OUT, 'components', `${id}.md`), md);
+for (const id of ids) fs.writeFileSync(path.join(OUT, 'guidelines', `${id}.md`), guidelines(id));
 for (const id of ids) fs.copyFileSync(path.join(CONTRACTS, `${id}.json`), path.join(OUT, 'contracts', `${id}.json`));
 fs.writeFileSync(path.join(OUT, 'contracts/index.json'), `${JSON.stringify(ids.map((id) => ({ id, name: contracts[id].name, summary: contracts[id].summary, status: contracts[id].status, url: `${id}.json` })), null, 2)}\n`);
 fs.writeFileSync(path.join(OUT, 'tokens.md'), tokensMd);
@@ -188,5 +284,5 @@ fs.writeFileSync(path.join(OUT, 'llms-full.txt'), [llms, tokensMd, ...pages.map(
 
 for (const p of problems) console.error(`ai-docs: ${p}`);
 const stories = Object.values(rendered).reduce((n, s) => n + s.length, 0);
-console.log(`ai-docs: ${ids.length} pages, ${stories} stories rendered, ${Object.keys(tokens).length} tokens → apps/docs/public`);
+console.log(`ai-docs: ${ids.length} pages and guidelines, ${stories} stories rendered, ${Object.keys(tokens).length} tokens → apps/docs/public`);
 process.exit(problems.length ? 1 : 0);

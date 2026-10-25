@@ -1,6 +1,18 @@
 {
   "name": "Popover",
   "summary": "Non-modal content anchored to the button that opens it, with no script.",
+  "guidance": {
+    "useFor": "Extra content or a few controls next to the button that opens it: sharing options, a mini form, more detail.",
+    "insteadUse": [
+      "Anything that needs an answer before going on: Dialog",
+      "A line of help: Toggletip",
+      "A list of actions: Menu"
+    ],
+    "content": [
+      "The trigger says what opens (\"Share\")",
+      "Keep it short; a popover isn't a page"
+    ]
+  },
   "status": "experimental",
   "rung": "native-attribute",
   "rungReason": "popover=\"auto\" with command=\"toggle-popover\" gives open and close, Esc, light dismiss, the top layer and the expanded state on its button, with no script.",

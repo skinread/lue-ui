@@ -1,6 +1,17 @@
 {
   "name": "Carousel",
   "summary": "A row of slides that scrolls and snaps, with previous and next buttons; never moves on its own.",
+  "guidance": {
+    "useFor": "A set of related items people may browse but don't need all of: more products, related articles.",
+    "insteadUse": [
+      "Anything important, such as offers or messages: put it on the page",
+      "A few items that fit: show them all in a Grid"
+    ],
+    "content": [
+      "Each slide makes sense alone",
+      "Name the carousel (aria-label) for what it holds: \"Related products\""
+    ]
+  },
   "status": "experimental",
   "rung": "light-dom-script",
   "rungReason": "Scroll snapping is CSS and works alone; the previous and next buttons need <lue-carousel>.",

@@ -1,6 +1,13 @@
 {
   "name": "Divider",
   "summary": "A thematic break, drawn as a chrome line that fades at both ends.",
+  "guidance": {
+    "useFor": "A change of topic within a page, between sections that have no heading of their own.",
+    "insteadUse": [
+      "Spacing or grouping: the layout primitives' gaps",
+      "Between list items or cards: let space separate them"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<hr> is the thematic break, exposed as a separator.",

@@ -1,6 +1,15 @@
 {
   "name": "VisuallyHidden",
   "summary": "Text read by assistive technology but not shown.",
+  "guidance": {
+    "useFor": "Words that add context for assistive technology to what's already on screen: \"Error: \", \", opens in a new tab\".",
+    "insteadUse": [
+      "Content sighted people need too: show it"
+    ],
+    "content": [
+      "Write it as part of the sentence it joins, with its spaces and punctuation"
+    ]
+  },
   "status": "experimental",
   "rung": "css",
   "rungReason": "There is no native element for text that's read but not shown; clipping keeps it in the accessibility tree where hidden or display: none would not.",

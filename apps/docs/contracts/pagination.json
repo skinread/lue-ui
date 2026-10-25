@@ -1,6 +1,16 @@
 {
   "name": "Pagination",
   "summary": "Links between the pages of a list: previous, next, and numbers with gaps.",
+  "guidance": {
+    "useFor": "Long lists split into pages: search results, product listings, archives.",
+    "insteadUse": [
+      "Short lists: show them all",
+      "Feeds people scroll through casually: a \"Show more\" button"
+    ],
+    "content": [
+      "Keep \"Previous\" and \"Next\" as words; numbers alone aren't enough"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "A named <nav> with a list of links; aria-current marks the current page.",

@@ -1,6 +1,17 @@
 {
   "name": "Card",
   "summary": "A glass panel for one item; optionally one link that makes the whole card clickable.",
+  "guidance": {
+    "useFor": "One item among many in a grid or list: a product, an article, a project, with at most one main link.",
+    "insteadUse": [
+      "Grouping a form's fields: a fieldset",
+      "Long text people may want to select: a plain section"
+    ],
+    "content": [
+      "The heading names the item and, in a linked card, is the link",
+      "Keep cards in a set the same shape: image, heading, a line, actions"
+    ]
+  },
   "status": "experimental",
   "rung": "css",
   "rungReason": "An <article> with its heading's link stretched over the card by a pseudo-element; no script, and the link keeps its name.",

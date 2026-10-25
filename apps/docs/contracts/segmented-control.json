@@ -1,6 +1,16 @@
 {
   "name": "SegmentedControl",
   "summary": "A radio group drawn as one pill of options, for a few mutually exclusive choices.",
+  "guidance": {
+    "useFor": "Choosing one of two to five short options that changes a view or a setting at once: list or grid, monthly or yearly.",
+    "insteadUse": [
+      "More or longer options: Radio group or Select",
+      "Switching panels of content: Tabs"
+    ],
+    "content": [
+      "One or two words per option, parallel in form"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "Native radios in a fieldset keep the group's name, arrow-key selection and form value; each radio covers its label invisibly.",

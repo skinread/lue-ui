@@ -1,6 +1,16 @@
 {
   "name": "Toolbar",
   "summary": "A group of controls that is one Tab stop, with arrow keys between them.",
+  "guidance": {
+    "useFor": "Three or more related controls acting on the same thing: text formatting, a media player, view options.",
+    "insteadUse": [
+      "Two buttons: just buttons",
+      "Navigation: links in a nav"
+    ],
+    "content": [
+      "Name the toolbar (\"Text formatting\")"
+    ]
+  },
   "status": "experimental",
   "rung": "light-dom-script",
   "rungReason": "role=\"toolbar\" is ARIA; the roving tabindex needs <lue-roving> until focusgroup is Baseline.",

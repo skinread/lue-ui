@@ -1,6 +1,15 @@
 {
   "name": "Textarea",
   "summary": "A multi-line text field that grows with its content.",
+  "guidance": {
+    "useFor": "Text longer than a line: messages, delivery instructions, reviews.",
+    "insteadUse": [
+      "One line of text: Field"
+    ],
+    "content": [
+      "Say any limit in the hint (\"Up to 500 characters\")"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<textarea> with a <label>; field-sizing: content grows it with its content where supported.",

@@ -1,6 +1,18 @@
 {
   "name": "Toggletip",
   "summary": "A small button that shows a line of help on click, touch or keyboard.",
+  "guidance": {
+    "useFor": "A line of help next to a label or term, opened by click, touch or keyboard.",
+    "insteadUse": [
+      "Help everyone needs: write it in the hint",
+      "Links or controls: Popover",
+      "A description of an icon button on hover: Tooltip"
+    ],
+    "content": [
+      "One or two sentences",
+      "The button's name says what the help is about (\"More about delivery\")"
+    ]
+  },
   "status": "experimental",
   "rung": "native-attribute",
   "rungReason": "A popover=\"auto\" opened by a button: click, touch and keyboard all work, with Esc and light dismiss native.",

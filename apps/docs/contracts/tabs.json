@@ -1,6 +1,18 @@
 {
   "name": "Tabs",
   "summary": "Panels of related content, one shown at a time, chosen from a row of tabs.",
+  "guidance": {
+    "useFor": "Related content in a few panels where people need one at a time: product details, specifications, reviews.",
+    "insteadUse": [
+      "Choosing a value: Segmented control",
+      "Content people should compare: show it together",
+      "Steps in order: a multi-step form"
+    ],
+    "content": [
+      "Tab labels are short nouns",
+      "Keep panels independent: nothing in one should depend on another"
+    ]
+  },
   "status": "experimental",
   "rung": "light-dom-script",
   "rungReason": "No native element: <lue-tabs> upgrades links to sections (which work without script) into the APG tabs pattern.",

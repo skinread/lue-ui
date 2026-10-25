@@ -1,6 +1,15 @@
 {
   "name": "SwatchPicker",
   "summary": "A radio group of colours, each named in words.",
+  "guidance": {
+    "useFor": "Choosing a product colour or finish, where seeing it matters.",
+    "insteadUse": [
+      "Colours with no visual difference to show: Radio group or Select"
+    ],
+    "content": [
+      "Every swatch has its name (\"Sage\", \"Oak\"); the name is always shown"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "Native radios in a fieldset; each colour's name is its label, so it's never colour alone.",

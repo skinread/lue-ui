@@ -7,6 +7,7 @@
   "required": [
     "name",
     "summary",
+    "guidance",
     "status",
     "rung",
     "rungReason",
@@ -33,6 +34,17 @@
       "minLength": 10,
       "maxLength": 140,
       "description": "One sentence: what it is. Listed in llms.txt."
+    },
+    "guidance": {
+      "type": "object",
+      "description": "Design guidance for the component's guidelines (tools/build-ai-docs.mjs writes guidelines/<id>.md): when to use it, what to use instead, and how to write its content.",
+      "additionalProperties": false,
+      "required": ["useFor"],
+      "properties": {
+        "useFor": { "type": "string", "minLength": 10, "description": "When to use it, with examples." },
+        "insteadUse": { "type": "array", "items": { "type": "string" }, "description": "\"<situation>: <what to use instead>\", one per entry." },
+        "content": { "type": "array", "items": { "type": "string" }, "description": "How to write its labels, titles and messages." }
+      }
     },
     "status": {
       "enum": [

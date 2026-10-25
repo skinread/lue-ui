@@ -1,45 +1,55 @@
 // The autodocs page for every component (RFC-0001 §8): the React adapter first (its description, live example and
 // props from react-docgen, which reads each prop's JSDoc), then the HTML it renders on the server - the HTML core's
-// markup, which works without React - then every story, and links to the contract and the Markdown page.
+// markup, which works without React - then every story. Under the description: when to use it and what to use instead,
+// from the contract's guidance, and links to the contract, the guidelines and the Markdown page.
 import type { ComponentType, ReactNode } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Controls, Description, Heading, Primary, Source, Stories, Subtitle, Title, useOf } from '@storybook/addon-docs/blocks';
 import { composeStories } from '@storybook/react-vite';
+import { formatHtml } from '../../../tools/format-html.mjs';
 
-const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr']);
+interface Guidance {
+  useFor: string;
+  insteadUse?: string[];
+  content?: string[];
+}
+const contracts = import.meta.glob<{ guidance?: Guidance }>(['../contracts/*.json', '!../contracts/contract.schema.json'], { eager: true, import: 'default' });
 
-// React escapes ' and " in text, which HTML doesn't need; shown as typed.
-const text = (value: string) => value.replaceAll('&#x27;', "'").replaceAll('&quot;', '"');
+/** The contract's id from the story title: "Components/Radio group" → radio-group. */
+function useContractId(): string {
+  const { preparedMeta } = useOf('meta', ['meta']);
+  return preparedMeta.title.split('/').pop()!.toLowerCase().replaceAll(' ', '-');
+}
 
-/** Indents serialised HTML one element per line; text and inline content stay with their tags when short. */
-export function formatHtml(html: string): string {
-  const tokens = html.match(/<!--[\s\S]*?-->|<\/?[^>]+>|[^<]+/g) ?? [];
-  const lines: string[] = [];
-  let depth = 0;
-  for (let i = 0; i < tokens.length; i++) {
-    const token = tokens[i]!;
-    if (token.startsWith('</')) {
-      depth = Math.max(0, depth - 1);
-      lines.push(`${'  '.repeat(depth)}${token}`);
-      continue;
-    }
-    if (token.startsWith('<') && !token.startsWith('<!')) {
-      const name = token.slice(1).match(/^[\w-]+/)?.[0]?.toLowerCase() ?? '';
-      const inner = tokens[i + 1];
-      const close = tokens[i + 2];
-      // <p>Short text</p> stays on one line.
-      if (inner && !inner.startsWith('<') && close === `</${name}>` && token.length + inner.length + close.length < 100) {
-        lines.push(`${'  '.repeat(depth)}${token}${text(inner)}${close}`);
-        i += 2;
-        continue;
-      }
-      lines.push(`${'  '.repeat(depth)}${token}`);
-      if (!VOID.has(name) && !token.endsWith('/>')) depth++;
-      continue;
-    }
-    if (token.trim()) lines.push(`${'  '.repeat(depth)}${text(token.trim())}`);
-  }
-  return lines.join('\n');
+function WhenToUse(): ReactNode {
+  const id = useContractId();
+  const guidance = contracts[`../contracts/${id}.json`]?.guidance;
+  if (!guidance) return null;
+  return (
+    <>
+      <Heading>When to use it</Heading>
+      <p>{guidance.useFor}</p>
+      {guidance.insteadUse?.length ? (
+        <table>
+          <thead>
+            <tr><th scope="col">When</th><th scope="col">Use instead</th></tr>
+          </thead>
+          <tbody>
+            {guidance.insteadUse.map((item) => {
+              const at = item.indexOf(': ');
+              return <tr key={item}><td>{at > -1 ? item.slice(0, at) : item}</td><td>{at > -1 ? item.slice(at + 2) : ''}</td></tr>;
+            })}
+          </tbody>
+        </table>
+      ) : null}
+      {guidance.content?.length ? (
+        <>
+          <p><strong>Content</strong></p>
+          <ul>{guidance.content.map((line) => <li key={line}>{line}</li>)}</ul>
+        </>
+      ) : null}
+    </>
+  );
 }
 
 function ServerHtml(): ReactNode {
@@ -69,12 +79,11 @@ function ServerHtml(): ReactNode {
 }
 
 function Links(): ReactNode {
-  const { preparedMeta } = useOf('meta', ['meta']);
-  const id = preparedMeta.title.split('/').pop()!.toLowerCase().replaceAll(' ', '-');
+  const id = useContractId();
   return (
     <p>
-      Contract: <a href={`./contracts/${id}.json`}>contracts/{id}.json</a> · For AI tools:{' '}
-      <a href={`./components/${id}.md`}>components/{id}.md</a>, <a href="./llms.txt">llms.txt</a>
+      <a href={`./guidelines/${id}.md`}>Guidelines</a> · Contract: <a href={`./contracts/${id}.json`}>contracts/{id}.json</a> ·
+      For AI tools: <a href={`./components/${id}.md`}>components/{id}.md</a>, <a href="./llms.txt">llms.txt</a>
     </p>
   );
 }
@@ -87,6 +96,7 @@ export function DocsPage(): ReactNode {
       <Description />
       <Links />
       <Primary />
+      <WhenToUse />
       <Controls />
       <ServerHtml />
       <Stories title="Examples" />

@@ -1,6 +1,17 @@
 {
   "name": "Button",
   "summary": "A native button with primary, danger and quiet variants, three sizes, and icon-only and toggle forms.",
+  "guidance": {
+    "useFor": "Doing something: submitting, saving, opening a dialog, adding to the cart.",
+    "insteadUse": [
+      "Going to another page or place: a Link (style it as a button only when it must look like one)",
+      "Turning a setting on and off: Switch, or Toggle button for a pressed state"
+    ],
+    "content": [
+      "Labels are verbs in sentence case that say what happens: \"Continue to payment\", \"Remove\"",
+      "One primary per view; danger only for destructive actions, always with a word"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "<button> provides the role, focusability, Enter/Space activation and form participation.",

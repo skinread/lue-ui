@@ -1,6 +1,16 @@
 {
   "name": "ToggleButton",
   "summary": "A button that stays pressed (aria-pressed).",
+  "guidance": {
+    "useFor": "A button with an on or off state, often in a toolbar: bold, mute, favourite.",
+    "insteadUse": [
+      "A setting in a list: Switch",
+      "One of several mutually exclusive options: Segmented control"
+    ],
+    "content": [
+      "Keep the label constant (\"Bold\"); the pressed state carries on or off"
+    ]
+  },
   "status": "experimental",
   "rung": "light-dom-script",
   "rungReason": "<button aria-pressed> is the native pattern, but no attribute flips it: the HTML path needs data-lue-toggle, React keeps state.",

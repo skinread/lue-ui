@@ -3,7 +3,7 @@
 // served to AI assistants over stdio (newline-delimited JSON-RPC 2.0, the MCP stdio transport). No dependencies.
 //
 //   Tools:     list_components · get_component { name, format? } · find_tokens { query, theme? }
-//   Resources: lue-ui://llms.txt · lue-ui://tokens.md · lue-ui://components/<id>.md
+//   Resources: lue-ui://llms.txt · lue-ui://tokens.md · lue-ui://components/<id>.md · lue-ui://guidelines/<id>.md
 //
 // It reads the docs from LUE_UI_DOCS, or apps/docs/public in this repository (run `pnpm docs-ai` first).
 import fs from 'node:fs';
@@ -40,12 +40,12 @@ const TOOLS = [
     name: 'get_component',
     title: 'Get a Lue UI component',
     description:
-      'How to use one component: the HTML a server renders, the React adapter and its props, the accessibility contract (roles, keyboard map, focus), anatomy, platform needs and tokens. format "contract" returns the raw JSON contract instead.',
+      'How to use one component: when to use it and what instead, the HTML a server renders, the React adapter and its props, the accessibility contract (roles, keyboard map, focus), anatomy, platform needs and tokens. format "guidelines" returns only the design guidelines (when to use it, what instead, content, markup in brief); "contract" returns the raw JSON contract.',
     inputSchema: {
       type: 'object',
       properties: {
         name: { type: 'string', description: 'Component id, name or title, e.g. "radio-group", "RadioGroup" or "Radio group"' },
-        format: { type: 'string', enum: ['markdown', 'contract'], default: 'markdown' },
+        format: { type: 'string', enum: ['markdown', 'guidelines', 'contract'], default: 'markdown' },
       },
       required: ['name'],
       additionalProperties: false,
@@ -54,7 +54,8 @@ const TOOLS = [
     run: ({ name, format = 'markdown' }) => {
       const component = find(name);
       if (!component) throw new Error(`No component called "${name}". Components: ${catalogue().map((c) => c.id).join(', ')}`);
-      return format === 'contract' ? read(`contracts/${component.id}.json`) : read(`components/${component.id}.md`);
+      if (format === 'contract') return read(`contracts/${component.id}.json`);
+      return read(`${format === 'guidelines' ? 'guidelines' : 'components'}/${component.id}.md`);
     },
   },
   {
@@ -88,6 +89,7 @@ function resources() {
     { uri: 'lue-ui://llms.txt', name: 'llms.txt', title: 'Lue UI overview', mimeType: 'text/plain', file: 'llms.txt' },
     { uri: 'lue-ui://tokens.md', name: 'tokens.md', title: 'Lue UI tokens', mimeType: 'text/markdown', file: 'tokens.md' },
     ...catalogue().map((c) => ({ uri: `lue-ui://components/${c.id}.md`, name: `${c.id}.md`, title: c.title, description: c.summary, mimeType: 'text/markdown', file: `components/${c.id}.md` })),
+    ...catalogue().map((c) => ({ uri: `lue-ui://guidelines/${c.id}.md`, name: `guidelines/${c.id}.md`, title: `${c.title} guidelines`, description: `When to use ${c.title} and what instead`, mimeType: 'text/markdown', file: `guidelines/${c.id}.md` })),
   ];
 }
 
@@ -96,7 +98,7 @@ const METHODS = {
     protocolVersion: VERSIONS.includes(protocolVersion) ? protocolVersion : VERSIONS[0],
     capabilities: { tools: {}, resources: {} },
     serverInfo: { name: 'lue-ui', title: 'Lue UI', version: '0.0.0' },
-    instructions: 'Lue UI is a platform-native design system. Call list_components, then get_component for the HTML, React usage and accessibility contract; find_tokens for design tokens.',
+    instructions: 'Lue UI is a platform-native design system. Call list_components, then get_component for the HTML, React usage and accessibility contract (format "guidelines" for when to use it); find_tokens for design tokens.',
   }),
   ping: () => ({}),
   'tools/list': () => ({ tools: TOOLS.map(({ run, ...tool }) => tool) }),

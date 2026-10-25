@@ -1,6 +1,16 @@
 {
   "name": "Tooltip",
   "summary": "A short description shown on hover or keyboard focus, read with or without script.",
+  "guidance": {
+    "useFor": "A short description of a control on hover or keyboard focus, usually an icon button.",
+    "insteadUse": [
+      "Anything people need, including on touch: Toggletip or visible text",
+      "Anything to act on: Popover"
+    ],
+    "content": [
+      "A few words that add to the control's name (\"Saves a draft; nothing is published\")"
+    ]
+  },
   "status": "experimental",
   "rung": "light-dom-script",
   "rungReason": "aria-describedby and popover are native; showing on hover and focus with a delay, hover persistence and Escape (WCAG 1.4.13) need the data-lue-tooltip behaviour.",

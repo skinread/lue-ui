@@ -1,6 +1,17 @@
 {
   "name": "Tag",
   "summary": "A short label in a pill; removable with a named button inside it.",
+  "guidance": {
+    "useFor": "Short labels on items: a category, a status, a topic; and selected filters people can remove.",
+    "insteadUse": [
+      "Filters that toggle on and off: Toggle button",
+      "Actions: Button"
+    ],
+    "content": [
+      "One or two words",
+      "Status tags carry a word, never colour alone"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "A <span> for the label; removing is a native <button> with its own name.",

@@ -1,6 +1,18 @@
 {
   "name": "RadioGroup",
   "summary": "Native radios in a fieldset, with a shared hint and one error per group.",
+  "guidance": {
+    "useFor": "Choosing exactly one of a few options that people should see side by side: delivery speed, size.",
+    "insteadUse": [
+      "Many options: Select",
+      "Two to five short options that change a view: Segmented control",
+      "Any number of options: Checkbox"
+    ],
+    "content": [
+      "The legend asks the question",
+      "Options are short and parallel; order them logically, not alphabetically by default"
+    ]
+  },
   "status": "experimental",
   "rung": "native-element",
   "rungReason": "Radios sharing a name in a <fieldset> give the radiogroup semantics, roving focus and arrow-key selection natively.",

@@ -44,10 +44,13 @@ describe('MCP server', () => {
     expect(result.content[0].text.split('\n')).toHaveLength(contracts.length);
   });
 
-  it('gets a component by id, name or title, as Markdown or as its contract', async () => {
+  it('gets a component by id, name or title, as Markdown, as its guidelines or as its contract', async () => {
     for (const name of ['radio-group', 'RadioGroup', 'radio group']) {
       expect((await text('get_component', { name })).content[0].text).toMatch(/^# Radio group\n/);
     }
+    const guidelines = (await text('get_component', { name: 'tabs', format: 'guidelines' })).content[0].text;
+    expect(guidelines).toMatch(/^# Tabs\n\nPanels of related content/);
+    expect(guidelines).toContain('| Choosing a value | Segmented control |');
     const contract = JSON.parse((await text('get_component', { name: 'toast', format: 'contract' })).content[0].text);
     expect(contract.name).toBe('Toast');
   });
@@ -68,6 +71,7 @@ describe('MCP server', () => {
   it('serves llms.txt and each page as resources', async () => {
     const { result } = await call('resources/list');
     expect(result.resources.map((r: { uri: string }) => r.uri)).toContain('lue-ui://components/toast.md');
+    expect(result.resources.map((r: { uri: string }) => r.uri)).toContain('lue-ui://guidelines/toast.md');
     const read = await call('resources/read', { uri: 'lue-ui://llms.txt' });
     expect(read.result.contents[0].text).toMatch(/^# Lue UI\n/);
   });

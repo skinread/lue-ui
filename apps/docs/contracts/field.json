@@ -1,6 +1,18 @@
 {
   "name": "Field",
   "summary": "A label, hint, error and one text input, with in-page validation and an error summary.",
+  "guidance": {
+    "useFor": "Every single-line text input: name, email, postcode, search inside a form.",
+    "insteadUse": [
+      "Several lines of text: Textarea",
+      "A choice from a known list: Select or Radio group"
+    ],
+    "content": [
+      "Labels are short and always visible; placeholders never replace them",
+      "Hints say the format before people type (\"4 digits\")",
+      "Errors say what to do: \"Enter your email address\", never \"Invalid input\""
+    ]
+  },
   "status": "experimental",
   "covers": [
     "Field",

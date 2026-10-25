@@ -1,6 +1,16 @@
 {
   "name": "Switch",
   "summary": "An on/off control: a checkbox with role=\"switch\".",
+  "guidance": {
+    "useFor": "A setting that applies at once, on or off: notifications, dark mode.",
+    "insteadUse": [
+      "A choice that applies when a form is submitted: Checkbox",
+      "A pressed state on a toolbar: Toggle button"
+    ],
+    "content": [
+      "The label names the setting, not the action (\"Order updates by text\")"
+    ]
+  },
   "status": "experimental",
   "rung": "native-attribute",
   "rungReason": "A checkbox with role=\"switch\" keeps the native state, keyboard and form behaviour and announces on/off.",
