@@ -1,6 +1,6 @@
 # Claude Design brief
 
-> **Status:** v0.3 · Pass 2 · 2026-10-05 - **C2 · Chroma Luminous** locked ([ADR-0009](../architecture/adr/0009-visual-direction-chroma-luminous.md), [§7](#c2-chroma-luminous--luminous--luxurious--prismatic))
+> **Status:** v0.3 · Pass 2 · 2026-10-05 - **C2 · Chroma Luminous** locked ([ADR-0009](../architecture/adr/0009-visual-direction-chroma-luminous.md), [§7](#c2-chroma-luminous---luminous--luxurious--prismatic))
 > **For:** Claude Design sessions - first three visual directions, then the chosen direction codified as a Design System.
 > **Art direction:** Sean Kinread. **Name:** Lue UI ([ADR-0008](../architecture/adr/0008-name-lue-ui.md)).
 
@@ -150,7 +150,7 @@ direction mirror in right-to-left layouts.
    an order-summary card with item rows, and a "Remove this item?" dialog open over it. Generic content only.
    *For C2 (2026-10-05): portfolio and editorial screens instead - a block library of heroes and content blocks, a
    portfolio home page and a journal article; the checkout remains as the forms example. Blocks are listed in the
-   [component inventory](./components.md#content-blocks--portfolio-and-editorial-pass-2).*
+   [component inventory](./components.md#content-blocks---portfolio-and-editorial-pass-2).*
 
 ## 6. Tokens to fill
 

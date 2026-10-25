@@ -25,3 +25,7 @@ Light-DOM custom elements and opt-in behaviours for the HTML path ([ADR-0001](..
 
 Build: `pnpm --filter @lue-ui/elements build` (`tools/build-js.mjs`): `tsc` per file with declarations, esbuild for
 the IIFE, and budgets of 2 KB per element and 8 KB in total (Brotli).
+
+`sideEffects` in `package.json` names the `define` files, built and source, so a bundler never tree-shakes the
+registrations away. (Until 2026-10-25 it named only `dist/`, and Storybook's static build, which reads the sources,
+shipped no element behaviour.)

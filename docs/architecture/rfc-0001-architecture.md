@@ -1,6 +1,6 @@
 # RFC-0001: System architecture
 
-> **Status:** Proposed · Phase 1 · 2026-10-05 · implemented through Pass 4 (2026-10-24; see §11 and HANDOVER.md)
+> **Status:** Proposed · Phase 1 · 2026-10-05 · implemented through Pass 4 (2026-10-24) and most of Pass 5 (2026-10-25; see §8, §11 and HANDOVER.md)
 > **Decisions recorded in:** [ADR-0001](./adr/0001-component-model.md) ·
 > [0002](./adr/0002-native-css-core-tailwind-bridge.md) · [0003](./adr/0003-dtcg-tokens-with-terrazzo.md) ·
 > [0004](./adr/0004-support-floors.md) · [0005](./adr/0005-three-engine-testing-and-a11y-gates.md) ·
@@ -232,13 +232,21 @@ Decision and detail: [ADR-0005](./adr/0005-three-engine-testing-and-a11y-gates.m
 - **One Storybook 10 (react-vite).** An `html` decorator renders each React story with `renderToStaticMarkup`,
   inserts it as `innerHTML` with the elements defined, and shows that HTML as the canonical source - proving the
   no-React path on every story.
+  _As built (2026-10-25): the React adapters are the primary documentation, at the user's request. Each component's
+  autodocs page shows the JSX source and react-docgen's props table (from the adapters' JSDoc), then the first
+  example's server-rendered HTML as its own block. The no-React path is proven by the static-markup gate (every story,
+  html-validate and html-eslint), the `withoutElements` tests and the Claude Design kit's previews, rather than by
+  re-inserting each story as `innerHTML`._
 - **The same static markup** feeds Claude Design previews, html-validate and html-eslint.
 - **AI surfaces:** `llms.txt`, a Markdown page per component, contracts as JSON, the Storybook MCP addon (manifests),
-  and an MCP endpoint for tokens and contracts.
+  and an MCP endpoint for tokens and contracts. _All built: `pnpm docs-ai`, `packages/mcp` (Pass 4), and
+  `@storybook/addon-mcp` with `manifests/components.json` (Pass 5)._
 - **Claude Design:** the Design System artifact holds the brand-book README, list-shaped `tokens.json`, component
   guidelines (generated from contracts) and previews. Previews are **static HTML + `bundle.css` (= `@lue-ui/css`) +
   `bundle.js` (= the elements IIFE, `window.LueUI`)**, with `libraries: []` - no React needed, so Claude Design renders
-  production CSS. `/design-sync` appears React-centric, so this path is spiked first in Pass 3.
+  production CSS. `/design-sync` appears React-centric, so this path is spiked first in Pass 3. _The guidelines are
+  generated from each contract's `guidance` (Pass 5), and `pnpm design-kit` assembles the guidelines, previews,
+  `bundle.css` and `bundle.js`; uploading them is Spike C._
 - **Round trip:** tokens flow DTCG → Claude Design `tokens.json`; edits made in Claude Design come back through an
   import script as a reviewed DTCG diff, never a silent overwrite.
 
@@ -284,11 +292,17 @@ Decision and detail: [ADR-0005](./adr/0005-three-engine-testing-and-a11y-gates.m
    _(Done 2026-10-11; [report](./spikes/spike-a-dialog-menu.md).)_
 3. **Spike B:** Terrazzo → `tokens.css` + Claude Design JSON + contrast lint → Lightning CSS → consumer fixtures.
    _(Done 2026-10-24; [report](./spikes/spike-b-token-and-css-pipeline.md).)_
-4. **Spike C:** one Claude Design preview with the IIFE bundle via `/design-sync`. _(Next: the IIFE,
-   `@lue-ui/elements/lue.iife.js`, is built; the user starts `/design-sync`.)_
+4. **Spike C:** one Claude Design preview with the IIFE bundle via `/design-sync`. _(Waiting on the user, who starts
+   `/design-sync`. The IIFE, `@lue-ui/elements/lue.iife.js`, is built, and `pnpm design-kit` builds every component's
+   guidelines and preview.)_
 5. **Components in order of increasing JavaScript:** Button → Field + TextInput + error summary → Select → Dialog →
    Menu. _(Done 2026-10-24, with contracts ([schema v1](../../apps/docs/contracts/contract.schema.json)), Storybook 10,
    and the ADR-0005 gates: keyboard, axe, emulation, static markup, visual regression and size budgets.)_
+
+Passes 4 and 5 followed the [inventory](../design/components.md)'s tiers in the same order: all of Tier 1 (done
+2026-10-24) and all of Tier 2 (done 2026-10-24), with contract-driven keyboard coverage, AI docs and an MCP server, docs
+pages per React adapter, the Storybook MCP addon and contract-generated guidelines. Progress and what's left are in
+[HANDOVER.md](../../HANDOVER.md).
 
 ## 12. Traceability
 

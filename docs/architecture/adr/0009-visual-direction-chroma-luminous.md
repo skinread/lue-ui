@@ -27,7 +27,7 @@ glass only where it's verified.
 ## Decision
 
 Lue UI's visual identity is **C2 · Chroma Luminous** - *light, caught in chrome and glass*. Colour appears as light,
-never as paint. The full description is in the [brief](../../design/claude-design-brief.md#c2-chroma-luminous--luminous--luxurious--prismatic);
+never as paint. The full description is in the [brief](../../design/claude-design-brief.md#c2-chroma-luminous---luminous--luxurious--prismatic);
 the values live in `tools/directions/palettes.mjs` until the token pipeline exists.
 
 | Element | Decision |

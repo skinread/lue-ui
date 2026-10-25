@@ -88,6 +88,13 @@ shares it.
 4. New icons are **uploads**: Artifact `publish` with `asset: true`, then add `{blob, size}` to `icon-uploads.json`.
 5. The type asks agents not to render-check unless the user asks.
 
+**Guidelines generated from the contracts** (2026-10-25). The component cards above are still the canvas-era ones,
+hand-written in `design-system/components.mjs`. The library's own guidelines are now generated from each contract's
+`guidance` (`pnpm docs-ai` → `apps/docs/public/guidelines/`), and `pnpm design-kit` assembles them with live previews
+of every story's server HTML on `bundle.css` (tokens, fonts, `@lue-ui/css`) and `bundle.js` (the elements IIFE) in
+`out/claude-design-kit/` (gitignored). That is Spike C's input: once `/design-sync` (which the user starts) proves
+the path, the kit's components replace the canvas-era cards. Nothing in the kit is uploaded until then.
+
 ## The library copy of the component CSS
 
 Since Spike B (2026-10-24) the library's CSS lives in `packages/css/src`, split per component and built with Lightning

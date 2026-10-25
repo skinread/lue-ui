@@ -35,8 +35,8 @@ Read in this order the first time; every later document traces back to the first
 | --- | --- |
 | [Token specification](design/tokens.md) | Tiers, naming grammar, colour roles, contrast bands, theming axes, outputs |
 | [Component inventory and contracts](design/components.md) | Every component's primitive, pattern, JavaScript need and tier; the contract format |
-| AI surfaces | `pnpm docs-ai` writes `llms.txt`, a Markdown page per component, tokens and contracts to `apps/docs/public` (served by Storybook); [`packages/mcp`](../packages/mcp/README.md) serves them over MCP |
-| [Component contracts](../apps/docs/contracts/) | The written contracts (one per component: Tier 0, Tier 1 and Tier 2 so far) and schema v1, checked by `pnpm check` |
+| Docs and AI surfaces | Storybook has a docs page per React adapter ([apps/docs](../apps/docs/README.md)) and the Storybook MCP addon; `pnpm docs-ai` writes `llms.txt`, a reference page and guidelines per component, tokens and contracts to `apps/docs/public` (served by Storybook); [`packages/mcp`](../packages/mcp/README.md) serves them over MCP; `pnpm design-kit` builds the Claude Design kit for Spike C |
+| [Component contracts](../apps/docs/contracts/) | The written contracts (one per component, every tier) with their design guidance, and schema v1, checked by `pnpm check` |
 | [Claude Design brief](design/claude-design-brief.md) | Creative mandate, non-negotiables, the three seeded directions and their contrast matrices |
 
 ## Conventions for these docs

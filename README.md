@@ -1,8 +1,9 @@
 # Lue UI
 
 > An open-source, platform-native, accessibility-first design system. *Lueur* is French for a glimmer of light.
-> **Status:** Pass 3, the tracer bullet, is complete apart from Spike C: tokens, CSS, elements and React adapters build,
-> and the first five components are tested in three engines. Every package is private; nothing is on npm yet.
+> **Status:** Pass 5 is in progress. Every Tier 0, 1 and 2 component is built and tested in three engines, with a
+> Storybook docs page, design guidelines and an AI-readable page each. The first public release and Spike C (Claude
+> Design) wait on decisions. Every package is private; nothing is on npm yet.
 
 **Mission:** make accessible, standards-based interfaces the path of least resistance - by building _with_ the web
 platform, not on top of it.
@@ -42,27 +43,32 @@ Full index: [docs/](docs/README.md).
 | [`@lue-ui/tokens`](packages/tokens/README.md) | DTCG 2025.10 source, built by Terrazzo into `tokens.css`, `tokens.js`, a Tailwind v4 bridge, Figma and Claude Design files. The build fails on any contrast pair or material rule below its minimum |
 | [`@lue-ui/css`](packages/css/README.md) | Component CSS in `@layer lue`, built by Lightning CSS with nothing lowered, and the self-hosted fonts |
 | [`@lue-ui/elements`](packages/elements/README.md) | Light-DOM custom elements and opt-in behaviours (`<lue-menu>`, `<lue-tabs>`, `<lue-roving>`, `<lue-carousel>`, `<lue-stepper>`, `<lue-toast-region>`, `data-lue-validate`, `data-lue-toggle`, `data-lue-tooltip`), and a script-tag build |
-| [`@lue-ui/react`](packages/react/README.md) | React 19 adapters that render the same markup as the HTML core |
-| [`@lue-ui/mcp`](packages/mcp/README.md) | An MCP server for AI assistants: components, contracts and tokens |
-| [`apps/docs`](apps/docs/README.md) | Storybook 10, the component contracts, and `llms.txt` with a Markdown page per component |
+| [`@lue-ui/react`](packages/react/README.md) | React 19 adapters that render the same markup as the HTML core, every prop documented in JSDoc |
+| [`@lue-ui/mcp`](packages/mcp/README.md) | An MCP server for AI assistants: components, guidelines, contracts and tokens |
+| [`apps/docs`](apps/docs/README.md) | Storybook 10 with a docs page per React adapter and the Storybook MCP addon, the component contracts, and `llms.txt` with a reference page and guidelines per component |
 
 Components: **all of Tier 0, Tier 1 and Tier 2** - Button, Toggle button, Link, Field + TextInput + Textarea + error summary,
 Select, Checkbox, Radio group, Switch, Dialog, Drawer, Popover, Toggletip, Menu, Disclosure, Accordion, Alert, Toast,
 Icon, Skip link, Visually hidden and the layout primitives (Stack, Cluster, Grid, Sidebar, Switcher, Center); from Tier
 2, Breadcrumb, Pagination, Tag, Card, Avatar, Divider, Kbd, Progress and Meter, Spinner and Skeleton, Table, Search,
 Segmented control, Rating, Swatch picker, Tabs, Toolbar, Tooltip, Carousel and Quantity stepper - each with a
-[contract](apps/docs/contracts/), stories, and keyboard, axe, emulation and visual tests in Chromium, Firefox and WebKit.
+[contract](apps/docs/contracts/) (including when to use it and what instead), stories, and keyboard, axe, emulation and
+visual tests in Chromium, Firefox and WebKit.
 
 ```bash
 pnpm install
 pnpm build      # tokens, CSS, elements, React
 pnpm check      # lint, types, token contrast, contracts and their keyboard coverage, AI docs, static markup, MCP
-pnpm docs-ai    # llms.txt, a Markdown page per component, tokens and contracts in apps/docs/public
+pnpm docs-ai    # llms.txt, reference pages and guidelines per component, tokens and contracts in apps/docs/public
 pnpm test       # build, then every browser test in three engines
 pnpm test:engines  # the same, one engine at a time (steadier on a small machine)
 pnpm fixtures   # consumer recipes: Vite, Next, Tailwind v4
-pnpm --filter @lue-ui/docs dev   # Storybook
+pnpm --filter @lue-ui/docs dev   # Storybook, with its MCP server at http://localhost:6006/mcp
+pnpm design-kit # the Claude Design kit (guidelines and live previews) for Spike C, built locally only
 ```
+
+Agents working in this repository get two MCP servers from [`.mcp.json`](.mcp.json): `lue-ui` (components,
+guidelines, contracts and tokens) and `lue-ui-storybook` (stories, docs and story tests, while Storybook runs).
 
 Storybook is published to GitHub Pages by hand: Actions → **Storybook to GitHub Pages** → Run workflow
 ([details](apps/docs/README.md)).
@@ -75,11 +81,13 @@ Storybook is published to GitHub Pages by hand: Actions → **Storybook to GitHu
    token source.
 3. **Pass 3 - tracer bullet** _(done, but for Spike C)_: workspace, token and CSS pipelines, package builds, consumer
    fixtures, and Button, Field, Select, Dialog and Menu tested in three engines. Spike C (one Claude Design preview
-   from the script-tag build) is next.
+   from the script-tag build) waits on `/design-sync`; its input is ready (`pnpm design-kit`).
 4. **Pass 4 - Tier 1 components** _(done)_: every Tier 1 component, keyboard coverage driven by the contracts,
    `llms.txt` and a Markdown page per component, and an MCP server.
-5. **Pass 5 - Tier 2 and a first public 0.x release** _(in progress)_: every Tier 2 component is done. The first public
-   release waits on you: the npm scope, making the repo public, and publishing.
+5. **Pass 5 - Tier 2 and a first public 0.x release** _(in progress)_: every Tier 2 component is done; Storybook has a
+   docs page per React adapter and the Storybook MCP addon; every component has guidelines generated from its
+   contract. Left: the first public release (the npm scope, making the repo public, publishing), Spike C, and the
+   manual screen-reader pass that gates Stable.
 
 ## Licence
 

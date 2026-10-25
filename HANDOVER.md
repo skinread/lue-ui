@@ -1,7 +1,8 @@
-# Handover - Lue UI, Pass 4 done (Spike C still waiting on you), Pass 5 next
+# Handover - Lue UI, Pass 5 in progress (Tier 2 built; the release and Spike C wait on you)
 
-> Written 2026-10-05 when Phase 1 closed; updated through Pass 2 (complete 2026-10-10) and Pass 3 (2026-10-11 to
-> 2026-10-24) and Pass 4 (2026-10-24). A fresh session should read this file, then [AGENTS.md](AGENTS.md), then
+> Written 2026-10-05 when Phase 1 closed; updated through Pass 2 (complete 2026-10-10), Pass 3 (2026-10-11 to
+> 2026-10-24), Pass 4 (2026-10-24) and Pass 5 (from 2026-10-24; last on 2026-10-25). A fresh session should read this
+> file, then [AGENTS.md](AGENTS.md), then
 > [mission and principles](docs/foundations/mission-and-principles.md).
 
 ## Where things stand
@@ -13,9 +14,12 @@
   the private Claude Design System is built.
 - **Pass 3 (tracer bullet, 2026-10-11 to 2026-10-24) is done but for Spike C,** which you start. Step 0, Spikes A and B,
   the package builds and the first five components with Storybook 10 and every ADR-0005 gate are in place - see
-  [Pass 3](#pass-3--tracer-bullet-done-but-for-spike-c). **Pass 4 is done (2026-10-24):** every Tier 1 component, keyboard
+  [Pass 3](#pass-3---tracer-bullet-done-but-for-spike-c). **Pass 4 is done (2026-10-24):** every Tier 1 component, keyboard
   coverage driven by the contracts, `llms.txt` with a Markdown page per component, and an MCP server. **Pass 5 (Tier 2
-  and a first public release) is next.** Every package is private.
+  and a first public release) is in progress:** every Tier 2 component is built, Storybook has a docs page per React
+  adapter, the Storybook MCP addon is in, and every component has guidelines generated from its contract (see
+  [Pass 5](#pass-5---tier-2-and-a-first-public-0x-release-in-progress)). What's left is the release (yours), Spike C
+  (yours to start) and the manual screen-reader pass. Every package is private.
 - **Repo:** `/Volumes/Code/never-ui` (the git root). `main` holds only the initial commit (MIT `LICENSE`,
   `.gitignore`, `.gitattributes`); all work happens on **`develop`**, where Phase 1 was committed on 2026-10-05, and
   which is the default branch (2026-10-24). The remote is `origin`, private, `skinread/lue-ui` on GitHub.
@@ -43,9 +47,9 @@
 | [docs/architecture/](docs/architecture/) | [RFC-0001](docs/architecture/rfc-0001-architecture.md), ADRs 0001–0009 and [spike reports](docs/architecture/spikes/) |
 | `packages/` | `tokens` (hand-edited DTCG source, Terrazzo build), `css` (per-component CSS and fonts, Lightning CSS build), `elements` (`<lue-menu>`, `<lue-toast-region>`, `data-lue-validate`, `data-lue-toggle`, the IIFE), `react` (every component's adapter), `mcp` (the MCP server) - all `"private": true`, each with a README |
 | `tests/` | Browser tests (Vitest browser mode, Chromium · Firefox · WebKit): Spike A, emulation, one folder per component, visual regression baselines (`visual/`), the static markup gate (`markup/`, Node), the MCP server (`tools/`, Node), shared helpers in `support/` |
-| `apps/docs/` | Storybook 10 (stories are tests, axe set to `error`), the component contracts, and `public/` (generated, ignored): `llms.txt`, a page per component, tokens |
+| `apps/docs/` | Storybook 10 (stories are tests, axe set to `error`; a docs page per React adapter with its JSDoc props, guidance and server HTML; the MCP addon), the component contracts, and `public/` (generated, ignored): `llms.txt`, a reference page and guidelines per component, tokens, contracts |
 | `fixtures/` | Consumer fixtures (Vite, Next, Tailwind v4) and the checker that fails if our CSS is lowered |
-| `tools/` | `build-js.mjs` (JS package builds), `check-contracts.mjs` (schema, tokens, classes, tests, stories, keyboard coverage), `build-ai-docs.mjs` (`llms.txt` and the Markdown pages), `check-text.mjs` (em dashes, escaped or not) |
+| `tools/` | `build-js.mjs` (JS package builds), `check-contracts.mjs` (schema, tokens, classes, tests, stories, keyboard coverage), `build-ai-docs.mjs` (`llms.txt`, the reference pages and the guidelines), `build-design-kit.mjs` (the Claude Design kit for Spike C), `format-html.mjs`, `check-text.mjs` (em dashes, escaped or not) |
 | [docs/design/](docs/design/) | [Token spec](docs/design/tokens.md) · [component inventory and contract format](docs/design/components.md) · [Claude Design brief](docs/design/claude-design-brief.md) (with verified palettes in its appendix) |
 | [tools/directions/](tools/directions/README.md) | The Pass 2 design tools: seeded palettes, the canvas and Design System generators, with how to republish |
 
@@ -86,9 +90,14 @@
 
 ## Waiting on the user
 
-1. **Making the repo public** is yours to decide (private on GitHub as `skinread/lue-ui`; CI is green on `develop` in Chromium,
-   Firefox and WebKit as of 2026-10-24).
-2. **Spike C** needs you to start `/design-sync` (it's a skill the user runs).
+1. **The first public release** is yours to decide: confirm the npm scope (`@lue-ui/*`, provisional), make the repo
+   public (private on GitHub as `skinread/lue-ui`; CI is green on `develop` in Chromium, Firefox and WebKit), and
+   publish.
+2. **Spike C** needs you to start `/design-sync` (it's a skill the user runs). Its input is ready: `pnpm design-kit`
+   builds `tools/directions/out/claude-design-kit/` (gitignored) - each component's guidelines and a live preview on
+   `bundle.css` and `bundle.js`.
+3. **Republish Storybook** (Actions → Storybook to GitHub Pages → Run workflow) to show the docs pages. The site
+   published before 2026-10-25 had no element behaviour (see Pass 5).
 
 Lower-priority open questions are listed at the end of [RFC-0001](docs/architecture/rfc-0001-architecture.md#open-questions).
 
@@ -125,8 +134,9 @@ Following [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequenci
    ([report](docs/architecture/spikes/spike-a-dialog-menu.md)). Done 2026-10-11; Firefox confirmed in CI 2026-10-24.
 3. ~~**Spike B**~~ - tokens → CSS → consumers ([report](docs/architecture/spikes/spike-b-token-and-css-pipeline.md)).
    Done 2026-10-24.
-4. **Spike C - next, yours to start:** one Claude Design preview with `@lue-ui/elements/lue.iife.js` through
-   `/design-sync`. The IIFE is built (2.3 KB) and checked to define `<lue-menu>`.
+4. **Spike C - yours to start:** one Claude Design preview with `@lue-ui/elements/lue.iife.js` through
+   `/design-sync`. The IIFE is built and checked to define every element, and `pnpm design-kit` (Pass 5) builds the
+   previews and guidelines it would upload.
 5. ~~**Components**~~ - Button, Field + TextInput + error summary, Select, Dialog, Menu. Done 2026-10-24.
 
 What exists now (all private, all on `develop`):
@@ -145,14 +155,13 @@ What exists now (all private, all on `develop`):
   (`@lue-ui/elements/validate`, `…/menu`).
 - **Docs** (`apps/docs`): Storybook 10; contracts with schema v1 (`pnpm check` validates them against tokens, CSS,
   tests and stories).
-- **Gates:** `pnpm check` (lint, escaped-dash check, types, token build, contracts, static markup of every story);
-  `pnpm test` (unit, emulation, component, visual and story tests in Chromium, Firefox and WebKit: 1,066 tests, 15
-  skipped by design; `pnpm test:engines` runs one engine at a time, as CI does); `pnpm fixtures` (Vite, Next with the built React adapters, Tailwind v4). CI runs all three.
+- **Gates:** `pnpm check` (lint, em dash check, types, token build, contracts, static markup of every story);
+  `pnpm test` (unit, emulation, component, visual and story tests in Chromium, Firefox and WebKit: 1,638 tests, 26
+  skipped by design, as of 2026-10-25; `pnpm test:engines` runs one engine at a time, as CI does); `pnpm fixtures` (Vite, Next with the built React adapters, Tailwind v4). CI runs all three.
 
-## Next steps
+## Pass 4 - Tier 1 components (done)
 
-1. **Spike C** (you start `/design-sync`).
-2. **Pass 4 - Tier 1 components** ([inventory](docs/design/components.md#tier-1--the-first-release)), in order of
+1. **Tier 1 components** ([inventory](docs/design/components.md#tier-1---the-first-release)), in order of
    increasing JavaScript, each with a contract, adapter, stories and the same gates:
    - ~~Form controls: Textarea, Checkbox, Radio group, Switch~~ - done 2026-10-24. A required radio group is one error
      on its first radio, with `aria-invalid` on every radio; the React adapters are `ChoiceGroup`, `Checkbox`, `Radio`,
@@ -168,7 +177,7 @@ What exists now (all private, all on `develop`):
      `ToggleButton`. `<lue-toast-region>` owns its children: an always-rendered live region (`ariaNotify()` where it
      exists) and a manual-popover list; 6 s, paused on hover and focus, actions never time out, three at a time.
      Found on the way: `.lue-dialog` was content-box too, so its padding pushed it past its size (fixed).
-3. ~~**Pass 4 tooling**~~ - done 2026-10-24.
+2. ~~**Pass 4 tooling**~~ - done 2026-10-24.
    - **Contracts → tests:** `check-contracts.mjs` fails unless every key a contract's keyboard map names is pressed,
      with real input, in that component's tests. A contract's actions are prose, so the gate checks that the
      hand-written tests cover the map rather than generating assertions. It found 34 untested keys, and the new tests
@@ -179,7 +188,10 @@ What exists now (all private, all on `develop`):
      which Storybook serves. Contracts gained a required one-line `summary`.
    - **MCP:** `packages/mcp/server.js`, dependency-free MCP over stdio: `list_components`, `get_component`,
      `find_tokens`, and every page as a resource. `claude mcp add lue-ui -- node packages/mcp/server.js`.
-4. **Pass 5 - Tier 2 and a first public 0.x release** ([inventory](docs/design/components.md#tier-2)), in progress:
+## Pass 5 - Tier 2 and a first public 0.x release (in progress)
+
+[Inventory](docs/design/components.md#tier-2).
+
    - ~~Breadcrumb, Pagination, Tag, Card, Avatar, Divider, Kbd~~ - done 2026-10-24. The breadcrumb separator now has
      empty alt text (`content: "/" / ""`), so it isn't read; Card's link stretches over the card and the card shows
      its focus (`:has()`); Pagination reads "Page n" for each number.
@@ -193,23 +205,43 @@ What exists now (all private, all on `develop`):
      hover delay, hoverable, Escape dismisses only it); Carousel and Stepper became elements so their buttons stay
      hidden until defined (`:not(:defined)`), and use `aria-disabled` at the ends so focus stays put. Carousel has no
      auto-rotation. A shared `rovingIndex` controller serves Tabs and Toolbar.
-   - Left in Pass 5: the first public release (all yours), Storybook's `html` decorator, the Storybook MCP addon,
-     Claude Design guidelines from contracts (after Spike C), and the manual screen-reader pass that gates Stable.
    - Firefox on a busy machine could drop focus from a test's frame. `tests/support/setup.ts` focuses the frame (a
      Playwright command) before each Firefox test and key press; `pnpm test:engines` passed clean after it.
+   - ~~**Published Storybook**~~ (user's request, 2026-10-24): `.github/workflows/storybook-pages.yml` builds
+     Storybook and deploys it to GitHub Pages when run by hand (Actions → Storybook to GitHub Pages → Run workflow).
+     Settings → Pages → Source is "GitHub Actions" ("Deploy from a branch" runs GitHub's own `pages-build-deployment`,
+     which only renders the README), and `develop` is the default branch (user's decision, 2026-10-24), because GitHub
+     only offers "Run workflow" for workflows on the default branch. Publishing works (confirmed by the user,
+     2026-10-24). Later it becomes a step of package publishing.
+   - ~~**Docs pages for the React adapters**~~ (user's request, 2026-10-25). Every component has an autodocs page
+     (`apps/docs/.storybook/docs-page.tsx`): the adapter's description, live example and props table, "When to use
+     it" from the contract, the HTML its first example renders on the server (RFC-0001 §8's `html` view, beside the
+     JSX rather than instead of it), every example, and links to its guidelines, contract and Markdown page.
+     Subcomponents (Menu's trigger and items, the layout primitives) get their own tabs. Docgen is **react-docgen**:
+     react-docgen-typescript needs the TypeScript compiler API, which TypeScript 7 doesn't ship. Every adapter prop has
+     JSDoc, and an `argTypesEnhancer` shows optional props without `| undefined` (so `boolean | undefined` gets a
+     boolean control). Components with fixed ids or overlays (Dialog, Drawer, Menu, Popover, Tabs, Toggletip, Tooltip,
+     Skip link) render their examples in frames on the docs page, so ids don't clash.
+   - **Found on the way:** `@lue-ui/elements`'s `sideEffects` named only `dist/` files, so Storybook's static build
+     (which reads the sources) tree-shook every element registration away: **the Storybook published before
+     2026-10-25 had no tabs, menu, carousel, stepper or tooltip behaviour.** Fixed; republish it.
+   - ~~**Storybook MCP addon**~~ (2026-10-25): `@storybook/addon-mcp` 10.6.3 serves `/mcp` on the dev server (docs,
+     story previews, story tests) and writes `manifests/components.json` in the static build. `.mcp.json` registers it
+     (`lue-ui-storybook`, while `pnpm --filter @lue-ui/docs dev` runs) and the `lue-ui` stdio server.
+   - ~~**Component guidelines**~~ (2026-10-25): contracts gained a required `guidance` (what it's for, what to use
+     instead and when, how to write its content), written for all 41. `pnpm docs-ai` writes `guidelines/<id>.md`
+     (served by Storybook, listed in `llms.txt`, and by the MCP server as `get_component` format `guidelines`), and
+     the reference pages take React props from react-docgen, so the JSDoc is the one description. **For Claude
+     Design**, `pnpm design-kit` assembles each component's guidelines and a live preview on `bundle.css` (tokens,
+     fonts, `@lue-ui/css`) and `bundle.js` (the elements IIFE) - the input Spike C needs. Nothing is uploaded: the
+     private Claude Design System still has the canvas-era guidelines until Spike C replaces them.
+   - ~~**No em dashes**~~ (user's rule, 2026-10-25): all 602 lines changed; `pnpm lint` fails on the character.
 
-   - **Published Storybook (user's request, 2026-10-24):** `.github/workflows/storybook-pages.yml` builds Storybook
-     and deploys it to GitHub Pages when run by hand (Actions → Storybook to GitHub Pages → Run workflow). One-time
-     setup is yours: Settings → Pages → Source "GitHub Actions" ("Deploy from a branch" runs GitHub's own
-     `pages-build-deployment`, which only renders the README); and `develop` is the default branch (user's decision,
-     2026-10-24), because GitHub only offers "Run workflow" for workflows on the default branch. The repo is private, so Pages needs a paid plan, and the site is public unless
-     the organisation has Enterprise Cloud private Pages. Later it becomes a step of package publishing.
+**Left in Pass 5:**
 
-   Before
-   publishing: confirm the npm scope, make the repo public, publish - all yours to decide. Also outstanding from
-   RFC-0001 §8: Storybook's `html` decorator (show each story's server-rendered HTML as its source), the Storybook MCP
-   addon's manifests, contract-generated component guidelines for the Claude Design System (after Spike C), and the
-   manual screen-reader pass (NVDA, JAWS, VoiceOver, TalkBack) that gates Stable.
+1. **The first public release** - all yours to decide: confirm the npm scope, make the repo public, publish.
+2. **Spike C** - you start `/design-sync`, with `pnpm design-kit`'s output.
+3. **The manual screen-reader pass** (NVDA, JAWS, VoiceOver, TalkBack) that gates Stable.
 
 ## Things to know
 
@@ -231,7 +263,7 @@ What exists now (all private, all on `develop`):
 - **AI tropes to avoid** (from Claude Design's craft notes): Inter, Roboto, Arial and Fraunces; cream ground with serif
   display and clay; left-border accent cards; gradient washes; emoji. That's why Loom uses Besley.
 - **`/design-sync` is a skill the user starts;** the DesignSync tool is only for use inside it, and it appears
-  React-centric - Spike C tests that.
+  React-centric - Spike C tests that, with `pnpm design-kit`'s React-free previews.
 - **tw-variants-ui** (`/Volumes/Code/tw-variants-ui`) is the legacy predecessor: leave it alone during never-ui work. A
   separate task was offered for its CI (still `npm ci` after the pnpm switch, so it breaks on push) and its form
   accessibility bugs.

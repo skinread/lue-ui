@@ -1,6 +1,6 @@
 # Component inventory and contracts
 
-> **Status:** Draft v0.1 · Phase 1 · 2026-10-05
+> **Status:** Draft v0.1 · Phase 1 · 2026-10-05 · updated through Pass 5 (2026-10-25): every Tier 0, 1 and 2 component is built
 > Prefix `lue` ([ADR-0008](../architecture/adr/0008-name-lue-ui.md)). Visual design comes from Claude Design; this page fixes **semantics, behaviour and
 > platform strategy** for every component.
 
@@ -122,16 +122,23 @@ drawn on the C2 canvas.
 Every component ships a machine-readable contract. Pass 3 hand-wrote the keyboard tests for the first five
 components, and **schema v1** was extracted from what those tests needed (2026-10-24):
 [`apps/docs/contracts/contract.schema.json`](../../apps/docs/contracts/contract.schema.json). The contracts live beside
-it: Button, Link, Field, Textarea, Select, Checkbox, Radio group, Switch, Dialog, Menu, Disclosure, Accordion, Alert, Icon,
-Skip link, Visually hidden and the layout primitives. `pnpm check` validates them and also fails when a contract names a token that
-isn't in `tokens.css`, a class that isn't in `packages/css` (parts marked `hook` are script hooks, not styled), or a
-component without tests and stories. The table below is the original draft; the schema adds `covers`, `messages`,
-`react`, `elementRules`, `withoutJavaScript`, `motion`, `contrast` and `rules`, and makes `a11y.keyboard` a list of
+it, one for every component in Tiers 0, 1 and 2. `pnpm check` validates them and also fails when a contract names a token
+that isn't in `tokens.css`, a class that isn't in `packages/css` (parts marked `hook` are script hooks, not styled), a
+component without tests and stories, or a key in its keyboard map that no test presses. The table below is the original
+draft; the schema adds `summary` (one line, listed in `llms.txt`), `guidance` (below), `covers`, `messages`, `react`,
+`elementRules`, `withoutJavaScript`, `motion`, `contrast` and `rules`, and makes `a11y.keyboard` a list of
 `{ keys, action, on?, where? }`.
+
+**Guidelines come from the contract** (2026-10-25). `guidance` holds the design guidance: `useFor` (when to use it, with
+examples), `insteadUse` ("situation: what to use instead", one per entry) and `content` (how to write its labels and
+messages). `pnpm docs-ai` turns it, with the anatomy, variants, states, keyboard map, rules and fallbacks, into
+`guidelines/<id>.md` - the shape of a Claude Design System component README - and the Storybook docs page shows it as
+"When to use it". React props are documented once, as JSDoc on the adapter, and read by react-docgen.
 
 | Field | Meaning |
 | --- | --- |
 | `name`, `status` | Component name; maturity (`proposal`, `experimental`, `candidate`, `stable`) |
+| `summary`, `guidance` | One line on what it is; when to use it, what instead, and how to write its content |
 | `rung`, `rungReason` | Lowest platform-ladder rung used, and why |
 | `anatomy` | Parts: element, class, required/optional, fixed attributes |
 | `variants` | Attribute-based variants: attribute, values, default (absence) |
