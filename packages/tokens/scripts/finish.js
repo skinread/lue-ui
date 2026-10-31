@@ -1,9 +1,11 @@
 // Finishes Terrazzo's dist/tokens.css (run after `tz build`):
 //   1. drops the `@media (color-gamut: …)` copies Terrazzo adds for wide-gamut displays. Our colours are gamut-mapped
 //      to sRGB at the source and contrast-checked there, so the copies only restate them with rounding noise;
-//   2. adds the two context rules tokens can't express as a theme: zero durations under reduced motion, and the 44 px
-//      target minimum under a coarse pointer ($extensions.lue.coarse); then src/theme.css, the CSS compositions of
-//      material tokens (filters, gradients, layered shadows) that components use;
+//   2. adds the context rules tokens can't express as a theme: zero durations under reduced motion, the 44 px target
+//      minimum under a coarse pointer ($extensions.lue.coarse), and wide-gamut light: on a P3 display, material
+//      tokens with $extensions.lue.p3 (light only - caustics, pools, glows; never text or a boundary, so no contrast
+//      pair moves) take their wider value; then src/theme.css, the CSS compositions of material tokens (filters,
+//      gradients, layered shadows) that components use;
 //   3. bundles and minifies with Lightning CSS and no targets, so nothing is lowered (ADR-0002), then prepends the
 //      layer order;
 //   4. fails if a themed token (colour, material, shadow) is missing from any theme block - the default plus six;
@@ -44,6 +46,33 @@ function dropGamutBlocks(css) {
 const motion = read('semantic/motion.tokens.json').motion;
 const target = read('semantic/dimension.tokens.json').size['target-min'];
 const coarse = target.$extensions.lue.coarse;
+// Wide-gamut light, per scheme. Dark first, then light, so an OS light preference wins over the :root default; the
+// -more contexts keep their sRGB values (their selectors are more specific, and they don't draw the light).
+const wide = (scheme) => {
+  const out = [];
+  const walk = (node, id) => {
+    if (node && typeof node === 'object' && '$value' in node) {
+      const p3 = node.$extensions?.lue?.p3;
+      if (p3) out.push(`--lue-${id.join('-')}: oklch(${+(p3.components[0] * 100).toFixed(2)}% ${p3.components[1]} ${p3.components[2]} / ${p3.alpha});`);
+      return;
+    }
+    for (const [k, v] of Object.entries(node ?? {})) if (!k.startsWith('$')) walk(v, [...id, k]);
+  };
+  walk(read(`semantic/material.${scheme}.tokens.json`).material, ['material']);
+  return out.join(' ');
+};
+// The wide-gamut block declares its tokens three more times (dark, light by preference, light by data-theme).
+const WIDE_BLOCKS = 3;
+const wideNames = new Set([...`${wide('dark')} ${wide('light')}`.matchAll(/(--lue-[\w-]+):/g)].map((m) => m[1]));
+const gamut = `
+@layer lue.tokens {
+  @media (color-gamut: p3) {
+    :where(:root), [data-theme="dark"] { ${wide('dark')} }
+    @media (prefers-color-scheme: light) { :where(:root:not([data-theme])) { ${wide('light')} } }
+    [data-theme="light"] { ${wide('light')} }
+  }
+}
+`;
 const extra = `
 @layer lue.tokens {
   @media (prefers-reduced-motion: reduce) {
@@ -55,7 +84,7 @@ const extra = `
 }
 `;
 
-const source = dropGamutBlocks(fs.readFileSync(FILE, 'utf8')) + extra + fs.readFileSync(path.join(ROOT, 'src', 'theme.css'), 'utf8');
+const source = dropGamutBlocks(fs.readFileSync(FILE, 'utf8')) + extra + gamut + fs.readFileSync(path.join(ROOT, 'src', 'theme.css'), 'utf8');
 const { code, warnings } = transform({ filename: 'tokens.css', code: Buffer.from(source), minify: true });
 for (const w of warnings) console.warn(`tokens.css: ${w.message}`);
 fs.writeFileSync(FILE, `${LAYERS}\n${code}`);
@@ -63,8 +92,9 @@ fs.writeFileSync(FILE, `${LAYERS}\n${code}`);
 const THEME_BLOCKS = 7;
 const counts = new Map();
 for (const [, name] of String(code).matchAll(/(--lue-(?:color|material|shadow)-[\w-]+):/g)) counts.set(name, (counts.get(name) ?? 0) + 1);
-const incomplete = [...counts].filter(([, n]) => n !== THEME_BLOCKS);
-for (const [name, n] of incomplete) console.error(`tokens.css: ${name} is declared in ${n} theme blocks, not ${THEME_BLOCKS}`);
+const expected = (name) => THEME_BLOCKS + (wideNames.has(name) ? WIDE_BLOCKS : 0);
+const incomplete = [...counts].filter(([name, n]) => n !== expected(name));
+for (const [name, n] of incomplete) console.error(`tokens.css: ${name} is declared in ${n} theme blocks, not ${expected(name)}`);
 if (incomplete.length) process.exit(1);
 
 // tokens.js must point only at variables tokens.css defines, and every literal must have serialised.
