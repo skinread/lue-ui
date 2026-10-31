@@ -494,7 +494,7 @@
   .lue-tabs:where(:defined) .lue-tabs__list {
     inline-size: fit-content;
     gap: var(--lue-space-3xs);
-    padding: var(--lue-space-2xs);
+    padding: var(--lue-space-3xs);
     border: 1.5px solid transparent;
     border-image: none;
     /* Half a row's height: a pill on one row, a rounded panel if the tabs wrap. */
