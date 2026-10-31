@@ -35,10 +35,10 @@
     --next-light-blend: plus-lighter;
     --next-edge-shadow: oklch(8% 0.02 285 / 0.5);
     --lue-chrome-stops:
-      oklch(78% 0.012 250) 0%, oklch(98.5% 0.004 270) 3.5%, oklch(66% 0.014 280) 8%, oklch(54% 0.014 285) 15%,
-      oklch(74% 0.014 245) 24%, oklch(90% 0.01 230) 31%, oklch(98.5% 0.004 270) 34.5%, oklch(62% 0.014 280) 40%,
+      oklch(70% 0.012 250) 0%, oklch(86% 0.006 270) 3.5%, oklch(62% 0.014 280) 8%, oklch(54% 0.014 285) 15%,
+      oklch(66% 0.014 245) 24%, oklch(78% 0.01 230) 31%, oklch(86% 0.006 270) 34.5%, oklch(58% 0.014 280) 40%,
       oklch(80% 0.13 72) 46%, oklch(86% 0.14 118) 48.5%, oklch(83% 0.13 168) 51%, oklch(80% 0.11 215) 53.5%,
-      oklch(56% 0.014 285) 58%, oklch(54% 0.016 290) 66%, oklch(70% 0.03 70) 76%, oklch(94% 0.008 250) 84%,
+      oklch(56% 0.014 285) 58%, oklch(54% 0.016 290) 66%, oklch(66% 0.03 70) 76%, oklch(82% 0.008 250) 84%,
       oklch(60% 0.014 280) 91%, oklch(78% 0.012 250) 100%;
     --lue-material-iridescence-1: oklch(50% 0.11 205 / 0.8);
     --lue-material-iridescence-2: oklch(52% 0.12 110 / 0.7);
@@ -71,7 +71,7 @@
     --next-tube: oklch(98.5% 0.004 270 / 0.07);
     --next-bars-1: oklch(70% 0.17 5); --next-bars-2: oklch(80% 0.15 70); --next-bars-3: oklch(90% 0.16 110);
     --next-bars-4: oklch(85% 0.15 160); --next-bars-5: oklch(82% 0.13 205); --next-bars-6: oklch(24% 0.03 285);
-    --lue-chrome-text: oklch(98.5% 0.004 270) 0%, oklch(88% 0.02 235) 36%, oklch(54% 0.016 285) 49%, oklch(50% 0.016 290) 53%, oklch(66% 0.04 70) 70%, oklch(92% 0.03 75) 100%;
+    --lue-chrome-text: oklch(90% 0.004 270) 0%, oklch(80% 0.02 235) 36%, oklch(54% 0.016 285) 49%, oklch(50% 0.016 290) 53%, oklch(64% 0.04 70) 70%, oklch(84% 0.03 75) 100%;
   }
 
   /* Pearl. Specular here is a lighter gunmetal, never white: the ring still has to reach 3:1 on pearl. */
@@ -377,22 +377,28 @@
 /* ================================================================== round 3: softer, deeper glass and a liquid-chrome set */
 
 @layer lue.tokens {
-  :root { --next-panel-radius: 40px; }
+  :root {
+    --next-panel-radius: 40px;
+    /* Liquid motion: quick to start, a long settle, no overshoot. */
+    --next-liquid: 320ms;
+    --next-liquid-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
 
   /* Liquid chrome reflects a horizon: bright sky above, a dark band where the ground meets it, warm floor below. One
      set of stops drives every chrome control, so the checkbox, radio, switch and tabs read as one material. The band
      never drops below the lightness the engraved ink needs (3:1 for marks, 4.5:1 where a tab's text sits). */
   [data-theme="dark"] {
-    --next-chrome-sky: oklch(98.5% 0.004 240);
-    --next-chrome-high: oklch(90% 0.01 240);
-    --next-chrome-mid: oklch(80% 0.012 255);
-    --next-chrome-horizon: oklch(62% 0.014 275);
-    --next-chrome-low: oklch(72% 0.02 270);
-    --next-chrome-floor: oklch(88% 0.035 72);
-    --next-chrome-rim: oklch(34% 0.016 285);
-    --next-engrave: oklch(19% 0.02 285);
-    --next-engrave-lift: oklch(98.5% 0.004 240 / 0.6);
+    --next-chrome-sky: oklch(86% 0.008 240);
+    --next-chrome-high: oklch(78% 0.01 240);
+    --next-chrome-mid: oklch(70% 0.012 255);
+    --next-chrome-horizon: oklch(54% 0.014 275);
+    --next-chrome-low: oklch(60% 0.018 270);
+    --next-chrome-floor: oklch(74% 0.03 72);
+    --next-chrome-rim: oklch(12% 0.016 285);
+    --next-engrave: oklch(14% 0.02 285);
+    --next-engrave-lift: oklch(92% 0.006 240 / 0.45);
     --next-well: oklch(11% 0.02 285);
+    --next-field-well: oklch(11% 0.02 285);
     --next-well-depth: oklch(4% 0.01 285 / 0.85);
     --next-well-lip: oklch(98.5% 0.004 240 / 0.1);
     --next-glass-side: oklch(98.5% 0.004 270 / 0.14);
@@ -400,16 +406,18 @@
     --next-glass-under: oklch(5% 0.015 285 / 0.55);
   }
   [data-theme="light"] {
-    --next-chrome-sky: oklch(99.5% 0.003 250);
-    --next-chrome-high: oklch(93% 0.008 245);
-    --next-chrome-mid: oklch(84% 0.01 255);
-    --next-chrome-horizon: oklch(58% 0.014 275);
-    --next-chrome-low: oklch(70% 0.018 270);
-    --next-chrome-floor: oklch(90% 0.03 72);
-    --next-chrome-rim: oklch(40% 0.016 285);
-    --next-engrave: oklch(19% 0.02 285);
-    --next-engrave-lift: oklch(99.5% 0.003 250 / 0.85);
+    --next-chrome-sky: oklch(92% 0.006 250);
+    --next-chrome-high: oklch(84% 0.008 245);
+    --next-chrome-mid: oklch(76% 0.01 255);
+    --next-chrome-horizon: oklch(54% 0.014 275);
+    --next-chrome-low: oklch(62% 0.016 270);
+    --next-chrome-floor: oklch(82% 0.025 72);
+    --next-chrome-rim: oklch(36% 0.016 285);
+    --next-engrave: oklch(14% 0.02 285);
+    --next-engrave-lift: oklch(97% 0.004 250 / 0.7);
     --next-well: oklch(86% 0.012 285);
+    /* Lighter than the choice wells, so placeholder and hint text keep 4.5:1. */
+    --next-field-well: oklch(95% 0.008 285);
     --next-well-depth: oklch(40% 0.03 285 / 0.4);
     --next-well-lip: oklch(99.5% 0.003 250 / 0.9);
     --next-glass-side: oklch(70% 0.02 285 / 0.35);
@@ -444,29 +452,78 @@
   .lue-card, .lue-glass:where(:not([data-tier="clear"])) { box-shadow: var(--next-glass-depth), var(--lue-shadow-fringe); }
 
   /* ---- the chrome set. Off is a recessed dark well in a chrome bezel; on is polished chrome. */
-  .lue-checkbox, .lue-radio, .lue-switch {
-    border-width: 2px;
-    background: linear-gradient(var(--next-well), var(--next-well)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
+  /* Off: chrome waiting below the well (0% tall); on: it rises to fill it, so the horizon in its reflection moves as it
+     fills, like liquid metal. The ring turns only when the state changes, never on hover. Invalid controls keep the
+     library's critical ring. */
+  .lue-checkbox, .lue-radio, .lue-switch { border-width: 2px; }
+  .lue-checkbox:where(:not([aria-invalid="true"])), .lue-radio:where(:not([aria-invalid="true"])), .lue-switch:where(:not([aria-invalid="true"])) {
+    background:
+      var(--next-chrome-body) bottom / 100% 0% no-repeat padding-box,
+      linear-gradient(var(--next-well), var(--next-well)) padding-box,
+      conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
     box-shadow: var(--next-well-shadow);
+    transition: --lue-angle var(--next-liquid) var(--next-liquid-ease), background-size var(--next-liquid) var(--next-liquid-ease);
   }
+  .lue-checkbox:where(:hover), .lue-radio:where(:hover), .lue-switch:where(:hover) { --lue-angle: 0deg; }
+  .lue-checkbox:where(:focus-visible), .lue-radio:where(:focus-visible), .lue-switch:where(:focus-visible) { box-shadow: var(--next-well-shadow), 0 0 0 7px var(--lue-focus-glow); }
+  .lue-checkbox:where(:checked, :indeterminate), .lue-radio:where(:checked), .lue-switch:where(:checked) { --lue-angle: 180deg; }
   .lue-checkbox, .lue-radio { inline-size: 24px; block-size: 24px; }
   .lue-checkbox { border-radius: 7px; }
   .lue-switch { inline-size: 52px; block-size: 30px; }
   .lue-switch::before { inset-block-start: 3px; inset-inline-start: 3px; inline-size: 20px; block-size: 20px; }
   .lue-switch:where(:checked)::before { translate: 22px 0; }
+  /* A selected key that flows (liquid.js) is drawn by its container, so the option itself stays clear. */
+  :where(.lue-tabs__list, .lue-segmented__options)[data-liquid] { position: relative; isolation: isolate; }
+  :where(.lue-tabs__list, .lue-segmented__options)[data-liquid]::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset-inline-start: 0;
+    inset-block-start: var(--key-y);
+    inline-size: var(--key-w);
+    block-size: var(--key-h);
+    translate: calc(var(--key-x) * var(--key-dir, 1)) 0;
+    transform-origin: left center;
+    border-radius: var(--lue-radius-full);
+    background: var(--next-chrome-key);
+    box-shadow: var(--next-raised);
+    pointer-events: none;
+  }
+  :where(.lue-tabs__list, .lue-segmented__options)[data-liquid]:dir(rtl) { --key-dir: -1; }
+  :where(.lue-tabs__list, .lue-segmented__options)[data-liquid]:dir(rtl)::before { transform-origin: right center; }
+  .lue-tabs__list:where([data-liquid]) .lue-tabs__tab:where([aria-selected="true"]),
+  .lue-segmented__options:where([data-liquid]) .lue-segmented__option:where(:has(:checked)) { background: none; box-shadow: none; }
+
+  /* ---- fields: recessed wells in the same chrome bezel. The ring stays put: no turn on hover or focus. */
+  .lue-input:where(:not([aria-invalid="true"])), .lue-select:where(:not([aria-invalid="true"])), .lue-textarea:where(:not([aria-invalid="true"])) {
+    border-width: 2px;
+    background: linear-gradient(var(--next-field-well), var(--next-field-well)) padding-box, conic-gradient(from 200deg, var(--lue-chrome-stops)) border-box;
+  }
+  .lue-input, .lue-select, .lue-textarea { border-radius: 18px; box-shadow: var(--next-well-shadow); transition: none; }
+  .lue-input:where(:hover, :focus-visible), .lue-select:where(:hover, :focus-visible), .lue-textarea:where(:hover, :focus-visible) { --lue-angle: 0deg; }
+  .lue-input:where(:focus-visible), .lue-select:where(:focus-visible), .lue-textarea:where(:focus-visible) { box-shadow: var(--next-well-shadow), 0 0 0 7px var(--lue-focus-glow); }
   .lue-switch:where(:checked:dir(rtl))::before { translate: -22px 0; }
 
   /* Checkbox: a chrome cushion with the tick engraved, lit from above. */
   .lue-checkbox:where(:checked, :indeterminate) {
-    background: var(--next-chrome-body) padding-box, conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
+    background:
+      var(--next-chrome-body) bottom / 100% 100% no-repeat padding-box,
+      linear-gradient(var(--next-well), var(--next-well)) padding-box,
+      conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
     box-shadow: var(--next-raised);
   }
+  /* The tick is engraved once the chrome has risen. */
+  .lue-checkbox:where(:checked, :indeterminate)::after { transition: opacity var(--next-liquid) var(--next-liquid-ease) calc(var(--next-liquid) * 0.5); }
+  @starting-style { .lue-checkbox:where(:checked, :indeterminate)::after { opacity: 0; } }
   .lue-checkbox:where(:checked)::after { border-color: var(--next-engrave); filter: drop-shadow(0 1px 0 var(--next-engrave-lift)); }
   .lue-checkbox:where(:indeterminate)::after { background: var(--next-engrave); filter: drop-shadow(0 1px 0 var(--next-engrave-lift)); }
 
   /* Radio: a chrome ball bearing sitting in the well. */
-  .lue-radio:where(:checked) {
-    background: linear-gradient(var(--next-well), var(--next-well)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
+  .lue-radio:where(:checked:not([aria-invalid="true"])) {
+    background:
+      var(--next-chrome-body) bottom / 100% 0% no-repeat padding-box,
+      linear-gradient(var(--next-well), var(--next-well)) padding-box,
+      conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
     box-shadow: var(--next-well-shadow);
   }
   .lue-radio:where(:checked)::after {
@@ -476,17 +533,29 @@
     border-radius: 50%;
     background: var(--next-chrome-ball);
     box-shadow: 0 0 0 1px var(--next-chrome-rim), 0 2px 3px var(--next-well-depth);
+    /* The bead wells up from the centre of the recess. */
+    transition: scale var(--next-liquid) var(--next-liquid-ease);
   }
+  @starting-style { .lue-radio:where(:checked)::after { scale: 0; } }
 
   /* Switch: the same ball rolls along the well; on, the well fills with prism light under the chrome. */
   .lue-switch::before, .lue-switch:where(:checked)::before {
     background: var(--next-chrome-ball);
     box-shadow: 0 0 0 1px var(--next-chrome-rim), 0 2px 4px var(--next-well-depth);
   }
+  /* Switch: the ball rolls and the prism light pours in behind it, from the start edge, at the same pace. */
+  .lue-switch:where(:not([aria-invalid="true"])) {
+    background:
+      linear-gradient(100deg, var(--lue-prism-fill)) left / 0% 100% no-repeat padding-box,
+      linear-gradient(var(--next-well), var(--next-well)) padding-box,
+      conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
+  }
+  .lue-switch:where(:dir(rtl)) { background-position: right, 0 0, 0 0; }
   .lue-switch:where(:checked) {
-    background: linear-gradient(100deg, var(--lue-prism-fill)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
+    background-size: 100% 100%, auto, auto;
     box-shadow: var(--next-well-shadow), 0 6px 18px -8px var(--next-pool);
   }
+  .lue-switch::before { transition: translate var(--next-liquid) var(--next-liquid-ease); }
 
   /* Tabs: a recessed well holding the tabs; the selected one is a raised chrome key with its name engraved. */
   .lue-tabs:where(:defined) .lue-tabs__list {
@@ -545,9 +614,11 @@
 @layer lue.contrast {
   :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-card, .lue-glass) { border-radius: var(--next-panel-radius); }
   :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-tabs__tab[aria-selected="true"], .lue-segmented__option:has(:checked)) { background: var(--lue-color-fg-default); color: var(--lue-color-bg-canvas); text-shadow: none; box-shadow: none; }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-tabs__list, .lue-segmented__options)[data-liquid]::before { content: none; }
   @media (forced-colors: active) {
     :where(.lue-radio:checked)::after { background: SelectedItem; box-shadow: none; }
     :where(.lue-tabs__list) { border-color: CanvasText; }
+    :where(.lue-tabs__list, .lue-segmented__options)[data-liquid]::before { content: none; }
     :where(.lue-tabs__tab[aria-selected="true"], .lue-segmented__option:has(:checked)) { background: SelectedItem; color: SelectedItemText; text-shadow: none; }
   }
 }

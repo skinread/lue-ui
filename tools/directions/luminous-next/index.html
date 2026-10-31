@@ -11,13 +11,22 @@
 <link rel="stylesheet" href="luminous-next.css">
 <script src="../out/claude-design-kit/bundle.js" defer></script>
 <script src="lens.js" defer></script>
+<script src="liquid.js" defer></script>
 </head>
 <body>
 <svg class="next-defs" aria-hidden="true" focusable="false">
-  <!-- The lens: lens-map.svg moves the backdrop at a pane's rim and nowhere else. -->
+  <!-- The lens: lens-map.svg moves the backdrop at a pane's rim and nowhere else, each colour by its own amount. -->
   <filter id="lue-lens" x="0" y="0" width="1" height="1" primitiveUnits="objectBoundingBox" color-interpolation-filters="sRGB">
     <feImage href="lens-map.svg" x="0" y="0" width="1" height="1" preserveAspectRatio="none" result="map"/>
-    <feDisplacementMap in="SourceGraphic" in2="map" scale="0.12" xChannelSelector="R" yChannelSelector="G"/>
+    <!-- Dispersion: red, green and blue bend by different amounts, so the rim splits light into colour. -->
+    <feDisplacementMap in="SourceGraphic" in2="map" scale="0.09" xChannelSelector="R" yChannelSelector="G" result="bent-r"/>
+    <feColorMatrix in="bent-r" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r"/>
+    <feDisplacementMap in="SourceGraphic" in2="map" scale="0.12" xChannelSelector="R" yChannelSelector="G" result="bent-g"/>
+    <feColorMatrix in="bent-g" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="g"/>
+    <feDisplacementMap in="SourceGraphic" in2="map" scale="0.15" xChannelSelector="R" yChannelSelector="G" result="bent-b"/>
+    <feColorMatrix in="bent-b" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="b"/>
+    <feBlend in="r" in2="g" mode="screen" result="rg"/>
+    <feBlend in="rg" in2="b" mode="screen"/>
   </filter>
 </svg>
 <div class="container">
@@ -148,6 +157,8 @@
         <article class="lue-card">
           <h3>Fields</h3>
           <div class="lue-field"><label class="lue-field__label" for="project">Project name</label><input id="project" class="lue-input" value="Kiln"></div>
+          <div class="lue-field"><label class="lue-field__label" for="delivery">Delivery</label><div class="lue-select-wrap"><select id="delivery" class="lue-select"><option value="standard">Standard, 3 to 5 days</option><option value="express">Express, next day</option></select><svg class="lue-icon" aria-hidden="true" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+          <search class="lue-search"><form action="#controls" method="get"><div class="lue-field"><label class="lue-field__label" for="find">Search projects</label><input type="search" id="find" class="lue-input" name="q" placeholder="Kiln, Loom, Lathe"></div><button type="submit" class="lue-button">Search</button></form></search>
           <p><span class="lue-tag">Case study</span></p>
         </article>
       </div>

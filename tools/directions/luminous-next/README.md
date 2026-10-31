@@ -38,10 +38,11 @@ Lue's.
 | Wide gamut | Parked | **Light only:** the rays, pools and fringes take Display P3 chroma inside `@media (color-gamut: p3)`. Never text or a boundary, so no contrast pair moves |
 | Chrome text | A grey ramp | Sky above, a dark horizon, a warm floor below; every stop 3:1 on canvas (large text) |
 | Tags | Mono, uppercase, tracked | The body face, sentence case, untracked |
-| Refraction | None | Real displacement on clear glass: `lens-map.svg` through an SVG filter in `backdrop-filter` bends the backdrop at the rim and leaves the middle alone. Renders in Chromium only, so `lens.js` sets `data-lens` there; everywhere else clear glass keeps its CSS rim and fringes |
+| Refraction | None | Real displacement and dispersion on clear glass (red, green and blue bend by different amounts, so the rim splits colour): `lens-map.svg` through an SVG filter in `backdrop-filter` bends the backdrop at the rim and leaves the middle alone. Renders in Chromium only, so `lens.js` sets `data-lens` there; everywhere else clear glass keeps its CSS rim and fringes |
 | Pearl | Light added to pearl paper, so it barely showed | Coloured light multiplies on pearl (light through stained glass on a white wall) at more chroma; a cool beam; a defined lower lip and edge on glass; stronger side fringes |
 | Panels | 20 px corners, thin glass | 40 px corners (80 px where `corner-shape: squircle` applies, since a squircle needs more to look as soft) and thick glass: a bright bevel inside the top edge, a darker one inside the bottom, the slab's lit side showing below it, a contact shadow and a long soft one |
-| Chrome set | Checkbox, radio and switch filled with prism tones; tabs underlined; segmented options as glass | One liquid-chrome material for all five. Off is a recessed dark well in a 2 px chrome bezel with a lit lip; on is polished chrome reflecting a horizon (sky, a dark band, a warm floor). Checkbox: a chrome cushion with the tick engraved. Radio: a chrome ball bearing in the well. Switch: the same ball rolling along the well, lit with prism light when on. Tabs and the segmented control: a recessed well, the selected option a raised chrome key with its name engraved. Sized up a step (24 px boxes, a 52 by 30 switch) |
+| Chrome set | Checkbox, radio and switch filled with prism tones; tabs underlined; segmented options as glass; fields flat | One liquid-chrome material, toned to a mid grey, for the choice controls, tabs, segmented control and fields. Off is a recessed dark well in a 2 px chrome bezel with a lit lip; on is polished chrome reflecting a horizon (sky, a dark band, a warm floor). Checkbox: a chrome cushion with the tick engraved. Radio: a chrome ball bearing in the well. Switch: the same ball rolling along the well, lit with prism light when on. Tabs and the segmented control: a recessed well, the selected option a raised chrome key with its name engraved. Fields (input, select, search, textarea): recessed wells in the same bezel. Sized up a step (24 px boxes, a 52 by 30 switch) |
+| Chrome motion | Rings turn on hover and focus; the switch bead springs past its mark | Like liquid metal, and only when the state changes: a checkbox's chrome rises to fill its well (its reflection moves as it fills) before the tick is engraved; a radio's bead wells up from the centre; the switch's ball rolls while prism light pours in behind it; the bezel turns half a revolution. Tabs and segmented options pass one chrome key between them that stretches toward the new option and settles (`liquid.js`, translate and scale only). No ring moves on hover, and fields' rings never move. Reduced motion makes every change instant |
 | Squircles | The chrome ring stays round when the surface is a squircle, so they separate at the corners (a current bug) | `corner-shape: inherit` on the ring and caustic |
 
 ## Checked
@@ -51,8 +52,9 @@ Lue's.
   6.75; dark primary text on its strongest iridescence over surfaces and glass 6.09 (4.5); weakest chrome stop 3.61
   dark, 3.41 light (3); chrome text 3.25 dark, 4.03 light (3, large text); light primary text 10.73 (4.5). Not yet wired into the token build's gate: that happens when it's ported.
 - Increased contrast, reduced transparency and forced colours drop the caustic, the glint and the light.
-- The chrome set: engraved marks on the darkest chrome stop 5.07 dark, 4.31 light (3); tab text on the chrome key
-  9.91 and 11.34 (4.5); the switch ball against its lit track 4.14 and 5.16 (3).
+- The mid-grey chrome set: engraved marks on the darkest chrome stop 3.94 in both themes (3); tab text on the chrome
+  key 7.46 dark, 9.28 light (4.5); the switch ball's rim against every lit track tone 3.15 and 5.98 (3); field text on
+  its well 17.93 and 15.19 (7), placeholder and hint 10.19 and 6.33 (4.5).
 - Not checked: Firefox and Safari rendering (Chromium only so far), and the modal glass tier's new sheen over the
   scrim.
 
