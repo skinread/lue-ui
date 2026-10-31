@@ -211,8 +211,6 @@
 
   .lue-checkbox:where(:checked, :indeterminate), .lue-radio:where(:checked) { box-shadow: inset 0 1px 0 var(--next-specular-rim), 0 6px 16px -8px var(--next-pool); }
 
-  /* ---- segmented: the chosen option is a glass lozenge with its own chrome edge */
-  .lue-segmented__option:where(:has(:checked)) { box-shadow: var(--lue-button-depth), inset 0 1px 0 var(--next-specular-rim), inset 0 0 0 1px var(--lue-color-border-strong); }
 
   /* ---- progress: prism light inside a glass tube, with a specular line along its top */
   .lue-progress::-webkit-progress-value { background: linear-gradient(180deg, var(--next-specular-rim), transparent 45%), linear-gradient(90deg, var(--lue-prism-fill)); }
@@ -515,6 +513,24 @@
     box-shadow: var(--next-raised);
   }
   .lue-tabs:where(:defined) .lue-tabs__tab:where(:focus-visible) { outline-offset: 2px; }
+
+  /* Segmented control: the same well and the same chrome key as the tabs, so a choice of view and a choice of panel
+     look like one family. */
+  .lue-segmented__options {
+    gap: var(--lue-space-3xs);
+    padding: var(--lue-space-3xs);
+    border: 1.5px solid transparent;
+    border-radius: 26px;
+    background: linear-gradient(var(--next-well), var(--next-well)) padding-box, conic-gradient(from 200deg, var(--lue-chrome-stops)) border-box;
+    box-shadow: var(--next-well-shadow);
+  }
+  .lue-segmented__option { border-radius: var(--lue-radius-full); padding-inline: var(--lue-space-m, 20px); }
+  .lue-segmented__option:where(:has(:checked)) {
+    color: var(--next-engrave);
+    text-shadow: 0 1px 0 var(--next-engrave-lift);
+    background: var(--next-chrome-key);
+    box-shadow: var(--next-raised);
+  }
 }
 
 @layer lue.materials {
@@ -528,10 +544,10 @@
    layer), and forced colours draws the ball and the selected tab in system colours. */
 @layer lue.contrast {
   :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-card, .lue-glass) { border-radius: var(--next-panel-radius); }
-  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-tabs__tab[aria-selected="true"]) { background: var(--lue-color-fg-default); color: var(--lue-color-bg-canvas); text-shadow: none; box-shadow: none; }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-tabs__tab[aria-selected="true"], .lue-segmented__option:has(:checked)) { background: var(--lue-color-fg-default); color: var(--lue-color-bg-canvas); text-shadow: none; box-shadow: none; }
   @media (forced-colors: active) {
     :where(.lue-radio:checked)::after { background: SelectedItem; box-shadow: none; }
     :where(.lue-tabs__list) { border-color: CanvasText; }
-    :where(.lue-tabs__tab[aria-selected="true"]) { background: SelectedItem; color: SelectedItemText; text-shadow: none; }
+    :where(.lue-tabs__tab[aria-selected="true"], .lue-segmented__option:has(:checked)) { background: SelectedItem; color: SelectedItemText; text-shadow: none; }
   }
 }
