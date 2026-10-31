@@ -10,3 +10,4 @@ export { LueTabs } from './tabs/lue-tabs.js';
 export { LueCarousel } from './carousel/lue-carousel.js';
 export { LueStepper } from './stepper/lue-stepper.js';
 export { installTooltip, TOOLTIP_DELAY, TOOLTIP_HIDE_DELAY } from './tooltip/behaviour.js';
+export { installLiquid, liquidKeyframes, LIQUID_DURATION, type LiquidKey } from './liquid/behaviour.js';

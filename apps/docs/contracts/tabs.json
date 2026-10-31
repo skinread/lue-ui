@@ -106,7 +106,12 @@
       "tabindex"
     ],
     ".lue-tabs__list": [
-      "role"
+      "role",
+      "data-lue-liquid",
+      "--lue-key-x",
+      "--lue-key-y",
+      "--lue-key-w",
+      "--lue-key-h"
     ],
     ".lue-tabs__panel": [
       "role",
@@ -115,7 +120,7 @@
       "hidden"
     ]
   },
-  "elementRules": "Links and panels need ids in the markup. The element finds tabs by .lue-tabs__list a[href^='#'] and panels by those ids; it fires lue-tab-change (detail.panel). React renders the no-script markup only.",
+  "elementRules": "Links and panels need ids in the markup. The element finds tabs by .lue-tabs__list a[href^='#'] and panels by those ids; it fires lue-tab-change (detail.panel). React renders the no-script markup only. The liquid key behaviour (@lue-ui/elements, in define) writes data-lue-liquid and the inline custom properties --lue-key-x, --lue-key-y, --lue-key-w and --lue-key-h (px; x from the inline-start padding edge, y from the top) on .lue-tabs__list once it has placed the shared selected key, and animates its ::before (translate and scale only, never under reduced motion). React renders no style and no data-lue-liquid there.",
   "react": {
     "component": "Tabs",
     "props": {
@@ -135,6 +140,13 @@
       "custom elements",
       ":defined",
       "hidden"
+    ],
+    "enhancements": [
+      {
+        "feature": "The liquid key: one shared selected key that flows between options (Web Animations on ::before, @lue-ui/elements)",
+        "fallback": "Each selected option draws its own static key; under reduced motion the key moves without flowing",
+        "where": ".lue-tabs__list"
+      }
     ]
   },
   "rules": [

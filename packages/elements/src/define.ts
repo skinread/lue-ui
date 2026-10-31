@@ -9,3 +9,4 @@ import './define/roving.js';
 import './define/tooltip.js';
 import './define/carousel.js';
 import './define/stepper.js';
+import './define/liquid.js';
