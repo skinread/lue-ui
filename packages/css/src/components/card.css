@@ -1,7 +1,7 @@
-/* Card - <article class="lue-card">, overlay glass, optionally one link (.lue-card__link) that covers the whole card.
+/* Card - <article class="lue-card">, overlay glass as a thick slab (ADR-0010), optionally one link (.lue-card__link) that covers the whole card.
    Contract: apps/docs/contracts/card.json. */
 @layer lue.components {
-  .lue-card { padding: var(--lue-space-l); border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-raised), var(--lue-shadow-fringe); }
+  .lue-card { padding: var(--lue-space-l); border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-glass), var(--lue-shadow-fringe); }
   /* A whole-card link: the title's link stretches over the card. Other links and buttons sit above it. The card shows
      the focus ring, since the link's own outline would only circle the title. */
   .lue-card__link { color: inherit; text-decoration: none; }

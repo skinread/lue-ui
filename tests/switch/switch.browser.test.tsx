@@ -38,10 +38,10 @@ describe('Switch', () => {
     document.body.innerHTML = html;
     input().checked = true;
     await frame();
-    expect(getComputedStyle(input(), '::before').translate).toBe('20px');
+    expect(getComputedStyle(input(), '::before').translate).toBe('22px');
     document.documentElement.dir = 'rtl';
     await frame();
-    expect(getComputedStyle(input(), '::before').translate).toBe('-20px');
+    expect(getComputedStyle(input(), '::before').translate).toBe('-22px');
   });
 
   for (const theme of ['dark', 'light', 'dark-more', 'light-more']) {

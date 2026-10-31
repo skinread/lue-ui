@@ -2,7 +2,8 @@
    apps/docs/contracts/field.json. The error message is in the markup from the start, hidden and empty, and is
    referenced by the control's aria-describedby; the validate behaviour (or the React adapter) fills it and unhides it.
    Invalid state comes from aria-invalid, or from :user-invalid when nothing manages it. The surface and states below
-   are shared by every text-like control: input, textarea and select. */
+   are shared by every text-like control: input, textarea and select - a recessed well in a chrome bezel (ADR-0010),
+   whose ring never moves - and the bezel by the choice controls. */
 @layer lue.components {
   .lue-field { display: grid; gap: var(--lue-space-2xs); }
   .lue-field__label { font-weight: 600; font-size: 1rem; line-height: 1.3; }
@@ -10,13 +11,14 @@
   .lue-field__error { display: flex; gap: 0.4em; align-items: center; margin: 0; color: var(--lue-color-fg-critical); font-size: 0.9375rem; font-weight: 600; }
 
   .lue-input, .lue-select, .lue-textarea, .lue-checkbox, .lue-radio, .lue-switch {
-    border: var(--lue-border-width-thin) solid transparent;
-    background: linear-gradient(var(--lue-field-bg), var(--lue-field-bg)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
-    box-shadow: inset 0 1px 2px var(--lue-field-inset);
+    border: var(--lue-border-width-thick) solid transparent;
     color: var(--lue-color-fg-default);
-    transition:
-      --lue-angle var(--lue-motion-duration-slow) var(--lue-motion-ease-standard),
-      box-shadow var(--lue-motion-duration-slow) var(--lue-motion-ease-standard);
+  }
+  .lue-input, .lue-select, .lue-textarea {
+    --lue-angle: 200deg;
+    /* eslint-disable-next-line css/no-invalid-properties -- the stop list is one var() (a gradient token), which the parser can't expand */
+    background: linear-gradient(var(--lue-field-bg), var(--lue-field-bg)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
+    box-shadow: var(--lue-well-shadow);
   }
   .lue-input, .lue-select, .lue-textarea {
     /* Inputs and textareas are content-box by default, so 100% plus padding and border would overflow the field. */
@@ -29,14 +31,11 @@
   }
   .lue-textarea { padding-block: 0.75rem; field-sizing: content; min-block-size: 6lh; }
 
-  /* ---- states (the ring is the element's own border box, so the angle is set on the element) */
-  .lue-input:where(:hover), .lue-select:where(:hover), .lue-textarea:where(:hover),
-  .lue-checkbox:where(:hover), .lue-radio:where(:hover), .lue-switch:where(:hover) { --lue-angle: 120deg; }
+  /* ---- states. Focus appears at once: an outline and a glow, nothing transitions. */
   .lue-input:where(:focus-visible), .lue-select:where(:focus-visible), .lue-textarea:where(:focus-visible) {
-    --lue-angle: 220deg;
     outline: var(--lue-focus-width) solid var(--lue-color-focus-ring);
     outline-offset: var(--lue-focus-offset);
-    box-shadow: inset 0 1px 2px var(--lue-field-inset), 0 0 0 7px var(--lue-focus-glow);
+    box-shadow: var(--lue-well-shadow), 0 0 0 7px var(--lue-focus-glow);
   }
   .lue-input:where([aria-invalid="true"], :not([aria-invalid]):user-invalid),
   .lue-textarea:where([aria-invalid="true"], :not([aria-invalid]):user-invalid),
