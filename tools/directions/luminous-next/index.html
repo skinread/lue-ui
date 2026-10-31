@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lue, next materials</title>
+<meta name="description" content="A proposal for Lue UI's glass, refraction and metal, shown on its own components.">
+<!-- The page layer sits under Lue's, so the specimen's base never overrides a component. -->
+<style>@layer page, lue;</style>
+<link rel="stylesheet" href="../out/claude-design-kit/bundle.css">
+<link rel="stylesheet" href="luminous-next.css">
+<script src="../out/claude-design-kit/bundle.js" defer></script>
+</head>
+<body>
+<div class="container">
+  <nav class="site-nav" aria-label="Specimen">
+    <a class="wordmark lue-chrome-text" href="#top">Lue</a>
+    <ul>
+      <li><a href="#glass">Glass</a></li>
+      <li><a href="#refraction">Refraction</a></li>
+      <li><a href="#metal">Metal</a></li>
+      <li><a href="#controls">Controls</a></li>
+      <li><a href="#fallbacks">Fallbacks</a></li>
+    </ul>
+    <button type="button" class="lue-button" data-size="sm" id="theme-toggle">Switch to light</button>
+  </nav>
+</div>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-head">
+    <div class="next-light" aria-hidden="true"></div>
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <h1 id="hero-head">Light, held in glass</h1>
+        <p class="lead">Lue’s next materials: clearer glass, real refraction, polished metal.</p>
+        <div class="actions">
+          <a class="lue-button" data-variant="primary" data-size="lg" href="#glass">See the materials</a>
+          <a class="lue-button" data-variant="quiet" data-size="lg" href="#fallbacks">Compare fallbacks</a>
+        </div>
+      </div>
+      <div class="hero__slab">
+        <div class="lue-glass panel" data-tier="modal" data-caustic>
+          <h2>Studio light</h2>
+          <div class="panel__row">
+            <label class="lue-choice"><input type="checkbox" role="switch" class="lue-switch" checked>Follow the sun</label>
+            <fieldset class="lue-segmented"><legend class="lue-visually-hidden">Warmth</legend><div class="lue-segmented__options"><label class="lue-segmented__option"><input type="radio" name="warmth" value="cool">Cool</label><label class="lue-segmented__option"><input type="radio" name="warmth" value="neutral" checked>Neutral</label><label class="lue-segmented__option"><input type="radio" name="warmth" value="warm">Warm</label></div></fieldset>
+          </div>
+          <div class="lue-field"><div class="lue-progress-label"><label class="lue-field__label" for="hero-level">Brightness</label><span class="lue-field__hint">70%</span></div><progress max="100" value="70" id="hero-level" class="lue-progress"></progress></div>
+          <div class="actions">
+            <button type="button" class="lue-button" data-variant="primary">Save scene</button>
+            <button type="button" class="lue-button">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <section class="band" id="glass" aria-labelledby="glass-head">
+      <header>
+        <h2 id="glass-head">Clear where nothing is read</h2>
+        <p class="caption">Left, clear glass for frames and objects, with nothing to read. Overlay and modal keep the frost their text was tested on.</p>
+      </header>
+      <div class="panes">
+        <div class="next-bars" aria-hidden="true"></div>
+        <div class="lue-glass pane" data-tier="clear" aria-hidden="true"></div>
+        <div class="lue-glass pane"><h3>Overlay</h3><p class="caption">Menus, cards, popovers.</p></div>
+        <div class="lue-glass pane" data-tier="modal"><h3>Modal</h3><p class="caption">Dialogs, over the scrim.</p></div>
+      </div>
+    </section>
+
+    <section class="band" id="refraction" aria-labelledby="refraction-head">
+      <header>
+        <h2 id="refraction-head">Thick glass bends light at its edge</h2>
+      </header>
+      <div class="lens">
+        <div class="lens__stage">
+          <div class="next-bars" aria-hidden="true"></div>
+          <div class="lue-glass lens__pane" data-tier="clear" data-caustic></div>
+        </div>
+        <ul class="notes">
+          <li><h3>A specular rim</h3><p class="caption">One bright line where the top edge meets the light.</p></li>
+          <li><h3>Split colour at the sides</h3><p class="caption">Cool on the left, warm on the right, as a lens disperses.</p></li>
+          <li><h3>A caustic on the lower lip</h3><p class="caption">The light the glass gathered, pooled where it leaves.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="band" id="metal" aria-labelledby="metal-head">
+      <header>
+        <h2 id="metal-head">Chrome that reflects a room</h2>
+        <p class="caption">Two highlights, dark horizons beside them, sky above, a warm floor below. Hover turns it.</p>
+      </header>
+      <div class="metal">
+        <p class="metal__word lue-chrome-text" aria-hidden="true">Lue</p>
+        <div class="lue-stack" data-gap="l">
+          <div class="tiles">
+            <span class="lue-tile" data-size="lg" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 9-8 9-8-9z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
+            <span class="lue-avatar" data-size="lg">SK</span>
+            <span class="lue-tag">Polished</span>
+          </div>
+          <div class="actions">
+            <button type="button" class="lue-button" data-size="lg">Hover for the glint</button>
+            <button type="button" class="lue-button" data-size="lg" aria-pressed="true">Pressed</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="controls" aria-labelledby="controls-head">
+      <header>
+        <h2 id="controls-head">Light pools under what you can press</h2>
+      </header>
+      <div class="controls">
+        <article class="lue-card">
+          <h3>Actions</h3>
+          <div class="actions">
+            <button type="button" class="lue-button" data-variant="primary">Publish</button>
+            <button type="button" class="lue-button">Preview</button>
+            <button type="button" class="lue-button" data-variant="quiet">Cancel</button>
+            <button type="button" class="lue-button" data-variant="danger">Remove</button>
+            <button type="button" class="lue-button" disabled>Archived</button>
+          </div>
+        </article>
+        <article class="lue-card">
+          <h3>Choices</h3>
+          <label class="lue-choice"><input type="checkbox" class="lue-checkbox" checked>Email me</label>
+          <label class="lue-choice"><input type="radio" class="lue-radio" name="freq" checked>Weekly</label>
+          <label class="lue-choice"><input type="checkbox" role="switch" class="lue-switch">Quiet hours</label>
+        </article>
+        <article class="lue-card">
+          <h3>Fields</h3>
+          <div class="lue-field"><label class="lue-field__label" for="project">Project name</label><input id="project" class="lue-input" value="Kiln"></div>
+          <p><span class="lue-tag">Case study</span></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="band" id="fallbacks" aria-labelledby="fallbacks-head">
+      <header>
+        <h2 id="fallbacks-head">Still legible when the glass goes</h2>
+        <p class="caption">More contrast and reduced transparency drop every effect on this page. The theme button shows pearl.</p>
+      </header>
+      <div class="fallbacks">
+        <figure>
+          <div class="stage"><div class="next-light" aria-hidden="true"></div><article class="lue-card"><h3 class="lue-h3">Kiln</h3><p>Glass, rim and caustic.</p></article></div>
+          <figcaption>Default</figcaption>
+        </figure>
+        <figure>
+          <div class="stage" data-contrast="more"><div class="next-light" aria-hidden="true"></div><article class="lue-card"><h3 class="lue-h3">Kiln</h3><p>Opaque, one solid ring.</p></article></div>
+          <figcaption>More contrast</figcaption>
+        </figure>
+      </div>
+    </section>
+  </div>
+</main>
+
+<div class="container">
+  <footer class="site-footer">
+    <p>A proposal on the design/luminous-next branch. Nothing here is in the library yet.</p>
+    <ul>
+      <li><a href="../../../docs/architecture/adr/0009-visual-direction-chroma-luminous.md">ADR-0009</a></li>
+      <li><a href="../../../docs/design/claude-design-brief.md">The brief</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  toggle.addEventListener('click', () => {
+    const light = document.documentElement.dataset.theme === 'dark';
+    document.documentElement.dataset.theme = light ? 'light' : 'dark';
+    toggle.textContent = light ? 'Switch to dark' : 'Switch to light';
+  });
+</script>
+</body>
+</html>
