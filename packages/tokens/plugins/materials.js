@@ -124,7 +124,7 @@ function rules(set) {
   const satin = group('material.satin.').map((id) => solid(id));
   const buttonFilter = { contrast: number('material.button.contrast'), brightness: number('material.button.brightness') };
   const buttonBackdrops = [...surfaces, ...glows, ...doubled, ...glassAll, ...satin].flatMap((b) => [b, ...filtered(b, buttonFilter)]);
-  const dark = contrast(fg('default'), WHITE) < contrast(fg('default'), BLACK) === false; // light text → a dark theme
+  const dark = contrast(fg('default'), BLACK) > contrast(fg('default'), WHITE); // light text → a dark theme
   const buttonSheen = number('material.button.sheen');
   const sheen = (c) => (dark ? over(WHITE, buttonSheen, c) : c); // a white sheen only hurts light text
   const pane = (id) => {

@@ -63,6 +63,20 @@ describe('Toast', () => {
     expect($('.lue-toast-region__list').matches(':popover-open')).toBe(false);
   });
 
+  it('keeps timing a toast when the region is moved', async () => {
+    await mount();
+    region().show('Saved', { duration: 400 });
+    await frame();
+    const moved = region();
+    moved.remove();
+    await wait(100);
+    document.body.append(moved);
+    await frame();
+    expect($('.lue-toast-region__list').matches(':popover-open')).toBe(true);
+    expect(toasts()).toEqual(['Saved']);
+    await vi.waitFor(() => expect(toasts()).toEqual([]), { timeout: 3000 });
+  });
+
   it('keeps a toast with an action until it is used', async () => {
     await mount();
     const undo = vi.fn();
