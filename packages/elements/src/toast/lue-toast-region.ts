@@ -73,11 +73,17 @@ export class LueToastRegion extends HTMLElement {
       const entry = this.#shown.find((e) => e.node?.contains(event.target as Node));
       if (entry) this.#dismiss(entry);
     }, options);
+    // Moved or reinserted with toasts showing: the removal closed the popover and paused their timers.
+    if (this.#shown.length) {
+      if (!list.matches(':popover-open')) list.showPopover();
+      this.#pause(false);
+    }
   }
 
   disconnectedCallback(): void {
     this.#connection?.abort();
-    for (const entry of this.#shown) clearTimeout(entry.timer);
+    // Paused, not cleared, so each toast keeps the time it has left if the region is put back.
+    this.#pause(true);
   }
 
   /** Announces and shows a toast. */
