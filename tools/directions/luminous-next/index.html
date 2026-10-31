@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="../out/claude-design-kit/bundle.css">
 <link rel="stylesheet" href="luminous-next.css">
 <script src="../out/claude-design-kit/bundle.js" defer></script>
-<script src="light.js" defer></script>
+<script src="lens.js" defer></script>
 </head>
 <body>
 <svg class="next-defs" aria-hidden="true" focusable="false">
@@ -132,9 +132,18 @@
         </article>
         <article class="lue-card">
           <h3>Choices</h3>
-          <label class="lue-choice"><input type="checkbox" class="lue-checkbox" checked>Email me</label>
-          <label class="lue-choice"><input type="radio" class="lue-radio" name="freq" checked>Weekly</label>
-          <label class="lue-choice"><input type="checkbox" role="switch" class="lue-switch">Quiet hours</label>
+          <div class="pairs">
+            <label class="lue-choice"><input type="checkbox" class="lue-checkbox" checked>Email me</label>
+            <label class="lue-choice"><input type="checkbox" class="lue-checkbox">Text me</label>
+            <label class="lue-choice"><input type="radio" class="lue-radio" name="freq" checked>Weekly</label>
+            <label class="lue-choice"><input type="radio" class="lue-radio" name="freq">Monthly</label>
+            <label class="lue-choice"><input type="checkbox" role="switch" class="lue-switch" checked>Daylight</label>
+            <label class="lue-choice"><input type="checkbox" role="switch" class="lue-switch">Quiet hours</label>
+          </div>
+        </article>
+        <article class="lue-card">
+          <h3>Tabs</h3>
+          <lue-tabs class="lue-tabs"><nav class="lue-tabs__list" aria-label="Kiln details"><a class="lue-tabs__tab" id="kiln-overview-tab" href="#kiln-overview">Overview</a><a class="lue-tabs__tab" id="kiln-specs-tab" href="#kiln-specs">Specs</a><a class="lue-tabs__tab" id="kiln-reviews-tab" href="#kiln-reviews">Reviews</a></nav><section class="lue-tabs__panel" id="kiln-overview" aria-labelledby="kiln-overview-tab"><p>A pottery studio’s booking site.</p></section><section class="lue-tabs__panel" id="kiln-specs" aria-labelledby="kiln-specs-tab"><p>Twelve components, no framework.</p></section><section class="lue-tabs__panel" id="kiln-reviews" aria-labelledby="kiln-reviews-tab"><p>Booked out in a week.</p></section></lue-tabs>
         </article>
         <article class="lue-card">
           <h3>Fields</h3>

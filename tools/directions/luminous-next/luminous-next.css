@@ -221,11 +221,6 @@
   /* ---- tags: the body face, sentence case, untracked (the mono capitals read as costume) */
   .lue-tag { font: 500 0.8125rem/1 var(--lue-font-family-body); letter-spacing: 0; text-transform: none; padding-inline: var(--lue-space-s, 12px); }
 
-  /* ---- light that follows the pointer (light.js): the sheen moves under it and the ring turns a highlight to face it.
-     Same dome and streak strengths as at rest, so the contrast checked at their overlap still holds. */
-  :where(.lue-card, .lue-glass, .lue-button, .lue-tile):where([data-lit]:not(:focus-visible))::before { --lue-angle: var(--lue-light-angle); }
-  .lue-tile:where([data-lit])::after { background: radial-gradient(60% 50% at var(--lue-light-x) var(--lue-light-y), var(--next-sweep-core), transparent 70%); opacity: 0.7; }
-
   /* A squircle surface needs a squircle ring and caustic: corner-shape doesn't inherit, so without this the round
      chrome ring separates from the glass at every corner (a bug in the current library too). */
   @supports (corner-shape: squircle) {
@@ -248,7 +243,7 @@
       inset 0 -14px 18px -14px var(--next-floor-light),
       inset 0 0 0 1px var(--next-edge-shadow);
   }
-  /* Real refraction, where the engine renders it (light.js sets data-lens): the backdrop is displaced at the rim and
+  /* Real refraction, where the engine renders it (lens.js sets data-lens): the backdrop is displaced at the rim and
      untouched in the middle, then lightly frosted, so the bars visibly bend at the edge. */
   :root[data-lens] .lue-glass:where([data-tier="clear"]) { backdrop-filter: url("#lue-lens") blur(5px) saturate(2.1) brightness(1.12); }
 
@@ -285,13 +280,6 @@
   .lue-tile { box-shadow: inset 0 1px 0 var(--next-specular-rim), inset 0 -1px 0 var(--lue-metal-rim-bottom), inset 0 -10px 14px -10px var(--next-floor-light), var(--lue-tile-shadow); }
   .lue-tile::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: linear-gradient(118deg, transparent 30%, var(--next-sweep-core) 44%, transparent 52%); mix-blend-mode: plus-lighter; opacity: 0.55; }
   .lue-tile { position: relative; overflow: clip; }
-  /* The sheen under the pointer (light.js). Here, not in lue.components, because the glass's own sheen is set in this
-     layer. Same strengths as at rest, so the contrast checked where dome and streak overlap still holds. */
-  .lue-card:where([data-lit]), .lue-glass:where([data-lit]:not([data-tier="clear"])) {
-    background-image:
-      radial-gradient(70% 60% at var(--lue-light-x) var(--lue-light-y), var(--next-specular-dome), transparent 70%),
-      linear-gradient(112deg, transparent 14%, var(--next-specular-streak) 19%, transparent 27%);
-  }
   /* Specimen sizes: the metal section's objects at the scale of its chrome word. */
   .metal .lue-tile { --lue-tile-size: 160px; }
   .metal .lue-avatar { inline-size: 112px; block-size: 112px; font-size: 2rem; }
@@ -362,7 +350,8 @@
   .metal__word { font: 300 clamp(6rem, 16vw, 13rem)/0.9 var(--font-display); letter-spacing: -0.04em; overflow-wrap: break-word; min-width: 0; }
   .tiles { display: flex; gap: var(--space-lg); flex-wrap: wrap; align-items: center; }
 
-  .controls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-columns); }
+  .controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-columns); }
+  .pairs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xs) var(--space-lg); }
   .controls .lue-card { display: grid; gap: var(--space-md); align-content: start; }
   .controls h3 { font: 600 var(--text-md)/1.3 var(--font-body); }
 
@@ -384,5 +373,165 @@
     .hero__text, .hero__slab { grid-column: 1 / -1; }
     .hero { min-block-size: auto; padding-block: var(--space-2xl); }
     .panes, .controls, .fallbacks, .lens, .metal { grid-template-columns: minmax(0, 1fr); }
+  }
+}
+
+/* ================================================================== round 3: softer, deeper glass and a liquid-chrome set */
+
+@layer lue.tokens {
+  :root { --next-panel-radius: 40px; }
+
+  /* Liquid chrome reflects a horizon: bright sky above, a dark band where the ground meets it, warm floor below. One
+     set of stops drives every chrome control, so the checkbox, radio, switch and tabs read as one material. The band
+     never drops below the lightness the engraved ink needs (3:1 for marks, 4.5:1 where a tab's text sits). */
+  [data-theme="dark"] {
+    --next-chrome-sky: oklch(98.5% 0.004 240);
+    --next-chrome-high: oklch(90% 0.01 240);
+    --next-chrome-mid: oklch(80% 0.012 255);
+    --next-chrome-horizon: oklch(62% 0.014 275);
+    --next-chrome-low: oklch(72% 0.02 270);
+    --next-chrome-floor: oklch(88% 0.035 72);
+    --next-chrome-rim: oklch(34% 0.016 285);
+    --next-engrave: oklch(19% 0.02 285);
+    --next-engrave-lift: oklch(98.5% 0.004 240 / 0.6);
+    --next-well: oklch(11% 0.02 285);
+    --next-well-depth: oklch(4% 0.01 285 / 0.85);
+    --next-well-lip: oklch(98.5% 0.004 240 / 0.1);
+    --next-glass-side: oklch(98.5% 0.004 270 / 0.14);
+    --next-glass-bevel: oklch(98.5% 0.004 270 / 0.16);
+    --next-glass-under: oklch(5% 0.015 285 / 0.55);
+  }
+  [data-theme="light"] {
+    --next-chrome-sky: oklch(99.5% 0.003 250);
+    --next-chrome-high: oklch(93% 0.008 245);
+    --next-chrome-mid: oklch(84% 0.01 255);
+    --next-chrome-horizon: oklch(58% 0.014 275);
+    --next-chrome-low: oklch(70% 0.018 270);
+    --next-chrome-floor: oklch(90% 0.03 72);
+    --next-chrome-rim: oklch(40% 0.016 285);
+    --next-engrave: oklch(19% 0.02 285);
+    --next-engrave-lift: oklch(99.5% 0.003 250 / 0.85);
+    --next-well: oklch(86% 0.012 285);
+    --next-well-depth: oklch(40% 0.03 285 / 0.4);
+    --next-well-lip: oklch(99.5% 0.003 250 / 0.9);
+    --next-glass-side: oklch(70% 0.02 285 / 0.35);
+    --next-glass-bevel: oklch(99.5% 0.003 290 / 0.9);
+    --next-glass-under: oklch(45% 0.04 285 / 0.22);
+  }
+  :root, [data-theme] {
+    --next-chrome-body: linear-gradient(180deg, var(--next-chrome-sky) 0%, var(--next-chrome-high) 22%, var(--next-chrome-mid) 40%, var(--next-chrome-horizon) 54%, var(--next-chrome-low) 66%, var(--next-chrome-floor) 100%);
+    /* A tab's chrome keeps its horizon below the text. */
+    --next-chrome-key: linear-gradient(180deg, var(--next-chrome-sky) 0%, var(--next-chrome-high) 26%, var(--next-chrome-mid) 62%, var(--next-chrome-horizon) 80%, var(--next-chrome-low) 88%, var(--next-chrome-floor) 100%);
+    --next-chrome-ball: radial-gradient(120% 120% at 34% 24%, var(--next-chrome-sky) 0%, var(--next-chrome-high) 20%, var(--next-chrome-mid) 36%, var(--next-chrome-horizon) 56%, var(--next-chrome-low) 70%, var(--next-chrome-floor) 92%);
+    /* A recess: shadow falling in from the top edge, and light catching the lip just below it. */
+    --next-well-shadow: inset 0 2px 4px var(--next-well-depth), inset 0 -1px 0 var(--next-well-lip), 0 1px 0 var(--next-well-lip);
+    --next-raised: inset 0 1px 0 var(--next-chrome-sky), inset 0 -1px 1px var(--next-chrome-horizon), 0 1px 2px var(--next-well-depth), 0 3px 8px -3px var(--next-well-depth);
+    /* Thick glass: a bright bevel along the top inside, a darker one along the bottom, the slab's lit side showing
+       below it, a contact shadow and a long soft one. All inside the padding or outside the box, under no text. */
+    --next-glass-depth:
+      inset 0 1px 0 var(--next-specular-rim),
+      inset 0 14px 16px -14px var(--next-glass-bevel),
+      inset 0 -16px 20px -16px var(--next-glass-under),
+      inset 0 0 0 1px var(--next-well-lip),
+      0 3px 0 -1px var(--next-glass-side),
+      0 2px 4px var(--next-glass-under),
+      0 28px 56px -24px var(--next-glass-under),
+      0 60px 120px -40px var(--next-glass-under);
+  }
+}
+
+@layer lue.components {
+  /* ---- panels: softer corners, thicker glass */
+  .lue-card, .lue-glass { border-radius: var(--next-panel-radius); }
+  .lue-card, .lue-glass:where(:not([data-tier="clear"])) { box-shadow: var(--next-glass-depth), var(--lue-shadow-fringe); }
+
+  /* ---- the chrome set. Off is a recessed dark well in a chrome bezel; on is polished chrome. */
+  .lue-checkbox, .lue-radio, .lue-switch {
+    border-width: 2px;
+    background: linear-gradient(var(--next-well), var(--next-well)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
+    box-shadow: var(--next-well-shadow);
+  }
+  .lue-checkbox, .lue-radio { inline-size: 24px; block-size: 24px; }
+  .lue-checkbox { border-radius: 7px; }
+  .lue-switch { inline-size: 52px; block-size: 30px; }
+  .lue-switch::before { inset-block-start: 3px; inset-inline-start: 3px; inline-size: 20px; block-size: 20px; }
+  .lue-switch:where(:checked)::before { translate: 22px 0; }
+  .lue-switch:where(:checked:dir(rtl))::before { translate: -22px 0; }
+
+  /* Checkbox: a chrome cushion with the tick engraved, lit from above. */
+  .lue-checkbox:where(:checked, :indeterminate) {
+    background: var(--next-chrome-body) padding-box, conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
+    box-shadow: var(--next-raised);
+  }
+  .lue-checkbox:where(:checked)::after { border-color: var(--next-engrave); filter: drop-shadow(0 1px 0 var(--next-engrave-lift)); }
+  .lue-checkbox:where(:indeterminate)::after { background: var(--next-engrave); filter: drop-shadow(0 1px 0 var(--next-engrave-lift)); }
+
+  /* Radio: a chrome ball bearing sitting in the well. */
+  .lue-radio:where(:checked) {
+    background: linear-gradient(var(--next-well), var(--next-well)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
+    box-shadow: var(--next-well-shadow);
+  }
+  .lue-radio:where(:checked)::after {
+    content: "";
+    inline-size: 12px;
+    block-size: 12px;
+    border-radius: 50%;
+    background: var(--next-chrome-ball);
+    box-shadow: 0 0 0 1px var(--next-chrome-rim), 0 2px 3px var(--next-well-depth);
+  }
+
+  /* Switch: the same ball rolls along the well; on, the well fills with prism light under the chrome. */
+  .lue-switch::before, .lue-switch:where(:checked)::before {
+    background: var(--next-chrome-ball);
+    box-shadow: 0 0 0 1px var(--next-chrome-rim), 0 2px 4px var(--next-well-depth);
+  }
+  .lue-switch:where(:checked) {
+    background: linear-gradient(100deg, var(--lue-prism-fill)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
+    box-shadow: var(--next-well-shadow), 0 6px 18px -8px var(--next-pool);
+  }
+
+  /* Tabs: a recessed well holding the tabs; the selected one is a raised chrome key with its name engraved. */
+  .lue-tabs:where(:defined) .lue-tabs__list {
+    inline-size: fit-content;
+    gap: var(--lue-space-3xs);
+    padding: var(--lue-space-2xs);
+    border: 1.5px solid transparent;
+    border-image: none;
+    /* Half a row's height: a pill on one row, a rounded panel if the tabs wrap. */
+    border-radius: 26px;
+    background: linear-gradient(var(--next-well), var(--next-well)) padding-box, conic-gradient(from 200deg, var(--lue-chrome-stops)) border-box;
+    box-shadow: var(--next-well-shadow);
+  }
+  .lue-tabs:where(:defined) .lue-tabs__tab {
+    min-block-size: var(--lue-size-control-sm);
+    padding-inline: var(--lue-space-m, 20px);
+    border-radius: var(--lue-radius-full);
+    box-shadow: none;
+  }
+  .lue-tabs:where(:defined) .lue-tabs__tab:where([aria-selected="true"]) {
+    color: var(--next-engrave);
+    text-shadow: 0 1px 0 var(--next-engrave-lift);
+    background: var(--next-chrome-key);
+    box-shadow: var(--next-raised);
+  }
+  .lue-tabs:where(:defined) .lue-tabs__tab:where(:focus-visible) { outline-offset: 2px; }
+}
+
+@layer lue.materials {
+  @supports (corner-shape: squircle) {
+    /* A squircle's curve starts later than a circle's, so it needs a larger radius to look as soft. */
+    .lue-card, .lue-glass { border-radius: calc(var(--next-panel-radius) * 2); }
+  }
+}
+
+/* The chrome set gives way: increased contrast keeps the library's solid rings and fills (its rules sit in this later
+   layer), and forced colours draws the ball and the selected tab in system colours. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-card, .lue-glass) { border-radius: var(--next-panel-radius); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-tabs__tab[aria-selected="true"]) { background: var(--lue-color-fg-default); color: var(--lue-color-bg-canvas); text-shadow: none; box-shadow: none; }
+  @media (forced-colors: active) {
+    :where(.lue-radio:checked)::after { background: SelectedItem; box-shadow: none; }
+    :where(.lue-tabs__list) { border-color: CanvasText; }
+    :where(.lue-tabs__tab[aria-selected="true"]) { background: SelectedItem; color: SelectedItemText; text-shadow: none; }
   }
 }
