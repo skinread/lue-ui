@@ -10,8 +10,16 @@
 <link rel="stylesheet" href="../out/claude-design-kit/bundle.css">
 <link rel="stylesheet" href="luminous-next.css">
 <script src="../out/claude-design-kit/bundle.js" defer></script>
+<script src="light.js" defer></script>
 </head>
 <body>
+<svg class="next-defs" aria-hidden="true" focusable="false">
+  <!-- The lens: lens-map.svg moves the backdrop at a pane's rim and nowhere else. -->
+  <filter id="lue-lens" x="0" y="0" width="1" height="1" primitiveUnits="objectBoundingBox" color-interpolation-filters="sRGB">
+    <feImage href="lens-map.svg" x="0" y="0" width="1" height="1" preserveAspectRatio="none" result="map"/>
+    <feDisplacementMap in="SourceGraphic" in2="map" scale="0.12" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
 <div class="container">
   <nav class="site-nav" aria-label="Specimen">
     <a class="wordmark lue-chrome-text" href="#top">Lue</a>

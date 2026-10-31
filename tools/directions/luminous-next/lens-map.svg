@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+  <!-- Displacement map for the lens filter: red moves the backdrop sideways, green up and down, 50% grey moves
+       nothing. Neutral in the middle and steep at the edges, so only the rim of a pane bends what is behind it,
+       the way thick glass does. Red and green are drawn separately and screened together. -->
+  <defs>
+    <linearGradient id="x" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="rgb(255,0,0)"/>
+      <stop offset="0.07" stop-color="rgb(205,0,0)"/>
+      <stop offset="0.18" stop-color="rgb(128,0,0)"/>
+      <stop offset="0.82" stop-color="rgb(128,0,0)"/>
+      <stop offset="0.93" stop-color="rgb(51,0,0)"/>
+      <stop offset="1" stop-color="rgb(0,0,0)"/>
+    </linearGradient>
+    <linearGradient id="y" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="rgb(0,255,0)"/>
+      <stop offset="0.07" stop-color="rgb(0,205,0)"/>
+      <stop offset="0.18" stop-color="rgb(0,128,0)"/>
+      <stop offset="0.82" stop-color="rgb(0,128,0)"/>
+      <stop offset="0.93" stop-color="rgb(0,51,0)"/>
+      <stop offset="1" stop-color="rgb(0,0,0)"/>
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" fill="url(#x)"/>
+  <rect width="100" height="100" fill="url(#y)" style="mix-blend-mode: screen"/>
+</svg>
