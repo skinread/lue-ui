@@ -219,6 +219,12 @@ see the appendix). They are starting points, not final values.
 
 > Light, caught in chrome and glass.
 
+> **Revised 2026-11-01 ([ADR-0010](../architecture/adr/0010-luminous-materials-glass-depth-liquid-chrome.md)).** Glass
+> is now a thick slab with bevels, split-colour rims and an opt-in caustic; checkbox, radio, switch, tabs, segmented
+> control and fields are one set of mid-grey liquid chrome with engraved marks; chrome moves only when a state changes;
+> the primary's sparks are replaced by one sweeping glint; tags use the body face in sentence case; light takes
+> wide-gamut colour on P3 displays. Where this section says otherwise, the ADR wins.
+
 **Art direction (2026-10-05):** continue with Chroma, made more luminous and luxurious. Playing on the *chrome* in
 Chroma, UI elements get sleek, highly reflective chrome-silver outlines, almost hairline. Borrow the qualities of
 liquid-glass interfaces - a delicate, diffuse, slightly prismatic and rounded depth - without copying any vendor's

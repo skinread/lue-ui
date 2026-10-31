@@ -2,9 +2,9 @@
 
 A specimen page for a more luminous take on C2 · Chroma Luminous
 ([ADR-0009](../../../docs/architecture/adr/0009-visual-direction-chroma-luminous.md)): clearer glass, refraction at the
-edge, polished metal, and wide-gamut light. **Nothing here is in the library yet.** It lives on the
-`design/luminous-next` branch until the user approves the direction; then the rules move into `packages/tokens/src`
-and `packages/css/src`, and an ADR records the change.
+edge, polished metal, and wide-gamut light. **Ported to the library on 2026-11-01** ([ADR-0010](../../../docs/architecture/adr/0010-luminous-materials-glass-depth-liquid-chrome.md)),
+except the SVG lens (Chromium only, see the ADR) and the beam, which is a page composition. The page still loads its
+own overrides on top of the bundle, so it shows the proposal as it was approved.
 
 ## Run it
 

@@ -1,7 +1,8 @@
 # Handover - Lue UI, Pass 5 in progress (Tier 2 built; the release and Spike C wait on you)
 
 > Written 2026-10-05 when Phase 1 closed; updated through Pass 2 (complete 2026-10-10), Pass 3 (2026-10-11 to
-> 2026-10-24), Pass 4 (2026-10-24) and Pass 5 (from 2026-10-24; last on 2026-10-25). A fresh session should read this
+> 2026-10-24), Pass 4 (2026-10-24) and Pass 5 (from 2026-10-24; last on 2026-11-01, the luminous materials on the
+> `design/luminous-next` branch). A fresh session should read this
 > file, then [AGENTS.md](AGENTS.md), then
 > [mission and principles](docs/foundations/mission-and-principles.md).
 
@@ -89,6 +90,11 @@
 | 2026-10-11 | **Start Pass 3.** **No npm publishing yet** (packages stay private; `@lue-ui` scope provisional; no org creation yet). **No polyfills:** the ADR-0004 inclusion exception is declined and kept as a possible future enhancement - on Safari < 26.2, HTML-path `command` buttons do nothing. **No trademark.** **Storybook 10** for docs for now. Copy-paste components, if ever offered, would use the **shadcn registry** tooling - a future consideration. Phase 1 canvas page removed. |
 
 ## Waiting on the user
+
+0. **Merge `design/luminous-next` into `develop`** (2026-11-01): the luminous materials
+   ([ADR-0010](docs/architecture/adr/0010-luminous-materials-glass-depth-liquid-chrome.md)) are ported and pass
+   `pnpm check`. Before merging: regenerate the visual baselines on Linux (`pnpm vitest run tests/visual --update`,
+   then review the PNGs) and let CI run Firefox.
 
 1. **The first public release** is yours to decide: confirm the npm scope (`@lue-ui/*`, provisional), make the repo
    public (private on GitHub as `skinread/lue-ui`; CI is green on `develop` in Chromium, Firefox and WebKit), and
@@ -236,6 +242,18 @@ What exists now (all private, all on `develop`):
      fonts, `@lue-ui/css`) and `bundle.js` (the elements IIFE) - the input Spike C needs. Nothing is uploaded: the
      private Claude Design System still has the canvas-era guidelines until Spike C replaces them.
    - ~~**No em dashes**~~ (user's rule, 2026-10-25): all 602 lines changed; `pnpm lint` fails on the character.
+
+   - ~~**Luminous materials**~~ (user's request, 2026-11-01, on branch `design/luminous-next`): four rounds on a
+     Hallmark specimen (`tools/directions/luminous-next/`, its README has every change), then ported -
+     [ADR-0010](docs/architecture/adr/0010-luminous-materials-glass-depth-liquid-chrome.md). Glass is a thick slab
+     (bevels, split-colour rims, an opt-in `data-caustic`, `data-tier="clear"`), `radius.l` is 40 px; checkbox, radio,
+     switch, tabs, segmented control and fields are one mid-grey liquid-chrome set with engraved marks that moves only
+     when a state changes; a new `liquid` behaviour in `@lue-ui/elements` flows the tab and segmented key; sparks gave
+     way to a sweeping glint; tags use the body face; light tokens take P3 values (`$extensions.lue.p3`). The material
+     gate has 88 rules. **Found on the way:** the chrome ring separated from squircle surfaces at the corners (fixed),
+     the focus glow faded in on buttons and fields (fixed), and the primary had an orchid-into-azure step (gone). The
+     SVG lens (real refraction and dispersion) renders only in Chromium and can't be feature-detected, so it stays in
+     the specimen.
 
 **Left in Pass 5:**
 
