@@ -37,6 +37,17 @@ records what it settled), 2026-11-01:
 | Light | `material.light.*` (rose, amber, citron, mint, aqua, azure, two pools): caustics, pools and glows. On a P3 display they take wider-gamut values (`$extensions.lue.p3`, emitted by `scripts/finish.js` inside `@media (color-gamut: p3)`). Light is never text or a boundary, so no contrast pair moves. |
 | Tags | The body face, sentence case, untracked: the tracked mono capitals read as costume. |
 
+**Consistency pass (2026-11-01, before `develop` merges into `main`).** Applied the materials to every component:
+
+| Element | Decision |
+| --- | --- |
+| Overlays | Dialogs, drawers, popovers, menus and the select picker are thick glass too (`shadow.glass`, not `shadow.overlay`). A modal dialog's chrome ring sits inside its border, so it no longer overflows the scrolling dialog. |
+| Pressed and selected | One language across the set. A toggle button that is on, the current page and the chosen swatch are the raised chrome key with an engraved label, like the selected tab and segment. Any button, page link or toggle that is being pressed sinks into the glass (a well's inner shadow) while held. |
+| Swatch picker | Each swatch is a well in a chrome bezel, and its chip is a glass bead. |
+| Progress and meter | The track is a well (10 px, up from 8); every fill has a specular line along its top. |
+| Avatar | A metal disc in a chrome bezel. |
+| Storybook | Stories sit on Lue's ambient light, a beam and a spectrum fan (a "Backdrop" toolbar switch turns it off), so the glass has something to bend. Foundations/Materials shows the glass tiers, the caustic, chrome text and metal. |
+
 **The liquid behaviour.** `@lue-ui/elements` gains a delegated behaviour, loaded by `define` and the IIFE, that sets
 `data-lue-liquid` and `--lue-key-x/y/w/h` on `.lue-tabs__list` (inside a defined `<lue-tabs>`) and
 `.lue-segmented__options`, and animates the container's `::before` with translate and scale only. It is a narrow
