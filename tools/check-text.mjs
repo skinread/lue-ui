@@ -1,6 +1,6 @@
 // Fails when a tracked file contains an escaped dash (the six characters backslash, u, 2, 0, 1, 4 or 2, 0, 1, 3) or an
 // em dash character. Tools like Python's json.dumps write the escapes instead of the character; write a normal dash (-)
-// instead of either (user's rules, 2026-10-24 and 2026-10-25). Run by `pnpm lint`; given paths, it checks only those
+// instead of either. Run by `pnpm lint`; given paths, it checks only those
 // (the Claude Code hook in .claude/hooks/check-text.mjs passes each file it edits).
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';

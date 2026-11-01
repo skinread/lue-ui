@@ -15,7 +15,7 @@ Output goes to `out/` (gitignored).
 | `luminous-pages.mjs` | Luminous's materials (satin folds, glass prism and orb, metal icon tiles, media art) and its fluid boards: block library, portfolio home, journal article | - |
 | `build-canvas.mjs` | Generates C2's six artboards and `canvas.json` into `out/canvas/project/`. Phase 1's cover and its Loom, Instrument and Chroma rows were removed on 2026-10-11; check out commit `18ec453` to regenerate them | `node build-canvas.mjs` |
 | `tokens.mjs` | **Retired 2026-10-24** (Spike B). Wrote the DTCG token source; `packages/tokens/src` is now hand-edited and built by Terrazzo. It refuses to write there, but can still write elsewhere for comparison | `node tokens.mjs <folder>` |
-| `design-system.mjs` | Builds the **private** Claude Design System into `out/design-system/project/`: `tokens.json` (list shape) from `packages/tokens/src`, `components/bundle.css` (a generated per-theme header + `design-system/components.css`), the brand book (`design-system/README.md`), 44 component cards and previews (`design-system/components.mjs`), the cover, fonts and the icon records (`design-system/icon-uploads.json`) | `node design-system.mjs --uploads design-system/icon-uploads.json --created 2026-10-10T…` |
+| `design-system.mjs` | Builds the **private** Claude Design System into `out/design-system/project/`: `tokens.json` (list shape) from `packages/tokens/src`, `components/bundle.css` (a generated per-theme header + `design-system/components.css`), the brand book (`design-system/README.md`), 44 component cards and previews (`design-system/components.mjs`), the cover, fonts and the icon records (a local `design-system/icon-uploads.json`) | `node design-system.mjs --uploads design-system/icon-uploads.json --created 2026-10-10T…` |
 | `check-tokens.mjs` | Superseded by the Terrazzo build's `lue-contrast` and `lue-schema` plugins (`pnpm check-tokens`). Still runs: `$type` and `$description` on every token, aliases resolve, every declared pair passes in all four contexts, body ≥ 16 px | `node check-tokens.mjs` |
 
 ## Changing a direction
@@ -27,27 +27,15 @@ Output goes to `out/` (gitignored).
    the library's tokens are checked by the Terrazzo build's `lue-contrast` and `lue-materials`.)
 3. `node report.mjs`, then replace everything after the appendix intro of
    [the brief](../../docs/design/claude-design-brief.md) with `out/palette-report.md`.
-4. `node build-canvas.mjs`, then republish (below).
+4. `node build-canvas.mjs`, then republish (see Publishing, below).
 5. For C2: palette changes no longer flow to the tokens automatically. Edit `packages/tokens/src` by hand to match and run
    `pnpm check-tokens` (the Terrazzo build fails on any contrast pair below its minimum).
 
-## Republishing the canvas
+## Publishing
 
-Canvas: <https://claude.ai/artifact/9DKJGmK7kPdEt2giN4qDgP> - a Claude Design "Design" artifact, private until its owner
-shares it.
-
-1. **Read it first** (Artifact `read` with the url). A publish to an artifact the conversation hasn't read is refused,
-   and the owner may have edited boards or left comments (read comments with the ArtifactComments tool).
-2. **Never overwrite someone's edits blindly.** If a board was edited on the canvas, fold the edit into the generator
-   or edit that board's file directly.
-3. **Publish only changed files:** Artifact `publish` with `url`, `root` = the absolute path of `out/canvas`,
-   `file_path` = one changed file's absolute path, `files` = the other changed files by their `project/…` paths.
-4. **Send `project/canvas.json` only when artboards are added, removed, moved or resized.** Its `createdOnFiles` marker
-   (`2026-10-04T22:01:56Z`) is hardcoded and must not change. The editor adds keys of its own (`attachments`, a `w` on
-   title notes); the generator writes them too, so a republish doesn't fight it. Re-read the live index first and fold
-   in anything new.
-5. **Check the untouched boards are byte-identical** to the live copies (read them with Artifact `read` and `paths`,
-   then `cmp`), so only changed files go up.
+The canvas and the Claude Design System are private Claude Design artifacts, never shared within the organisation or
+made public. Their links and the steps to republish them are in a maintainer's local `PUBLISHING.md` here (gitignored),
+as is `design-system/icon-uploads.json`, the record of the Design System's icon uploads.
 
 ## Canvas format rules learned in Phase 1
 
@@ -66,33 +54,18 @@ shares it.
   article, checkout). Every board and title note carries its `page`. The `phase-1` page was removed on 2026-10-11 by
   publishing `null` for its ten files and dropping its page, boards and notes from `canvas.json`.
 - Portfolio, journal and block boards are **fluid** (`expand: "fill"`, no root width, `$preview` 1440 wide) and reflow
-  to one column. Their heights are estimates (Blocks 8000 - set on the canvas by the user, Portfolio 5400, Article 6600) - raise them if clipped.
+  to one column. Their heights are estimates (Blocks 8000 - set on the canvas, Portfolio 5400, Article 6600) - raise them if clipped.
 - SVG gradients, masks and filters use IDs from one counter per build, so they stay unique across boards. Use
   `gradientUnits="userSpaceOnUse"` on stroked icons - a straight line has a zero-height bounding box and an
   object-bounding-box gradient won't paint it.
 - A registered `@property` that a `::before` must read needs `inherits: true` - pseudo-elements don't inherit
   non-inherited properties from their host.
-- The Design type asks agents not to screenshot or re-verify a canvas unless the user asks.
 
-## The Claude Design System (private)
-
-<https://claude.ai/artifact/Er8XMd9VquWgK1q1ZrdCWe> - **never share it within the organisation or make it public**
-(the user's rule). It is built from this repository; edit the sources, not the artifact's files.
-
-1. **Read it first** (Artifact `read` of `project/design-system.json` and any file you'll change): people can edit it
-   on the page, and the type asks you to start from what's there.
-2. `pnpm check-tokens` if tokens changed, then
-   `node design-system.mjs --uploads design-system/icon-uploads.json --created <the index's createdOnFiles.at>`.
-3. **Publish only changed files** to its `url` with `root` = `out/design-system`; send `project/design-system.json`
-   only when its own keys change (title, an asset record, `lastChange`), and last.
-4. New icons are **uploads**: Artifact `publish` with `asset: true`, then add `{blob, size}` to `icon-uploads.json`.
-5. The type asks agents not to render-check unless the user asks.
-
-**Guidelines generated from the contracts** (2026-10-25). The component cards above are still the canvas-era ones,
+**Guidelines generated from the contracts** (2026-10-25). The Design System's component cards are still the canvas-era ones,
 hand-written in `design-system/components.mjs`. The library's own guidelines are now generated from each contract's
 `guidance` (`pnpm docs-ai` → `apps/docs/public/guidelines/`), and `pnpm design-kit` assembles them with live previews
 of every story's server HTML on `bundle.css` (tokens, fonts, `@lue-ui/css`) and `bundle.js` (the elements IIFE) in
-`out/claude-design-kit/` (gitignored). That is Spike C's input: once `/design-sync` (which the user starts) proves
+`out/claude-design-kit/` (gitignored). That is Spike C's input: once `/design-sync` (which a maintainer starts) proves
 the path, the kit's components replace the canvas-era cards. Nothing in the kit is uploaded until then.
 
 ## The library copy of the component CSS

@@ -258,7 +258,7 @@ const index = {
   assetGroups: { Icons: { name: 'Icons', tile: 's', order: uploads ? icons.filter((f) => uploads[f]) : [], files: uploads ? Object.fromEntries(icons.filter((f) => uploads[f]).map((f) => [f, { name: f, blob: uploads[f].blob, size: uploads[f].size, type: 'image/svg+xml' }])) : {} } },
   blobs: {},
   docs: { sections: [] },
-  lastChange: { by: 'Sean Kinread', at: NOW, via: 'Claude Code', note: arg('--note') ?? 'Built from the Lue UI repository: tokens, brand book, 44 components and blocks, fonts and icons.' },
+  lastChange: { by: arg('--by') ?? 'Lue UI', at: NOW, via: 'Claude Code', note: arg('--note') ?? 'Built from the Lue UI repository: tokens, brand book, 44 components and blocks, fonts and icons.' },
 };
 write('design-system.json', JSON.stringify(index, null, 2) + '\n');
 const count = (d) => fs.readdirSync(d, { withFileTypes: true }).reduce((n, e) => n + (e.isDirectory() ? count(path.join(d, e.name)) : 1), 0);

@@ -18,7 +18,7 @@ Chroma and art-directed four rounds on 2026-10-05:
    the composed screens from commerce to portfolio and editorial sites.
 4. **Details:** multi-tone small controls, dark as the default, Phosphor regular, the wider neon spectrum parked, and -
    after a trial of wider faces (Anybody, Archivo, Unbounded) that lacked personality - Bricolage Grotesque for
-   headings. On 2026-10-10 the user found Bricolage's *f* hard to read, compared four similar faces on the canvas and
+   headings. On 2026-10-10 the maintainer found Bricolage's *f* hard to read, compared four similar faces on the canvas and
    chose **Epilogue**.
 
 The brief's earlier mandate ("no fake depth, no glass behind text") conflicted with round 1, so it was revised to allow

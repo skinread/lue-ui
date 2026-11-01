@@ -232,7 +232,7 @@ Decision and detail: [ADR-0005](./adr/0005-three-engine-testing-and-a11y-gates.m
 - **One Storybook 10 (react-vite).** An `html` decorator renders each React story with `renderToStaticMarkup`,
   inserts it as `innerHTML` with the elements defined, and shows that HTML as the canonical source - proving the
   no-React path on every story.
-  _As built (2026-10-25): the React adapters are the primary documentation, at the user's request. Each component's
+  _As built (2026-10-25): the React adapters are the primary documentation. Each component's
   autodocs page shows the JSX source and react-docgen's props table (from the adapters' JSDoc), then the first
   example's server-rendered HTML as its own block. The no-React path is proven by the static-markup gate (every story,
   html-validate and html-eslint), the `withoutElements` tests and the Claude Design kit's previews, rather than by
@@ -268,7 +268,7 @@ Decision and detail: [ADR-0005](./adr/0005-three-engine-testing-and-a11y-gates.m
 | Tier 1 CSS in total | ≤ 30 KB |
 | One element | ≤ 2 KB; all elements ≤ 8 KB |
 | One React adapter (excluding React) | ≤ 1 KB |
-| Default fonts (Latin subset, variable) | ≤ 130 KB in total (raised from 120 KB by the user on 2026-10-10 to keep the mono micro-labels) |
+| Default fonts (Latin subset, variable) | ≤ 130 KB in total (raised from 120 KB on 2026-10-10 to keep the mono micro-labels) |
 
 ## 10. Risks
 
@@ -292,7 +292,7 @@ Decision and detail: [ADR-0005](./adr/0005-three-engine-testing-and-a11y-gates.m
    _(Done 2026-10-11; [report](./spikes/spike-a-dialog-menu.md).)_
 3. **Spike B:** Terrazzo → `tokens.css` + Claude Design JSON + contrast lint → Lightning CSS → consumer fixtures.
    _(Done 2026-10-24; [report](./spikes/spike-b-token-and-css-pipeline.md).)_
-4. **Spike C:** one Claude Design preview with the IIFE bundle via `/design-sync`. _(Waiting on the user, who starts
+4. **Spike C:** one Claude Design preview with the IIFE bundle via `/design-sync`. _(Waiting on a maintainer, who starts
    `/design-sync`. The IIFE, `@lue-ui/elements/lue.iife.js`, is built, and `pnpm design-kit` builds every component's
    guidelines and preview.)_
 5. **Components in order of increasing JavaScript:** Button → Field + TextInput + error summary → Select → Dialog →

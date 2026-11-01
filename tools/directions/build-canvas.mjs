@@ -625,7 +625,7 @@ for (const d of Object.keys(DIRS)) {
 }
 
 // ---------------------------------------------------------------- canvas.json
-// One page. Phase 1's cover and its Loom, Instrument and Chroma rows were removed on 2026-10-11 at the user's request;
+// One page. Phase 1's cover and its Loom, Instrument and Chroma rows were removed on 2026-10-11;
 // check out commit 18ec453 and run this script to regenerate them.
 const rowGap = 120, titleSpace = 300;
 const pages = [{ id: 'luminous', name: 'C2 · Chroma Luminous' }];

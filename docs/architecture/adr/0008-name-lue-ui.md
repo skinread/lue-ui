@@ -8,7 +8,7 @@
 
 The project used `never-ui` as a working title, with the CSS prefix `ns`, the npm scope `@ns/*` and the global `NS`
 as placeholders. Three naming rounds ([naming](../../foundations/naming.md)) - weaving and kerb words, then light and
-prism words, then riffs on *prismatic*, *chroma* and *lumination* - didn't produce a name the user connected with.
+prism words, then riffs on *prismatic*, *chroma* and *lumination* - didn't produce a name the maintainer connected with.
 The chosen visual direction is C2 · Chroma Luminous: chrome hairlines, liquid glass and colour that appears as
 light.
 
@@ -40,15 +40,15 @@ light.
   Tailwind.
 - **Negative:** French spelling and pronunciation ("lü-ur", shortened to "lü") may need a pronunciation note in the
   README; *lue* alone is a common French word, so search results will be noisy until the project is known.
-- **Follow-ups (need the user, as they publish things):** confirm or replace the `@lue-ui` npm scope and create the
+- **Follow-ups (need a maintainer, as they publish things):** confirm or replace the `@lue-ui` npm scope and create the
   npm and GitHub organisations when publishing starts - not yet (2026-10-11). **No trademark** will be registered
-  (user, 2026-10-11).
+  (2026-10-11).
 - The Claude Design artifacts stay private and are never shared within the organisation, whatever the library's
-  publication status (user's rule, 2026-10-05).
+  publication status (2026-10-05).
 
 ## Alternatives considered
 
 - **Round 1–3 candidates** (Evenweave, Kerbcut, Prismway, Clearprism, Isochroma, Lumiris, Chromalume and others) -
-  rejected by the user; see [naming](../../foundations/naming.md).
+  rejected; see [naming](../../foundations/naming.md).
 - **`lueur` in full** - taken on npm and GitHub, and harder to say for English speakers.
 - **`lu` as the prefix** - shorter, but ambiguous in code and too close to common abbreviations.

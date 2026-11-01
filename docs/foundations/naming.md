@@ -5,7 +5,7 @@
 
 ## Decision: Lue UI
 
-After three rounds the user found the name themselves while exploring French words: ***lueur***, a glimmer - a faint
+After three rounds the maintainer found the name while exploring French words: ***lueur***, a glimmer - a faint
 gleam of light - shortened to **Lue UI**. It fits C2 · Chroma Luminous, where colour appears as light caught at an
 edge, and *lue* ("read") is a quiet nod to legibility.
 
@@ -21,7 +21,7 @@ free; GitHub taken by an empty 2020 account). A web search found no product call
 small packages (`@lookwe/lui`, `le-ui`). Trademarks and domains aren't checked yet.
 
 The library will be published to npm and GitHub, so availability matters again. (Only the Claude Design files stay
-private - user's rule, 2026-10-05.)
+private.)
 
 ## What the name has to do
 
@@ -151,7 +151,7 @@ waymark, plumbline, handhold, openweave, warpweft, weftwise.
 
 1. ⏸ **npm scope and organisations - not yet** (user, 2026-10-11): nothing is published to npm for now, so `@lue-ui/*`
    stays provisional (fallback `@lueui/*`). When publishing starts: confirm the scope, create the npm and GitHub
-   organisations, and hold the names. *These publish things, so the user does them or approves each step.*
+   organisations, and hold the names. *These publish things, so a maintainer does them or approves each step.*
 2. ✗ **No trademark** (user, 2026-10-11). A domain can still be registered later.
 3. ✅ Replace `never-ui` and the `ns` prefix across the docs (2026-10-05). The Claude Design System will be built with
    `lue` from the start; the direction canvas's internal mockup classes keep `ns-`.
