@@ -4,7 +4,7 @@ Lue UI is an open-source, platform-native, accessibility-first design system. Th
 primary reference for agents working in this repo.
 
 > **Starting a new session?** If a `HANDOVER.md` exists at the root, read it first: a maintainer's local working notes
-> (gitignored, never committed). The public status is the [README roadmap](README.md#roadmap).
+> (gitignored, never committed). The public status is in the [README](README.md#status).
 
 ## Current state
 
@@ -16,8 +16,8 @@ primary reference for agents working in this repo.
   component is built: one contract per component (Layout covers the six primitives) lives in `apps/docs/contracts`
   (schema v1), each with a React adapter (every prop has JSDoc, which react-docgen shows on its Storybook docs page and
   in its Markdown page), Storybook 10 stories and keyboard, axe, emulation, static-markup and visual tests in
-  three engines. Follow [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-pass-3); progress is in
-  the [README roadmap](README.md#roadmap).
+  three engines. Follow [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-pass-3); the public status is in
+  the [README](README.md#status).
 - **pnpm workspace** (`packages/*`, `apps/*`, `fixtures/*`). Run `pnpm check` (lint, types, token build with its
   contrast and material gates, contracts and their keyboard coverage, the AI docs, static markup, the MCP server) and `pnpm test` (builds, then three engines; `pnpm test:engines` runs them one at a time, steadier on a
   4-core machine) before committing; `pnpm fixtures` after `pnpm build` checks the consumer recipes. A new component needs a contract (with a

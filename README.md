@@ -1,9 +1,8 @@
 # Lue UI
 
 > An open-source, platform-native, accessibility-first design system. *Lueur* is French for a glimmer of light.
-> **Status:** Pass 5 is in progress. Every Tier 0, 1 and 2 component is built and tested in three engines, with a
-> Storybook docs page, design guidelines and an AI-readable page each. The first public release and Spike C (Claude
-> Design) wait on decisions. Every package is private; nothing is on npm yet.
+> **Status:** pre-release. Every component is built and tested in three engines - see them in
+> [Storybook](https://skinread.github.io/lue-ui/). Nothing is on npm yet ([status](#status)).
 
 **Mission:** make accessible, standards-based interfaces the path of least resistance - by building _with_ the web
 platform, not on top of it.
@@ -73,21 +72,17 @@ guidelines, contracts and tokens) and `lue-ui-storybook` (stories, docs and stor
 Storybook is published to GitHub Pages by hand: Actions → **Storybook to GitHub Pages** → Run workflow
 ([details](apps/docs/README.md)).
 
-## Roadmap
+## Status
 
-1. **Phase 1 - foundations and design kickoff** _(done)_: principles, research, architecture, token and component
-   specs, and three visual directions in Claude Design.
-2. **Pass 2 - codify the chosen direction** _(done)_: C2 · Chroma Luminous, a private Claude Design system and the DTCG
-   token source.
-3. **Pass 3 - tracer bullet** _(done, but for Spike C)_: workspace, token and CSS pipelines, package builds, consumer
-   fixtures, and Button, Field, Select, Dialog and Menu tested in three engines. Spike C (one Claude Design preview
-   from the script-tag build) waits on `/design-sync`; its input is ready (`pnpm design-kit`).
-4. **Pass 4 - Tier 1 components** _(done)_: every Tier 1 component, keyboard coverage driven by the contracts,
-   `llms.txt` and a Markdown page per component, and an MCP server.
-5. **Pass 5 - Tier 2 and a first public 0.x release** _(in progress)_: every Tier 2 component is done; Storybook has a
-   docs page per React adapter and the Storybook MCP addon; every component has guidelines generated from its
-   contract. Left: the first public release (the npm scope, making the repo public, publishing), Spike C, and the
-   manual screen-reader pass that gates Stable.
+Lue UI is **pre-release**: nothing is on npm yet, and the API may still change.
+
+- **Built:** every component listed above, tested in Chromium, Firefox and WebKit. Browse them in
+  [Storybook](https://skinread.github.io/lue-ui/).
+- **Before the first 0.x release:** confirm the npm scope (`@lue-ui/*`) and publish the packages. Until then, build
+  from source with the commands above; [`fixtures/`](fixtures/) shows how a Vite, Next or Tailwind v4 app consumes
+  them.
+- **Before Stable:** a manual screen-reader pass (NVDA, JAWS, VoiceOver and TalkBack). The automated keyboard, axe
+  and emulation tests already gate every build.
 
 ## Licence
 

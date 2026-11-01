@@ -1,6 +1,6 @@
 ---
 name: handover
-description: Bring Lue UI's status up to date at the end of a stretch of work - the maintainer's local HANDOVER.md (gitignored), the "Current state" in AGENTS.md, the component inventory and the README roadmap - and commit the public ones. Use when the user says to wrap up, update the handover, or before ending a session that changed what is built or decided.
+description: Bring Lue UI's status up to date at the end of a stretch of work - the maintainer's local HANDOVER.md (gitignored), the "Current state" in AGENTS.md, the component inventory and the README's status - and commit the public ones. Use when the user says to wrap up, update the handover, or before ending a session that changed what is built or decided.
 ---
 
 # Update the handover
@@ -14,7 +14,8 @@ copy its contents (private links, local paths, who asked for what) into a tracke
    new decision with its date. Dates are absolute (2026-11-01), never "today".
 3. Update "Current state" in [AGENTS.md](AGENTS.md) only if the pass or the gates changed; keep it short, since every
    agent loads it. Write it for any contributor: what is true of the project, not who decided it.
-4. Update the status line of [docs/design/components.md](docs/design/components.md) and the roadmap in
-   [README.md](README.md) if what is built changed. A lasting decision goes in an ADR, not the handover.
+4. Update the status line of [docs/design/components.md](docs/design/components.md) and the Status section of
+   [README.md](README.md) if what is built or released changed. Write it for someone deciding whether to use Lue UI:
+   what works, what is missing, what comes next - no pass numbers or internal milestones. A lasting decision goes in an ADR, not the handover.
 5. Write a normal dash, never an em dash. Run `pnpm lint`.
 6. Commit the public files as `docs: <what changed>` on `develop`. Don't push unless asked.
