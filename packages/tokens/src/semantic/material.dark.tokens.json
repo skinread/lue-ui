@@ -235,12 +235,12 @@
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.5,
+            0.44,
             0.11,
             205
           ],
-          "hex": "#007481",
-          "alpha": 0.8
+          "hex": "#00626f",
+          "alpha": 0.7
         },
         "$description": "Prism tone 1 of a primary button (aqua), pooled at its base. No orchid next to azure, so no purple-into-blue step."
       },
@@ -249,11 +249,11 @@
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.52,
-            0.12,
+            0.44,
+            0.11,
             110
           ],
-          "hex": "#6e6e00",
+          "hex": "#575700",
           "alpha": 0.7
         },
         "$description": "Prism tone 2 of a primary button (citron), pooled at its base. No orchid next to azure, so no purple-into-blue step."
@@ -263,12 +263,12 @@
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.48,
-            0.15,
+            0.44,
+            0.14,
             0
           ],
-          "hex": "#9c2e5a",
-          "alpha": 0.75
+          "hex": "#8b264f",
+          "alpha": 0.7
         },
         "$description": "Prism tone 3 of a primary button (rose), pooled at its base. No orchid next to azure, so no purple-into-blue step."
       },
@@ -277,11 +277,11 @@
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.5,
-            0.12,
+            0.44,
+            0.11,
             160
           ],
-          "hex": "#00774b",
+          "hex": "#00643d",
           "alpha": 0.7
         },
         "$description": "Prism tone 4 of a primary button (mint), pooled at its base. No orchid next to azure, so no purple-into-blue step."
@@ -291,11 +291,11 @@
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.54,
-            0.12,
+            0.44,
+            0.11,
             70
           ],
-          "hex": "#9a6000",
+          "hex": "#784500",
           "alpha": 0.7
         },
         "$description": "Prism tone 5 of a primary button (amber), pooled at its base. No orchid next to azure, so no purple-into-blue step."
