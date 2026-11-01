@@ -131,6 +131,21 @@ describe('Segmented control', () => {
       expect(options().hasAttribute('data-lue-liquid')).toBe(true);
       near(key(), expected('week'));
     });
+
+    it('measures again when options change, and takes the key away when none is checked', async () => {
+      await mount();
+      labelOf('day').remove();
+      await frame();
+      near(key(), expected('week'));
+      labelOf('week').remove();
+      await frame();
+      expect(options().hasAttribute('data-lue-liquid')).toBe(false);
+      expect(options().style.getPropertyValue('--lue-key-x')).toBe('');
+      options().insertAdjacentHTML('afterbegin', option('year', 'Year', true));
+      await frame();
+      expect(options().hasAttribute('data-lue-liquid')).toBe(true);
+      near(key(), expected('year'));
+    });
   });
 
   for (const theme of ['dark', 'light', 'dark-more', 'light-more']) {

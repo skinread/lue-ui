@@ -82,7 +82,7 @@ export function installLiquid(root: Document | HTMLElement = document): () => vo
     if (!group || !container.isConnected || !eligible(container)) return;
     if (!keys.has(container)) attach(container);
     const chosen = [...container.querySelectorAll(group.item)].find(group.selected);
-    if (!chosen) return;
+    if (!chosen) return clear(container);
     const next = measure(container, chosen);
     const current = keys.get(container);
     if (animate && current && !still.matches && (Math.abs(next.x - current.x) > 0.5 || Math.abs(next.w - current.w) > 0.5)) {
@@ -99,16 +99,26 @@ export function installLiquid(root: Document | HTMLElement = document): () => vo
   function attach(container: HTMLElement): void {
     keys.set(container, null);
     resize.observe(container);
-    for (const item of container.querySelectorAll(groupOf(container)!.item)) resize.observe(item);
+    observeItems(container);
   }
 
-  function detach(container: HTMLElement): void {
-    keys.delete(container);
-    resize.unobserve(container);
-    for (const item of container.querySelectorAll(groupOf(container)!.item)) resize.unobserve(item);
+  const observeItems = (container: HTMLElement) => {
+    for (const item of container.querySelectorAll(groupOf(container)!.item)) resize.observe(item);
+  };
+
+  /** Takes the key away, so nothing is drawn when nothing is selected (and a later selection doesn't flow from a stale place). */
+  function clear(container: HTMLElement): void {
     running.get(container)?.cancel();
     container.removeAttribute('data-lue-liquid');
     for (const p of PROPERTIES) container.style.removeProperty(p);
+    keys.set(container, null);
+  }
+
+  function detach(container: HTMLElement): void {
+    clear(container);
+    keys.delete(container);
+    resize.unobserve(container);
+    for (const item of container.querySelectorAll(groupOf(container)!.item)) resize.unobserve(item);
   }
 
   const scan = (node: ParentNode, animate = false) => {
@@ -122,10 +132,20 @@ export function installLiquid(root: Document | HTMLElement = document): () => vo
       if (record.type === 'attributes') {
         const container = (record.target as Element).closest<HTMLElement>(CONTAINERS);
         if (container) changed.add(container);
-      } else for (const node of record.addedNodes) if (node instanceof Element) scan(node);
+      } else {
+        // Options added, removed or replaced inside a container the key already lives in: measure it again.
+        const container = record.target instanceof Element ? record.target.closest<HTMLElement>(CONTAINERS) : null;
+        if (container && keys.has(container)) changed.add(container);
+        for (const node of record.removedNodes) if (node instanceof Element) resize.unobserve(node);
+        for (const node of record.addedNodes) if (node instanceof Element) scan(node);
+      }
     }
     for (const container of keys.keys()) if (!container.isConnected) detach(container);
-    for (const container of changed) update(container, true);
+    for (const container of changed) {
+      if (!container.isConnected) continue;
+      observeItems(container);
+      update(container, true);
+    }
   });
   mutations.observe(root, { subtree: true, childList: true, attributes: true, attributeFilter: ['aria-selected'] });
 
