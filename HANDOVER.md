@@ -93,8 +93,9 @@
 
 0. **Merge `design/luminous-next` into `develop`** (2026-11-01): the luminous materials
    ([ADR-0010](docs/architecture/adr/0010-luminous-materials-glass-depth-liquid-chrome.md)) are ported and pass
-   `pnpm check`. Before merging: regenerate the visual baselines on Linux (`pnpm vitest run tests/visual --update`,
-   then review the PNGs) and let CI run Firefox.
+   `pnpm check`; draft PR skinread/lue-ui#2. The 35 changed visual baselines were taken from CI's own Linux renders
+   (CI prints a failing visual test's actual image as base64 in its log), reviewed and committed. Merge when CI is
+   green and you're happy with the look.
 
 1. **The first public release** is yours to decide: confirm the npm scope (`@lue-ui/*`, provisional), make the repo
    public (private on GitHub as `skinread/lue-ui`; CI is green on `develop` in Chromium, Firefox and WebKit), and
