@@ -3,6 +3,7 @@ import type { Preview } from '@storybook/react-vite';
 import '@lue-ui/tokens/tokens.css';
 import '../../../packages/css/src/lue.css';
 import '../../../packages/css/src/fonts.css';
+import './backdrop.css';
 import { DocsPage } from './docs-page.js';
 
 type SBType = { name: string; value?: unknown; raw?: string; required?: boolean };
@@ -48,19 +49,38 @@ const preview: Preview = {
       description: 'Lue theme (data-theme on the root). "auto" follows the OS.',
       toolbar: { title: 'Theme', icon: 'contrast', items: ['auto', 'dark', 'light', 'dark-more', 'light-more'], dynamicTitle: true },
     },
+    backdrop: {
+      description: 'What the glass sits on: Lue\'s ambient light (so its refraction and depth show), or the plain canvas',
+      toolbar: { title: 'Backdrop', icon: 'photo', items: ['light', 'plain'], dynamicTitle: true },
+    },
     dir: {
       description: 'Writing direction',
       toolbar: { title: 'Direction', icon: 'transfer', items: ['ltr', 'rtl'], dynamicTitle: true },
     },
   },
-  initialGlobals: { theme: 'auto', dir: 'ltr' },
+  initialGlobals: { theme: 'auto', dir: 'ltr', backdrop: 'light' },
   decorators: [
-    (Story, { globals }) => {
+    (Story, { globals, viewMode }) => {
       const root = document.documentElement;
       if (globals.theme === 'auto') root.removeAttribute('data-theme');
       else root.setAttribute('data-theme', globals.theme);
       root.dir = globals.dir;
-      return <Story />;
+      if (globals.backdrop === 'plain') return <Story />;
+      // Glass needs something behind it to bend. On a docs page each story gets its own lit stage; on its own, the
+      // light fills the viewport behind it.
+      return viewMode === 'docs' ? (
+        <div className="lue-stage" style={{ padding: 'var(--lue-space-l)', borderRadius: 'var(--lue-radius-m)' }}>
+          <div className="lue-ambient" aria-hidden="true" />
+          <div className="sb-light" aria-hidden="true" />
+          <Story />
+        </div>
+      ) : (
+        <>
+          <div className="lue-ambient" aria-hidden="true" style={{ position: 'fixed' }} />
+          <div className="sb-light" data-fixed="" aria-hidden="true" />
+          <Story />
+        </>
+      );
     },
   ],
 };
