@@ -68,7 +68,8 @@
     }
   },
   "tokens": [
-    "--lue-metal"
+    "--lue-metal",
+    "--lue-chrome-stops"
   ],
   "platform": {
     "baseline": [

@@ -39,7 +39,8 @@
   .lue-tile:where([data-size="lg"]) { --lue-tile-size: 112px; }
   .lue-tile::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: linear-gradient(118deg, transparent 30%, var(--lue-material-glint-core) 44%, transparent 52%); mix-blend-mode: plus-lighter; opacity: 0.55; }
   .lue-tile > svg { inline-size: 54%; block-size: 54%; }
-  .lue-avatar { inline-size: 44px; block-size: 44px; border-radius: 50%; display: inline-grid; place-items: center; flex: none; background: var(--lue-metal); box-shadow: inset 0 1px 0 var(--lue-metal-rim-top), inset 0 -1px 0 var(--lue-metal-rim-bottom), var(--lue-tile-shadow); font: 500 0.9375rem/1 var(--lue-font-family-display); color: var(--lue-color-fg-default); overflow: hidden; }
+  /* A metal disc in a chrome bezel (the liquid-chrome set's rim, ADR-0010). */
+  .lue-avatar { inline-size: 44px; block-size: 44px; box-sizing: border-box; border: var(--lue-border-width-thick) solid transparent; border-radius: 50%; display: inline-grid; place-items: center; flex: none; background: var(--lue-metal) padding-box, conic-gradient(from 200deg, var(--lue-chrome-stops)) border-box; box-shadow: inset 0 1px 0 var(--lue-metal-rim-top), inset 0 -1px 0 var(--lue-metal-rim-bottom), var(--lue-tile-shadow); font: 500 0.9375rem/1 var(--lue-font-family-display); color: var(--lue-color-fg-default); overflow: hidden; }
   .lue-avatar:where([data-size="lg"]) { inline-size: 72px; block-size: 72px; font-size: 1.375rem; }
   .lue-avatar > img { inline-size: 100%; block-size: 100%; object-fit: cover; }
   .lue-chrome-text { color: var(--lue-color-fg-default); }
@@ -68,6 +69,7 @@
     :where(.lue-glass) { background-color: var(--lue-color-bg-surface); background-image: none; }
   }
   :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-ambient, .lue-satin) { display: none; }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-avatar) { background: var(--lue-metal); border-color: var(--lue-color-border-strong); }
   :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-glass)::after,
   :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-glass)::after { content: none; }
   @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {

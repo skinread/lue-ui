@@ -10,21 +10,22 @@
     appearance: none;
     display: block;
     inline-size: 100%;
-    block-size: 0.5rem;
+    block-size: 0.625rem;
     border: 0;
     border-radius: var(--lue-radius-full);
-    background: var(--lue-color-bg-surface-subtle);
-    box-shadow: inset 0 0 0 1px var(--lue-color-border-strong);
+    /* A recessed well (the liquid-chrome set's), its edge kept at the strong border colour. */
+    background: var(--lue-well);
+    box-shadow: inset 0 0 0 1px var(--lue-color-border-strong), inset 0 2px 3px var(--lue-material-well-depth), 0 1px 0 var(--lue-material-well-lip);
     overflow: hidden;
   }
   .lue-progress::-webkit-progress-bar { background: transparent; }
   /* Prism light in a glass tube, with a specular line along its top. */
-  .lue-progress::-webkit-progress-value { background: linear-gradient(180deg, var(--lue-material-specular), transparent 45%), linear-gradient(90deg, var(--lue-prism-fill)); border-radius: inherit; }
-  .lue-progress::-moz-progress-bar { background: linear-gradient(180deg, var(--lue-material-specular), transparent 45%), linear-gradient(90deg, var(--lue-prism-fill)); border-radius: inherit; }
+  .lue-progress::-webkit-progress-value { background: linear-gradient(180deg, var(--lue-material-specular), transparent 3px), linear-gradient(90deg, var(--lue-prism-fill)); border-radius: inherit; }
+  .lue-progress::-moz-progress-bar { background: linear-gradient(180deg, var(--lue-material-specular), transparent 3px), linear-gradient(90deg, var(--lue-prism-fill)); border-radius: inherit; }
 
   /* Indeterminate: a band slides along the track (still under reduced motion it rests in the middle). */
   .lue-progress:where(:indeterminate) {
-    background: linear-gradient(90deg, transparent 0 35%, var(--lue-color-fg-accent) 35% 65%, transparent 65%) 0 0 / 200% 100% no-repeat, var(--lue-color-bg-surface-subtle);
+    background: linear-gradient(90deg, transparent 0 35%, var(--lue-color-fg-accent) 35% 65%, transparent 65%) 0 0 / 200% 100% no-repeat, var(--lue-well);
     animation: lue-progress-slide 1.4s var(--lue-motion-ease-standard) infinite;
   }
   .lue-progress:where(:indeterminate)::-webkit-progress-bar { background: transparent; }
@@ -37,18 +38,21 @@
     .lue-progress:where(:indeterminate) { animation: none; background-position: 50% 0, 0 0; }
   }
 
+  /* Meters are lit like the progress fill: a specular line along the top of each colour. */
   .lue-meter::-webkit-meter-bar { background: transparent; border: 0; block-size: 100%; }
-  .lue-meter::-webkit-meter-optimum-value { background: var(--lue-color-fg-success); }
-  .lue-meter::-webkit-meter-suboptimum-value { background: var(--lue-color-fg-warning); }
-  .lue-meter::-webkit-meter-even-less-good-value { background: var(--lue-color-fg-critical); }
-  .lue-meter::-moz-meter-bar { background: var(--lue-color-fg-success); }
-  .lue-meter:where(:-moz-meter-sub-optimum)::-moz-meter-bar { background: var(--lue-color-fg-warning); }
-  .lue-meter:where(:-moz-meter-sub-sub-optimum)::-moz-meter-bar { background: var(--lue-color-fg-critical); }
+  .lue-meter::-webkit-meter-optimum-value { background: linear-gradient(180deg, var(--lue-material-specular), transparent 3px), var(--lue-color-fg-success); border-radius: inherit; }
+  .lue-meter::-webkit-meter-suboptimum-value { background: linear-gradient(180deg, var(--lue-material-specular), transparent 3px), var(--lue-color-fg-warning); border-radius: inherit; }
+  .lue-meter::-webkit-meter-even-less-good-value { background: linear-gradient(180deg, var(--lue-material-specular), transparent 3px), var(--lue-color-fg-critical); border-radius: inherit; }
+  .lue-meter::-moz-meter-bar { background: linear-gradient(180deg, var(--lue-material-specular), transparent 3px), var(--lue-color-fg-success); border-radius: inherit; }
+  .lue-meter:where(:-moz-meter-sub-optimum)::-moz-meter-bar { background: linear-gradient(180deg, var(--lue-material-specular), transparent 3px), var(--lue-color-fg-warning); }
+  .lue-meter:where(:-moz-meter-sub-sub-optimum)::-moz-meter-bar { background: linear-gradient(180deg, var(--lue-material-specular), transparent 3px), var(--lue-color-fg-critical); }
 }
 
-/* Forced colours: gradients and author colours are dropped, so the track is Canvas with a CanvasText edge and the fill
+/* Increased contrast: a flat track inside its strong edge. Forced colours: gradients and author colours are dropped,
+   so the track is Canvas with a CanvasText edge and the fill
    is Highlight (forced-color-adjust: none keeps the system colours as written). */
 @layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-progress:not(:indeterminate), .lue-meter) { background: var(--lue-color-bg-surface-subtle); box-shadow: inset 0 0 0 1px var(--lue-color-border-strong); }
   @media (forced-colors: active) {
     :where(.lue-progress, .lue-meter) { forced-color-adjust: none; background: Canvas; box-shadow: none; outline: 1px solid CanvasText; }
     :where(.lue-progress)::-webkit-progress-value { background: Highlight; }

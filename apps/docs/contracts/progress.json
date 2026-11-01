@@ -96,6 +96,10 @@
   },
   "tokens": [
     "--lue-prism-fill",
+    "--lue-well",
+    "--lue-material-well-depth",
+    "--lue-material-well-lip",
+    "--lue-material-specular",
     "--lue-color-bg-surface-subtle",
     "--lue-color-border-strong",
     "--lue-color-fg-accent",
