@@ -1,6 +1,7 @@
 // Tabs (apps/docs/contracts/tabs.json): parity, links to sections without the element, then tabs: roles and one panel,
 // arrow keys (wrapping, mirrored in RTL), Home and End, Tab into the panel, clicks that don't jump, the URL's #panel
-// first, only declared attributes written, axe in every theme, forced colours. Chromium, Firefox and WebKit.
+// first, only declared attributes written, the liquid key following the selection (not animated under reduced motion),
+// axe in every theme, forced colours. Chromium, Firefox and WebKit.
 import { afterEach, beforeAll, describe, expect, it } from 'vitest';
 import { server, userEvent } from 'vitest/browser';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -113,7 +114,86 @@ describe('Tabs', () => {
     await userEvent.keyboard('{ArrowRight}');
     observer.disconnect();
     const written = new Set(records.filter((r) => r.type === 'attributes').map((r) => r.attributeName));
-    expect([...written].sort()).toEqual(['aria-controls', 'aria-labelledby', 'aria-selected', 'hidden', 'role', 'tabindex']);
+    // data-lue-liquid and style (its --lue-key-* properties) are the liquid key's, on the list only.
+    expect([...written].sort()).toEqual(['aria-controls', 'aria-labelledby', 'aria-selected', 'data-lue-liquid', 'hidden', 'role', 'style', 'tabindex']);
+    const styled = new Set(records.filter((r) => r.attributeName === 'style' || r.attributeName === 'data-lue-liquid').map((r) => r.target));
+    expect([...styled]).toEqual([$('.lue-tabs__list')]);
+  });
+
+  describe('liquid key', () => {
+    /** The key's custom properties on the list, in px. */
+    const key = () => {
+      const style = $('.lue-tabs__list').style;
+      return ['x', 'y', 'w', 'h'].map((p) => parseFloat(style.getPropertyValue(`--lue-key-${p}`)));
+    };
+    /** Where the key should be for a tab: its inline-start offset from the list's padding edge, and its size. */
+    const expected = (id: string) => {
+      const el = $('.lue-tabs__list');
+      const list = el.getBoundingClientRect();
+      const r = tabEl(id).getBoundingClientRect();
+      const style = getComputedStyle(el);
+      return style.direction === 'rtl'
+        ? [list.right - r.right - parseFloat(style.borderRightWidth), r.top - list.top - el.clientTop, r.width, r.height]
+        : [r.left - list.left - el.clientLeft, r.top - list.top - el.clientTop, r.width, r.height];
+    };
+    const near = (actual: number[], wanted: number[]) => actual.forEach((v, i) => expect(v).toBeCloseTo(wanted[i]!, 0));
+    /** Counts the animations started on the list. */
+    const watch = () => {
+      const list = $('.lue-tabs__list');
+      const calls: Parameters<HTMLElement['animate']>[] = [];
+      list.animate = (...args) => {
+        calls.push(args);
+        return HTMLElement.prototype.animate.apply(list, args);
+      };
+      return calls;
+    };
+
+    it('places the key on the selected tab and marks the list', async () => {
+      await mount();
+      await frame();
+      expect($('.lue-tabs__list').getAttribute('data-lue-liquid')).toBe('');
+      near(key(), expected('overview'));
+    });
+
+    it('follows the selection by click and keyboard, flowing on ::before to the resting place', async () => {
+      await mount();
+      await frame();
+      const calls = watch();
+      await userEvent.click(tabEl('reviews'));
+      await frame();
+      near(key(), expected('reviews'));
+      expect(calls).toHaveLength(1);
+      const [keyframes, options] = calls[0]! as [Keyframe[], KeyframeAnimationOptions];
+      expect(options.pseudoElement).toBe('::before');
+      expect(keyframes.at(-1)).toEqual({ translate: `${key()[0]}px 0`, scale: '1 1' });
+      expect(keyframes.flatMap((k) => Object.keys(k)).every((p) => ['translate', 'scale', 'offset'].includes(p))).toBe(true);
+      tabEl('reviews').focus();
+      await userEvent.keyboard('{ArrowLeft}');
+      await frame();
+      near(key(), expected('specs'));
+      expect(calls).toHaveLength(2);
+    });
+
+    it('measures from the right in right-to-left text', async () => {
+      document.documentElement.dir = 'rtl';
+      await mount();
+      await frame();
+      near(key(), expected('overview'));
+      await userEvent.click(tabEl('reviews'));
+      await frame();
+      near(key(), expected('reviews'));
+    });
+
+    it("doesn't animate under reduced motion, but still moves", async () => {
+      await emulate({ reducedMotion: 'reduce' });
+      await mount();
+      await frame();
+      const calls = watch();
+      await userEvent.click(tabEl('specs'));
+      await frame();
+      near(key(), expected('specs'));
+      expect(calls).toHaveLength(0);
+    });
   });
 
   for (const theme of ['dark', 'light', 'dark-more', 'light-more']) {

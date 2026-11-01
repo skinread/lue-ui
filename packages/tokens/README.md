@@ -32,11 +32,12 @@ them.
   7:1 for text and 4.5:1 for boundaries in the `-more` contexts (`plugins/lue.js`, `lue-contrast`);
 - a token has no `$description`, or body text drops below 16 px (`lue-schema`);
 - `tokens.css` passes its size budget (`scripts/finish.js`);
-- a material rule fails (`plugins/materials.js`, `lue-materials`, 78 rules): text and boundaries on overlay and modal
+- a material rule fails (`plugins/materials.js`, `lue-materials`, 88 rules): text and boundaries on overlay and modal
   glass over white, black and every fill (through the scrim, reading the backdrop filter both ways), on neutral,
   prism (up to three overlapping tones), danger and pressed glass buttons, on ambient light (single and overlapping),
   satin and metal; the chrome ring, its dispersion band and the multi-tone ring as boundaries; marks on the
-  multi-tone fills, with gradient midpoints. In the `-more` contexts glass and buttons are opaque (CSS), so only the
+  multi-tone fills, with gradient midpoints; engraved marks and key text on the liquid chrome, the chrome ball's rim
+  against the lit track, and text in field wells (ADR-0010). In the `-more` contexts glass and buttons are opaque (CSS), so only the
   fills are checked there, at 7:1.
 
 The `-more` contexts layer `material.<context>.tokens.json` (deeper multi-tone fills and the switch bead) over their
@@ -53,6 +54,7 @@ scheme's materials.
 | `css` | An easing the `cubicBezier` type can't hold | `linear(…)` as written |
 | `letterSpacingEm`, `textTransform` | On text styles | The style's `letter-spacing` and `text-transform` |
 | `coarse` | The target minimum under `(any-pointer: coarse)` | Added by `scripts/finish.js` |
+| `p3` | A wider-gamut value `{ components, alpha }` for light (never text or a boundary) | Added by `scripts/finish.js` in `@media (color-gamut: p3)` |
 | `pairs` | Contrast pairs `{ on, min }` | Checked, not emitted |
 
 ## Source
@@ -63,7 +65,7 @@ scheme's materials.
 | `primitive/color.tokens.json` | Neutral ramp and the eight-hue prism (never public CSS) |
 | `semantic/color.<context>.tokens.json` | Semantic colour per theme context, literal values, with contrast pairs |
 | `semantic/material.<scheme>-more.tokens.json` | The `-more` overrides: multi-tone fills and the switch bead |
-| `semantic/material.<scheme>.tokens.json` | C2 materials (glass, buttons and their rims, chrome, dispersion, prism fills and ring, iridescence, metal and tile rims, satin, ambient light, field, focus glow, beads, the glass prism) and shadows |
+| `semantic/material.<scheme>.tokens.json` | C2 materials (glass and its sheen, buttons and their rims, chrome, dispersion, prism fills and ring, iridescence, metal and tile rims, satin, ambient light, field, focus glow, beads, the glass prism) and, from ADR-0010, liquid chrome, wells, engraving, light, the glint and the specular rim; shadows include glass depth |
 | `theme.css` | CSS compositions of the material tokens, appended to `tokens.css` |
 | `semantic/type.tokens.json` | Families, weights, the fluid scale (steps −2 … 5), leading, tracking, text styles |
 | `semantic/dimension.tokens.json` | Space (fluid), size, radius, border, focus, layer |

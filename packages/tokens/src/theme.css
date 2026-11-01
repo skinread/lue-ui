@@ -27,7 +27,14 @@
 
     --lue-glass-filter: blur(var(--lue-material-glass-blur)) saturate(var(--lue-material-glass-saturate))
       contrast(var(--lue-material-glass-contrast)) brightness(var(--lue-material-glass-brightness));
-    --lue-glass-sheen: radial-gradient(120% 90% at 18% 0%, oklch(1 0 0 / var(--lue-material-glass-sheen)), transparent 62%);
+    /* A dome of light inside the top edge and a thin diagonal streak; contrast is checked where they overlap. */
+    --lue-glass-sheen: radial-gradient(130% 70% at 50% -18%, var(--lue-material-glass-dome), transparent 58%),
+      linear-gradient(112deg, transparent 14%, var(--lue-material-glass-streak) 19%, transparent 27%);
+    /* Light gathered by thick glass along its lower lip (data-caustic), and the glint across a primary on hover. */
+    --lue-caustic: linear-gradient(90deg, transparent, var(--lue-material-light-rose) 16%, var(--lue-material-light-amber) 32%,
+      var(--lue-material-light-citron) 48%, var(--lue-material-light-mint) 64%, var(--lue-material-light-aqua) 80%, transparent);
+    --lue-glint: linear-gradient(104deg, transparent 38%, var(--lue-material-glint-edge) 46%, var(--lue-material-glint-core) 50%,
+      var(--lue-material-glint-edge) 54%, transparent 62%);
 
     --lue-button-filter: blur(var(--lue-material-button-blur)) saturate(var(--lue-material-button-saturate))
       contrast(var(--lue-material-button-contrast)) brightness(var(--lue-material-button-brightness));
@@ -36,6 +43,24 @@
       inset 0 -1px 0 var(--lue-material-button-rim-bottom), inset 0 -7px 10px -8px var(--lue-material-button-refract);
 
     --lue-field-bg: var(--lue-material-field-bg);
+
+    /* Liquid chrome reflects a horizon: sky above, a dark band, a warm floor below. One set of stops for every chrome
+       control; the key keeps its horizon below the text, the ball is lit from the top left. */
+    --lue-liquid-body: linear-gradient(180deg, var(--lue-material-liquid-sky) 0%, var(--lue-material-liquid-high) 22%,
+      var(--lue-material-liquid-mid) 40%, var(--lue-material-liquid-horizon) 54%, var(--lue-material-liquid-low) 66%,
+      var(--lue-material-liquid-floor) 100%);
+    --lue-liquid-key: linear-gradient(180deg, var(--lue-material-liquid-sky) 0%, var(--lue-material-liquid-high) 26%,
+      var(--lue-material-liquid-mid) 62%, var(--lue-material-liquid-horizon) 80%, var(--lue-material-liquid-low) 88%,
+      var(--lue-material-liquid-floor) 100%);
+    --lue-liquid-ball: radial-gradient(120% 120% at 34% 24%, var(--lue-material-liquid-sky) 0%, var(--lue-material-liquid-high) 20%,
+      var(--lue-material-liquid-mid) 36%, var(--lue-material-liquid-horizon) 56%, var(--lue-material-liquid-low) 70%,
+      var(--lue-material-liquid-floor) 92%);
+    /* A recess (shadow from its top edge, light on the lip below) and a raised chrome key. */
+    --lue-well: var(--lue-material-well-fill);
+    --lue-well-shadow: inset 0 2px 4px var(--lue-material-well-depth), inset 0 -1px 0 var(--lue-material-well-lip),
+      0 1px 0 var(--lue-material-well-lip);
+    --lue-raised: inset 0 1px 0 var(--lue-material-liquid-sky), inset 0 -1px 1px var(--lue-material-liquid-horizon),
+      0 1px 2px var(--lue-material-well-depth), 0 3px 8px -3px var(--lue-material-well-depth);
     --lue-field-inset: var(--lue-material-field-inset);
     --lue-focus-glow: var(--lue-material-focus-glow);
 

@@ -138,7 +138,7 @@ describe('right to left', () => {
     await frame();
     expect(style('#size').paddingRight).toBe(ltr.start);
     expect(style('#size').paddingLeft).toBe(ltr.end);
-    expect(style('#switch', '::before').translate).toBe('-20px');
+    expect(style('#switch', '::before').translate).toBe('-22px');
     expect(style('#arrow').scale).toBe('-1 1');
   });
 });

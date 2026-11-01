@@ -93,16 +93,18 @@ function rules(set) {
   worst('fg-muted on overlapping ambient light', [fg('muted')], doubled, 4.5);
   worst('fg-accent on overlapping ambient light', [fg('accent')], doubled, 4.5);
 
-  // Glass: (scrim for modals) → backdrop filter, both readings → tint at its alpha → sheen.
+  // Glass: (scrim for modals) → backdrop filter, both readings → tint at its alpha → sheen, where the dome and the
+  // streak overlap (the brightest point text can sit on).
   const scrim = translucent('color.overlay.scrim');
   const glassFilter = { contrast: number('material.glass.contrast'), brightness: number('material.glass.brightness') };
-  const glassSheen = number('material.glass.sheen');
+  const dome = translucent('material.glass.dome');
+  const streak = translucent('material.glass.streak');
   const glassOver = (tier, backdrop) => {
     const tint = translucent(`material.glass.${tier}`);
     const b = tier === 'modal' ? over(scrim.col, scrim.alpha, backdrop) : backdrop;
     return filtered(b, glassFilter).map((fb) => {
       const tinted = over(tint.col, tint.alpha, fb);
-      return glassSheen ? over(WHITE, glassSheen, tinted) : tinted;
+      return over(dome.col, dome.alpha, over(streak.col, streak.alpha, tinted));
     });
   };
   const backdrops = [WHITE, BLACK, canvas, solid('color.bg.surface'), solid('color.bg.inverse'), fg('default'), ...fill, ...glows];
@@ -163,5 +165,14 @@ function rules(set) {
   worst('fg-muted on satin', [fg('muted')], satin, 4.5);
   worst('fg-accent on satin', [fg('accent')], satin, 4.5);
   worst('fg-default on liquid metal (avatars, tiles)', [fg('default')], stops('material.metal'), 4.5);
+
+  // The liquid-chrome set (checkbox, radio, switch, tabs, segmented control) and the fields.
+  const liquid = ['sky', 'high', 'mid', 'horizon', 'low', 'floor'].map((k) => solid(`material.liquid.${k}`));
+  const engrave = solid('material.engrave');
+  worst('engraved mark on liquid chrome (tick, dash)', [engrave], liquid, 3);
+  worst('engraved name on a chrome key (where its text sits)', [engrave], liquid.slice(0, 3), 4.5);
+  worst('chrome ball rim vs multi-tone track', [solid('material.liquid.rim')], withMids(fill), 3);
+  worst('fg-default in a field well', [fg('default')], [solid('material.field.bg')], 7);
+  worst('fg-muted in a field well (placeholder, hint)', [fg('muted')], [solid('material.field.bg')], 4.5);
   return rows;
 }

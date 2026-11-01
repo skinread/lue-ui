@@ -82,7 +82,16 @@
     },
     "targetSize": "Each option is at least --lue-size-target-min tall"
   },
-  "ownedAttributes": {},
+  "ownedAttributes": {
+    ".lue-segmented__options": [
+      "data-lue-liquid",
+      "--lue-key-x",
+      "--lue-key-y",
+      "--lue-key-w",
+      "--lue-key-h"
+    ]
+  },
+  "elementRules": "The liquid key behaviour (@lue-ui/elements, in define) writes data-lue-liquid and the inline custom properties --lue-key-x, --lue-key-y, --lue-key-w and --lue-key-h (px; x from the inline-start padding edge, y from the top) on .lue-segmented__options once it has placed the shared selected key, and animates its ::before (translate and scale only, never under reduced motion). React renders no style and no data-lue-liquid there.",
   "react": {
     "component": "SegmentedControl",
     "props": {
@@ -107,6 +116,13 @@
       "input type=radio",
       "fieldset",
       ":has()"
+    ],
+    "enhancements": [
+      {
+        "feature": "The liquid key: one shared selected key that flows between options (Web Animations on ::before, @lue-ui/elements)",
+        "fallback": "Each selected option draws its own static key; under reduced motion the key moves without flowing",
+        "where": ".lue-segmented__options"
+      }
     ]
   },
   "rules": [

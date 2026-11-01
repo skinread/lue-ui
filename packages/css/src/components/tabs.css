@@ -30,15 +30,41 @@
   .lue-tabs__panel:where(:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); border-radius: var(--lue-radius-xs); }
   /* Without the element: the links underline, as links. */
   .lue-tabs:where(:not(:defined)) .lue-tabs__tab { text-decoration: underline; color: var(--lue-color-fg-accent); }
+
+  /* With it (ADR-0010): a recessed well, and the selected tab a raised chrome key with its name engraved. The
+     liquid behaviour (data-lue-liquid) draws one key for the whole list and passes it between tabs. */
+  .lue-tabs:where(:defined) .lue-tabs__list {
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    padding: var(--lue-space-3xs);
+    border: var(--lue-border-width-thick) solid transparent;
+    border-image: none;
+    /* Half a row: a pill on one row, a rounded panel if the tabs wrap. */
+    border-radius: 26px;
+    background: linear-gradient(var(--lue-well), var(--lue-well)) padding-box, conic-gradient(from 200deg, var(--lue-chrome-stops)) border-box;
+    box-shadow: var(--lue-well-shadow);
+  }
+  .lue-tabs:where(:defined) .lue-tabs__tab { min-block-size: var(--lue-size-control-sm); padding-inline: var(--lue-space-m); border-radius: var(--lue-radius-full); box-shadow: none; }
+  .lue-tabs:where(:defined) .lue-tabs__tab:where([aria-selected="true"]) {
+    color: var(--lue-material-engrave);
+    text-shadow: 0 1px 0 var(--lue-material-engrave-lift);
+    background: var(--lue-liquid-key);
+    box-shadow: var(--lue-raised);
+  }
+  .lue-tabs:where(:defined) .lue-tabs__tab:where(:focus-visible) { outline-offset: 2px; }
+  .lue-tabs__list:where([data-lue-liquid]) .lue-tabs__tab:where([aria-selected="true"]) { background: none; box-shadow: none; }
 }
 
-/* Increased contrast: a solid rule. Forced colours: the selected tab is marked with a Highlight bar (box-shadow is
-   dropped, so it's a border). */
+/* Increased contrast: a solid boundary and an opaque, inverted selected tab. Forced colours: the selected tab is marked
+   with a Highlight bar (box-shadow is dropped, so it's a border). The shared liquid key is in chrome.css. */
 @layer lue.contrast {
   :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-tabs__list) { border-image: none; border-block-end-color: var(--lue-color-border-strong); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(lue-tabs:defined .lue-tabs__list) { border-color: var(--lue-color-border-strong); background: var(--lue-field-bg); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-tabs__tab[aria-selected="true"]) { background: var(--lue-color-fg-default); color: var(--lue-color-bg-canvas); text-shadow: none; box-shadow: none; }
   @media (forced-colors: active) {
     :where(.lue-tabs__list) { border-image: none; border-block-end-color: CanvasText; }
+    :where(lue-tabs:defined .lue-tabs__list) { border-color: CanvasText; }
     :where(.lue-tabs__tab) { border-block-end: 3px solid transparent; }
-    :where(.lue-tabs__tab[aria-selected="true"]) { border-block-end-color: Highlight; }
+    :where(.lue-tabs__tab[aria-selected="true"]) { border-block-end-color: Highlight; text-shadow: none; }
   }
 }

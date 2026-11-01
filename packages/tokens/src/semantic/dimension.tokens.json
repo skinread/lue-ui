@@ -298,10 +298,10 @@
     "l": {
       "$type": "dimension",
       "$value": {
-        "value": 28,
+        "value": 40,
         "unit": "px"
       },
-      "$description": "Cards, dialogs (squircle as an enhancement)."
+      "$description": "Cards, dialogs and glass panels: soft, so thick glass reads as a slab (doubled where corner-shape: squircle applies)."
     },
     "full": {
       "$type": "dimension",

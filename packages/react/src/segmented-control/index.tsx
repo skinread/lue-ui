@@ -17,7 +17,9 @@ export interface SegmentedControlProps extends Omit<ComponentPropsWithRef<'field
 }
 
 /**
- * `<fieldset class="lue-segmented">`: a radio group drawn as one pill. Arrow keys move the choice, natively. Contract:
+ * `<fieldset class="lue-segmented">`: a radio group drawn as one pill. Arrow keys move the choice, natively. With
+ * `<LueElements/>` mounted once, the checked option's key flows between options (the liquid key, which writes only
+ * `data-lue-liquid` and `--lue-key-*` on the options); without it each checked option draws its own. Contract:
  * apps/docs/contracts/segmented-control.json.
  */
 export function SegmentedControl({ legend, name, options, defaultValue, value, onChange, className, ...props }: SegmentedControlProps): ReactNode {

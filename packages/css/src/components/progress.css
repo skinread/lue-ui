@@ -18,8 +18,9 @@
     overflow: hidden;
   }
   .lue-progress::-webkit-progress-bar { background: transparent; }
-  .lue-progress::-webkit-progress-value { background: linear-gradient(90deg, var(--lue-prism-fill)); border-radius: inherit; }
-  .lue-progress::-moz-progress-bar { background: linear-gradient(90deg, var(--lue-prism-fill)); border-radius: inherit; }
+  /* Prism light in a glass tube, with a specular line along its top. */
+  .lue-progress::-webkit-progress-value { background: linear-gradient(180deg, var(--lue-material-specular), transparent 45%), linear-gradient(90deg, var(--lue-prism-fill)); border-radius: inherit; }
+  .lue-progress::-moz-progress-bar { background: linear-gradient(180deg, var(--lue-material-specular), transparent 45%), linear-gradient(90deg, var(--lue-prism-fill)); border-radius: inherit; }
 
   /* Indeterminate: a band slides along the track (still under reduced motion it rests in the middle). */
   .lue-progress:where(:indeterminate) {

@@ -1,6 +1,7 @@
 # ADR-0009: Visual direction - C2 · Chroma Luminous
 
-- **Status:** Accepted
+- **Status:** Accepted; glass, chrome, buttons, small controls, tags and motion revised by
+  [ADR-0010](0010-luminous-materials-glass-depth-liquid-chrome.md) (2026-11-01)
 - **Date:** 2026-10-05
 - **Principles:** 1 accessible by construction · 11 distinctive, not decorative · 5 respect personal settings ·
   8 Baseline-anchored (enhancements behind `@supports`)

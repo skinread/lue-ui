@@ -1,7 +1,7 @@
-/* Tag - <span class="lue-tag">, a glass pill in uppercase mono; removable with a .lue-tag__remove button inside.
-   Contract: apps/docs/contracts/tag.json. */
+/* Tag - <span class="lue-tag">, a glass pill in the body face, sentence case (ADR-0010); removable with a
+   .lue-tag__remove button inside. Contract: apps/docs/contracts/tag.json. */
 @layer lue.components {
-  .lue-tag { display: inline-flex; align-items: center; min-block-size: 30px; padding-inline: var(--lue-space-xs); border-radius: var(--lue-radius-full); background-color: var(--lue-material-glass-overlay); backdrop-filter: var(--lue-glass-filter); font: 500 0.75rem/1 var(--lue-font-family-mono); letter-spacing: 0.12em; text-transform: uppercase; }
+  .lue-tag { display: inline-flex; align-items: center; min-block-size: 30px; padding-inline: var(--lue-space-s); border-radius: var(--lue-radius-full); background-color: var(--lue-material-glass-overlay); backdrop-filter: var(--lue-glass-filter); font: 500 0.8125rem/1 var(--lue-font-family-body); }
   :where(.lue-card, .lue-dialog, .lue-menu, .lue-glass, .lue-project, .lue-post, .lue-cta, .lue-author) .lue-tag { backdrop-filter: none; }
   /* A removable tag: a button with a name ("Remove {tag}") inside the pill. */
   .lue-tag__remove {
