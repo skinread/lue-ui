@@ -155,3 +155,5 @@ next-env.d.ts
 # Claude Code, per person (shared settings are in .claude/settings.json)
 .claude/settings.local.json
 CLAUDE.local.md
+# A maintainer's working notes between sessions; never committed
+/HANDOVER.md
