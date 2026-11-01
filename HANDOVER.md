@@ -245,7 +245,7 @@ What exists now (all private, all on `develop`):
    - ~~**No em dashes**~~ (user's rule, 2026-10-25): all 602 lines changed; `pnpm lint` fails on the character.
 
    - ~~**Luminous materials**~~ (user's request, 2026-11-01, on branch `design/luminous-next`): four rounds on a
-     Hallmark specimen (`tools/directions/luminous-next/`, its README has every change), then ported -
+     Hallmark specimen (kept out of the repository), then ported -
      [ADR-0010](docs/architecture/adr/0010-luminous-materials-glass-depth-liquid-chrome.md). Glass is a thick slab
      (bevels, split-colour rims, an opt-in `data-caustic`, `data-tier="clear"`), `radius.l` is 40 px; checkbox, radio,
      switch, tabs, segmented control and fields are one mid-grey liquid-chrome set with engraved marks that moves only

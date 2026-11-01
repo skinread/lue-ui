@@ -12,8 +12,8 @@
 C2 · Chroma Luminous was right in spirit but quiet in practice: on a dark canvas the glass read as grey boxes with
 nothing behind them to bend, the primary button looked almost like the neutral one, the chrome ring was an even grey,
 and the light lived only in the progress bar. The user asked for the glass and prismatic, reflective surfaces to be
-made more luminous, and art-directed four rounds on a specimen (`tools/directions/luminous-next/`, branch
-`design/luminous-next`, 2026-11-01):
+made more luminous, and art-directed four rounds on a Hallmark specimen page (kept out of the repository; this ADR
+records what it settled), 2026-11-01:
 
 1. More luminous light, with wide-gamut colour for light only; drop the sparks on the primary's hover.
 2. Real refraction at the edge of glass; light that follows the pointer (later removed); a richer pearl theme.
@@ -46,8 +46,8 @@ renders - and the contracts declare what it writes. Without it, each selected op
 
 **Not adopted.** Real refraction and dispersion through an SVG filter in `backdrop-filter` render only in Chromium, and
 no engine can be feature-detected for rendering it; an engine that parses but doesn't render it would lose the whole
-filter. The specimen detects Chromium by name. The library doesn't sniff engines, so the lens stays in the specimen
-until it can be detected or is Baseline. Light that follows the pointer was tried and removed at the user's request.
+filter. The specimen detected Chromium by name. The library doesn't sniff engines, so the lens stays out of the
+library until it can be detected or is Baseline. Light that follows the pointer was tried and removed at the user's request.
 
 ## Consequences
 
