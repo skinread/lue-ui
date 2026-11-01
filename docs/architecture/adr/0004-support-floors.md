@@ -17,7 +17,7 @@ inclusion question, not just a compatibility one.
 
 1. **Fidelity floor: Baseline newly available.** The full design, behaviour and accessibility rely only on features
    available in Chrome, Firefox and Safari. Everything newer is progressive enhancement with an accessible fallback.
-2. **No inclusion exception (user's decision, 2026-10-11).** Lue UI ships no polyfills. On Safari older than 26.2 a
+2. **No inclusion exception (2026-10-11).** Lue UI ships no polyfills. On Safari older than 26.2 a
    `command="show-modal"` button does nothing, and `closedby` light dismiss is absent (Esc and the dialog's own
    buttons still close it). React's `<Dialog open>` opens with `showModal()` from state, so React apps that open
    dialogs from state are not affected (proved in [Spike A](../spikes/spike-a-dialog-menu.md)); HTML-only consumers

@@ -47,14 +47,10 @@ means Storybook isn't running.
 
 ### Design tools and privacy
 
-**The Claude Design canvas and the Claude Design System stay private (user's rule, 2026-10-05).** No design MCP may
+**The Claude Design canvas and the Claude Design System stay private.** No design MCP may
 share, publish or change the visibility of either, or copy their content anywhere public or organisation-wide. Design
-tools follow the same flow as before: Claude proposes, the user art-directs, the result is codified in the token source
+tools follow the same flow as before: Claude proposes, a maintainer art-directs, the result is codified in the token source
 (`packages/tokens/src`) and the contracts, where the contrast and material gates check it. `/design-sync` is a skill
-the user starts; don't call the DesignSync tool outside it.
+a maintainer starts; don't call the DesignSync tool outside it.
 
-## Running things from the Claude app on a Mac
-
-- If a browser fails to launch in `pnpm test`, set `TMPDIR` to the session's scratchpad.
-- Firefox can't start from the Claude app on macOS; run `pnpm test:engines` or rely on CI for it.
-- Long runs (`pnpm test`, `pnpm test:engines`) go in the background.
+Personal notes for your own machine go in `CLAUDE.local.md` (gitignored).

@@ -8,7 +8,7 @@ primary reference for agents working in this repo.
 
 ## Current state
 
-- **Pass 3 (tracer bullet) is done but for Spike C** (the user starts `/design-sync`; `pnpm design-kit` builds its
+- **Pass 3 (tracer bullet) is done but for Spike C** (a maintainer starts `/design-sync`; `pnpm design-kit` builds its
   input); **Pass 4 (all of Tier 1, contract-driven keyboard coverage, `llms.txt` and an MCP server) is done; Pass 5
   (Tier 2, docs pages, the Storybook MCP addon, contract-generated guidelines, first public release) is in progress -
   only the release, Spike C and the manual screen-reader pass are left.** `packages/tokens/src` is the hand-edited DTCG source, built by Terrazzo with contrast and material gates;
@@ -24,17 +24,17 @@ primary reference for agents working in this repo.
   `summary` and `guidance`), an adapter with JSDoc on every prop, stories and `tests/<component>/` that press every key its keyboard map names, or `pnpm check`
   fails. Visual baselines are Linux-only: update them with
   `pnpm vitest run tests/visual --update` on Linux and review the PNGs. Every
-  package is `"private": true` - **nothing is published to npm yet** (user's decision, 2026-10-11).
+  package is `"private": true` - **nothing is published to npm yet**.
 - `tools/directions/` holds dependency-free design scripts (contrast checks, the Claude Design canvas and Design System
   generators) - see its [README](tools/directions/README.md).
-- **The Claude Design files stay private (user's rule, 2026-10-05).** The canvas and the Claude Design System are never
+- **The Claude Design files stay private.** The canvas and the Claude Design System are never
   shared within the organisation or made public. The library itself is open source and will be published to npm and
   GitHub - but creating orgs, pushing and publishing are outward-facing, so ask first.
 - **Git:** work directly on `develop`, no feature branches. Commit as you go, in logical units with conventional
-  messages (`docs:`, `feat(tools):`, `chore:`). `develop` is the default branch (2026-10-24); `main` holds only the initial commit. The remote is `origin` (private:
-  `skinread/lue-ui` on GitHub, added 2026-10-24); push `develop` only when asked.
+  messages (`docs:`, `feat(tools):`, `chore:`). `develop` is the default branch (2026-10-24); `main` holds only the initial commit. The remote is `origin`
+  (`skinread/lue-ui` on GitHub, public); push `develop` only when asked.
 
-- **No em dashes, escaped or not (user's rules, 2026-10-24 and 2026-10-25).** Write a normal dash (`-`): never the em
+- **No em dashes, escaped or not.** Write a normal dash (`-`): never the em
   dash character, and never a dash as a Unicode escape (backslash, `u`, `2014`). When a script writes JSON, keep
   characters unescaped (Python: `ensure_ascii=False`). `pnpm lint` fails on either (`tools/check-text.mjs`).
 
@@ -77,8 +77,8 @@ Full map: [docs/README.md](docs/README.md).
 ## Name and identifiers
 
 **Lue UI** ([ADR-0008](docs/architecture/adr/0008-name-lue-ui.md)): CSS prefix `lue`, slug `lue-ui`, npm scope `@lue-ui/*`
-(provisional - fallback `@lueui/*`), global `LueUI`. The local folder is still `never-ui`, and the canvas mockups'
-internal classes still use `ns-`; both are fine.
+(provisional - fallback `@lueui/*`), global `LueUI`. The canvas mockups' internal classes still use `ns-`, the
+working title's prefix; that's fine.
 
 ## Tooling (from Pass 3)
 

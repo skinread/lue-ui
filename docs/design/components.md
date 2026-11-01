@@ -91,7 +91,7 @@ that open a Dialog or Drawer do nothing - ADR-0004), 2 use an opt-in behaviour, 
 
 ## Content blocks - portfolio and editorial (Pass 2)
 
-Added 2026-10-05, when the user moved the focus from commerce to portfolio and blog sites. Blocks are **compositions**
+Added 2026-10-05, when the focus moved from commerce to portfolio and blog sites. Blocks are **compositions**
 of the components above, shipped as documented HTML recipes first (React adapters render the same markup). Each is
 drawn on the C2 canvas.
 

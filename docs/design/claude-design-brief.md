@@ -232,7 +232,7 @@ components. Colours gently dance as elements are used; any glitter or glow is ve
 palette towards a subdued, futuristic, prismatic neon, and see where it leads.
 
 - **Colour:** pearl (light) and obsidian (dark) neutrals at hue 285–290. An expanded **prism** of eight hues - rose,
-  orchid, iris, azure, aqua, mint, citron, amber - ramped at subdued-neon chroma (the user likes these hues). Small
+  orchid, iris, azure, aqua, mint, citron, amber - ramped at subdued-neon chroma. Small
   controls (checkboxes, radios, switches, step numbers) use **multi-tone fills** at one lightness: pastel aqua, mint,
   citron, rose and orchid with obsidian marks in light; jewel aqua, mint, amber, rose and orchid with pearl marks in
   dark. Selected and on states trade chrome for a multi-tone ring dark (or light) enough to stay a 3:1 boundary.
@@ -275,7 +275,7 @@ palette towards a subdued, futuristic, prismatic neon, and see where it leads.
 #### Future exploration
 
 - **Neon spectrum.** Push the prism further into wide-gamut neon (Display P3) inside `@media (color-gamut: p3)`, with
-  sRGB fallbacks and contrast checked in both. Parked by the user on 2026-10-05 - not needed yet. (Also a sticky on
+  sRGB fallbacks and contrast checked in both. Parked on 2026-10-05 - not needed yet. (Also a sticky on
   the canvas.)
 
 ## 8. How we'll judge

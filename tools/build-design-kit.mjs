@@ -3,8 +3,8 @@
 // story's server-rendered HTML, on bundle.css = tokens + fonts + @lue-ui/css, and bundle.js = the elements IIFE, which
 // defines window.LueUI). No React: Claude Design renders the production CSS and elements.
 //
-// Writes tools/directions/out/claude-design-kit/ (gitignored). The Claude Design System is private (user's rule,
-// 2026-10-05): this only builds files locally; uploading them is /design-sync's job, which the user starts.
+// Writes tools/directions/out/claude-design-kit/ (gitignored). The Claude Design System is private: this
+// only builds files locally; uploading them is /design-sync's job, which a maintainer starts.
 // Run with `pnpm design-kit` (it builds the packages and the AI docs first).
 import fs from 'node:fs';
 import path from 'node:path';

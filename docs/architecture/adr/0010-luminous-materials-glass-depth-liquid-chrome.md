@@ -11,7 +11,7 @@
 
 C2 · Chroma Luminous was right in spirit but quiet in practice: on a dark canvas the glass read as grey boxes with
 nothing behind them to bend, the primary button looked almost like the neutral one, the chrome ring was an even grey,
-and the light lived only in the progress bar. The user asked for the glass and prismatic, reflective surfaces to be
+and the light lived only in the progress bar. The maintainer asked for the glass and prismatic, reflective surfaces to be
 made more luminous, and art-directed four rounds on a Hallmark specimen page (kept out of the repository; this ADR
 records what it settled), 2026-11-01:
 
@@ -47,7 +47,7 @@ renders - and the contracts declare what it writes. Without it, each selected op
 **Not adopted.** Real refraction and dispersion through an SVG filter in `backdrop-filter` render only in Chromium, and
 no engine can be feature-detected for rendering it; an engine that parses but doesn't render it would lose the whole
 filter. The specimen detected Chromium by name. The library doesn't sniff engines, so the lens stays out of the
-library until it can be detected or is Baseline. Light that follows the pointer was tried and removed at the user's request.
+library until it can be detected or is Baseline. Light that follows the pointer was tried and removed.
 
 ## Consequences
 
@@ -64,6 +64,6 @@ library until it can be detected or is Baseline. Light that follows the pointer 
 ## Alternatives considered
 
 - **Keep C2 as it was** and only brighten the ambient light: the glass would still have nothing to bend.
-- **Chrome near white:** tried first; the user toned it toward a mid grey.
+- **Chrome near white:** tried first, then toned toward a mid grey.
 - **Pointer-following light:** tried and removed.
 - **Ship the SVG lens with engine detection by name:** rejected for the library (above).
