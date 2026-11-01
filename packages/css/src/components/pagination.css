@@ -1,0 +1,25 @@
+/* Pagination - <nav class="lue-pagination"><ul>, the current page from aria-current="page". Page links behave like
+   quiet buttons (a tint on hover, pressed in while held); the current page is the raised chrome key, its number
+   engraved, as a selected tab is (ADR-0010). */
+@layer lue.components {
+  .lue-pagination > ul { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; list-style: none; margin: 0; padding: 0; }
+  .lue-pagination a:where(:not(.lue-button)) { display: inline-grid; place-items: center; min-inline-size: 44px; min-block-size: 44px; border-radius: var(--lue-radius-full); color: var(--lue-color-fg-default); text-decoration: none; transition: background-color var(--lue-motion-duration-slow) var(--lue-motion-ease-standard); }
+  .lue-pagination a:where(:not(.lue-button):hover) { background-color: var(--lue-material-button-tint); }
+  .lue-pagination a:where(:not(.lue-button):active) { background-color: var(--lue-material-button-pressed); box-shadow: var(--lue-well-shadow); }
+  .lue-pagination a:where([aria-current="page"]) {
+    color: var(--lue-material-engrave);
+    text-shadow: 0 1px 0 var(--lue-material-engrave-lift);
+    background: var(--lue-liquid-key);
+    box-shadow: var(--lue-raised);
+    font-weight: 600;
+  }
+}
+
+/* Increased contrast: the current page is an outlined, opaque disc. Forced colours: the current page is the selected
+   pair. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-pagination a[aria-current="page"]) { color: var(--lue-color-fg-default); text-shadow: none; background: var(--lue-color-bg-surface); box-shadow: inset 0 0 0 2px var(--lue-color-fg-default); }
+  @media (forced-colors: active) {
+    :where(.lue-pagination a[aria-current="page"]) { background: SelectedItem; color: SelectedItemText; text-shadow: none; forced-color-adjust: none; }
+  }
+}

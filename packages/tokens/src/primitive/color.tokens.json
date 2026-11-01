@@ -1,0 +1,909 @@
+{
+  "$description": "Primitive colour: the neutral ramp and the eight-hue prism. Step names are lightness × 100. Never public CSS.",
+  "color": {
+    "neutral": {
+      "15": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.15,
+            0.022,
+            285
+          ],
+          "hex": "#0a0a14"
+        },
+        "$description": "Neutral at lightness 0.15 (hue 285)."
+      },
+      "19": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.19,
+            0.022,
+            285
+          ],
+          "hex": "#13121d"
+        },
+        "$description": "Neutral at lightness 0.19 (hue 285)."
+      },
+      "23": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.23,
+            0.022,
+            285
+          ],
+          "hex": "#1c1c27"
+        },
+        "$description": "Neutral at lightness 0.23 (hue 285)."
+      },
+      "30": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.3,
+            0.022,
+            285
+          ],
+          "hex": "#2c2c39"
+        },
+        "$description": "Neutral at lightness 0.3 (hue 285)."
+      },
+      "40": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.4,
+            0.022,
+            285
+          ],
+          "hex": "#464653"
+        },
+        "$description": "Neutral at lightness 0.4 (hue 285)."
+      },
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.5,
+            0.022,
+            285
+          ],
+          "hex": "#626270"
+        },
+        "$description": "Neutral at lightness 0.5 (hue 285)."
+      },
+      "60": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.6,
+            0.008,
+            285
+          ],
+          "hex": "#7f8085"
+        },
+        "$description": "Neutral at lightness 0.6 (hue 285)."
+      },
+      "70": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.7,
+            0.008,
+            285
+          ],
+          "hex": "#9e9ea3"
+        },
+        "$description": "Neutral at lightness 0.7 (hue 285)."
+      },
+      "80": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.008,
+            285
+          ],
+          "hex": "#bdbdc3"
+        },
+        "$description": "Neutral at lightness 0.8 (hue 285)."
+      },
+      "90": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.9,
+            0.008,
+            285
+          ],
+          "hex": "#dddde3"
+        },
+        "$description": "Neutral at lightness 0.9 (hue 285)."
+      },
+      "95": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.95,
+            0.008,
+            285
+          ],
+          "hex": "#eeeef4"
+        },
+        "$description": "Neutral at lightness 0.95 (hue 285)."
+      },
+      "98": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.98,
+            0.008,
+            285
+          ],
+          "hex": "#f8f8fe"
+        },
+        "$description": "Neutral at lightness 0.98 (hue 285)."
+      }
+    },
+    "prism": {
+      "rose": {
+        "36": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.36,
+              0.132,
+              0
+            ],
+            "hex": "#6f0f3a"
+          },
+          "$description": "rose at lightness 0.36, subdued-neon chroma."
+        },
+        "46": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.46,
+              0.16,
+              0
+            ],
+            "hex": "#992154"
+          },
+          "$description": "rose at lightness 0.46, subdued-neon chroma."
+        },
+        "56": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.16,
+              0
+            ],
+            "hex": "#bb4271"
+          },
+          "$description": "rose at lightness 0.56, subdued-neon chroma."
+        },
+        "66": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.66,
+              0.16,
+              0
+            ],
+            "hex": "#dd628e"
+          },
+          "$description": "rose at lightness 0.66, subdued-neon chroma."
+        },
+        "76": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.76,
+              0.141,
+              0
+            ],
+            "hex": "#f889ad"
+          },
+          "$description": "rose at lightness 0.76, subdued-neon chroma."
+        },
+        "84": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.84,
+              0.086,
+              0
+            ],
+            "hex": "#fab3c8"
+          },
+          "$description": "rose at lightness 0.84, subdued-neon chroma."
+        },
+        "92": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.92,
+              0.04,
+              0
+            ],
+            "hex": "#fddae3"
+          },
+          "$description": "rose at lightness 0.92, subdued-neon chroma."
+        }
+      },
+      "orchid": {
+        "36": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.36,
+              0.157,
+              318
+            ],
+            "hex": "#5d1170"
+          },
+          "$description": "orchid at lightness 0.36, subdued-neon chroma."
+        },
+        "46": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.46,
+              0.16,
+              318
+            ],
+            "hex": "#7b3290"
+          },
+          "$description": "orchid at lightness 0.46, subdued-neon chroma."
+        },
+        "56": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.16,
+              318
+            ],
+            "hex": "#9a50b0"
+          },
+          "$description": "orchid at lightness 0.56, subdued-neon chroma."
+        },
+        "66": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.66,
+              0.16,
+              318
+            ],
+            "hex": "#ba6fd1"
+          },
+          "$description": "orchid at lightness 0.66, subdued-neon chroma."
+        },
+        "76": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.76,
+              0.16,
+              318
+            ],
+            "hex": "#db8ef2"
+          },
+          "$description": "orchid at lightness 0.76, subdued-neon chroma."
+        },
+        "84": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.84,
+              0.112,
+              318
+            ],
+            "hex": "#e9b3fa"
+          },
+          "$description": "orchid at lightness 0.84, subdued-neon chroma."
+        },
+        "92": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.92,
+              0.054,
+              318
+            ],
+            "hex": "#f4dafc"
+          },
+          "$description": "orchid at lightness 0.92, subdued-neon chroma."
+        }
+      },
+      "iris": {
+        "36": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.36,
+              0.16,
+              285
+            ],
+            "hex": "#3a248b"
+          },
+          "$description": "iris at lightness 0.36, subdued-neon chroma."
+        },
+        "46": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.46,
+              0.16,
+              285
+            ],
+            "hex": "#5343ac"
+          },
+          "$description": "iris at lightness 0.46, subdued-neon chroma."
+        },
+        "56": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.16,
+              285
+            ],
+            "hex": "#6e62cd"
+          },
+          "$description": "iris at lightness 0.56, subdued-neon chroma."
+        },
+        "66": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.66,
+              0.16,
+              285
+            ],
+            "hex": "#8a81ef"
+          },
+          "$description": "iris at lightness 0.66, subdued-neon chroma."
+        },
+        "76": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.76,
+              0.115,
+              285
+            ],
+            "hex": "#a9a6f7"
+          },
+          "$description": "iris at lightness 0.76, subdued-neon chroma."
+        },
+        "84": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.84,
+              0.074,
+              285
+            ],
+            "hex": "#c5c4fa"
+          },
+          "$description": "iris at lightness 0.84, subdued-neon chroma."
+        },
+        "92": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.92,
+              0.036,
+              285
+            ],
+            "hex": "#e1e2fc"
+          },
+          "$description": "iris at lightness 0.92, subdued-neon chroma."
+        }
+      },
+      "azure": {
+        "36": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.36,
+              0.092,
+              250
+            ],
+            "hex": "#0c3f6b"
+          },
+          "$description": "azure at lightness 0.36, subdued-neon chroma."
+        },
+        "46": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.46,
+              0.117,
+              250
+            ],
+            "hex": "#165a96"
+          },
+          "$description": "azure at lightness 0.46, subdued-neon chroma."
+        },
+        "56": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.143,
+              250
+            ],
+            "hex": "#1f77c4"
+          },
+          "$description": "azure at lightness 0.56, subdued-neon chroma."
+        },
+        "66": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.66,
+              0.16,
+              250
+            ],
+            "hex": "#3496ef"
+          },
+          "$description": "azure at lightness 0.66, subdued-neon chroma."
+        },
+        "76": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.76,
+              0.115,
+              250
+            ],
+            "hex": "#76b6f7"
+          },
+          "$description": "azure at lightness 0.76, subdued-neon chroma."
+        },
+        "84": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.84,
+              0.074,
+              250
+            ],
+            "hex": "#a6cffa"
+          },
+          "$description": "azure at lightness 0.84, subdued-neon chroma."
+        },
+        "92": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.92,
+              0.036,
+              250
+            ],
+            "hex": "#d3e7fc"
+          },
+          "$description": "azure at lightness 0.92, subdued-neon chroma."
+        }
+      },
+      "aqua": {
+        "36": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.36,
+              0.055,
+              205
+            ],
+            "hex": "#0f454b"
+          },
+          "$description": "aqua at lightness 0.36, subdued-neon chroma."
+        },
+        "46": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.46,
+              0.071,
+              205
+            ],
+            "hex": "#17636b"
+          },
+          "$description": "aqua at lightness 0.46, subdued-neon chroma."
+        },
+        "56": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.086,
+              205
+            ],
+            "hex": "#23838c"
+          },
+          "$description": "aqua at lightness 0.56, subdued-neon chroma."
+        },
+        "66": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.66,
+              0.101,
+              205
+            ],
+            "hex": "#2fa4af"
+          },
+          "$description": "aqua at lightness 0.66, subdued-neon chroma."
+        },
+        "76": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.76,
+              0.117,
+              205
+            ],
+            "hex": "#39c6d4"
+          },
+          "$description": "aqua at lightness 0.76, subdued-neon chroma."
+        },
+        "84": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.84,
+              0.129,
+              205
+            ],
+            "hex": "#43e2f2"
+          },
+          "$description": "aqua at lightness 0.84, subdued-neon chroma."
+        },
+        "92": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.92,
+              0.075,
+              205
+            ],
+            "hex": "#a8f4fc"
+          },
+          "$description": "aqua at lightness 0.92, subdued-neon chroma."
+        }
+      },
+      "mint": {
+        "36": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.36,
+              0.066,
+              168
+            ],
+            "hex": "#0d4836"
+          },
+          "$description": "mint at lightness 0.36, subdued-neon chroma."
+        },
+        "46": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.46,
+              0.084,
+              168
+            ],
+            "hex": "#18674f"
+          },
+          "$description": "mint at lightness 0.46, subdued-neon chroma."
+        },
+        "56": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.102,
+              168
+            ],
+            "hex": "#238769"
+          },
+          "$description": "mint at lightness 0.56, subdued-neon chroma."
+        },
+        "66": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.66,
+              0.12,
+              168
+            ],
+            "hex": "#2fa984"
+          },
+          "$description": "mint at lightness 0.66, subdued-neon chroma."
+        },
+        "76": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.76,
+              0.139,
+              168
+            ],
+            "hex": "#39cda0"
+          },
+          "$description": "mint at lightness 0.76, subdued-neon chroma."
+        },
+        "84": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.84,
+              0.153,
+              168
+            ],
+            "hex": "#43eab7"
+          },
+          "$description": "mint at lightness 0.84, subdued-neon chroma."
+        },
+        "92": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.92,
+              0.11,
+              168
+            ],
+            "hex": "#97fdd7"
+          },
+          "$description": "mint at lightness 0.92, subdued-neon chroma."
+        }
+      },
+      "citron": {
+        "36": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.36,
+              0.076,
+              118
+            ],
+            "hex": "#3a420b"
+          },
+          "$description": "citron at lightness 0.36, subdued-neon chroma."
+        },
+        "46": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.46,
+              0.096,
+              118
+            ],
+            "hex": "#545f15"
+          },
+          "$description": "citron at lightness 0.46, subdued-neon chroma."
+        },
+        "56": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.117,
+              118
+            ],
+            "hex": "#6f7d1f"
+          },
+          "$description": "citron at lightness 0.56, subdued-neon chroma."
+        },
+        "66": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.66,
+              0.138,
+              118
+            ],
+            "hex": "#8b9d29"
+          },
+          "$description": "citron at lightness 0.66, subdued-neon chroma."
+        },
+        "76": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.76,
+              0.159,
+              118
+            ],
+            "hex": "#a9be33"
+          },
+          "$description": "citron at lightness 0.76, subdued-neon chroma."
+        },
+        "84": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.84,
+              0.16,
+              118
+            ],
+            "hex": "#c2d851"
+          },
+          "$description": "citron at lightness 0.84, subdued-neon chroma."
+        },
+        "92": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.92,
+              0.16,
+              118
+            ],
+            "hex": "#dbf36e"
+          },
+          "$description": "citron at lightness 0.92, subdued-neon chroma."
+        }
+      },
+      "amber": {
+        "36": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.36,
+              0.07,
+              72
+            ],
+            "hex": "#53360a"
+          },
+          "$description": "amber at lightness 0.36, subdued-neon chroma."
+        },
+        "46": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.46,
+              0.089,
+              72
+            ],
+            "hex": "#764f14"
+          },
+          "$description": "amber at lightness 0.46, subdued-neon chroma."
+        },
+        "56": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.108,
+              72
+            ],
+            "hex": "#9b691d"
+          },
+          "$description": "amber at lightness 0.56, subdued-neon chroma."
+        },
+        "66": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.66,
+              0.127,
+              72
+            ],
+            "hex": "#c28428"
+          },
+          "$description": "amber at lightness 0.66, subdued-neon chroma."
+        },
+        "76": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.76,
+              0.147,
+              72
+            ],
+            "hex": "#eaa031"
+          },
+          "$description": "amber at lightness 0.76, subdued-neon chroma."
+        },
+        "84": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.84,
+              0.118,
+              72
+            ],
+            "hex": "#fabe70"
+          },
+          "$description": "amber at lightness 0.84, subdued-neon chroma."
+        },
+        "92": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.92,
+              0.056,
+              72
+            ],
+            "hex": "#fddfbc"
+          },
+          "$description": "amber at lightness 0.92, subdued-neon chroma."
+        }
+      }
+    }
+  }
+}

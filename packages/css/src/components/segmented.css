@@ -1,0 +1,53 @@
+/* Segmented control - a radio group drawn as one pill of options: <fieldset class="lue-segmented"> with a legend and
+   .lue-segmented__options holding <label class="lue-segmented__option"><input type="radio">Text</label>. The radio
+   covers its label invisibly, so it keeps its keyboard model (arrow keys), its name and its form value. Contract:
+   apps/docs/contracts/segmented-control.json. */
+@layer lue.components {
+  .lue-segmented { min-inline-size: 0; margin: 0; padding: 0; border: 0; }
+  .lue-segmented > :where(legend) { padding: 0; margin-block-end: var(--lue-space-2xs); font-weight: 600; }
+  /* The same well and chrome key as Tabs (ADR-0010); the liquid behaviour (data-lue-liquid) draws one key and passes
+     it between options. */
+  .lue-segmented__options {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--lue-space-3xs);
+    padding: var(--lue-space-3xs);
+    border: var(--lue-border-width-thick) solid transparent;
+    border-radius: 26px;
+    background: linear-gradient(var(--lue-well), var(--lue-well)) padding-box, conic-gradient(from 200deg, var(--lue-chrome-stops)) border-box;
+    box-shadow: var(--lue-well-shadow);
+  }
+  .lue-segmented__option {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    min-block-size: var(--lue-size-target-min);
+    padding-inline: var(--lue-space-m);
+    border-radius: var(--lue-radius-full);
+    color: var(--lue-color-fg-muted);
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .lue-segmented__option > :where(input) { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: inherit; }
+  .lue-segmented__option:where(:hover) { color: var(--lue-color-fg-default); }
+  .lue-segmented__option:where(:has(:checked)) {
+    color: var(--lue-material-engrave);
+    text-shadow: 0 1px 0 var(--lue-material-engrave-lift);
+    background: var(--lue-liquid-key);
+    box-shadow: var(--lue-raised);
+  }
+  .lue-segmented__options:where([data-lue-liquid]) .lue-segmented__option:where(:has(:checked)) { background: none; box-shadow: none; }
+  .lue-segmented__option:where(:has(:focus-visible)) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: 1px; }
+  .lue-segmented__option:where(:has(:disabled)) { opacity: 0.55; cursor: not-allowed; }
+}
+
+/* Increased contrast: a solid boundary and an opaque, inverted checked option. Forced colours: SelectedItem for the
+   checked one. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-segmented__options) { border-color: var(--lue-color-border-strong); background: var(--lue-field-bg); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-segmented__option:has(:checked)) { background: var(--lue-color-fg-default); color: var(--lue-color-bg-canvas); text-shadow: none; box-shadow: none; }
+  @media (forced-colors: active) {
+    :where(.lue-segmented__options) { border: 1px solid CanvasText; }
+    :where(.lue-segmented__option:has(:checked)) { background: SelectedItem; color: SelectedItemText; text-shadow: none; }
+  }
+}

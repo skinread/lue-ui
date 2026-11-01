@@ -1,0 +1,53 @@
+/* Swatch picker - a radio group of colours, each with its name always visible: <fieldset class="lue-fieldset"> holding
+   .lue-swatches of <label class="lue-swatch"><input type="radio"><span class="lue-swatch__chip"
+   style="--lue-swatch: …"></span>Name</label>. Never colour alone. Contract: apps/docs/contracts/swatch-picker.json.
+   Part of the liquid-chrome set (ADR-0010): each swatch is a well in a chrome bezel; the chosen one is the raised
+   chrome key with its name engraved. The chip is a glass bead: the colour under a specular highlight. */
+@layer lue.components {
+  .lue-swatches { display: flex; flex-wrap: wrap; gap: var(--lue-space-2xs); }
+  .lue-swatch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--lue-space-2xs);
+    min-block-size: var(--lue-size-target-min);
+    padding-block: 3px;
+    padding-inline: 3px var(--lue-space-s);
+    border: var(--lue-border-width-thick) solid transparent;
+    border-radius: var(--lue-radius-full);
+    background: linear-gradient(var(--lue-well), var(--lue-well)) padding-box, conic-gradient(from 200deg, var(--lue-chrome-stops)) border-box;
+    box-shadow: var(--lue-well-shadow);
+    cursor: pointer;
+  }
+  .lue-swatch > :where(input) { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: inherit; border-radius: inherit; }
+  .lue-swatch__chip {
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    flex: none;
+    border-radius: 50%;
+    /* eslint-disable-next-line css/no-invalid-properties -- the last layer is a var() colour, which the parser can't read */
+    background: radial-gradient(70% 60% at 36% 26%, var(--lue-material-specular), transparent 62%), var(--lue-swatch, transparent);
+    box-shadow: inset 0 0 0 1px oklch(0 0 0 / 0.25), inset 0 -3px 5px oklch(0 0 0 / 0.22), 0 1px 2px var(--lue-material-well-depth);
+  }
+  .lue-swatch:where(:has(:checked)) {
+    background: var(--lue-liquid-key) padding-box, conic-gradient(from 180deg, var(--lue-chrome-stops)) border-box;
+    box-shadow: var(--lue-raised);
+    color: var(--lue-material-engrave);
+    text-shadow: 0 1px 0 var(--lue-material-engrave-lift);
+    font-weight: 600;
+  }
+  .lue-swatch:where(:has(:focus-visible)) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: 2px; }
+  .lue-swatch:where(:has(:disabled)) { opacity: 0.55; cursor: not-allowed; }
+}
+
+/* Increased contrast: a solid boundary and an opaque fill; the chosen swatch takes a thick fg-default edge. Forced
+   colours: the chip keeps its colour (it's the content) with a CanvasText edge; the checked swatch is SelectedItem. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-swatch) { background: var(--lue-color-bg-surface); border-color: var(--lue-color-border-strong); box-shadow: none; }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-swatch:has(:checked)) { color: var(--lue-color-fg-default); text-shadow: none; border-color: var(--lue-color-fg-default); box-shadow: inset 0 0 0 1px var(--lue-color-fg-default); }
+  @media (forced-colors: active) {
+    :where(.lue-swatch__chip) { forced-color-adjust: none; box-shadow: 0 0 0 1px CanvasText; }
+    :where(.lue-swatch) { background: Canvas; border-color: CanvasText; }
+    :where(.lue-swatch:has(:checked)) { background: SelectedItem; color: SelectedItemText; border-color: SelectedItem; text-shadow: none; }
+  }
+}

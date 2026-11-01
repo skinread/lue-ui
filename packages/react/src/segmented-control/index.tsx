@@ -1,0 +1,46 @@
+import type { ChangeEventHandler, ComponentPropsWithRef, ReactNode } from 'react';
+import { cx } from '../cx.js';
+
+export interface SegmentedControlProps extends Omit<ComponentPropsWithRef<'fieldset'>, 'children' | 'onChange' | 'defaultValue'> {
+  /** The group's name, e.g. "View"; visually hidden is fine when the options say enough. */
+  legend: ReactNode;
+  /** The radios' shared name. */
+  name: string;
+  /** Each option: its value, its visible label, and whether it's unavailable. Two to five work best. */
+  options: { value: string; label: ReactNode; disabled?: boolean | undefined }[];
+  /** The option chosen first, when uncontrolled. */
+  defaultValue?: string | undefined;
+  /** Controlled value; pair it with onChange. */
+  value?: string | undefined;
+  /** Called with the radio's change event; `event.target.value` is the new value. */
+  onChange?: ChangeEventHandler<HTMLInputElement> | undefined;
+}
+
+/**
+ * `<fieldset class="lue-segmented">`: a radio group drawn as one pill. Arrow keys move the choice, natively. With
+ * `<LueElements/>` mounted once, the checked option's key flows between options (the liquid key, which writes only
+ * `data-lue-liquid` and `--lue-key-*` on the options); without it each checked option draws its own. Contract:
+ * apps/docs/contracts/segmented-control.json.
+ */
+export function SegmentedControl({ legend, name, options, defaultValue, value, onChange, className, ...props }: SegmentedControlProps): ReactNode {
+  return (
+    <fieldset {...props} className={cx('lue-segmented', className)}>
+      <legend>{legend}</legend>
+      <div className="lue-segmented__options">
+        {options.map((o) => (
+          <label key={o.value} className="lue-segmented__option">
+            <input
+              type="radio"
+              name={name}
+              value={o.value}
+              disabled={o.disabled}
+              {...(value === undefined ? { defaultChecked: o.value === defaultValue } : { checked: o.value === value })}
+              onChange={onChange}
+            />
+            {o.label}
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  );
+}

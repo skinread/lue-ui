@@ -1,0 +1,19 @@
+{
+  "name": "@lue-ui/fixture-tailwind",
+  "private": true,
+  "type": "module",
+  "description": "Consumer fixture: Tailwind v4 (Vite plugin) with the @theme bridge",
+  "scripts": {
+    "build": "vite build",
+    "check": "node ../check.js dist --tailwind"
+  },
+  "dependencies": {
+    "@lue-ui/css": "workspace:*",
+    "@lue-ui/tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.3",
+    "tailwindcss": "4.3.3",
+    "vite": "8.3.4"
+  }
+}

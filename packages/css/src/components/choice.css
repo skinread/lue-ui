@@ -1,0 +1,136 @@
+/* Checkbox, Radio group and Switch - native inputs drawn with appearance: none, so they keep their semantics, keyboard
+   and form behaviour. Groups are a <fieldset class="lue-fieldset"> with a <legend>; each choice sits inside its
+   <label class="lue-choice">. Switch is <input type="checkbox" role="switch">. Contracts: apps/docs/contracts/
+   checkbox.json, radio-group.json, switch.json. Focus and invalid come from here; the bezel from field.css.
+
+   One liquid-chrome set (ADR-0010): off is a recessed well in a chrome bezel; on is polished chrome. Like liquid
+   metal, and only when the state changes: a checkbox's chrome rises to fill its well (its reflection moves as it
+   fills) and then the tick is engraved; a radio's ball wells up from the centre; a switch's ball rolls while prism
+   light pours in behind it; the bezel turns half a revolution. Nothing moves on hover. */
+@layer lue.components {
+  .lue-fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: var(--lue-space-2xs); min-inline-size: 0; }
+  .lue-fieldset > :where(legend) { font-weight: 600; padding: 0; margin-block-end: var(--lue-space-2xs); }
+  .lue-choice { display: flex; gap: var(--lue-space-xs); align-items: center; min-block-size: var(--lue-size-target-min); cursor: pointer; }
+  .lue-choice:where(:has(:disabled)) { color: var(--lue-color-fg-muted); cursor: not-allowed; }
+
+  .lue-checkbox, .lue-radio {
+    appearance: none;
+    margin: 0;
+    inline-size: 24px;
+    block-size: 24px;
+    display: inline-grid;
+    place-content: center;
+    flex: none;
+  }
+  .lue-checkbox { border-radius: var(--lue-radius-xs); }
+  .lue-radio { border-radius: 50%; }
+
+  /* The well, with chrome waiting below it at 0% tall, and the bezel. */
+  .lue-checkbox, .lue-radio, .lue-switch {
+    background:
+      var(--lue-liquid-body) bottom / 100% 0% no-repeat padding-box,
+      linear-gradient(var(--lue-well), var(--lue-well)) padding-box,
+      conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
+    box-shadow: var(--lue-well-shadow);
+    transition:
+      --lue-angle var(--lue-motion-duration-slow) var(--lue-motion-ease-standard),
+      background-size var(--lue-motion-duration-slow) var(--lue-motion-ease-standard);
+  }
+  .lue-checkbox:where(:checked, :indeterminate), .lue-radio:where(:checked), .lue-switch:where(:checked) { --lue-angle: 180deg; }
+
+  .lue-checkbox:where(:checked, :indeterminate) { background-size: 100% 100%, auto, auto; box-shadow: var(--lue-raised); }
+  .lue-checkbox:where(:checked)::after {
+    content: "";
+    inline-size: 11px;
+    block-size: 6px;
+    border-inline-start: 2.5px solid var(--lue-material-engrave);
+    border-block-end: 2.5px solid var(--lue-material-engrave);
+    rotate: -45deg;
+    translate: 0 -1px;
+  }
+  .lue-checkbox:where(:indeterminate)::after { content: ""; inline-size: 10px; block-size: 2.5px; background: var(--lue-material-engrave); }
+  /* Engraved once the chrome has risen. */
+  .lue-checkbox:where(:checked, :indeterminate)::after {
+    filter: drop-shadow(0 1px 0 var(--lue-material-engrave-lift));
+    transition: opacity var(--lue-motion-duration-slow) var(--lue-motion-ease-standard) calc(var(--lue-motion-duration-slow) / 2);
+  }
+  @starting-style {
+    .lue-checkbox:where(:checked, :indeterminate)::after { opacity: 0; }
+  }
+
+  .lue-radio:where(:checked)::after {
+    content: "";
+    inline-size: 12px;
+    block-size: 12px;
+    border-radius: 50%;
+    background: var(--lue-liquid-ball);
+    box-shadow: 0 0 0 1px var(--lue-material-liquid-rim), 0 2px 3px var(--lue-material-well-depth);
+    transition: scale var(--lue-motion-duration-slow) var(--lue-motion-ease-standard);
+  }
+  @starting-style {
+    .lue-radio:where(:checked)::after { scale: 0; }
+  }
+
+  /* Switch: prism light pours in from the start edge behind the rolling ball. */
+  .lue-switch { appearance: none; margin: 0; inline-size: 52px; block-size: 30px; border-radius: var(--lue-radius-full); position: relative; flex: none; }
+  .lue-switch {
+    /* eslint-disable-next-line css/no-invalid-properties -- the stop list is one var() (a gradient token), which the parser can't expand */
+    background: linear-gradient(100deg, var(--lue-prism-fill)) left / 0% 100% no-repeat padding-box, linear-gradient(var(--lue-well), var(--lue-well)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
+  }
+  .lue-switch:where(:dir(rtl)) { background-position: right, 0 0, 0 0; }
+  .lue-switch:where(:checked) { background-size: 100% 100%, auto, auto; box-shadow: var(--lue-well-shadow), 0 6px 18px -8px var(--lue-material-light-pool); }
+  .lue-switch::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 3px;
+    inset-inline-start: 3px;
+    inline-size: 20px;
+    block-size: 20px;
+    border-radius: 50%;
+    background: var(--lue-liquid-ball);
+    box-shadow: 0 0 0 1px var(--lue-material-liquid-rim), 0 2px 4px var(--lue-material-well-depth);
+    transition: translate var(--lue-motion-duration-slow) var(--lue-motion-ease-standard);
+  }
+  .lue-switch:where(:checked)::before { translate: 22px 0; }
+  .lue-switch:where(:checked:dir(rtl))::before { translate: -22px 0; }
+
+  /* Last, so they win over every surface above. */
+  .lue-checkbox:where([aria-invalid="true"]:not(:checked, :indeterminate)), .lue-radio:where([aria-invalid="true"]:not(:checked)), .lue-switch:where([aria-invalid="true"]:not(:checked)) {
+    background: linear-gradient(var(--lue-well), var(--lue-well)) padding-box, linear-gradient(var(--lue-color-fg-critical), var(--lue-color-fg-critical)) border-box;
+    box-shadow: inset 0 0 0 1px var(--lue-color-fg-critical);
+  }
+  .lue-checkbox:where(:focus-visible), .lue-radio:where(:focus-visible), .lue-switch:where(:focus-visible) {
+    outline: var(--lue-focus-width) solid var(--lue-color-focus-ring);
+    outline-offset: 3px;
+    box-shadow: var(--lue-well-shadow), 0 0 0 7px var(--lue-focus-glow);
+  }
+  .lue-checkbox:where(:disabled), .lue-radio:where(:disabled), .lue-switch:where(:disabled) { opacity: 0.55; cursor: not-allowed; }
+}
+
+/* Increased contrast: a solid boundary, opaque fills and the high-contrast beads instead of chrome. Forced colours:
+   Field, SelectedItem when checked, and marks and thumbs in system colours so they stay visible on either. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-checkbox, .lue-radio, .lue-switch) { background: var(--lue-field-bg); border-color: var(--lue-color-border-strong); }
+
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-checkbox:checked, .lue-checkbox:indeterminate, .lue-switch:checked) { background: linear-gradient(135deg, var(--lue-prism-fill)) padding-box, linear-gradient(var(--lue-color-fg-default), var(--lue-color-fg-default)) border-box; }
+
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-radio:checked) { background: radial-gradient(circle, var(--lue-color-fg-on-accent) 0 3.5px, transparent 4px) padding-box, linear-gradient(135deg, var(--lue-prism-fill)) padding-box, linear-gradient(var(--lue-color-fg-default), var(--lue-color-fg-default)) border-box; }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-radio:checked)::after { content: none; }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-checkbox:checked, .lue-checkbox:indeterminate)::after { border-color: var(--lue-color-fg-on-accent); filter: none; }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-checkbox:indeterminate)::after { background: var(--lue-color-fg-on-accent); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-switch)::before { background: var(--lue-bead); box-shadow: 0 0 0 1px var(--lue-bead-rim); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-switch:checked)::before { background: var(--lue-bead-on); box-shadow: 0 0 0 1px var(--lue-bead-on-rim); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-checkbox, .lue-radio, .lue-switch)[aria-invalid="true"] { border-color: var(--lue-color-fg-critical); box-shadow: inset 0 0 0 1px var(--lue-color-fg-critical); }
+  @media (forced-colors: active) {
+    :where(.lue-checkbox, .lue-radio, .lue-switch) { background: Field; border-color: FieldText; }
+    :where(.lue-checkbox:checked, .lue-checkbox:indeterminate, .lue-switch:checked) { background: SelectedItem; border-color: SelectedItem; }
+    /* Gradients are dropped in forced colours, so the dot is a pseudo-element with a system background. */
+    :where(.lue-radio:checked) { background: SelectedItem; border-color: SelectedItem; }
+    :where(.lue-radio:checked)::after { content: ""; inline-size: 8px; block-size: 8px; border-radius: 50%; background: SelectedItemText; box-shadow: none; }
+    :where(.lue-checkbox:checked)::after { border-color: SelectedItemText; filter: none; }
+    :where(.lue-checkbox:indeterminate)::after { background: SelectedItemText; filter: none; }
+    :where(.lue-switch)::before { background: FieldText; box-shadow: none; }
+    :where(.lue-switch:checked)::before { background: SelectedItemText; }
+    :where(.lue-checkbox, .lue-radio, .lue-switch)[aria-invalid="true"] { border-width: var(--lue-border-width-thick); }
+  }
+}

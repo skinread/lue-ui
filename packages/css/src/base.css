@@ -1,0 +1,18 @@
+/* Base element styles (opt-in, RFC-0001 §2). Moved from the Claude Design System seed (Pass 2). */
+@layer lue.base {
+  :where(body) {
+    margin: 0;
+    background: var(--lue-color-bg-canvas);
+    color: var(--lue-color-fg-default);
+    font-family: var(--lue-font-family-body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  :where(h1, h2, h3, h4) { font-family: var(--lue-font-family-display); font-weight: 480; letter-spacing: -0.02em; line-height: 1.15; text-wrap: balance; margin: 0; }
+  :where(p) { margin: 0; text-wrap: pretty; }
+  :where(a) { color: var(--lue-color-fg-accent); text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+  :where(code, pre, kbd) { font-family: var(--lue-font-family-mono); }
+  :where(:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); }
+  :where([hidden]) { display: none; }
+}

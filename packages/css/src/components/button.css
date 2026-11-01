@@ -1,0 +1,170 @@
+/* Button - <button type="button" class="lue-button">. Contract: apps/docs/contracts/button.json.
+   Variants: data-variant (primary, danger, quiet; neutral without it), data-size (sm, lg), data-icon-only.
+   State comes from the platform only: :hover, :active, :focus-visible, :disabled, [aria-disabled], [aria-pressed].
+   The chrome ring is the shared ::before from chrome.css; its angle is set on the ring itself, literally. A primary's
+   prism light pools at its base, and on hover one specular glint sweeps across it (ADR-0010). Pressing pushes any
+   button into the glass (a well's inner shadow); aria-pressed="true" raises the same chrome key, with its label
+   engraved, that marks the selected tab or segment. */
+@layer lue.components {
+  .lue-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    min-block-size: max(var(--lue-size-target-min), var(--lue-size-control-md));
+    min-inline-size: max(var(--lue-size-target-min), var(--lue-size-control-md));
+    padding-block: 0;
+    padding-inline: calc(1.625rem * var(--lue-density));
+    border-radius: var(--lue-button-radius);
+    color: var(--lue-color-fg-default);
+    background-color: var(--lue-material-button-tint);
+    background-image: linear-gradient(180deg, var(--lue-button-sheen) 0%, transparent 52%);
+    backdrop-filter: var(--lue-button-filter);
+    box-shadow: var(--lue-button-depth), inset 0 1px 0 var(--lue-material-specular), var(--lue-shadow-control);
+    font: 600 1rem/1.2 var(--lue-font-family-body);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-position var(--lue-motion-duration-slow) var(--lue-motion-ease-standard),
+      background-color var(--lue-motion-duration-slow) var(--lue-motion-ease-standard),
+      box-shadow var(--lue-motion-duration-slow) var(--lue-motion-ease-standard),
+      scale var(--lue-motion-duration-fast) var(--lue-motion-ease-standard);
+  }
+  /* A glass parent is already a backdrop root; blurring again inside it does nothing but cost. */
+  :where(.lue-card, .lue-dialog, .lue-menu, .lue-glass, .lue-toc, .lue-author, .lue-cta, .lue-project, .lue-post, .lue-site-header__bar) .lue-button {
+    backdrop-filter: none;
+  }
+  .lue-button__icon { inline-size: 1.25em; block-size: 1.25em; flex: none; fill: currentColor; }
+
+  /* ---- variants */
+  .lue-button:where([data-variant="primary"]) {
+    background-color: var(--lue-material-button-prism-base);
+    background-image:
+      linear-gradient(180deg, var(--lue-button-sheen) 0%, transparent 52%),
+      radial-gradient(closest-side, var(--lue-material-iridescence-1), transparent),
+      radial-gradient(closest-side, var(--lue-material-iridescence-2), transparent),
+      radial-gradient(closest-side, var(--lue-material-iridescence-3), transparent),
+      radial-gradient(closest-side, var(--lue-material-iridescence-4), transparent),
+      radial-gradient(closest-side, var(--lue-material-iridescence-5), transparent);
+    background-size: 100% 100%, 72% 230%, 62% 210%, 72% 230%, 64% 220%, 58% 210%;
+    background-position: 0 0, -8% 108%, 106% 104%, 72% 126%, 24% 130%, 50% 116%;
+    background-repeat: no-repeat;
+    box-shadow: var(--lue-button-depth), inset 0 1px 0 var(--lue-material-specular), 0 10px 26px -14px var(--lue-material-light-pool), 0 12px 30px -18px var(--lue-material-light-pool-warm);
+  }
+  /* The glint: a band of light parked off the start edge, swept across to the far side on hover. */
+  .lue-button:where([data-variant="primary"])::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: var(--lue-glint) 100% 0 / 300% 100% no-repeat;
+    mix-blend-mode: plus-lighter;
+    transition: background-position 900ms var(--lue-motion-ease-standard);
+  }
+  .lue-button:where([data-variant="danger"]) { background-color: var(--lue-material-button-danger); }
+  .lue-button:where([data-variant="danger"])::before { background: linear-gradient(var(--lue-color-fg-critical), var(--lue-color-fg-critical)); }
+  .lue-button:where([data-variant="quiet"]) {
+    color: var(--lue-color-fg-accent);
+    background-color: transparent;
+    background-image: none;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+  .lue-button:where([data-variant="quiet"])::before {
+    opacity: 0;
+    transition:
+      opacity var(--lue-motion-duration-slow) var(--lue-motion-ease-standard),
+      --lue-angle var(--lue-motion-duration-slow) var(--lue-motion-ease-standard);
+  }
+  .lue-button:where([data-size="sm"]) {
+    min-block-size: max(var(--lue-size-target-min), var(--lue-size-control-sm));
+    min-inline-size: max(var(--lue-size-target-min), var(--lue-size-control-sm));
+    padding-inline: calc(1.125rem * var(--lue-density));
+    font-size: 0.9375rem;
+  }
+  .lue-button:where([data-size="lg"]) {
+    min-block-size: max(var(--lue-size-target-min), var(--lue-size-control-lg));
+    padding-inline: calc(2.125rem * var(--lue-density));
+  }
+  .lue-button:where([data-icon-only]) { padding-inline: 0; inline-size: max(var(--lue-size-target-min), var(--lue-size-control-md)); }
+  .lue-button:where([data-icon-only][data-size="sm"]) { inline-size: max(var(--lue-size-target-min), var(--lue-size-control-sm)); }
+  .lue-button:where([data-icon-only][data-size="lg"]) { inline-size: max(var(--lue-size-target-min), var(--lue-size-control-lg)); }
+
+  /* ---- states */
+  .lue-button:where(:hover) { box-shadow: var(--lue-button-depth), var(--lue-shadow-glow-soft); }
+  .lue-button:where(:hover)::before { --lue-angle: 150deg; }
+  .lue-button:where([data-variant="primary"]:hover) {
+    background-position: 0 0, 28% 106%, 78% 100%, 104% 122%, -6% 120%, 60% 104%;
+    box-shadow: var(--lue-button-depth), inset 0 1px 0 var(--lue-material-specular), 0 14px 30px -12px var(--lue-material-light-pool), 0 16px 36px -16px var(--lue-material-light-pool-warm);
+  }
+  .lue-button:where([data-variant="primary"]:hover)::after { background-position: 0 0; }
+  .lue-button:where([data-variant="danger"]:hover) { box-shadow: var(--lue-button-depth), var(--lue-shadow-glow-critical); }
+  .lue-button:where([data-variant="quiet"]:hover) { background-color: var(--lue-material-button-tint); box-shadow: none; }
+  .lue-button:where([data-variant="quiet"]:hover)::before { opacity: 1; }
+  /* Pressed in while held: the light at the top edge goes, a well's shadow falls inside it. */
+  .lue-button:where(:active) { background-color: var(--lue-material-button-pressed); box-shadow: var(--lue-well-shadow); scale: 0.985; }
+  .lue-button:where([data-variant="danger"]:active) { background-color: var(--lue-material-button-danger); }
+  .lue-button:where([data-variant="primary"]:active) {
+    background-color: var(--lue-material-button-prism-base-active);
+    background-position: 0 0, 50% 100%, 18% 118%, 82% 120%, 40% 140%, 92% 100%;
+    box-shadow: var(--lue-well-shadow), 0 6px 18px -12px var(--lue-material-light-pool);
+  }
+  /* Focus appears at once: box-shadow doesn't transition while focused, so the glow arrives with the outline. */
+  .lue-button:where(:focus-visible) {
+    outline: var(--lue-focus-width) solid var(--lue-color-focus-ring);
+    outline-offset: var(--lue-focus-offset);
+    box-shadow: var(--lue-button-depth), 0 0 0 7px var(--lue-focus-glow), 0 0 26px 2px var(--lue-focus-glow);
+    transition-property: background-position, background-color, scale;
+  }
+  .lue-button:where(:focus-visible)::before { --lue-angle: 220deg; }
+  /* On: the raised chrome key, label engraved (the tab and segment selection). */
+  .lue-button:where([aria-pressed="true"]) {
+    color: var(--lue-material-engrave);
+    text-shadow: 0 1px 0 var(--lue-material-engrave-lift);
+    background-color: transparent;
+    background-image: var(--lue-liquid-key);
+    box-shadow: var(--lue-raised);
+  }
+  .lue-button:where([aria-pressed="true"]:active) { box-shadow: var(--lue-well-shadow); }
+  .lue-button:where(:disabled, [aria-disabled="true"]) {
+    background-color: var(--lue-material-button-tint);
+    background-image: none;
+    color: var(--lue-color-fg-muted);
+    box-shadow: none;
+    scale: 1;
+    cursor: not-allowed;
+  }
+  .lue-button:where(:disabled, [aria-disabled="true"])::before { opacity: 0.45; }
+  .lue-button:where(:disabled, [aria-disabled="true"])::after { content: none; }
+
+  .lue-link { color: var(--lue-color-fg-accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+  .lue-link:where(:hover) { text-decoration-thickness: 2px; }
+}
+
+/* Increased contrast and reduced transparency: an opaque fill and a solid ring. Forced colours: system colours, with
+   pressed as the selected pair. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button) { backdrop-filter: none; background-color: var(--lue-color-bg-surface); background-image: none; }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[data-variant="primary"]) { background-color: var(--lue-color-bg-accent-subtle); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[data-variant="danger"]) { background-color: var(--lue-color-bg-critical-subtle); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[data-variant="quiet"]) { background-color: transparent; }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[aria-pressed="true"]) { color: var(--lue-color-fg-default); text-shadow: none; }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[aria-pressed="true"])::before { padding: 2px; background: var(--lue-color-fg-default); }
+  @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+    :where(.lue-button) { backdrop-filter: none; background-image: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.lue-button) { background: ButtonFace; color: ButtonText; border-color: ButtonText; backdrop-filter: none; }
+    :where(.lue-button)::after { content: none; }
+    :where(.lue-button[aria-pressed="true"]) { background: SelectedItem; color: SelectedItemText; border-color: SelectedItem; text-shadow: none; }
+    :where(.lue-button:disabled, .lue-button[aria-disabled="true"]) { color: GrayText; border-color: GrayText; }
+  }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[data-variant="primary"])::after { content: none; }
+  @media (prefers-reduced-motion: reduce) {
+    /* No sweep: the glint stays parked. */
+    :where(.lue-button)::after { transition: none; }
+    :where(.lue-button[data-variant="primary"]:hover)::after { background-position: 100% 0; }
+  }
+}

@@ -1,0 +1,6 @@
+/* The Tailwind recipe from ADR-0002: tokens, the @theme bridge, and Lue's CSS in Tailwind's components layer so
+   utilities still win. */
+@import "tailwindcss";
+@import "@lue-ui/tokens/tokens.css";
+@import "@lue-ui/tokens/tailwind.css";
+@import "@lue-ui/css" layer(components);

@@ -1,0 +1,71 @@
+import { fileURLToPath } from 'node:url';
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
+import react from '@vitejs/plugin-react';
+import { playwright } from '@vitest/browser-playwright';
+import { defineConfig } from 'vitest/config';
+import { emulateMedia, focusTestFrame } from './tests/emulation/commands.js';
+
+const source = (path: string) => fileURLToPath(new URL(path, import.meta.url));
+
+// Deterministic text rendering for the visual baselines: browsers on Linux read fontconfig, whose defaults differ between
+// machines (subpixel on one, greyscale on another). Other platforms don't use it.
+if (process.platform === 'linux') process.env.FONTCONFIG_FILE ??= source('./tests/fonts.conf');
+
+// Every test runs in Chromium, Firefox and WebKit (ADR-0005). Instances are named "<project> (<browser>)", so CI can
+// shard by engine with --project "*(chromium)".
+// A fresh object per project: Vitest writes the instance names into it.
+const browser = () => ({
+  enabled: true,
+  headless: true,
+  provider: playwright(),
+  commands: { emulateMedia, focusTestFrame },
+  instances: [{ browser: 'chromium' as const }, { browser: 'firefox' as const }, { browser: 'webkit' as const }],
+  // Visual regression (tests/visual): tolerate anti-aliasing noise between machines, not a changed component.
+  expect: { toMatchScreenshot: { comparatorName: 'pixelmatch' as const, comparatorOptions: { allowedMismatchedPixelRatio: 0.005 } } },
+});
+
+// Tests run against package sources, not builds (tokens.css is the exception: `pnpm test` builds it first).
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: [
+      { find: /^@lue-ui\/elements\/define$/, replacement: source('./packages/elements/src/define.ts') },
+      { find: /^@lue-ui\/elements\/validate$/, replacement: source('./packages/elements/src/validate/controller.ts') },
+      { find: /^@lue-ui\/elements\/menu$/, replacement: source('./packages/elements/src/menu/controller.ts') },
+      { find: /^@lue-ui\/elements$/, replacement: source('./packages/elements/src/index.ts') },
+      { find: /^@lue-ui\/react$/, replacement: source('./packages/react/src/index.ts') },
+    ],
+  },
+  test: {
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: 'unit',
+          // A file's first test pays the cold start (styles, fonts, the engine itself). With about 80 files starting at
+          // once on a CI runner, WebKit took up to 19 s for it (later tests about 1 s), past the 15 s default.
+          testTimeout: 30_000,
+          include: ['packages/*/src/**/*.browser.test.{ts,tsx}', 'tests/**/*.browser.test.{ts,tsx}'],
+          setupFiles: ['tests/support/setup.ts'],
+          browser: browser(),
+        },
+      },
+      {
+        // Static markup: every story rendered on the server must be valid HTML and pass html-eslint (ADR-0005).
+        extends: true,
+        test: { name: 'markup', environment: 'node', include: ['tests/markup/*.test.tsx'] },
+      },
+      {
+        // The AI surfaces: the MCP server over stdio, reading the docs tools/build-ai-docs.mjs generates.
+        extends: true,
+        test: { name: 'tools', environment: 'node', include: ['tests/tools/*.test.ts'] },
+      },
+      {
+        // Every story is a test: it renders, its play function passes, and axe finds nothing (a11y.test: 'error').
+        extends: true,
+        plugins: [storybookTest({ configDir: source('./apps/docs/.storybook') })],
+        test: { name: 'storybook', testTimeout: 30_000, browser: browser() },
+      },
+    ],
+  },
+});

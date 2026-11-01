@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(pnpm check)",
+      "Bash(pnpm check-*)",
+      "Bash(pnpm lint)",
+      "Bash(pnpm typecheck)",
+      "Bash(pnpm build)",
+      "Bash(pnpm docs-ai)",
+      "Bash(pnpm design-kit)",
+      "Bash(pnpm fixtures)",
+      "Bash(pnpm test)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm vitest run:*)",
+      "Bash(pnpm --filter @lue-ui/tokens build)",
+      "Bash(node tools/check-text.mjs:*)",
+      "Bash(node tools/check-contracts.mjs)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "mcp__lue-ui",
+      "mcp__lue-ui-storybook"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(pnpm publish:*)",
+      "Bash(npm publish:*)",
+      "Bash(pnpm changeset publish:*)",
+      "Bash(gh repo edit:*)",
+      "Bash(gh release:*)"
+    ]
+  },
+  "enabledMcpjsonServers": ["lue-ui", "lue-ui-storybook"],
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [{ "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-start.sh" }] }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [{ "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/check-text.mjs" }]
+      }
+    ]
+  }
+}

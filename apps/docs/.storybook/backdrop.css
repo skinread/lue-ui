@@ -1,0 +1,35 @@
+/* Storybook only: the light the stories sit in, so glass has something to bend and blur (ADR-0010). Lue's ambient
+   light plus a beam and a fan of spectrum rays, from the material.light tokens. Never behind text that isn't on a
+   surface of its own for long, and gone in increased contrast, reduced transparency and forced colours, like the
+   library's own light. The toolbar's Backdrop switch turns it off. */
+.sb-light { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: clip; }
+.sb-light[data-fixed] { position: fixed; }
+.sb-light::before {
+  content: "";
+  position: absolute;
+  inset-block-start: -30%;
+  inset-inline-start: 62%;
+  inline-size: 12%;
+  block-size: 110%;
+  background: linear-gradient(90deg, transparent, var(--lue-material-light-pool) 30%, var(--lue-material-glint-core) 50%, var(--lue-material-light-pool) 70%, transparent);
+  filter: blur(22px);
+  rotate: 28deg;
+  opacity: 0.7;
+}
+.sb-light::after {
+  content: "";
+  position: absolute;
+  inset-block-start: -6%;
+  inset-inline-start: -6%;
+  inline-size: 64%;
+  block-size: 96%;
+  background: conic-gradient(from 196deg at 100% 0%, transparent 0deg, var(--lue-material-light-rose) 6deg, var(--lue-material-light-amber) 12deg,
+    var(--lue-material-light-citron) 18deg, var(--lue-material-light-mint) 24deg, var(--lue-material-light-aqua) 30deg,
+    var(--lue-material-light-azure) 36deg, transparent 44deg);
+  filter: blur(20px);
+  opacity: 0.75;
+}
+:where([data-theme$="-more"]) .sb-light { display: none; }
+@media (prefers-contrast: more), (prefers-reduced-transparency: reduce), (forced-colors: active) {
+  .sb-light { display: none; }
+}

@@ -1,0 +1,65 @@
+/* Chrome hairline ring shared by every glass and chrome component, the .lue-chrome pill, and icons. Moved from the
+   Claude Design System seed (Pass 2). Components turn the ring by setting --lue-angle on their ::before. */
+@layer lue.components {
+  /* ---------------------------------------------------------------- chrome hairline ring (shared) */
+  :where(.lue-button, .lue-card, .lue-dialog:not(:modal), .lue-menu:not([popover]), .lue-popover:not([popover]), .lue-tag, .lue-alert, .lue-toast:not([popover]), .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"]) { position: relative; }
+  :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-popover, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"]) {
+    border: var(--lue-border-width-thin) solid transparent; /* visible in forced colours */
+  }
+  :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-popover, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before {
+    content: "";
+    position: absolute;
+    inset: calc(var(--lue-border-width-thin) * -1);
+    border-radius: inherit;
+    padding: var(--lue-border-width-thin);
+    pointer-events: none;
+    background: conic-gradient(from var(--lue-angle), var(--lue-chrome-stops));
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    /* The angle is set on the ring itself (--lue-angle doesn't inherit), so only the ring restyles as it turns. */
+    transition: --lue-angle var(--lue-motion-duration-slow) var(--lue-motion-ease-standard);
+  }
+  .lue-chrome { border-radius: var(--lue-radius-full); }
+
+  .lue-icon { inline-size: 1.25em; block-size: 1.25em; flex: none; fill: currentColor; }
+  .lue-icon:where([data-mirror]:dir(rtl)) { scale: -1 1; }
+
+  /* ---------------------------------------------------------------- the liquid key (ADR-0010)
+     Tabs and the segmented control share one chrome key, drawn by their container and placed on the selected option
+     by the liquid behaviour (@lue-ui/elements/liquid), which sets data-lue-liquid and --lue-key-x/y/w/h and flows the
+     key when the selection changes (translate and scale only). Without the behaviour each selected option draws its
+     own key. */
+  :where(.lue-tabs__list, .lue-segmented__options):where([data-lue-liquid]) { position: relative; isolation: isolate; }
+  :where(.lue-tabs__list, .lue-segmented__options):where([data-lue-liquid])::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset-inline-start: 0;
+    inset-block-start: var(--lue-key-y);
+    inline-size: var(--lue-key-w);
+    block-size: var(--lue-key-h);
+    translate: calc(var(--lue-key-x) * var(--lue-key-dir, 1)) 0;
+    transform-origin: left center;
+    border-radius: var(--lue-radius-full);
+    background: var(--lue-liquid-key);
+    box-shadow: var(--lue-raised);
+    pointer-events: none;
+  }
+  :where(.lue-tabs__list, .lue-segmented__options):where([data-lue-liquid]:dir(rtl)) { --lue-key-dir: -1; }
+  :where(.lue-tabs__list, .lue-segmented__options):where([data-lue-liquid]:dir(rtl))::before { transform-origin: right center; }
+}
+
+/* The ring in increased contrast and reduced transparency: one solid strong line. Forced colours: removed; the
+   transparent border shows instead. */
+@layer lue.contrast {
+  /* The shared key gives way to each option's own high-contrast or system-colour selection. */
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-tabs__list, .lue-segmented__options)[data-lue-liquid]::before { content: none; }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-popover, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before { background: var(--lue-color-border-strong); }
+  @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+    :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-popover, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before { background: var(--lue-color-border-strong); }
+  }
+  @media (forced-colors: active) {
+    :where(.lue-tabs__list, .lue-segmented__options)[data-lue-liquid]::before { content: none; }
+    :where(.lue-button, .lue-card, .lue-dialog, .lue-menu, .lue-popover, .lue-tag, .lue-alert, .lue-toast, .lue-glass, .lue-chrome, .lue-site-header__bar, .lue-toc, .lue-author, .lue-cta, .lue-code, .lue-project, .lue-post[data-variant="card"])::before { content: none; }
+    :where(.lue-chrome) { border-color: CanvasText; background-color: Canvas; background-image: none; }
+  }
+}

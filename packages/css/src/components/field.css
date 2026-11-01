@@ -1,0 +1,59 @@
+/* Field and TextInput - a label, an optional hint, an error message and one control. Contract:
+   apps/docs/contracts/field.json. The error message is in the markup from the start, hidden and empty, and is
+   referenced by the control's aria-describedby; the validate behaviour (or the React adapter) fills it and unhides it.
+   Invalid state comes from aria-invalid, or from :user-invalid when nothing manages it. The surface and states below
+   are shared by every text-like control: input, textarea and select - a recessed well in a chrome bezel (ADR-0010),
+   whose ring never moves - and the bezel by the choice controls. */
+@layer lue.components {
+  .lue-field { display: grid; gap: var(--lue-space-2xs); }
+  .lue-field__label { font-weight: 600; font-size: 1rem; line-height: 1.3; }
+  .lue-field__hint { margin: 0; font-size: 0.9375rem; color: var(--lue-color-fg-muted); }
+  .lue-field__error { display: flex; gap: 0.4em; align-items: center; margin: 0; color: var(--lue-color-fg-critical); font-size: 0.9375rem; font-weight: 600; }
+
+  .lue-input, .lue-select, .lue-textarea, .lue-checkbox, .lue-radio, .lue-switch {
+    border: var(--lue-border-width-thick) solid transparent;
+    color: var(--lue-color-fg-default);
+  }
+  .lue-input, .lue-select, .lue-textarea {
+    --lue-angle: 200deg;
+    /* eslint-disable-next-line css/no-invalid-properties -- the stop list is one var() (a gradient token), which the parser can't expand */
+    background: linear-gradient(var(--lue-field-bg), var(--lue-field-bg)) padding-box, conic-gradient(from var(--lue-angle), var(--lue-chrome-stops)) border-box;
+    box-shadow: var(--lue-well-shadow);
+  }
+  .lue-input, .lue-select, .lue-textarea {
+    /* Inputs and textareas are content-box by default, so 100% plus padding and border would overflow the field. */
+    box-sizing: border-box;
+    inline-size: 100%;
+    min-block-size: max(var(--lue-size-target-min), var(--lue-size-control-md));
+    padding-inline: calc(1.125rem * var(--lue-density));
+    border-radius: var(--lue-field-radius);
+    font: 400 1.0625rem/1.4 var(--lue-font-family-body);
+  }
+  .lue-textarea { padding-block: 0.75rem; field-sizing: content; min-block-size: 6lh; }
+
+  /* ---- states. Focus appears at once: an outline and a glow, nothing transitions. */
+  .lue-input:where(:focus-visible), .lue-select:where(:focus-visible), .lue-textarea:where(:focus-visible) {
+    outline: var(--lue-focus-width) solid var(--lue-color-focus-ring);
+    outline-offset: var(--lue-focus-offset);
+    box-shadow: var(--lue-well-shadow), 0 0 0 7px var(--lue-focus-glow);
+  }
+  .lue-input:where([aria-invalid="true"], :not([aria-invalid]):user-invalid),
+  .lue-textarea:where([aria-invalid="true"], :not([aria-invalid]):user-invalid),
+  .lue-select:where([aria-invalid="true"]) {
+    background: linear-gradient(var(--lue-field-bg), var(--lue-field-bg)) padding-box, linear-gradient(var(--lue-color-fg-critical), var(--lue-color-fg-critical)) border-box;
+    box-shadow: inset 0 0 0 1px var(--lue-color-fg-critical);
+  }
+  .lue-input:where(:disabled), .lue-select:where(:disabled), .lue-textarea:where(:disabled) { color: var(--lue-color-fg-muted); cursor: not-allowed; }
+}
+
+/* Increased contrast: a solid boundary instead of chrome; invalid fields get a thicker critical boundary. Forced
+   colours: Field / FieldText, and invalid fields keep a 2 px boundary so they don't rely on colour. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-input, .lue-select, .lue-textarea) { background: var(--lue-field-bg); border-color: var(--lue-color-border-strong); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-input, .lue-select, .lue-textarea)[aria-invalid="true"] { border-color: var(--lue-color-fg-critical); box-shadow: inset 0 0 0 1px var(--lue-color-fg-critical); }
+  @media (forced-colors: active) {
+    :where(.lue-input, .lue-select, .lue-textarea) { background: Field; color: FieldText; border-color: FieldText; }
+    :where(.lue-input, .lue-select, .lue-textarea)[aria-invalid="true"] { border-width: var(--lue-border-width-thick); }
+    :where(.lue-input, .lue-select, .lue-textarea):disabled { color: GrayText; border-color: GrayText; }
+  }
+}

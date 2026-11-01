@@ -1,0 +1,2666 @@
+{
+  "$description": "C2 · Chroma Luminous materials, light. Decoration: every piece has an opaque fallback (prefers-reduced-transparency, prefers-contrast: more, no backdrop-filter) and is removed in forced colours.",
+  "$extensions": {
+    "lue": {
+      "scheme": "light"
+    }
+  },
+  "material": {
+    "glass": {
+      "overlay": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.995,
+            0.003,
+            290
+          ],
+          "hex": "#fdfdff",
+          "alpha": 0.84
+        },
+        "$description": "Overlay glass tint: menus, popovers, cards, sticky bars. Checked worst-case over white, black and every fill."
+      },
+      "modal": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.995,
+            0.003,
+            290
+          ],
+          "hex": "#fdfdff",
+          "alpha": 0.8
+        },
+        "$description": "Modal glass tint: dialogs, over the scrim."
+      },
+      "blur": {
+        "$type": "dimension",
+        "$value": {
+          "value": 22,
+          "unit": "px"
+        },
+        "$description": "Backdrop blur for overlay and modal glass."
+      },
+      "saturate": {
+        "$type": "number",
+        "$value": 1.7,
+        "$description": "Backdrop saturate() for glass."
+      },
+      "contrast": {
+        "$type": "number",
+        "$value": 0.65,
+        "$description": "Backdrop contrast() that compresses the range behind glass, so text stays legible."
+      },
+      "brightness": {
+        "$type": "number",
+        "$value": 1.12,
+        "$description": "Backdrop brightness() for glass."
+      },
+      "dome": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.995,
+            0.003,
+            290
+          ],
+          "hex": "#fdfdff",
+          "alpha": 0.6
+        },
+        "$description": "Glass sheen: the dome of light inside the top edge. Contrast is checked where it overlaps the streak."
+      },
+      "streak": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.995,
+            0.003,
+            290
+          ],
+          "hex": "#fdfdff",
+          "alpha": 0.4
+        },
+        "$description": "Glass sheen: a thin diagonal streak, the reflection of a window."
+      }
+    },
+    "button": {
+      "tint": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.995,
+            0.003,
+            290
+          ],
+          "hex": "#fdfdff",
+          "alpha": 0.5
+        },
+        "$description": "Clear glass button."
+      },
+      "prism-base": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.995,
+            0.003,
+            290
+          ],
+          "hex": "#fdfdff",
+          "alpha": 0.3
+        },
+        "$description": "Base pane of a prism (primary) button."
+      },
+      "prism-base-active": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.995,
+            0.003,
+            290
+          ],
+          "hex": "#fdfdff",
+          "alpha": 0.48
+        },
+        "$description": "Base pane of a pressed primary button."
+      },
+      "danger": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.86,
+            0.07,
+            18
+          ],
+          "hex": "#fcbfc0",
+          "alpha": 0.6
+        },
+        "$description": "Destructive glass button."
+      },
+      "pressed": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.94,
+            0.035,
+            310
+          ],
+          "hex": "#f2e5fd",
+          "alpha": 0.75
+        },
+        "$description": "Pressed toggle button."
+      },
+      "blur": {
+        "$type": "dimension",
+        "$value": {
+          "value": 10,
+          "unit": "px"
+        },
+        "$description": "Backdrop blur for buttons outside a glass parent."
+      },
+      "saturate": {
+        "$type": "number",
+        "$value": 1.8,
+        "$description": "Backdrop saturate() for buttons."
+      },
+      "contrast": {
+        "$type": "number",
+        "$value": 0.7,
+        "$description": "Backdrop contrast() for buttons."
+      },
+      "brightness": {
+        "$type": "number",
+        "$value": 1.06,
+        "$description": "Backdrop brightness() for buttons."
+      },
+      "sheen": {
+        "$type": "number",
+        "$value": 0.35,
+        "$description": "Alpha of the white sheen at the top of a button."
+      },
+      "rim-top": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            1,
+            0,
+            0
+          ],
+          "hex": "#ffffff",
+          "alpha": 0.9
+        },
+        "$description": "Top rim light of a glass button (inset highlight)."
+      },
+      "rim-bottom": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            1,
+            0,
+            0
+          ],
+          "hex": "#ffffff",
+          "alpha": 0.45
+        },
+        "$description": "Bottom rim of a glass button."
+      },
+      "refract": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.75,
+            0.12,
+            205
+          ],
+          "hex": "#2cc3d2",
+          "alpha": 0.55
+        },
+        "$description": "Light refracted along the lower edge of a glass button."
+      }
+    },
+    "iridescence": {
+      "1": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.82,
+            0.12,
+            205
+          ],
+          "hex": "#4ddae9",
+          "alpha": 0.75
+        },
+        "$description": "Prism tone 1 of a primary button (aqua), pooled at its base. No orchid next to azure, so no purple-into-blue step."
+      },
+      "2": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.9,
+            0.13,
+            110
+          ],
+          "hex": "#e3e67b",
+          "alpha": 0.7
+        },
+        "$description": "Prism tone 2 of a primary button (citron), pooled at its base. No orchid next to azure, so no purple-into-blue step."
+      },
+      "3": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.82,
+            0.11,
+            0
+          ],
+          "hex": "#ffa6c1",
+          "alpha": 0.7
+        },
+        "$description": "Prism tone 3 of a primary button (rose), pooled at its base. No orchid next to azure, so no purple-into-blue step."
+      },
+      "4": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.86,
+            0.12,
+            160
+          ],
+          "hex": "#85e9b6",
+          "alpha": 0.7
+        },
+        "$description": "Prism tone 4 of a primary button (mint), pooled at its base. No orchid next to azure, so no purple-into-blue step."
+      },
+      "5": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.86,
+            0.11,
+            70
+          ],
+          "hex": "#ffc47f",
+          "alpha": 0.7
+        },
+        "$description": "Prism tone 5 of a primary button (amber), pooled at its base. No orchid next to azure, so no purple-into-blue step."
+      }
+    },
+    "ambient": {
+      "rose": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.112,
+            0
+          ],
+          "hex": "#f99fbb",
+          "alpha": 0.28
+        },
+        "$description": "Ambient rose light behind content (checked where text can sit on it, also doubled)."
+      },
+      "orchid": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.12,
+            318
+          ],
+          "hex": "#dea5f0",
+          "alpha": 0.28
+        },
+        "$description": "Ambient orchid light behind content (checked where text can sit on it, also doubled)."
+      },
+      "iris": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.095,
+            285
+          ],
+          "hex": "#b7b5f9",
+          "alpha": 0.28
+        },
+        "$description": "Ambient iris light behind content (checked where text can sit on it, also doubled)."
+      },
+      "azure": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.094,
+            250
+          ],
+          "hex": "#8fc3f8",
+          "alpha": 0.28
+        },
+        "$description": "Ambient azure light behind content (checked where text can sit on it, also doubled)."
+      },
+      "aqua": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.12,
+            205
+          ],
+          "hex": "#44d4e2",
+          "alpha": 0.28
+        },
+        "$description": "Ambient aqua light behind content (checked where text can sit on it, also doubled)."
+      },
+      "mint": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.12,
+            168
+          ],
+          "hex": "#64d6af",
+          "alpha": 0.28
+        },
+        "$description": "Ambient mint light behind content (checked where text can sit on it, also doubled)."
+      },
+      "citron": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.12,
+            118
+          ],
+          "hex": "#b7c86b",
+          "alpha": 0.28
+        },
+        "$description": "Ambient citron light behind content (checked where text can sit on it, also doubled)."
+      },
+      "amber": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.12,
+            72
+          ],
+          "hex": "#edb161",
+          "alpha": 0.28
+        },
+        "$description": "Ambient amber light behind content (checked where text can sit on it, also doubled)."
+      }
+    },
+    "satin": {
+      "0": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.985,
+            0.004,
+            285
+          ],
+          "hex": "#fafafd"
+        },
+        "$description": "Satin fold 0. Hero text is checked against every fold."
+      },
+      "1": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.935,
+            0.014,
+            70
+          ],
+          "hex": "#f0e8e0"
+        },
+        "$description": "Satin fold 1. Hero text is checked against every fold."
+      },
+      "2": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.95,
+            0.012,
+            300
+          ],
+          "hex": "#efedf6"
+        },
+        "$description": "Satin fold 2. Hero text is checked against every fold."
+      },
+      "3": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.905,
+            0.012,
+            280
+          ],
+          "hex": "#dedfe8"
+        },
+        "$description": "Satin fold 3. Hero text is checked against every fold."
+      },
+      "4": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.97,
+            0.008,
+            40
+          ],
+          "hex": "#faf3f1"
+        },
+        "$description": "Satin fold 4. Hero text is checked against every fold."
+      },
+      "5": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            1,
+            0,
+            0
+          ],
+          "hex": "#ffffff"
+        },
+        "$description": "Satin highlight ridge."
+      }
+    },
+    "chrome": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.006,
+              265
+            ],
+            "hex": "#737478"
+          },
+          "position": 0
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.29,
+              0.014,
+              290
+            ],
+            "hex": "#2b2a32"
+          },
+          "position": 0.106
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.38,
+              0.012,
+              285
+            ],
+            "hex": "#414249"
+          },
+          "position": 0.178
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.006,
+              265
+            ],
+            "hex": "#737478"
+          },
+          "position": 0.289
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.51,
+              0.005,
+              240
+            ],
+            "hex": "#646669"
+          },
+          "position": 0.389
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.12,
+              72
+            ],
+            "hex": "#9f6700"
+          },
+          "position": 0.439
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.55,
+              0.128,
+              118
+            ],
+            "hex": "#6c7b00"
+          },
+          "position": 0.467
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.109,
+              168
+            ],
+            "hex": "#008262"
+          },
+          "position": 0.494
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.092,
+              205
+            ],
+            "hex": "#007e88"
+          },
+          "position": 0.522
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.52,
+              0.13,
+              250
+            ],
+            "hex": "#1f6cb0"
+          },
+          "position": 0.55
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.545,
+              0.008,
+              270
+            ],
+            "hex": "#6e7075"
+          },
+          "position": 0.611
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.29,
+              0.014,
+              290
+            ],
+            "hex": "#2b2a32"
+          },
+          "position": 0.689
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.006,
+              265
+            ],
+            "hex": "#737478"
+          },
+          "position": 0.794
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.38,
+              0.012,
+              285
+            ],
+            "hex": "#414249"
+          },
+          "position": 0.889
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.006,
+              265
+            ],
+            "hex": "#737478"
+          },
+          "position": 1
+        }
+      ],
+      "$description": "The chrome hairline as conic stops (position = turn). Every stop is a 3:1 boundary; the band near 0.5 is the dispersion."
+    },
+    "dispersion": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.12,
+              72
+            ],
+            "hex": "#9f6700"
+          },
+          "position": 0
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.55,
+              0.128,
+              118
+            ],
+            "hex": "#6c7b00"
+          },
+          "position": 0.25
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.109,
+              168
+            ],
+            "hex": "#008262"
+          },
+          "position": 0.5
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.092,
+              205
+            ],
+            "hex": "#007e88"
+          },
+          "position": 0.75
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.52,
+              0.13,
+              250
+            ],
+            "hex": "#1f6cb0"
+          },
+          "position": 1
+        }
+      ],
+      "$description": "Dispersed light at the lower edge of chrome: amber → citron → mint → aqua → azure."
+    },
+    "prism-fill": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.82,
+              0.1,
+              205
+            ],
+            "hex": "#6cd7e3"
+          },
+          "position": 0
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.82,
+              0.1,
+              168
+            ],
+            "hex": "#7fd9b8"
+          },
+          "position": 0.25
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.82,
+              0.1,
+              118
+            ],
+            "hex": "#becd82"
+          },
+          "position": 0.5
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.82,
+              0.099,
+              0
+            ],
+            "hex": "#faa9c1"
+          },
+          "position": 0.75
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.82,
+              0.1,
+              318
+            ],
+            "hex": "#e0b0ee"
+          },
+          "position": 1
+        }
+      ],
+      "$description": "Multi-tone fill for small controls (checkbox, radio, switch, steps)."
+    },
+    "prism-fill-active": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.77,
+              0.1,
+              205
+            ],
+            "hex": "#5ac7d2"
+          },
+          "position": 0
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.77,
+              0.1,
+              168
+            ],
+            "hex": "#6fc9a8"
+          },
+          "position": 0.25
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.77,
+              0.1,
+              118
+            ],
+            "hex": "#aebd72"
+          },
+          "position": 0.5
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.77,
+              0.1,
+              0
+            ],
+            "hex": "#e999b1"
+          },
+          "position": 0.75
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.77,
+              0.1,
+              318
+            ],
+            "hex": "#cfa0de"
+          },
+          "position": 1
+        }
+      ],
+      "$description": "Multi-tone fill, pressed."
+    },
+    "prism-ring": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.083,
+              205
+            ],
+            "hex": "#207c86"
+          },
+          "position": 0
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.098,
+              168
+            ],
+            "hex": "#218164"
+          },
+          "position": 0.2
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.113,
+              118
+            ],
+            "hex": "#69771c"
+          },
+          "position": 0.4
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.12,
+              0
+            ],
+            "hex": "#a54d6c"
+          },
+          "position": 0.6
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.12,
+              318
+            ],
+            "hex": "#8b569b"
+          },
+          "position": 0.8
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.54,
+              0.083,
+              205
+            ],
+            "hex": "#207c86"
+          },
+          "position": 1
+        }
+      ],
+      "$description": "Multi-tone ring that replaces chrome on selected and on states; a 3:1 boundary."
+    },
+    "metal": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              1,
+              0,
+              0
+            ],
+            "hex": "#ffffff"
+          },
+          "position": 0
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.955,
+              0.006,
+              285
+            ],
+            "hex": "#eff0f4"
+          },
+          "position": 0.46
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.985,
+              0.004,
+              285
+            ],
+            "hex": "#fafafd"
+          },
+          "position": 0.62
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.94,
+              0.008,
+              285
+            ],
+            "hex": "#eaeaf0"
+          },
+          "position": 1
+        }
+      ],
+      "$description": "Liquid metal for icon tiles and avatars."
+    },
+    "bead-on": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.3,
+          0.015,
+          285
+        ],
+        "hex": "#2d2d35"
+      },
+      "$description": "Switch thumb when on (3:1 against the multi-tone track)."
+    },
+    "chrome-line": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.38,
+          0.012,
+          285
+        ],
+        "hex": "#414249"
+      },
+      "$description": "A single chrome stop for straight hairlines (dividers, pull-quote rules). A 3:1 boundary."
+    },
+    "chrome-text": {
+      "$type": "gradient",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.56,
+              0.008,
+              250
+            ],
+            "hex": "#717579"
+          },
+          "position": 0
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4,
+              0.014,
+              240
+            ],
+            "hex": "#41494f"
+          },
+          "position": 0.36
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.18,
+              0.016,
+              290
+            ],
+            "hex": "#111018"
+          },
+          "position": 0.49
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.24,
+              0.016,
+              290
+            ],
+            "hex": "#1f1e26"
+          },
+          "position": 0.53
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.44,
+              0.04,
+              70
+            ],
+            "hex": "#614f3a"
+          },
+          "position": 0.7
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.58,
+              0.03,
+              75
+            ],
+            "hex": "#857867"
+          },
+          "position": 1
+        }
+      ],
+      "$description": "Chrome for display text clipped to its glyphs: sky above, a dark horizon, a warm floor below. Every stop reaches 3:1 on canvas as large text."
+    },
+    "field": {
+      "bg": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.95,
+            0.008,
+            285
+          ],
+          "hex": "#eeeef4"
+        },
+        "$description": "Field fill: a recessed well in a chrome bezel. Lighter than the choice wells on pearl, so placeholder and hint text keep 4.5:1."
+      },
+      "inset": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.3,
+            0.03,
+            285
+          ],
+          "hex": "#2c2c3c",
+          "alpha": 0.08
+        },
+        "$description": "Inset shade at the top of a field."
+      }
+    },
+    "focus-glow": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.46,
+          0.2,
+          285
+        ],
+        "hex": "#5437c0",
+        "alpha": 0.18
+      },
+      "$description": "Optional halo outside the focus outline; dropped in forced colours. Never the focus indicator on its own."
+    },
+    "bead": {
+      "rest": {
+        "$type": "gradient",
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                1,
+                0,
+                0
+              ],
+              "hex": "#ffffff"
+            },
+            "position": 0
+          },
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.78,
+                0.008,
+                270
+              ],
+              "hex": "#b5b7bd"
+            },
+            "position": 0.46
+          },
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.52,
+                0.012,
+                280
+              ],
+              "hex": "#676870"
+            },
+            "position": 1
+          }
+        ],
+        "$description": "Switch thumb at rest: a lit metal bead (radial, light from the upper left)."
+      },
+      "rest-rim": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.38,
+            0.012,
+            285
+          ],
+          "hex": "#414249"
+        },
+        "$description": "Rim of the resting bead. A 3:1 boundary against the track."
+      },
+      "lit": {
+        "$type": "gradient",
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.6,
+                0.02,
+                285
+              ],
+              "hex": "#7f7f8c"
+            },
+            "position": 0
+          },
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.3,
+                0.015,
+                285
+              ],
+              "hex": "#2d2d35"
+            },
+            "position": 0.48
+          },
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.2,
+                0.02,
+                285
+              ],
+              "hex": "#15151f"
+            },
+            "position": 1
+          }
+        ],
+        "$description": "Switch thumb when on, as a lit bead (radial). Its solid fallback is material.bead-on."
+      },
+      "lit-rim": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.15,
+            0.02,
+            285
+          ],
+          "hex": "#0a0a13"
+        },
+        "$description": "Rim of the lit bead."
+      }
+    },
+    "metal-rim": {
+      "top": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            1,
+            0,
+            0
+          ],
+          "hex": "#ffffff"
+        },
+        "$description": "Top rim light of a metal icon tile."
+      },
+      "bottom": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.82,
+            0.01,
+            285
+          ],
+          "hex": "#c3c3ca",
+          "alpha": 0.6
+        },
+        "$description": "Bottom rim of a metal icon tile."
+      }
+    },
+    "prism-glass": {
+      "top": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            1,
+            0,
+            0
+          ],
+          "hex": "#ffffff",
+          "alpha": 0.92
+        },
+        "$description": "Top of the glass prism illustration."
+      },
+      "bottom": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.92,
+            0.012,
+            285
+          ],
+          "hex": "#e3e4ec",
+          "alpha": 0.8
+        },
+        "$description": "Bottom of the glass prism illustration."
+      },
+      "shadow": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.35,
+            0.05,
+            285
+          ],
+          "hex": "#383754",
+          "alpha": 0.35
+        },
+        "$description": "Shadow under the glass prism illustration."
+      }
+    },
+    "tile-ink": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.29,
+          0.014,
+          290
+        ],
+        "hex": "#2b2a32"
+      },
+      "$description": "Icon colour on a metal tile: the chrome stop at 38°."
+    },
+    "specular": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.995,
+          0.003,
+          290
+        ],
+        "hex": "#fdfdff",
+        "alpha": 0.95
+      },
+      "$description": "Specular rim: the bright line where a top edge meets the light (glass, buttons, wells)."
+    },
+    "liquid": {
+      "sky": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.92,
+            0.006,
+            250
+          ],
+          "hex": "#e2e5e8"
+        },
+        "$description": "Liquid chrome: the sky it reflects, at the top."
+      },
+      "high": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.84,
+            0.008,
+            245
+          ],
+          "hex": "#c6cbcf"
+        },
+        "$description": "Liquid chrome: high in the reflection."
+      },
+      "mid": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.76,
+            0.01,
+            255
+          ],
+          "hex": "#adb1b7"
+        },
+        "$description": "Liquid chrome: the middle, where engraved text sits."
+      },
+      "horizon": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.54,
+            0.014,
+            275
+          ],
+          "hex": "#6c6e77"
+        },
+        "$description": "Liquid chrome: the dark horizon band. Light enough that engraved marks keep 3:1."
+      },
+      "low": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.62,
+            0.016,
+            270
+          ],
+          "hex": "#828690"
+        },
+        "$description": "Liquid chrome: just below the horizon."
+      },
+      "floor": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.82,
+            0.025,
+            72
+          ],
+          "hex": "#cfc2b3"
+        },
+        "$description": "Liquid chrome: the warm floor it reflects, at the bottom."
+      },
+      "rim": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.36,
+            0.016,
+            285
+          ],
+          "hex": "#3c3c45"
+        },
+        "$description": "Liquid chrome: the dark rim round a chrome ball, its boundary against a lit track (3:1)."
+      }
+    },
+    "engrave": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.14,
+          0.02,
+          285
+        ],
+        "hex": "#080811"
+      },
+      "$description": "Engraved ink on liquid chrome: ticks and the selected tab or option name (3:1 marks, 4.5:1 text)."
+    },
+    "engrave-lift": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "oklch",
+        "components": [
+          0.97,
+          0.004,
+          250
+        ],
+        "hex": "#f3f5f8",
+        "alpha": 0.7
+      },
+      "$description": "The light catching the lower edge of an engraving."
+    },
+    "well": {
+      "fill": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.86,
+            0.012,
+            285
+          ],
+          "hex": "#d0d0d9"
+        },
+        "$description": "A recess for choice controls, tabs and the segmented control: off, unselected."
+      },
+      "depth": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.4,
+            0.03,
+            285
+          ],
+          "hex": "#464658",
+          "alpha": 0.4
+        },
+        "$description": "Shadow falling into a recess from its top edge."
+      },
+      "lip": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.995,
+            0.003,
+            250
+          ],
+          "hex": "#fcfeff",
+          "alpha": 0.9
+        },
+        "$description": "Light catching the lip just below a recess, and the inner edge of thick glass."
+      }
+    },
+    "light": {
+      "rose": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.14,
+            5
+          ],
+          "hex": "#ff95b2",
+          "alpha": 0.75
+        },
+        "$description": "Light (rose): caustics, pools and glows. Decoration only, never text or a boundary.",
+        "$extensions": {
+          "lue": {
+            "p3": {
+              "components": [
+                0.78,
+                0.2,
+                5
+              ],
+              "alpha": 0.75
+            }
+          }
+        }
+      },
+      "amber": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.87,
+            0.13,
+            70
+          ],
+          "hex": "#ffc56f",
+          "alpha": 0.8
+        },
+        "$description": "Light (amber): caustics, pools and glows. Decoration only, never text or a boundary.",
+        "$extensions": {
+          "lue": {
+            "p3": {
+              "components": [
+                0.86,
+                0.18,
+                68
+              ],
+              "alpha": 0.8
+            }
+          }
+        }
+      },
+      "citron": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.93,
+            0.15,
+            110
+          ],
+          "hex": "#eef171",
+          "alpha": 0.8
+        },
+        "$description": "Light (citron): caustics, pools and glows. Decoration only, never text or a boundary.",
+        "$extensions": {
+          "lue": {
+            "p3": {
+              "components": [
+                0.94,
+                0.2,
+                112
+              ],
+              "alpha": 0.8
+            }
+          }
+        }
+      },
+      "mint": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.88,
+            0.13,
+            160
+          ],
+          "hex": "#83f2ba",
+          "alpha": 0.78
+        },
+        "$description": "Light (mint): caustics, pools and glows. Decoration only, never text or a boundary.",
+        "$extensions": {
+          "lue": {
+            "p3": {
+              "components": [
+                0.89,
+                0.2,
+                158
+              ],
+              "alpha": 0.78
+            }
+          }
+        }
+      },
+      "aqua": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.86,
+            0.11,
+            205
+          ],
+          "hex": "#6ce6f3",
+          "alpha": 0.78
+        },
+        "$description": "Light (aqua): caustics, pools and glows. Decoration only, never text or a boundary.",
+        "$extensions": {
+          "lue": {
+            "p3": {
+              "components": [
+                0.87,
+                0.16,
+                200
+              ],
+              "alpha": 0.78
+            }
+          }
+        }
+      },
+      "azure": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.11,
+            248
+          ],
+          "hex": "#83c4ff",
+          "alpha": 0.72
+        },
+        "$description": "Light (azure): caustics, pools and glows. Decoration only, never text or a boundary.",
+        "$extensions": {
+          "lue": {
+            "p3": {
+              "components": [
+                0.8,
+                0.16,
+                250
+              ],
+              "alpha": 0.72
+            }
+          }
+        }
+      },
+      "pool": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8,
+            0.1,
+            205
+          ],
+          "hex": "#65d0dc",
+          "alpha": 0.4
+        },
+        "$description": "Light (pool): caustics, pools and glows. Decoration only, never text or a boundary.",
+        "$extensions": {
+          "lue": {
+            "p3": {
+              "components": [
+                0.82,
+                0.15,
+                200
+              ],
+              "alpha": 0.4
+            }
+          }
+        }
+      },
+      "pool-warm": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.82,
+            0.11,
+            355
+          ],
+          "hex": "#fda6c8",
+          "alpha": 0.34
+        },
+        "$description": "Light (pool-warm): caustics, pools and glows. Decoration only, never text or a boundary.",
+        "$extensions": {
+          "lue": {
+            "p3": {
+              "components": [
+                0.8,
+                0.17,
+                355
+              ],
+              "alpha": 0.34
+            }
+          }
+        }
+      }
+    },
+    "glint": {
+      "core": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.995,
+            0.003,
+            290
+          ],
+          "hex": "#fdfdff",
+          "alpha": 0.75
+        },
+        "$description": "The specular glint that sweeps across a primary button on hover: its core."
+      },
+      "edge": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.9,
+            0.08,
+            200
+          ],
+          "hex": "#9deff3",
+          "alpha": 0.25
+        },
+        "$description": "The glint's cooler edges."
+      }
+    }
+  },
+  "shadow": {
+    "raised": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.3,
+              0.03,
+              285
+            ],
+            "hex": "#2c2c3c",
+            "alpha": 0.05
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 1,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4,
+              0.12,
+              318
+            ],
+            "hex": "#622e71",
+            "alpha": 0.3
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 16,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 40,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -18,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.55,
+              0.1,
+              230
+            ],
+            "hex": "#1e7ca1",
+            "alpha": 0.24
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 10,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 30,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -16,
+            "unit": "px"
+          }
+        }
+      ],
+      "$description": "Cards and raised surfaces."
+    },
+    "overlay": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.3,
+              0.03,
+              285
+            ],
+            "hex": "#2c2c3c",
+            "alpha": 0.06
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 2,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 4,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4,
+              0.14,
+              318
+            ],
+            "hex": "#652777",
+            "alpha": 0.4
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 30,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 70,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -24,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.55,
+              0.1,
+              220
+            ],
+            "hex": "#007e9a",
+            "alpha": 0.32
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 18,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 50,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -22,
+            "unit": "px"
+          }
+        }
+      ],
+      "$description": "Menus, dialogs and other overlays."
+    },
+    "control": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.3,
+              0.03,
+              285
+            ],
+            "hex": "#2c2c3c",
+            "alpha": 0.08
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 2,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4,
+              0.06,
+              285
+            ],
+            "hex": "#444367",
+            "alpha": 0.18
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 4,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 12,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -6,
+            "unit": "px"
+          }
+        }
+      ],
+      "$description": "Resting depth under buttons."
+    },
+    "fringe": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.995,
+              0.003,
+              290
+            ],
+            "hex": "#fdfdff",
+            "alpha": 0.95
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 0,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          },
+          "inset": true
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7,
+              0.13,
+              205
+            ],
+            "hex": "#00b5c5",
+            "alpha": 0.75
+          },
+          "offsetX": {
+            "value": 2,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 0,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 3,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -2,
+            "unit": "px"
+          },
+          "inset": true
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.66,
+              0.16,
+              355
+            ],
+            "hex": "#db6397",
+            "alpha": 0.6
+          },
+          "offsetX": {
+            "value": -2,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 0,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 3,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -2,
+            "unit": "px"
+          },
+          "inset": true
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8,
+              0.12,
+              75
+            ],
+            "hex": "#ebb25f",
+            "alpha": 0.5
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": -1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 0,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          },
+          "inset": true
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.52,
+              0.03,
+              285
+            ],
+            "hex": "#67677a",
+            "alpha": 0.28
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": -2,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 3,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -2,
+            "unit": "px"
+          },
+          "inset": true
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.995,
+              0.003,
+              290
+            ],
+            "hex": "#fdfdff",
+            "alpha": 1
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 26,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 30,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -30,
+            "unit": "px"
+          },
+          "inset": true
+        }
+      ],
+      "$description": "Thick-glass edges: a specular top rim, cool and warm split colour at the sides as a lens disperses, a warm lower lip and its shadow, and light entering from above. All inside the padding, under no text."
+    },
+    "glow": {
+      "rest": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.5,
+                0.19,
+                318
+              ],
+              "hex": "#8e32a7",
+              "alpha": 0.45
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 8,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 22,
+              "unit": "px"
+            },
+            "spread": {
+              "value": -12,
+              "unit": "px"
+            }
+          }
+        ],
+        "$description": "Diffuse prism glow under a primary at rest."
+      },
+      "hover": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.5,
+                0.19,
+                318
+              ],
+              "hex": "#8e32a7",
+              "alpha": 0.5
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 12,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 30,
+              "unit": "px"
+            },
+            "spread": {
+              "value": -10,
+              "unit": "px"
+            }
+          },
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.55,
+                0.126,
+                240
+              ],
+              "hex": "#0079b3",
+              "alpha": 0.45
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 10,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 28,
+              "unit": "px"
+            },
+            "spread": {
+              "value": -12,
+              "unit": "px"
+            }
+          }
+        ],
+        "$description": "Glow under a hovered primary."
+      },
+      "soft": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.5,
+                0.15,
+                290
+              ],
+              "hex": "#644fb1",
+              "alpha": 0.35
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 10,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 26,
+              "unit": "px"
+            },
+            "spread": {
+              "value": -12,
+              "unit": "px"
+            }
+          }
+        ],
+        "$description": "Glow under a hovered neutral button."
+      },
+      "critical": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": {
+              "colorSpace": "oklch",
+              "components": [
+                0.52,
+                0.19,
+                18
+              ],
+              "hex": "#bd1f3d",
+              "alpha": 0.45
+            },
+            "offsetX": {
+              "value": 0,
+              "unit": "px"
+            },
+            "offsetY": {
+              "value": 10,
+              "unit": "px"
+            },
+            "blur": {
+              "value": 26,
+              "unit": "px"
+            },
+            "spread": {
+              "value": -12,
+              "unit": "px"
+            }
+          }
+        ],
+        "$description": "Glow under a hovered destructive button."
+      }
+    },
+    "tile": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.3,
+              0.03,
+              285
+            ],
+            "hex": "#2c2c3c",
+            "alpha": 0.08
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 1,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.35,
+              0.06,
+              285
+            ],
+            "hex": "#373659",
+            "alpha": 0.35
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 14,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 30,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -14,
+            "unit": "px"
+          }
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4,
+              0.05,
+              285
+            ],
+            "hex": "#454462",
+            "alpha": 0.22
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 6,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 14,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -8,
+            "unit": "px"
+          }
+        }
+      ],
+      "$description": "Depth under metal icon tiles."
+    },
+    "glass": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.995,
+              0.003,
+              290
+            ],
+            "hex": "#fdfdff",
+            "alpha": 0.9
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 14,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 16,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -14,
+            "unit": "px"
+          },
+          "inset": true
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.45,
+              0.04,
+              285
+            ],
+            "hex": "#53526b",
+            "alpha": 0.22
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": -16,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 20,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -16,
+            "unit": "px"
+          },
+          "inset": true
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.995,
+              0.003,
+              250
+            ],
+            "hex": "#fcfeff",
+            "alpha": 0.9
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 0,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 0,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 1,
+            "unit": "px"
+          },
+          "inset": true
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.7,
+              0.02,
+              285
+            ],
+            "hex": "#9d9dab",
+            "alpha": 0.35
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 3,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 0,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -1,
+            "unit": "px"
+          },
+          "inset": false
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.45,
+              0.04,
+              285
+            ],
+            "hex": "#53526b",
+            "alpha": 0.22
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 2,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 4,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          },
+          "inset": false
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.45,
+              0.04,
+              285
+            ],
+            "hex": "#53526b",
+            "alpha": 0.22
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 28,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 56,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -24,
+            "unit": "px"
+          },
+          "inset": false
+        },
+        {
+          "color": {
+            "colorSpace": "oklch",
+            "components": [
+              0.45,
+              0.04,
+              285
+            ],
+            "hex": "#53526b",
+            "alpha": 0.22
+          },
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 60,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 120,
+            "unit": "px"
+          },
+          "spread": {
+            "value": -40,
+            "unit": "px"
+          },
+          "inset": false
+        }
+      ],
+      "$description": "Glass depth: a bright bevel inside the top, a darker one inside the bottom, the slab's lit side below it, a contact shadow and a long soft one."
+    }
+  }
+}

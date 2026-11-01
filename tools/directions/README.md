@@ -1,0 +1,75 @@
+# Direction tools
+
+Dependency-free Node scripts (Node ≥ 22; last run on 26.10) that seed and verify the Claude Design directions. The
+palettes still cover the three Phase 1 directions (the brief's appendix records them); the canvas now shows only
+**C2 · Chroma Luminous**, the Chroma evolution chosen in Pass 2.
+They are design tooling, not library code, and the Terrazzo token pipeline replaces the contrast checks in Pass 3.
+Output goes to `out/` (gitignored).
+
+| Script | What it does | Run |
+| --- | --- | --- |
+| `contrast.mjs` | OKLCH → sRGB (gamut-mapped) → WCAG 2.x ratio, plus APCA Lc (advisory). Run directly, it prints the lightness bands used in [tokens.md](../../docs/design/tokens.md#contrast-by-construction) | `node contrast.mjs` |
+| `palettes.mjs` | The seeded palettes (4 directions × light/dark), the 12 pair rules (36 checks per scheme, raised minimums in C2's `-more` contexts), and Luminous's prism, chrome, glass, glass-button, ambient-light, satin and metal rules (36 per scheme). Prints pass/fail and the tightest margin; `--all` lists every Luminous rule | `node palettes.mjs` |
+| `report.mjs` | Writes `out/palette-values.json` and `out/palette-report.md` - the brief's appendix, already in `<details>` blocks | `node report.mjs` |
+| `luminous-canvas.mjs` | Luminous's per-scheme custom properties, its CSS (chrome ring, glass, prism slide, sparks, fallbacks) and its extra Foundations sections. Imported by `build-canvas.mjs` | - |
+| `luminous-pages.mjs` | Luminous's materials (satin folds, glass prism and orb, metal icon tiles, media art) and its fluid boards: block library, portfolio home, journal article | - |
+| `build-canvas.mjs` | Generates C2's six artboards and `canvas.json` into `out/canvas/project/`. Phase 1's cover and its Loom, Instrument and Chroma rows were removed on 2026-10-11; check out commit `18ec453` to regenerate them | `node build-canvas.mjs` |
+| `tokens.mjs` | **Retired 2026-10-24** (Spike B). Wrote the DTCG token source; `packages/tokens/src` is now hand-edited and built by Terrazzo. It refuses to write there, but can still write elsewhere for comparison | `node tokens.mjs <folder>` |
+| `design-system.mjs` | Builds the **private** Claude Design System into `out/design-system/project/`: `tokens.json` (list shape) from `packages/tokens/src`, `components/bundle.css` (a generated per-theme header + `design-system/components.css`), the brand book (`design-system/README.md`), 44 component cards and previews (`design-system/components.mjs`), the cover, fonts and the icon records (a local `design-system/icon-uploads.json`) | `node design-system.mjs --uploads design-system/icon-uploads.json --created 2026-10-10T…` |
+| `check-tokens.mjs` | Superseded by the Terrazzo build's `lue-contrast` and `lue-schema` plugins (`pnpm check-tokens`). Still runs: `$type` and `$description` on every token, aliases resolve, every declared pair passes in all four contexts, body ≥ 16 px | `node check-tokens.mjs` |
+
+## Changing a direction
+
+1. Edit colours in `palettes.mjs` (Luminous's prism, chrome, glass and ambient values live in its `luminous`
+   export), or fonts, type, radii, spacing, motion and signature CSS in `DIRS` in `build-canvas.mjs` (Luminous's CSS
+   is in `luminous-canvas.mjs`).
+2. `node palettes.mjs` must print **0 fail** for every direction, scheme and Luminous rule set. (It checks these seeds;
+   the library's tokens are checked by the Terrazzo build's `lue-contrast` and `lue-materials`.)
+3. `node report.mjs`, then replace everything after the appendix intro of
+   [the brief](../../docs/design/claude-design-brief.md) with `out/palette-report.md`.
+4. `node build-canvas.mjs`, then republish (see Publishing, below).
+5. For C2: palette changes no longer flow to the tokens automatically. Edit `packages/tokens/src` by hand to match and run
+   `pnpm check-tokens` (the Terrazzo build fails on any contrast pair below its minimum).
+
+## Publishing
+
+The canvas and the Claude Design System are private Claude Design artifacts, never shared within the organisation or
+made public. Their links and the steps to republish them are in a maintainer's local `PUBLISHING.md` here (gitignored),
+as is `design-system/icon-uploads.json`, the record of the Design System's icon uploads.
+
+## Canvas format rules learned in Phase 1
+
+- Every artboard keeps the head line `<script src="./support.js"></script>` exactly.
+- Close every non-void element and quote every attribute. Boolean attributes are written as `attr="attr"`, because the
+  runtime is React-based and may drop empty boolean values (not verified; defensive).
+- Inputs show text through `value="…"` (rendered read-only); booleans like `checked="checked"`.
+- No `{{` or `}}` inside CSS: those are template holes. Holes are dotted lookups only, never expressions.
+- Fonts load only through one Google Fonts `css2` `<link>` in `<helmet>`; no `data:` URIs; icons are inline SVG
+  styled by the `.icon` class.
+- Board heights live in `DIRS.luminous.H` (Foundations 7700 · Components 2560 · Checkout 1240). If a board looks
+  clipped, raise its `H` and republish both the board and `canvas.json`.
+- Boards with live hover and focus states carry `is_interactive: true` (the Luminous row), which gives them a Play
+  button.
+- The canvas has one page, `luminous`: a system row (foundations, components, blocks) and an in-use row (portfolio,
+  article, checkout). Every board and title note carries its `page`. The `phase-1` page was removed on 2026-10-11 by
+  publishing `null` for its ten files and dropping its page, boards and notes from `canvas.json`.
+- Portfolio, journal and block boards are **fluid** (`expand: "fill"`, no root width, `$preview` 1440 wide) and reflow
+  to one column. Their heights are estimates (Blocks 8000 - set on the canvas, Portfolio 5400, Article 6600) - raise them if clipped.
+- SVG gradients, masks and filters use IDs from one counter per build, so they stay unique across boards. Use
+  `gradientUnits="userSpaceOnUse"` on stroked icons - a straight line has a zero-height bounding box and an
+  object-bounding-box gradient won't paint it.
+- A registered `@property` that a `::before` must read needs `inherits: true` - pseudo-elements don't inherit
+  non-inherited properties from their host.
+
+**Guidelines generated from the contracts** (2026-10-25). The Design System's component cards are still the canvas-era ones,
+hand-written in `design-system/components.mjs`. The library's own guidelines are now generated from each contract's
+`guidance` (`pnpm docs-ai` → `apps/docs/public/guidelines/`), and `pnpm design-kit` assembles them with live previews
+of every story's server HTML on `bundle.css` (tokens, fonts, `@lue-ui/css`) and `bundle.js` (the elements IIFE) in
+`out/claude-design-kit/` (gitignored). That is Spike C's input: once `/design-sync` (which a maintainer starts) proves
+the path, the kit's components replace the canvas-era cards. Nothing in the kit is uploaded until then.
+
+## The library copy of the component CSS
+
+Since Spike B (2026-10-24) the library's CSS lives in `packages/css/src`, split per component and built with Lightning
+CSS. `design-system/components.css` stays as the private Claude Design System's copy; changes made in the library
+aren't copied back automatically.
