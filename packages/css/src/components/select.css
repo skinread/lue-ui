@@ -28,7 +28,7 @@
       background-color: var(--lue-material-glass-overlay);
       background-image: var(--lue-glass-sheen);
       backdrop-filter: var(--lue-glass-filter);
-      box-shadow: var(--lue-shadow-overlay), var(--lue-shadow-fringe);
+      box-shadow: var(--lue-shadow-glass), var(--lue-shadow-fringe);
     }
     .lue-select :where(option) {
       display: flex;

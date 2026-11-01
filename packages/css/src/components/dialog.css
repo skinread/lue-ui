@@ -1,6 +1,6 @@
 /* Dialog - <dialog class="lue-dialog" closedby="any">, opened with command="show-modal" (HTML) or showModal() from
    state (React). Contract: apps/docs/contracts/dialog.json. Modality, inertness, the top layer, Esc and focus return
-   are the browser's; this file adds the material, an entry and exit transition, and scroll lock. */
+   are the browser's; this file adds the material (thick modal glass, ADR-0010), an entry and exit transition, and scroll lock. */
 @layer lue.components {
   .lue-dialog {
     /* Sizes include the padding: content-box would push the dialog past its inline-size and the viewport. */
@@ -17,7 +17,7 @@
     background-color: var(--lue-material-glass-modal);
     background-image: var(--lue-glass-sheen);
     backdrop-filter: var(--lue-glass-filter);
-    box-shadow: var(--lue-shadow-overlay), var(--lue-shadow-fringe);
+    box-shadow: var(--lue-shadow-glass), var(--lue-shadow-fringe);
     opacity: 0;
     scale: 0.97;
     transition:
@@ -26,6 +26,9 @@
       overlay var(--lue-motion-duration-moderate) allow-discrete,
       display var(--lue-motion-duration-moderate) allow-discrete;
   }
+  /* The chrome ring sits inside the border, not over it: a modal dialog scrolls, and a ring that reached past its
+     padding box would give it a pixel of overflow, and scrollbars, in both directions. */
+  .lue-dialog::before { inset: 0; }
   .lue-dialog:where(:not([open])) { display: none; }
   .lue-dialog:where([open]) {
     opacity: 1;
