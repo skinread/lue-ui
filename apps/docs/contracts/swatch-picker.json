@@ -97,7 +97,15 @@
     }
   },
   "tokens": [
-    "--lue-color-border-subtle",
+    "--lue-well",
+    "--lue-well-shadow",
+    "--lue-chrome-stops",
+    "--lue-liquid-key",
+    "--lue-raised",
+    "--lue-material-engrave",
+    "--lue-material-engrave-lift",
+    "--lue-material-specular",
+    "--lue-color-border-strong",
     "--lue-color-fg-default",
     "--lue-radius-full",
     "--lue-size-target-min",
@@ -117,11 +125,11 @@
     ]
   },
   "rules": [
-    "The checked swatch is marked by a heavier border and bold name, not by its colour",
+    "The checked swatch is marked by the raised chrome key and a bold, engraved name, not by its colour",
     "Chips keep their real colour in forced colours: the colour is the content"
   ],
   "withoutJavaScript": "Works fully, and submits with its form",
-  "contrast": "A strong border round the checked swatch",
+  "contrast": "Opaque swatches in a strong border; the checked one takes a thick fg-default edge",
   "forcedColors": "The chip keeps its colour with a CanvasText edge; the checked swatch is SelectedItem",
   "deletionTrigger": null
 }

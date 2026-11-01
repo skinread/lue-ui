@@ -103,8 +103,13 @@
     }
   },
   "tokens": [
+    "--lue-material-button-tint",
     "--lue-material-button-pressed",
-    "--lue-button-depth",
+    "--lue-well-shadow",
+    "--lue-liquid-key",
+    "--lue-raised",
+    "--lue-material-engrave",
+    "--lue-material-engrave-lift",
     "--lue-radius-full",
     "--lue-color-fg-default"
   ],

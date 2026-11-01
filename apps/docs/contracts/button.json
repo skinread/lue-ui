@@ -48,6 +48,7 @@
     "--lue-button-radius", "--lue-size-control-sm", "--lue-size-control-md", "--lue-size-control-lg", "--lue-size-target-min",
     "--lue-color-fg-default", "--lue-color-fg-accent", "--lue-color-fg-muted", "--lue-color-fg-critical", "--lue-color-focus-ring",
     "--lue-material-button-tint", "--lue-material-button-prism-base", "--lue-material-button-danger", "--lue-material-button-pressed",
+    "--lue-well-shadow", "--lue-liquid-key", "--lue-raised", "--lue-material-engrave", "--lue-material-engrave-lift",
     "--lue-focus-width", "--lue-focus-offset", "--lue-density"
   ],
   "platform": {

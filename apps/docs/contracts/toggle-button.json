@@ -65,7 +65,11 @@
   },
   "tokens": [
     "--lue-material-button-pressed",
-    "--lue-prism-ring"
+    "--lue-liquid-key",
+    "--lue-raised",
+    "--lue-well-shadow",
+    "--lue-material-engrave",
+    "--lue-material-engrave-lift"
   ],
   "platform": {
     "baseline": [
