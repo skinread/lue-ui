@@ -1,8 +1,7 @@
 # Lue UI
 
 > An open-source, platform-native, accessibility-first design system. *Lueur* is French for a glimmer of light.
-> **Status:** pre-release. Every component is built and tested in three engines - see them in
-> [Storybook](https://skinread.github.io/lue-ui/). Nothing is on npm yet ([status](#status)).
+> See every component in [Storybook](https://skinread.github.io/lue-ui/).
 
 **Mission:** make accessible, standards-based interfaces the path of least resistance - by building _with_ the web
 platform, not on top of it.
@@ -46,13 +45,12 @@ Full index: [docs/](docs/README.md).
 | [`@lue-ui/mcp`](packages/mcp/README.md) | An MCP server for AI assistants: components, guidelines, contracts and tokens |
 | [`apps/docs`](apps/docs/README.md) | Storybook 10 with a docs page per React adapter and the Storybook MCP addon, the component contracts, and `llms.txt` with a reference page and guidelines per component |
 
-Components: **all of Tier 0, Tier 1 and Tier 2** - Button, Toggle button, Link, Field + TextInput + Textarea + error summary,
-Select, Checkbox, Radio group, Switch, Dialog, Drawer, Popover, Toggletip, Menu, Disclosure, Accordion, Alert, Toast,
-Icon, Skip link, Visually hidden and the layout primitives (Stack, Cluster, Grid, Sidebar, Switcher, Center); from Tier
-2, Breadcrumb, Pagination, Tag, Card, Avatar, Divider, Kbd, Progress and Meter, Spinner and Skeleton, Table, Search,
-Segmented control, Rating, Swatch picker, Tabs, Toolbar, Tooltip, Carousel and Quantity stepper - each with a
-[contract](apps/docs/contracts/) (including when to use it and what instead), stories, and keyboard, axe, emulation and
-visual tests in Chromium, Firefox and WebKit.
+Components: Button, Toggle button, Link, Field + TextInput + Textarea + error summary, Select, Checkbox, Radio group,
+Switch, Dialog, Drawer, Popover, Toggletip, Menu, Disclosure, Accordion, Alert, Toast, Icon, Skip link, Visually hidden,
+the layout primitives (Stack, Cluster, Grid, Sidebar, Switcher, Center), Breadcrumb, Pagination, Tag, Card, Avatar,
+Divider, Kbd, Progress and Meter, Spinner and Skeleton, Table, Search, Segmented control, Rating, Swatch picker, Tabs,
+Toolbar, Tooltip, Carousel and Quantity stepper - each with a [contract](apps/docs/contracts/) (including when to use it
+and what instead), stories, and keyboard, axe, emulation and visual tests in Chromium, Firefox and WebKit.
 
 ```bash
 pnpm install
@@ -63,7 +61,7 @@ pnpm test       # build, then every browser test in three engines
 pnpm test:engines  # the same, one engine at a time (steadier on a small machine)
 pnpm fixtures   # consumer recipes: Vite, Next, Tailwind v4
 pnpm --filter @lue-ui/docs dev   # Storybook, with its MCP server at http://localhost:6006/mcp
-pnpm design-kit # the Claude Design kit (guidelines and live previews) for Spike C, built locally only
+pnpm design-kit # the Claude Design kit (guidelines and live previews), built locally only
 ```
 
 Agents working in this repository get two MCP servers from [`.mcp.json`](.mcp.json): `lue-ui` (components,
@@ -71,18 +69,6 @@ guidelines, contracts and tokens) and `lue-ui-storybook` (stories, docs and stor
 
 Storybook is published to GitHub Pages by hand: Actions → **Storybook to GitHub Pages** → Run workflow
 ([details](apps/docs/README.md)).
-
-## Status
-
-Lue UI is **pre-release**: nothing is on npm yet, and the API may still change.
-
-- **Built:** every component listed above, tested in Chromium, Firefox and WebKit. Browse them in
-  [Storybook](https://skinread.github.io/lue-ui/).
-- **Before the first 0.x release:** confirm the npm scope (`@lue-ui/*`) and publish the packages. Until then, build
-  from source with the commands above; [`fixtures/`](fixtures/) shows how a Vite, Next or Tailwind v4 app consumes
-  them.
-- **Before Stable:** a manual screen-reader pass (NVDA, JAWS, VoiceOver and TalkBack). The automated keyboard, axe
-  and emulation tests already gate every build.
 
 ## Licence
 
