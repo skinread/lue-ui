@@ -67,7 +67,7 @@ pnpm design-kit # the Claude Design kit (guidelines and live previews), built lo
 Agents working in this repository get two MCP servers from [`.mcp.json`](.mcp.json): `lue-ui` (components,
 guidelines, contracts and tokens) and `lue-ui-storybook` (stories, docs and story tests, while Storybook runs).
 
-Storybook is published to GitHub Pages by hand: Actions → **Storybook to GitHub Pages** → Run workflow
+Storybook is published to [GitHub Pages](https://skinread.github.io/lue-ui/) whenever `main` changes
 ([details](apps/docs/README.md)).
 
 ## Licence
