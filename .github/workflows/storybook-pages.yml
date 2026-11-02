@@ -1,9 +1,12 @@
 # Publishes Storybook to GitHub Pages: every component's stories, plus llms.txt, a Markdown page per component, the
-# tokens and the contracts it serves (tools/build-ai-docs.mjs). Run by hand from the Actions tab for now; later a step
-# of the release workflow (Pass 5). Nothing from the Claude Design canvas or Design System is in the build.
+# tokens and the contracts it serves (tools/build-ai-docs.mjs). Runs on every push to main, so the published site is
+# what main holds, and by hand from the Actions tab. Nothing from the Claude Design canvas or Design System is in the
+# build.
 name: Storybook to GitHub Pages
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:

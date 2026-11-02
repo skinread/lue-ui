@@ -1,6 +1,6 @@
 # RFC-0001: System architecture
 
-> **Status:** Proposed · Phase 1 · 2026-10-05 · implemented through Pass 4 (2026-10-24) and most of Pass 5 (2026-10-25; see §8, §11 and the README roadmap)
+> **Status:** Proposed · Phase 1 · 2026-10-05 · implemented through Pass 4 (2026-10-24) and most of Pass 5 (2026-10-25; see §8 and §11)
 > **Decisions recorded in:** [ADR-0001](./adr/0001-component-model.md) ·
 > [0002](./adr/0002-native-css-core-tailwind-bridge.md) · [0003](./adr/0003-dtcg-tokens-with-terrazzo.md) ·
 > [0004](./adr/0004-support-floors.md) · [0005](./adr/0005-three-engine-testing-and-a11y-gates.md) ·
@@ -301,8 +301,7 @@ Decision and detail: [ADR-0005](./adr/0005-three-engine-testing-and-a11y-gates.m
 
 Passes 4 and 5 followed the [inventory](../design/components.md)'s tiers in the same order: all of Tier 1 (done
 2026-10-24) and all of Tier 2 (done 2026-10-24), with contract-driven keyboard coverage, AI docs and an MCP server, docs
-pages per React adapter, the Storybook MCP addon and contract-generated guidelines. Progress and what's left are in the
-[README roadmap](../../README.md#roadmap).
+pages per React adapter, the Storybook MCP addon and contract-generated guidelines.
 
 ## 12. Traceability
 

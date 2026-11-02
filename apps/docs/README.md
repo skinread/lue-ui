@@ -9,12 +9,14 @@ pnpm --filter @lue-ui/docs build   # storybook-static/ (writes public/ first: ll
 ```
 
 **Published** at <https://skinread.github.io/lue-ui/> by the
-[Storybook to GitHub Pages](../../.github/workflows/storybook-pages.yml) workflow, run by hand from the Actions tab
-("Run workflow", pick the branch). It builds the packages, then this Storybook, and deploys `storybook-static`; the AI
-docs are served beside it (`/lue-ui/llms.txt`). Later it becomes a step of package publishing.
+[Storybook to GitHub Pages](../../.github/workflows/storybook-pages.yml) workflow, on every push to `main` (merging
+`develop` into `main` republishes it). It can also be run by hand from the Actions tab ("Run workflow", pick the
+branch). It builds the packages, then this Storybook, and deploys `storybook-static`; the AI docs are served beside it
+(`/lue-ui/llms.txt`).
 
 It needs Settings → Pages → Source set to **GitHub Actions** ("Deploy from a branch" publishes only the README), and
-the workflow on the default branch (`develop`), which is where GitHub looks for workflows you can run by hand.
+the workflow on the default branch (`develop`), which is where GitHub looks for workflows you can run by hand. The
+`github-pages` environment only deploys from the branches it allows: `main` and `develop`.
 
 - **Docs pages** (`.storybook/docs-page.tsx`, autodocs for every story file): the React adapter's description, live
   example and props, "When to use it" from its contract, the HTML its first example renders on the server, every

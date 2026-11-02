@@ -1,9 +1,7 @@
 # Lue UI
 
 > An open-source, platform-native, accessibility-first design system. *Lueur* is French for a glimmer of light.
-> **Status:** Pass 5 is in progress. Every Tier 0, 1 and 2 component is built and tested in three engines, with a
-> Storybook docs page, design guidelines and an AI-readable page each. The first public release and Spike C (Claude
-> Design) wait on decisions. Every package is private; nothing is on npm yet.
+> See every component in [Storybook](https://skinread.github.io/lue-ui/).
 
 **Mission:** make accessible, standards-based interfaces the path of least resistance - by building _with_ the web
 platform, not on top of it.
@@ -47,13 +45,12 @@ Full index: [docs/](docs/README.md).
 | [`@lue-ui/mcp`](packages/mcp/README.md) | An MCP server for AI assistants: components, guidelines, contracts and tokens |
 | [`apps/docs`](apps/docs/README.md) | Storybook 10 with a docs page per React adapter and the Storybook MCP addon, the component contracts, and `llms.txt` with a reference page and guidelines per component |
 
-Components: **all of Tier 0, Tier 1 and Tier 2** - Button, Toggle button, Link, Field + TextInput + Textarea + error summary,
-Select, Checkbox, Radio group, Switch, Dialog, Drawer, Popover, Toggletip, Menu, Disclosure, Accordion, Alert, Toast,
-Icon, Skip link, Visually hidden and the layout primitives (Stack, Cluster, Grid, Sidebar, Switcher, Center); from Tier
-2, Breadcrumb, Pagination, Tag, Card, Avatar, Divider, Kbd, Progress and Meter, Spinner and Skeleton, Table, Search,
-Segmented control, Rating, Swatch picker, Tabs, Toolbar, Tooltip, Carousel and Quantity stepper - each with a
-[contract](apps/docs/contracts/) (including when to use it and what instead), stories, and keyboard, axe, emulation and
-visual tests in Chromium, Firefox and WebKit.
+Components: Button, Toggle button, Link, Field + TextInput + Textarea + error summary, Select, Checkbox, Radio group,
+Switch, Dialog, Drawer, Popover, Toggletip, Menu, Disclosure, Accordion, Alert, Toast, Icon, Skip link, Visually hidden,
+the layout primitives (Stack, Cluster, Grid, Sidebar, Switcher, Center), Breadcrumb, Pagination, Tag, Card, Avatar,
+Divider, Kbd, Progress and Meter, Spinner and Skeleton, Table, Search, Segmented control, Rating, Swatch picker, Tabs,
+Toolbar, Tooltip, Carousel and Quantity stepper - each with a [contract](apps/docs/contracts/) (including when to use it
+and what instead), stories, and keyboard, axe, emulation and visual tests in Chromium, Firefox and WebKit.
 
 ```bash
 pnpm install
@@ -64,30 +61,14 @@ pnpm test       # build, then every browser test in three engines
 pnpm test:engines  # the same, one engine at a time (steadier on a small machine)
 pnpm fixtures   # consumer recipes: Vite, Next, Tailwind v4
 pnpm --filter @lue-ui/docs dev   # Storybook, with its MCP server at http://localhost:6006/mcp
-pnpm design-kit # the Claude Design kit (guidelines and live previews) for Spike C, built locally only
+pnpm design-kit # the Claude Design kit (guidelines and live previews), built locally only
 ```
 
 Agents working in this repository get two MCP servers from [`.mcp.json`](.mcp.json): `lue-ui` (components,
 guidelines, contracts and tokens) and `lue-ui-storybook` (stories, docs and story tests, while Storybook runs).
 
-Storybook is published to GitHub Pages by hand: Actions → **Storybook to GitHub Pages** → Run workflow
+Storybook is published to [GitHub Pages](https://skinread.github.io/lue-ui/) whenever `main` changes
 ([details](apps/docs/README.md)).
-
-## Roadmap
-
-1. **Phase 1 - foundations and design kickoff** _(done)_: principles, research, architecture, token and component
-   specs, and three visual directions in Claude Design.
-2. **Pass 2 - codify the chosen direction** _(done)_: C2 · Chroma Luminous, a private Claude Design system and the DTCG
-   token source.
-3. **Pass 3 - tracer bullet** _(done, but for Spike C)_: workspace, token and CSS pipelines, package builds, consumer
-   fixtures, and Button, Field, Select, Dialog and Menu tested in three engines. Spike C (one Claude Design preview
-   from the script-tag build) waits on `/design-sync`; its input is ready (`pnpm design-kit`).
-4. **Pass 4 - Tier 1 components** _(done)_: every Tier 1 component, keyboard coverage driven by the contracts,
-   `llms.txt` and a Markdown page per component, and an MCP server.
-5. **Pass 5 - Tier 2 and a first public 0.x release** _(in progress)_: every Tier 2 component is done; Storybook has a
-   docs page per React adapter and the Storybook MCP addon; every component has guidelines generated from its
-   contract. Left: the first public release (the npm scope, making the repo public, publishing), Spike C, and the
-   manual screen-reader pass that gates Stable.
 
 ## Licence
 

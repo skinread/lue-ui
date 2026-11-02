@@ -18,7 +18,7 @@ what is waiting on them. It is gitignored; never commit it or copy its contents 
 - **Hooks:** every Edit or Write runs `tools/check-text.mjs` on that file, so an em dash is caught at the edit, not at
   `pnpm lint`. In a cloud session, `SessionStart` runs `pnpm install`.
 - **Skills:** `/new-component` (the checklist a component needs before `pnpm check` passes) and `/handover` (bring
-  the local HANDOVER.md, AGENTS.md, the inventory and the README roadmap up to date at the end of a stretch of work).
+  the local HANDOVER.md, AGENTS.md and the inventory up to date at the end of a stretch of work).
 - **Agents:** `a11y-reviewer` reviews a component against its contract and the accessibility non-negotiables,
   read-only. Use it before calling a component done.
 
