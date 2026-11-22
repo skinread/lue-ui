@@ -1,0 +1,136 @@
+{
+  "name": "Hero",
+  "summary": "A page's opening statement: kicker, headline, lede and actions, beside a decorative object or a figure.",
+  "guidance": {
+    "useFor": "The top of a home page or a landing page: one headline that says what the site is, a sentence, and one or two actions. With a figure as its object it is the split hero, for a case study's opener.",
+    "insteadUse": [
+      "The top of an article: Article header",
+      "A call to act later in the page: CTA band"
+    ],
+    "content": [
+      "The headline says what you do, not \"Welcome\"",
+      "One primary action at most, and a second that is quieter",
+      "A figure as the object needs alt text; decorative art doesn't"
+    ]
+  },
+  "status": "experimental",
+  "covers": [
+    "Hero - statement",
+    "Hero - split"
+  ],
+  "rung": "native-element",
+  "rungReason": "A <section> named by its h1 through aria-labelledby; art is aria-hidden SVG. No script.",
+  "anatomy": {
+    "hero": {
+      "element": "section",
+      "class": "lue-hero",
+      "attributes": {
+        "aria-labelledby": "the headline's id"
+      }
+    },
+    "backdrop": {
+      "element": "svg",
+      "class": "lue-satin",
+      "required": false,
+      "attributes": {
+        "aria-hidden": "true"
+      }
+    },
+    "grid": {
+      "element": "div",
+      "class": "lue-hero__grid"
+    },
+    "text": {
+      "element": "div",
+      "class": "lue-hero__text"
+    },
+    "kicker": {
+      "element": "p",
+      "class": "lue-kicker",
+      "required": false
+    },
+    "headline": {
+      "element": "h1",
+      "class": "lue-display"
+    },
+    "lede": {
+      "element": "p",
+      "class": "lue-lede",
+      "required": false
+    },
+    "actions": {
+      "element": "div",
+      "class": "lue-actions",
+      "required": false
+    },
+    "object": {
+      "element": "div",
+      "class": "lue-hero__object",
+      "required": false
+    }
+  },
+  "variants": {
+    "layout": {
+      "attribute": "data-layout",
+      "values": [
+        "center"
+      ],
+      "default": "text beside the object (no attribute)"
+    }
+  },
+  "a11y": {
+    "role": "region (a named section)",
+    "name": "Its headline (aria-labelledby)",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Reaches its actions"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "Follows or presses the focused action"
+      }
+    ],
+    "focus": {
+      "indicator": "The actions' own"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Hero",
+    "props": {
+      "title": "the h1",
+      "kicker, lede, actions": "optional",
+      "object": "decorative art or a Figure",
+      "backdrop": "decorative satin",
+      "layout": "center"
+    }
+  },
+  "tokens": [
+    "--lue-space-m",
+    "--lue-space-xl",
+    "--lue-font-family-display"
+  ],
+  "platform": {
+    "baseline": [
+      "grid auto-fit",
+      "min()",
+      "clamp()",
+      "isolation"
+    ]
+  },
+  "rules": [
+    "Sized to its content, never 100vh, so zoom and short screens don't hide the actions",
+    "Hero text is checked against every satin fold (body 7:1, muted 4.5:1); under increased contrast the satin switches off",
+    "The art is aria-hidden; a figure used as the object keeps its alt text and caption",
+    "The object stacks under the text when either would be narrower than 27rem (WCAG 1.4.10)"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "The satin backdrop is hidden; text sits on the page's surface",
+  "forcedColors": "The satin is hidden; system text colours",
+  "deletionTrigger": null
+}

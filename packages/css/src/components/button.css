@@ -1,9 +1,9 @@
 /* Button - <button type="button" class="lue-button">. Contract: apps/docs/contracts/button.json.
    Variants: data-variant (primary, danger, quiet; neutral without it), data-size (sm, lg), data-icon-only.
-   State comes from the platform only: :hover, :active, :focus-visible, :disabled, [aria-disabled], [aria-pressed].
+   State comes from the platform only: :hover, :active, :focus-visible, :disabled, [aria-disabled], [aria-pressed], [aria-current="page"] on a link.
    The chrome ring is the shared ::before from chrome.css; its angle is set on the ring itself, literally. A primary's
    prism light pools at its base, and on hover one specular glint sweeps across it (ADR-0010). Pressing pushes any
-   button into the glass (a well's inner shadow); aria-pressed="true" raises the same chrome key, with its label
+   button into the glass (a well's inner shadow); aria-pressed="true" (or aria-current="page" on a link, ADR-0011) raises the same chrome key, with its label
    engraved, that marks the selected tab or segment. */
 @layer lue.components {
   .lue-button {
@@ -120,14 +120,14 @@
   }
   .lue-button:where(:focus-visible)::before { --lue-angle: 220deg; }
   /* On: the raised chrome key, label engraved (the tab and segment selection). */
-  .lue-button:where([aria-pressed="true"]) {
+  .lue-button:where(:is([aria-pressed="true"], [aria-current="page"])) {
     color: var(--lue-material-engrave);
     text-shadow: 0 1px 0 var(--lue-material-engrave-lift);
     background-color: transparent;
     background-image: var(--lue-liquid-key);
     box-shadow: var(--lue-raised);
   }
-  .lue-button:where([aria-pressed="true"]:active) { box-shadow: var(--lue-well-shadow); }
+  .lue-button:where(:is([aria-pressed="true"], [aria-current="page"]):active) { box-shadow: var(--lue-well-shadow); }
   .lue-button:where(:disabled, [aria-disabled="true"]) {
     background-color: var(--lue-material-button-tint);
     background-image: none;
@@ -150,15 +150,15 @@
   :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[data-variant="primary"]) { background-color: var(--lue-color-bg-accent-subtle); }
   :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[data-variant="danger"]) { background-color: var(--lue-color-bg-critical-subtle); }
   :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[data-variant="quiet"]) { background-color: transparent; }
-  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[aria-pressed="true"]) { color: var(--lue-color-fg-default); text-shadow: none; }
-  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[aria-pressed="true"])::before { padding: 2px; background: var(--lue-color-fg-default); }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button:is([aria-pressed="true"], [aria-current="page"])) { color: var(--lue-color-fg-default); text-shadow: none; }
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button:is([aria-pressed="true"], [aria-current="page"]))::before { padding: 2px; background: var(--lue-color-fg-default); }
   @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
     :where(.lue-button) { backdrop-filter: none; background-image: none; }
   }
   @media (forced-colors: active) {
     :where(.lue-button) { background: ButtonFace; color: ButtonText; border-color: ButtonText; backdrop-filter: none; }
     :where(.lue-button)::after { content: none; }
-    :where(.lue-button[aria-pressed="true"]) { background: SelectedItem; color: SelectedItemText; border-color: SelectedItem; text-shadow: none; }
+    :where(.lue-button:is([aria-pressed="true"], [aria-current="page"])) { background: SelectedItem; color: SelectedItemText; border-color: SelectedItem; text-shadow: none; }
     :where(.lue-button:disabled, .lue-button[aria-disabled="true"]) { color: GrayText; border-color: GrayText; }
   }
   :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-button[data-variant="primary"])::after { content: none; }

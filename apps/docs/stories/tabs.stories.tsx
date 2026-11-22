@@ -29,7 +29,7 @@ export const Default: Story = {};
 /** A click shows its panel. (Arrow keys are tested with a real keyboard in tests/tabs.) */
 export const Choose: Story = {
   play: async ({ canvas, canvasElement }) => {
-    await waitFor(() => expect(canvasElement.ownerDocument.defaultView!.customElements.get('lue-tabs')).toBeDefined());
+    await canvasElement.ownerDocument.defaultView!.customElements.whenDefined('lue-tabs');
     await userEvent.click(canvas.getByText('Specs'));
     await waitFor(() => expect(canvas.getByText('Specs')).toHaveAttribute('aria-selected', 'true'));
     await expect(canvas.getByText('No framework on the page; 9 KB of CSS.')).toBeVisible();

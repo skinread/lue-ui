@@ -17,6 +17,7 @@
     "./base.css": "./dist/base.css",
     "./layout.css": "./dist/layout.css",
     "./blocks.css": "./dist/blocks.css",
+    "./blocks/*.css": "./dist/blocks/*.css",
     "./materials.css": "./dist/materials.css",
     "./components/*.css": "./dist/components/*.css",
     "./fonts.css": "./dist/fonts.css",

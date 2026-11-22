@@ -1,0 +1,102 @@
+{
+  "name": "CtaBand",
+  "summary": "A call to action in a glass band: a heading, a sentence and a short form, such as a newsletter sign-up.",
+  "guidance": {
+    "useFor": "A newsletter sign-up, or one invitation to get in touch, near the end of a page.",
+    "insteadUse": [
+      "The page's first action: Hero",
+      "A long form: a page of Fields"
+    ],
+    "content": [
+      "Say what people get and how often, and how to stop",
+      "The button says what happens: \"Subscribe\", not \"Submit\"",
+      "Label the field; a placeholder isn't a label"
+    ]
+  },
+  "status": "experimental",
+  "covers": [
+    "Newsletter band"
+  ],
+  "rung": "native-element",
+  "rungReason": "A <section> named by its heading holding a native form with a labelled Field; validation is Field's.",
+  "anatomy": {
+    "band": {
+      "element": "section",
+      "class": "lue-cta",
+      "attributes": {
+        "aria-labelledby": "the heading's id"
+      }
+    },
+    "heading": {
+      "element": "h2",
+      "class": "lue-h2"
+    },
+    "lede": {
+      "element": "p",
+      "class": "lue-lede",
+      "required": false
+    },
+    "form": {
+      "element": "form",
+      "required": false
+    },
+    "field": {
+      "element": "div",
+      "class": "lue-field",
+      "required": false
+    }
+  },
+  "a11y": {
+    "role": "region (a named section)",
+    "name": "Its heading",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Reaches the field, then the button"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "Submits the form from the field or the button"
+      }
+    ],
+    "focus": {
+      "indicator": "The field's and button's own"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "CtaBand",
+    "props": {
+      "title": "the heading",
+      "kicker, lede": "optional",
+      "headingLevel": "h2 (default) or h3",
+      "children": "the form or actions"
+    }
+  },
+  "tokens": [
+    "--lue-material-glass-overlay",
+    "--lue-glass-sheen",
+    "--lue-glass-filter",
+    "--lue-shadow-raised",
+    "--lue-radius-l",
+    "--lue-space-m"
+  ],
+  "platform": {
+    "baseline": [
+      "backdrop-filter",
+      "flexbox gap"
+    ]
+  },
+  "rules": [
+    "Validate like any Field: errors in words, linked to the field",
+    "The field and button stack when narrow (WCAG 1.4.10)"
+  ],
+  "withoutJavaScript": "Works fully: the form submits to its action",
+  "contrast": "An opaque surface (--lue-color-bg-surface) under increased contrast, reduced transparency or without backdrop-filter",
+  "forcedColors": "Canvas with a CanvasText border",
+  "deletionTrigger": null
+}

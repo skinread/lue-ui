@@ -1,0 +1,93 @@
+{
+  "name": "AuthorCard",
+  "summary": "Who wrote this: avatar, name, a line of bio and a link, in a glass panel at the end of an article.",
+  "guidance": {
+    "useFor": "The end of a post, before related posts; an about page's team list.",
+    "insteadUse": [
+      "The author in the byline: Article header",
+      "A testimonial: Quote"
+    ],
+    "content": [
+      "One or two lines about what they work on",
+      "The link names where it goes: \"More posts by Sam\""
+    ]
+  },
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "A <section> named by aria-label is a region; native text and a link. Not an aside: a named aside inside main is a nested complementary landmark (ADR-0011).",
+  "anatomy": {
+    "card": {
+      "element": "section",
+      "class": "lue-author",
+      "attributes": {
+        "aria-label": "About the author (translated)"
+      }
+    },
+    "text": {
+      "element": "div",
+      "class": "lue-author__text"
+    },
+    "name": {
+      "element": "p",
+      "class": "lue-author__name"
+    },
+    "bio": {
+      "element": "p",
+      "class": "lue-author__bio",
+      "required": false
+    }
+  },
+  "a11y": {
+    "role": "region",
+    "name": "aria-label (\"About the author\")",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Reaches its link"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "Follows the focused link"
+      }
+    ],
+    "focus": {
+      "indicator": "The link's own"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "AuthorCard",
+    "props": {
+      "name": "the author",
+      "bio": "a line or two",
+      "avatar": "a decorative Avatar",
+      "action": "a link",
+      "aria-label": "About the author"
+    }
+  },
+  "tokens": [
+    "--lue-material-glass-overlay",
+    "--lue-glass-filter",
+    "--lue-radius-l",
+    "--lue-space-m",
+    "--lue-color-fg-muted"
+  ],
+  "platform": {
+    "baseline": [
+      "backdrop-filter",
+      "flexbox gap"
+    ]
+  },
+  "rules": [
+    "The avatar is decorative: the name is written beside it",
+    "Wraps the link under the text when narrow (WCAG 1.4.10)"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "An opaque surface (--lue-color-bg-surface) under increased contrast, reduced transparency or without backdrop-filter",
+  "forcedColors": "Canvas with a CanvasText border",
+  "deletionTrigger": null
+}

@@ -1,0 +1,33 @@
+/* Code block - <figure class="lue-code">: a caption naming the language (and a title), then <pre tabindex="0"><code>,
+   focusable so a wide block can be scrolled from the keyboard (WCAG 2.1.1). Tokens are
+   <span class="lue-code__token" data-kind="property|comment">. Contract: apps/docs/contracts/code-block.json. */
+@layer lue.blocks {
+  .lue-code { margin: 0; min-inline-size: 0; border-radius: var(--lue-radius-m); overflow: clip; background-color: var(--lue-material-glass-overlay); }
+  .lue-code > :where(figcaption) { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--lue-space-3xs) var(--lue-space-xs); padding: var(--lue-space-2xs) var(--lue-space-s); font: 500 0.75rem/1.4 var(--lue-font-family-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lue-color-fg-muted); border-block-end: var(--lue-border-width-thin) solid var(--lue-color-border-subtle); }
+  .lue-code :where(pre) { margin: 0; padding: var(--lue-space-s); overflow-inline: auto; font-size: 0.875rem; line-height: 1.7; }
+  .lue-code :where(pre):where(:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: calc(var(--lue-focus-width) * -1 - 2px); }
+  .lue-code__token:where([data-kind="property"]) { color: var(--lue-color-fg-accent); }
+  .lue-code__token:where([data-kind="comment"]) { color: var(--lue-color-fg-muted); }
+}
+
+/* Increased contrast, reduced transparency and no backdrop-filter: an opaque surface. Forced colours: Canvas with a
+   visible border. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-code),
+  :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-code) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+    :where(.lue-code) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    :where(.lue-code) { background-color: var(--lue-color-bg-surface); background-image: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.lue-code) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
+  }
+}
+
+@layer lue.contrast {
+  @media (forced-colors: active) {
+    :where(.lue-code__token) { color: CanvasText; }
+  }
+}

@@ -52,6 +52,11 @@ Divider, Kbd, Progress and Meter, Spinner and Skeleton, Table, Search, Segmented
 Toolbar, Tooltip, Carousel and Quantity stepper - each with a [contract](apps/docs/contracts/) (including when to use it
 and what instead), stories, and keyboard, axe, emulation and visual tests in Chromium, Firefox and WebKit.
 
+Blocks for portfolio and editorial pages, built the same way: Site header and footer, Hero (statement and split),
+Article header, Feature grid, Icon tile, Project card, Post item, Figure, Media and text, Quote, Pull quote, Timeline,
+Table of contents, Code block, Author card, CTA band, Tag filter, and Prose and Section for text styles and page
+sections.
+
 ```bash
 pnpm install
 pnpm build      # tokens, CSS, elements, React

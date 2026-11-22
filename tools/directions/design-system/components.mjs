@@ -298,8 +298,8 @@ Experience or history as an ordered list, each entry a \`<time>\` and a short de
   ['AuthorCard', 'Content', 140, md(`
 Who wrote this: avatar, name, a line of bio and a link, in a glass panel.
 
-**Markup** - \`<aside class="lue-author" aria-label="About the author">{avatar}<div class="lue-author__text"><p>Name</p><p>Bio</p></div><a class="lue-button" data-size="sm" href="…">More posts</a></aside>\`.
-`), stage(`<aside class="lue-author" aria-label="About the author"><span class="lue-avatar" data-size="lg" aria-hidden="true">[A]</span><div class="lue-author__text"><p style="font-weight: 600">[Author name]</p><p style="color: var(--lue-color-fg-muted)">[One or two lines about the author and what they work on.]</p></div><a class="lue-button" data-size="sm" href="#">More posts</a></aside>`)],
+**Markup** - \`<section class="lue-author" aria-label="About the author">{avatar}<div class="lue-author__text"><p>Name</p><p>Bio</p></div><a class="lue-button" data-size="sm" href="…">More posts</a></section>\`. A section, not an aside: a named aside inside \`<main>\` is a nested complementary landmark (ADR-0011).
+`), stage(`<section class="lue-author" aria-label="About the author"><span class="lue-avatar" data-size="lg" aria-hidden="true">[A]</span><div class="lue-author__text"><p style="font-weight: 600">[Author name]</p><p style="color: var(--lue-color-fg-muted)">[One or two lines about the author and what they work on.]</p></div><a class="lue-button" data-size="sm" href="#">More posts</a></section>`)],
 
   ['Hero', 'Blocks', 520, md(`
 The opening statement of a page: kicker, a large light headline, a lede and up to two actions, over satin folds with a glass prism.

@@ -1,0 +1,98 @@
+{
+  "name": "Section",
+  "summary": "A section of a page with space around it and a head, the page's column, and a wrapping row of actions.",
+  "guidance": {
+    "useFor": "Dividing a page into named parts (selected work, journal, services), each with a heading and perhaps a link to see everything; the page's column (Wrap); a row of buttons or links (Actions).",
+    "insteadUse": [
+      "A panel that stands out from the page: Card",
+      "Arranging items inside a section: Layout's Grid or Cluster"
+    ],
+    "content": [
+      "Name each section with a heading",
+      "The head's action says where it goes: \"All projects\", not \"More\""
+    ]
+  },
+  "status": "experimental",
+  "covers": [
+    "Wrap",
+    "Actions"
+  ],
+  "rung": "native-element",
+  "rungReason": "<section> named by its heading is a region landmark; the rest is CSS on native elements.",
+  "anatomy": {
+    "section": {
+      "element": "section",
+      "class": "lue-section",
+      "attributes": {
+        "aria-labelledby": "the heading's id, when it has one"
+      }
+    },
+    "head": {
+      "element": "div",
+      "class": "lue-section__head",
+      "required": false
+    },
+    "heading": {
+      "element": "h2",
+      "class": "lue-h2",
+      "required": false
+    },
+    "wrap": {
+      "element": "div, main, header or footer",
+      "class": "lue-wrap",
+      "required": false
+    },
+    "actions": {
+      "element": "div",
+      "class": "lue-actions",
+      "required": false
+    }
+  },
+  "a11y": {
+    "role": "region (a named section)",
+    "name": "Its heading (aria-labelledby)",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Reaches the head's action, then the section's content"
+      }
+    ],
+    "focus": {
+      "indicator": "Its links and buttons' own"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Section, Wrap, Actions",
+    "props": {
+      "title": "the heading; it names the section",
+      "headingLevel": "h2 (default) or h3",
+      "action": "beside the heading",
+      "Wrap.as": "div, main, header or footer"
+    }
+  },
+  "tokens": [
+    "--lue-gutter",
+    "--lue-space-xs",
+    "--lue-space-s",
+    "--lue-space-l",
+    "--lue-space-2xl"
+  ],
+  "platform": {
+    "baseline": [
+      "min()",
+      "flexbox gap",
+      "logical properties"
+    ]
+  },
+  "rules": [
+    "A section without a heading is a plain section (no landmark); give it one when people will want to jump to it",
+    "Reflow at 320 px: the head wraps, the action goes under the heading"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "n/a",
+  "forcedColors": "n/a",
+  "deletionTrigger": null
+}

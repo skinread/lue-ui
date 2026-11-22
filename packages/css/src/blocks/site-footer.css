@@ -1,0 +1,17 @@
+/* Site footer - <footer class="lue-site-footer">: the wordmark, a footer navigation and a note (copyright), under a
+   chrome line that fades at both ends. Contract: apps/docs/contracts/site-footer.json. */
+@layer lue.blocks {
+  .lue-site-footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--lue-space-s) var(--lue-space-l); padding-block: var(--lue-space-xl) var(--lue-space-2xl); border-block-start: var(--lue-border-width-thin) solid transparent; border-image: linear-gradient(90deg, transparent, var(--lue-chrome-line), transparent) 1; }
+  .lue-site-footer :where(ul) { display: flex; flex-wrap: wrap; gap: var(--lue-space-3xs) var(--lue-space-m); list-style: none; padding: 0; margin: 0; }
+  .lue-site-footer :where(a:not(.lue-wordmark)) { display: inline-flex; align-items: center; min-block-size: var(--lue-size-target-min); color: var(--lue-color-fg-muted); text-decoration: none; }
+  .lue-site-footer :where(a:not(.lue-wordmark)):where(:hover) { color: var(--lue-color-fg-default); text-decoration: underline; text-underline-offset: 0.2em; }
+  .lue-site-footer :where(a):where(:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); border-radius: var(--lue-radius-xs); }
+  .lue-site-footer :where(a[aria-current="page"]) { color: var(--lue-color-fg-default); text-decoration: underline; text-underline-offset: 0.2em; }
+  .lue-site-footer__note { margin: 0; font-size: 0.9375rem; color: var(--lue-color-fg-muted); }
+}
+
+@layer lue.contrast {
+  @media (forced-colors: active) {
+    :where(.lue-site-footer) { border-image: none; border-block-start-color: CanvasText; }
+  }
+}

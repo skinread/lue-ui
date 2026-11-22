@@ -1,0 +1,84 @@
+{
+  "name": "MediaText",
+  "summary": "A figure beside a short passage with a heading and actions; they stack when narrow.",
+  "guidance": {
+    "useFor": "A case-study highlight or a feature explained with an image: one heading, a paragraph or two, and a link.",
+    "insteadUse": [
+      "The top of the page: Hero (a figure as its object makes the split hero)",
+      "A grid of items: Feature grid or Project card"
+    ],
+    "content": [
+      "Keep the passage short: two paragraphs at most",
+      "Alternate the figure's side down a page by source order, not by CSS"
+    ]
+  },
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "A <section> named by its heading; grid with auto-fit stacks the columns with no queries.",
+  "anatomy": {
+    "section": {
+      "element": "section",
+      "class": "lue-split",
+      "attributes": {
+        "aria-labelledby": "the heading's id"
+      }
+    },
+    "text": {
+      "element": "div",
+      "class": "lue-split__text"
+    },
+    "heading": {
+      "element": "h2",
+      "class": "lue-h2"
+    },
+    "actions": {
+      "element": "div",
+      "class": "lue-actions",
+      "required": false
+    }
+  },
+  "a11y": {
+    "role": "region (a named section)",
+    "name": "Its heading",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Reaches its links and buttons"
+      }
+    ],
+    "focus": {
+      "indicator": "The actions' own"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "MediaText",
+    "props": {
+      "title": "the heading",
+      "media": "a Figure",
+      "kicker, actions": "optional",
+      "mediaPosition": "start (default) or end, in source order",
+      "headingLevel": "h2 (default) or h3"
+    }
+  },
+  "tokens": [
+    "--lue-space-s",
+    "--lue-space-xl"
+  ],
+  "platform": {
+    "baseline": [
+      "grid auto-fit",
+      "min()"
+    ]
+  },
+  "rules": [
+    "Visual order is source order: the figure's side follows the markup (WCAG 1.3.2)",
+    "Stacks when either column would be narrower than 26rem (WCAG 1.4.10)"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "n/a",
+  "forcedColors": "n/a",
+  "deletionTrigger": null
+}

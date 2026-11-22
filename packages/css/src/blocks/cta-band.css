@@ -1,0 +1,23 @@
+/* Call-to-action band - <section class="lue-cta" aria-labelledby>: a heading, a sentence and a short form (a
+   newsletter sign-up) or actions, in a glass band. Contract: apps/docs/contracts/cta-band.json. */
+@layer lue.blocks {
+  .lue-cta { display: grid; gap: var(--lue-space-m); justify-items: start; padding: clamp(2rem, 6vi, 4.5rem); border-radius: calc(var(--lue-radius-l) * 1.4); background-color: var(--lue-material-glass-overlay); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-raised), var(--lue-shadow-fringe); }
+  .lue-cta > :where(form) { display: flex; flex-wrap: wrap; gap: var(--lue-space-xs); align-items: end; inline-size: 100%; max-inline-size: 40rem; }
+  .lue-cta :where(.lue-field) { flex: 1 1 16rem; }
+}
+
+/* Increased contrast, reduced transparency and no backdrop-filter: an opaque surface. Forced colours: Canvas with a
+   visible border. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-cta),
+  :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-cta) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+    :where(.lue-cta) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    :where(.lue-cta) { background-color: var(--lue-color-bg-surface); background-image: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.lue-cta) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
+  }
+}

@@ -29,7 +29,8 @@
     "name": "Text content; aria-label when data-icon-only",
     "states": [
       { "state": "disabled", "via": ":disabled", "note": "Use aria-disabled=\"true\" when the button must stay focusable to explain why it is unavailable; then the click handler must ignore activation" },
-      { "state": "pressed", "via": "[aria-pressed]", "appliesTo": "toggle buttons only" }
+      { "state": "pressed", "via": "[aria-pressed]", "appliesTo": "toggle buttons only" },
+      { "state": "current", "via": "[aria-current=\"page\"]", "appliesTo": "a .lue-button link to the page being shown, drawn as pressed (ADR-0011)" }
     ],
     "keyboard": [
       { "keys": ["Enter"], "action": "Activate" },

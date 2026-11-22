@@ -1,0 +1,68 @@
+{
+  "name": "PullQuote",
+  "summary": "A line from an article repeated large between fading chrome lines, hidden from assistive technology.",
+  "guidance": {
+    "useFor": "Breaking up a long article with one line from it, set large.",
+    "insteadUse": [
+      "Someone else's words: Quote",
+      "Anything not already in the body: write it into the body"
+    ],
+    "content": [
+      "Repeat the body's words exactly, so nothing is lost by hiding it",
+      "One sentence"
+    ]
+  },
+  "status": "experimental",
+  "rung": "native-attribute",
+  "rungReason": "aria-hidden hides the repetition, since the body already says it; the rest is CSS.",
+  "anatomy": {
+    "pull": {
+      "element": "aside",
+      "class": "lue-pull",
+      "attributes": {
+        "aria-hidden": "true"
+      }
+    }
+  },
+  "a11y": {
+    "role": "None: hidden from assistive technology",
+    "name": "None",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Passes over it: nothing here takes focus"
+      }
+    ],
+    "focus": {
+      "indicator": "n/a"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "PullQuote",
+    "props": {
+      "children": "the repeated line"
+    }
+  },
+  "tokens": [
+    "--lue-font-family-display",
+    "--lue-chrome-line",
+    "--lue-border-width-thin"
+  ],
+  "platform": {
+    "baseline": [
+      "border-image",
+      "text-wrap: balance"
+    ]
+  },
+  "rules": [
+    "Never put a link or anything focusable in it: it is aria-hidden",
+    "Only words already in the body"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "n/a",
+  "forcedColors": "The chrome lines become CanvasText borders",
+  "deletionTrigger": null
+}

@@ -1,0 +1,111 @@
+{
+  "name": "TagFilter",
+  "summary": "Filter a list by tag: a group of toggle buttons, or links to filtered pages that work without script.",
+  "guidance": {
+    "useFor": "Narrowing a list of projects or posts by discipline or topic.",
+    "insteadUse": [
+      "One choice that replaces the view: Segmented control or Tabs",
+      "Many filters at once: a form with Checkboxes and a submit button"
+    ],
+    "content": [
+      "Name the group by what it filters: \"Filter projects\"",
+      "Say how many items now show, in a status message, after each change"
+    ]
+  },
+  "status": "experimental",
+  "rung": "native-attribute",
+  "rungReason": "Buttons with aria-pressed (data-lue-toggle on the HTML path) or links with aria-current; the group is role=\"group\" or a <nav>.",
+  "anatomy": {
+    "group": {
+      "element": "div (buttons) or nav (links)",
+      "class": "lue-tag-filter",
+      "attributes": {
+        "role": "group, for buttons",
+        "aria-label": "what it filters"
+      }
+    },
+    "button": {
+      "element": "button",
+      "class": "lue-button",
+      "attributes": {
+        "data-size": "sm",
+        "aria-pressed": "true or false",
+        "data-lue-toggle": "on the HTML path"
+      }
+    },
+    "link": {
+      "element": "a",
+      "class": "lue-button",
+      "required": false,
+      "attributes": {
+        "data-size": "sm",
+        "aria-current": "page, on the filter being shown"
+      }
+    }
+  },
+  "a11y": {
+    "role": "group of toggle buttons, or navigation of links",
+    "name": "aria-label",
+    "states": [
+      {
+        "state": "chosen",
+        "via": "[aria-pressed=\"true\"] on a button, [aria-current=\"page\"] on a link"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Moves to the next tag"
+      },
+      {
+        "keys": [
+          "Space"
+        ],
+        "action": "Turns the focused tag on or off"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "Turns the focused tag on or off, or follows its link"
+      }
+    ],
+    "focus": {
+      "indicator": "The button's :focus-visible outline"
+    }
+  },
+  "ownedAttributes": {
+    "data-lue-toggle": [
+      "aria-pressed"
+    ]
+  },
+  "react": {
+    "component": "TagFilter",
+    "props": {
+      "label": "what it filters",
+      "options": "{ value, label, href? }[]; every href → links",
+      "value, defaultValue, onChange": "the chosen values"
+    }
+  },
+  "tokens": [
+    "--lue-space-2xs"
+  ],
+  "platform": {
+    "baseline": [
+      "aria-pressed",
+      "flexbox gap"
+    ]
+  },
+  "rules": [
+    "Without script, use the links form: each tag is a link to the filtered page",
+    "Filtering doesn't move focus; announce the new count in a status message (WCAG 4.1.3)",
+    "The chosen state is said in words (aria-pressed, aria-current) and drawn as the raised key",
+    "In the links form one tag is the current page: aria-current goes on one link only"
+  ],
+  "withoutJavaScript": "The links form works fully; the buttons form needs data-lue-toggle (from @lue-ui/elements) or a framework",
+  "contrast": "As Button",
+  "forcedColors": "As Button: the chosen tag is SelectedItem",
+  "deletionTrigger": null
+}

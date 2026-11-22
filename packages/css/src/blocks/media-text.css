@@ -1,0 +1,7 @@
+/* Media and text - <section class="lue-split" aria-labelledby>: a figure beside a short passage; they stack when
+   either would be narrower than 26rem. Source order is reading order: the figure comes first or last in the markup.
+   Contract: apps/docs/contracts/media-text.json. */
+@layer lue.blocks {
+  .lue-split { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(26rem, 100%), 1fr)); gap: var(--lue-space-xl); align-items: center; }
+  .lue-split__text { display: grid; gap: var(--lue-space-s); justify-items: start; }
+}

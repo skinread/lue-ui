@@ -11,9 +11,12 @@ primary reference for agents working in this repo.
 - **Pass 3 (tracer bullet) is done but for Spike C** (a maintainer starts `/design-sync`; `pnpm design-kit` builds its
   input); **Pass 4 (all of Tier 1, contract-driven keyboard coverage, `llms.txt` and an MCP server) is done; Pass 5
   (Tier 2, docs pages, the Storybook MCP addon, contract-generated guidelines, first public release) is in progress -
-  only the release, Spike C and the manual screen-reader pass are left.** `packages/tokens/src` is the hand-edited DTCG source, built by Terrazzo with contrast and material gates;
+  only the release, Spike C and the manual screen-reader pass are left.** The Pass 2 **content blocks** (site header and
+  footer, heroes, cards, quote, timeline, table of contents, code block and the rest) are built as components with
+  contracts ([ADR-0011](docs/architecture/adr/0011-content-blocks-are-components.md), 2026-11-22); their CSS is
+  `packages/css/src/blocks/<id>.css`. `packages/tokens/src` is the hand-edited DTCG source, built by Terrazzo with contrast and material gates;
   `packages/css/src` holds one file per component; elements and React build per file with size budgets. Every Tier 0, 1 and 2
-  component is built: one contract per component (Layout covers the six primitives) lives in `apps/docs/contracts`
+  component and every content block is built: one contract per component (Layout covers the six primitives) lives in `apps/docs/contracts`
   (schema v1), each with a React adapter (every prop has JSDoc, which react-docgen shows on its Storybook docs page and
   in its Markdown page), Storybook 10 stories and keyboard, axe, emulation, static-markup and visual tests in
   three engines. Follow [RFC-0001 §11](docs/architecture/rfc-0001-architecture.md#11-sequencing-pass-3).

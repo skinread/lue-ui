@@ -1,0 +1,127 @@
+{
+  "name": "Prose",
+  "summary": "The text styles every block uses, from display headline to kicker, and an article's readable body.",
+  "guidance": {
+    "useFor": "Long-form text (an article, a case study) in .lue-prose, and the look of headings and short text anywhere: lue-display for a hero, lue-title for an article, lue-h2 and lue-h3 for sections and cards, lue-lede and lue-dek for the sentence under a headline, lue-kicker for a label above one.",
+    "insteadUse": [
+      "Choosing a heading's level: the document outline decides it; the class only sets the look",
+      "Text that has to stand out as a warning: Alert"
+    ],
+    "content": [
+      "One h1 per page; don't skip levels to get a smaller heading - use the class",
+      "Keep kickers to a few words: they are read before the heading",
+      "Ledes are one or two sentences"
+    ]
+  },
+  "status": "experimental",
+  "covers": [
+    "Display",
+    "Title",
+    "Heading 2",
+    "Heading 3",
+    "Lede",
+    "Dek",
+    "Kicker",
+    "Meta",
+    "Excerpt"
+  ],
+  "rung": "css",
+  "rungReason": "Classes on native headings, paragraphs and lists: the semantics are the elements', the look is CSS.",
+  "anatomy": {
+    "prose": {
+      "element": "div, article or section",
+      "class": "lue-prose"
+    },
+    "display": {
+      "element": "h1",
+      "class": "lue-display",
+      "required": false
+    },
+    "title": {
+      "element": "h1",
+      "class": "lue-title",
+      "required": false
+    },
+    "h2": {
+      "element": "h2 (or any heading)",
+      "class": "lue-h2",
+      "required": false
+    },
+    "h3": {
+      "element": "h3 (or any heading)",
+      "class": "lue-h3",
+      "required": false
+    },
+    "lede": {
+      "element": "p",
+      "class": "lue-lede",
+      "required": false
+    },
+    "dek": {
+      "element": "p",
+      "class": "lue-dek",
+      "required": false
+    },
+    "kicker": {
+      "element": "p or span",
+      "class": "lue-kicker",
+      "required": false
+    },
+    "meta": {
+      "element": "p",
+      "class": "lue-meta",
+      "required": false
+    },
+    "excerpt": {
+      "element": "p",
+      "class": "lue-excerpt",
+      "required": false
+    }
+  },
+  "a11y": {
+    "role": "None of its own: the elements keep theirs",
+    "name": "n/a",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Passes over it: nothing here takes focus"
+      }
+    ],
+    "focus": {
+      "indicator": "n/a"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Prose",
+    "props": {
+      "as": "div (default), article or section"
+    }
+  },
+  "tokens": [
+    "--lue-font-family-display",
+    "--lue-font-family-mono",
+    "--lue-color-fg-muted",
+    "--lue-space-3xs",
+    "--lue-space-s"
+  ],
+  "platform": {
+    "baseline": [
+      "clamp()",
+      "vi units",
+      "text-wrap: balance",
+      "text-wrap: pretty"
+    ]
+  },
+  "rules": [
+    "Sizes grow with the viewport between fixed limits, and stay in rem so text zoom scales them (WCAG 1.4.4)",
+    "Muted text (lede, dek, kicker, excerpt) keeps 4.5:1 on every surface",
+    "Kickers are upper case by CSS only, so screen readers read the words as written"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "n/a",
+  "forcedColors": "System text colours",
+  "deletionTrigger": null
+}

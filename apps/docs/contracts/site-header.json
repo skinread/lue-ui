@@ -1,0 +1,121 @@
+{
+  "name": "SiteHeader",
+  "summary": "A floating glass bar at the top of every page with the site's name and the main navigation.",
+  "guidance": {
+    "useFor": "The top of every page of a site: the wordmark linking home and up to six links to its main sections, the current one marked.",
+    "insteadUse": [
+      "Showing where a page sits in a hierarchy: Breadcrumb",
+      "Navigating within one page: Table of contents",
+      "Actions on the page (sign in, search): buttons or Search, after the navigation"
+    ],
+    "content": [
+      "Name sections with one word where you can: Work, Journal, About, Contact",
+      "Keep the list short enough to fit two lines on a phone"
+    ]
+  },
+  "status": "experimental",
+  "covers": [
+    "Wordmark"
+  ],
+  "rung": "native-element",
+  "rungReason": "<header> is the banner landmark and <nav> the navigation; links with aria-current mark the page. No script.",
+  "anatomy": {
+    "header": {
+      "element": "header",
+      "class": "lue-site-header",
+      "required": true
+    },
+    "bar": {
+      "element": "div",
+      "class": "lue-site-header__bar",
+      "required": true
+    },
+    "wordmark": {
+      "element": "a",
+      "class": "lue-wordmark",
+      "required": false,
+      "attributes": {
+        "href": "the home page"
+      }
+    },
+    "nav": {
+      "element": "nav",
+      "attributes": {
+        "aria-label": "Main (translated)"
+      }
+    },
+    "link": {
+      "element": "a",
+      "class": "lue-site-header__link",
+      "attributes": {
+        "aria-current": "page, on the page being shown"
+      }
+    }
+  },
+  "a11y": {
+    "role": "banner (header at the top of the body), with a navigation landmark",
+    "name": "The navigation: its aria-label (\"Main\")",
+    "states": [
+      {
+        "state": "current page",
+        "via": "[aria-current=\"page\"]"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Reaches the wordmark, then each link"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "Follows the focused link"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline (--lue-focus-width, --lue-color-focus-ring)"
+    },
+    "targetSize": "--lue-size-target-min high"
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "SiteHeader, Wordmark",
+    "props": {
+      "brand": "the Wordmark",
+      "items": "{ label, href, current }[]",
+      "navLabel": "the navigation's name (Main)",
+      "Wordmark.tile": "a decorative IconTile"
+    }
+  },
+  "tokens": [
+    "--lue-material-glass-overlay",
+    "--lue-glass-filter",
+    "--lue-material-button-tint",
+    "--lue-button-depth",
+    "--lue-radius-full",
+    "--lue-layer-sticky",
+    "--lue-size-target-min",
+    "--lue-color-focus-ring"
+  ],
+  "platform": {
+    "baseline": [
+      "position: sticky",
+      "backdrop-filter",
+      "flexbox gap",
+      "@media (min-height)"
+    ]
+  },
+  "rules": [
+    "Put a skip link before it",
+    "Sticky only on viewports at least 30rem tall, so at high zoom it can't cover the page or what has focus (WCAG 1.4.10, 2.4.11); where it sticks, set scroll-padding-block-start on the page",
+    "The list wraps on narrow screens rather than hiding behind a menu button (ADR-0011)",
+    "The current page is marked in words for assistive technology (aria-current) and by more than colour on screen"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "An opaque surface (--lue-color-bg-surface) under increased contrast, reduced transparency or without backdrop-filter",
+  "forcedColors": "The bar: Canvas with a CanvasText border; the current link is underlined",
+  "deletionTrigger": null
+}

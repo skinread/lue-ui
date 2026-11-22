@@ -1,0 +1,8 @@
+/* Article header - <header class="lue-article-header"> at the top of an <article>: breadcrumb, kicker, title, dek and
+   a byline with the author and a <time datetime>. Contract: apps/docs/contracts/article-header.json. */
+@layer lue.blocks {
+  .lue-article-header { display: grid; gap: var(--lue-space-m); justify-items: start; padding-block: var(--lue-space-2xl) var(--lue-space-xl); }
+  .lue-byline { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lue-space-2xs) var(--lue-space-s); margin: 0; }
+  .lue-byline > :where(p) { margin: 0; }
+  .lue-byline > :where(time) { color: var(--lue-color-fg-muted); }
+}

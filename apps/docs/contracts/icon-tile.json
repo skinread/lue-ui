@@ -1,0 +1,88 @@
+{
+  "name": "IconTile",
+  "summary": "An icon on a liquid-metal tile; always decorative, the text beside it carries the meaning.",
+  "guidance": {
+    "useFor": "Beside a heading in a feature grid, in a wordmark, or large in a hero or media frame.",
+    "insteadUse": [
+      "An icon that means something on its own: Icon with a label",
+      "A person: Avatar"
+    ],
+    "content": [
+      "Pick an icon that echoes the words beside it; never rely on it alone"
+    ]
+  },
+  "status": "experimental",
+  "rung": "css",
+  "rungReason": "A <span> with aria-hidden holding an inline SVG; the metal is CSS.",
+  "anatomy": {
+    "tile": {
+      "element": "span",
+      "class": "lue-tile",
+      "attributes": {
+        "aria-hidden": "true"
+      }
+    },
+    "icon": {
+      "element": "svg",
+      "class": "lue-icon",
+      "required": false
+    }
+  },
+  "variants": {
+    "size": {
+      "attribute": "data-size",
+      "values": [
+        "lg"
+      ],
+      "default": "64px (no attribute)"
+    }
+  },
+  "a11y": {
+    "role": "None: hidden from assistive technology",
+    "name": "None",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Passes over it: nothing here takes focus"
+      }
+    ],
+    "focus": {
+      "indicator": "n/a"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "IconTile",
+    "props": {
+      "size": "lg",
+      "children": "an Icon"
+    }
+  },
+  "tokens": [
+    "--lue-metal",
+    "--lue-metal-rim-top",
+    "--lue-metal-rim-bottom",
+    "--lue-material-glint-core"
+  ],
+  "platform": {
+    "baseline": [
+      "inline SVG",
+      "mix-blend-mode"
+    ],
+    "enhancements": [
+      {
+        "feature": "corner-shape: squircle",
+        "fallback": "Rounded corners (30%)"
+      }
+    ]
+  },
+  "rules": [
+    "Always aria-hidden; never the only way something is said"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "n/a",
+  "forcedColors": "Canvas with a CanvasText border; the icon in CanvasText",
+  "deletionTrigger": null
+}

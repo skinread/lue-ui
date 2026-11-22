@@ -1,0 +1,82 @@
+{
+  "name": "Figure",
+  "summary": "An image or a media frame with its caption.",
+  "guidance": {
+    "useFor": "Images and diagrams that the text refers to, in an article or beside a passage; a rounded frame (Media) for art.",
+    "insteadUse": [
+      "A photo of a person: Avatar",
+      "An icon beside text: Icon or Icon tile"
+    ],
+    "content": [
+      "Alt text says what the image shows; the caption adds what it means or where it comes from",
+      "Decorative art gets empty alt; the caption still helps"
+    ]
+  },
+  "status": "experimental",
+  "covers": [
+    "Media"
+  ],
+  "rung": "native-element",
+  "rungReason": "<figure> and <figcaption> associate the caption with the image natively.",
+  "anatomy": {
+    "figure": {
+      "element": "figure",
+      "class": "lue-figure"
+    },
+    "media": {
+      "element": "div",
+      "class": "lue-media",
+      "required": false,
+      "attributes": {
+        "style": "aspect-ratio (4 / 3)"
+      }
+    },
+    "caption": {
+      "element": "figcaption",
+      "required": false
+    }
+  },
+  "a11y": {
+    "role": "figure",
+    "name": "Its figcaption",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Passes over it: nothing here takes focus"
+      }
+    ],
+    "focus": {
+      "indicator": "n/a"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Figure, Media",
+    "props": {
+      "caption": "the figcaption",
+      "children": "an img or a Media",
+      "Media.ratio": "the aspect ratio"
+    }
+  },
+  "tokens": [
+    "--lue-space-xs",
+    "--lue-color-fg-muted",
+    "--lue-radius-l",
+    "--lue-color-border-subtle"
+  ],
+  "platform": {
+    "baseline": [
+      "aspect-ratio",
+      "object-fit"
+    ]
+  },
+  "rules": [
+    "Images scale with their column and never overflow it (WCAG 1.4.10)"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "n/a",
+  "forcedColors": "System text colours; art hides its satin",
+  "deletionTrigger": null
+}

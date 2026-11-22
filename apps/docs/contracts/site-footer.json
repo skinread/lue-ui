@@ -1,0 +1,95 @@
+{
+  "name": "SiteFooter",
+  "summary": "The foot of every page: the wordmark, a footer navigation and a copyright note under a chrome line.",
+  "guidance": {
+    "useFor": "The bottom of every page: secondary links (contact, accessibility statement, privacy) and the copyright.",
+    "insteadUse": [
+      "The main sections of the site: Site header",
+      "A newsletter sign-up: CTA band, before the footer"
+    ],
+    "content": [
+      "Link the accessibility statement here",
+      "Keep the note to one line"
+    ]
+  },
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "<footer> is the contentinfo landmark and <nav aria-label> a navigation; plain links.",
+  "anatomy": {
+    "footer": {
+      "element": "footer",
+      "class": "lue-site-footer",
+      "required": true
+    },
+    "wordmark": {
+      "element": "a",
+      "class": "lue-wordmark",
+      "required": false
+    },
+    "nav": {
+      "element": "nav",
+      "attributes": {
+        "aria-label": "Footer (translated)"
+      }
+    },
+    "note": {
+      "element": "p",
+      "class": "lue-site-footer__note",
+      "required": false
+    }
+  },
+  "a11y": {
+    "role": "contentinfo (footer at the end of the body), with a navigation landmark",
+    "name": "The navigation: its aria-label (\"Footer\")",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Reaches the wordmark, then each link"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "Follows the focused link"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline (--lue-focus-width, --lue-color-focus-ring)"
+    },
+    "targetSize": "--lue-size-target-min high"
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "SiteFooter",
+    "props": {
+      "brand": "the Wordmark",
+      "items": "{ label, href, current }[]",
+      "navLabel": "Footer",
+      "note": "the copyright line"
+    }
+  },
+  "tokens": [
+    "--lue-chrome-line",
+    "--lue-color-fg-muted",
+    "--lue-size-target-min",
+    "--lue-space-m",
+    "--lue-space-xl",
+    "--lue-color-focus-ring"
+  ],
+  "platform": {
+    "baseline": [
+      "border-image",
+      "flexbox gap"
+    ]
+  },
+  "rules": [
+    "Two navigations on one page need different names: Main and Footer",
+    "The chrome line is decoration; the footer is a landmark either way"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "n/a",
+  "forcedColors": "The chrome line becomes a CanvasText border",
+  "deletionTrigger": null
+}

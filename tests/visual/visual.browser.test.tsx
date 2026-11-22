@@ -113,6 +113,41 @@ const SECTIONS: Record<string, string> = {
       <div class="lue-menu__separator" role="separator"></div>
       <button type="button" class="lue-menu__item" role="menuitem" tabindex="-1" data-tone="critical">Clear sorting</button>
     </div>`,
+  // Content blocks (ADR-0011), each section under the 640 px viewport.
+  'blocks-navigation': `
+    <div style="display:grid;gap:24px;inline-size:880px">
+      <header class="lue-site-header"><div class="lue-site-header__bar"><a class="lue-wordmark" href="#"><span class="lue-tile" aria-hidden="true"><svg class="lue-icon" aria-hidden="true" viewBox="0 0 16 16"><path d="M8 2.5 14 13H2Z" fill="none" stroke="currentColor" stroke-width="1.5"></path></svg></span>Lue</a><nav aria-label="Main"><ul><li><a class="lue-site-header__link" href="#" aria-current="page">Work</a></li><li><a class="lue-site-header__link" href="#">Journal</a></li><li><a class="lue-site-header__link" href="#">About</a></li></ul></nav></div></header>
+      <div style="display:flex;gap:24px;align-items:start">
+        <nav class="lue-toc" aria-labelledby="v-toc" style="inline-size:260px"><p class="lue-kicker" id="v-toc">On this page</p><ol><li><a href="#">Colour as light</a></li><li><a href="#" aria-current="true">Contrast that holds</a></li></ol></nav>
+        <div class="lue-tag-filter" role="group" aria-label="Filter"><button type="button" class="lue-button" data-size="sm" aria-pressed="true">Systems</button><button type="button" class="lue-button" data-size="sm" aria-pressed="false">Product</button></div>
+        <nav class="lue-tag-filter" aria-label="Topics"><ul><li><a class="lue-button" data-size="sm" href="#" aria-current="page">Craft</a></li><li><a class="lue-button" data-size="sm" href="#">Notes</a></li></ul></nav>
+      </div>
+      <footer class="lue-site-footer"><a class="lue-wordmark" href="#">Lue</a><nav aria-label="Footer"><ul><li><a href="#">Contact</a></li><li><a href="#">Accessibility</a></li></ul></nav><p class="lue-site-footer__note">© 2026 Lue Studio</p></footer>
+    </div>`,
+  'blocks-hero': `
+    <section class="lue-hero" aria-labelledby="v-hero" style="inline-size:880px;padding-block:32px"><div class="lue-hero__grid" style="grid-template-columns:1fr auto"><div class="lue-hero__text"><p class="lue-kicker">Design and engineering studio</p><h1 class="lue-display" id="v-hero">Interfaces that hold their light.</h1><p class="lue-lede">Calm to use, alive to touch.</p><div class="lue-actions"><a class="lue-button" data-variant="primary" href="#">View work</a><a class="lue-button" href="#">Read the journal</a></div></div><div class="lue-hero__object"><svg class="lue-prism" aria-hidden="true" viewBox="0 0 400 360" style="inline-size:180px"><path d="M200 30 L360 310 L40 310 Z" style="fill:var(--lue-prism-glass-top);stroke:var(--lue-prism-ring);stroke-width:6"></path></svg></div></div></section>`,
+  'blocks-article': `
+    <article style="inline-size:880px"><header class="lue-article-header" style="padding-block:0"><nav class="lue-breadcrumb" aria-label="Breadcrumb"><ol><li><a href="#">Journal</a></li><li><a href="#" aria-current="page">Craft</a></li></ol></nav><p class="lue-kicker">Craft · 5 min read</p><h1 class="lue-title">Designing with light</h1><p class="lue-dek">How contrast stays fixed while colour moves.</p><div class="lue-byline"><span class="lue-avatar" aria-hidden="true">ST</span><span>Sam Taylor</span><time datetime="2026-10-05">5 October 2026</time></div></header></article>`,
+  'blocks-cards': `
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;inline-size:880px;align-items:start">
+      <article class="lue-project"><div class="lue-media" style="aspect-ratio:16 / 9"><svg class="lue-prism" aria-hidden="true" viewBox="0 0 400 360" style="inline-size:180px"><path d="M200 30 L360 310 L40 310 Z" style="fill:var(--lue-prism-glass-top);stroke:var(--lue-prism-ring);stroke-width:6"></path></svg></div><div class="lue-project__body"><p class="lue-meta"><span class="lue-kicker">Loom</span><span class="lue-kicker">2026</span></p><h3 class="lue-h3"><a href="#">A design system</a></h3><p class="lue-excerpt">One line on what changed.</p><ul class="lue-tags" aria-label="Disciplines"><li><span class="lue-tag">Systems</span></li></ul></div></article>
+      <article class="lue-post" data-variant="card"><p class="lue-meta"><span class="lue-kicker">Craft</span><time class="lue-kicker" datetime="2026-10-05">5 Oct 2026</time></p><h3 class="lue-h3"><a href="#">Designing with light</a></h3><p class="lue-excerpt">How contrast stays fixed.</p></article>
+      <div><article class="lue-post"><p class="lue-meta"><span class="lue-kicker">Notes</span></p><h3 class="lue-h3"><a href="#">Glass that steps aside</a></h3></article><ul class="lue-feature-grid"><li class="lue-feature"><span class="lue-tile" aria-hidden="true"><svg class="lue-icon" aria-hidden="true" viewBox="0 0 16 16"><path d="M8 2.5 14 13H2Z" fill="none" stroke="currentColor" stroke-width="1.5"></path></svg></span><h3 class="lue-h3">Accessibility</h3><p>Audits and fixes.</p></li></ul></div>
+    </div>`,
+  'blocks-panels': `
+    <div style="display:grid;gap:24px;inline-size:880px">
+      <section class="lue-author" aria-label="About the author"><span class="lue-avatar" data-size="lg" aria-hidden="true">ST</span><div class="lue-author__text"><p class="lue-author__name">Sam Taylor</p><p class="lue-author__bio">Builds accessible front ends.</p></div><a class="lue-button" data-size="sm" href="#">More posts</a></section>
+      <section class="lue-cta" aria-labelledby="v-cta"><h2 class="lue-h2" id="v-cta">Notes on light</h2><p class="lue-lede">One letter a month.</p><form><div class="lue-field"><label class="lue-field__label" for="v-cta-email">Email address</label><input class="lue-input" id="v-cta-email" type="email"></div><button type="submit" class="lue-button" data-variant="primary">Subscribe</button></form></section>
+    </div>`,
+  'blocks-media-text': `
+    <section class="lue-split" aria-labelledby="v-split" style="inline-size:880px;grid-template-columns:1fr 1fr"><figure class="lue-figure"><div class="lue-media" style="aspect-ratio:16 / 9"><svg class="lue-prism" aria-hidden="true" viewBox="0 0 400 360" style="inline-size:180px"><path d="M200 30 L360 310 L40 310 Z" style="fill:var(--lue-prism-glass-top);stroke:var(--lue-prism-ring);stroke-width:6"></path></svg></div><figcaption>Light pools where glass meets the surface.</figcaption></figure><div class="lue-split__text"><p class="lue-kicker">Case study · Kiln</p><h2 class="lue-h2" id="v-split">An editorial platform</h2><p class="lue-excerpt">Two sentences on the brief.</p><div class="lue-actions"><a class="lue-button" href="#">Read the case study</a></div></div></section>`,
+  'blocks-text': `
+    <div style="display:grid;gap:20px;inline-size:880px">
+      <figure class="lue-quote"><span class="lue-quote__mark lue-chrome-text" aria-hidden="true">“</span><blockquote><p>Faster and easier to use.</p></blockquote><figcaption><span class="lue-quote__source"><span class="lue-quote__name">Alex Morgan</span><span class="lue-quote__role">Editor, Kiln</span></span></figcaption></figure>
+      <aside class="lue-pull" aria-hidden="true">Only the colour moves.</aside>
+      <ol class="lue-timeline"><li><span class="lue-kicker lue-timeline__when">2024 - now</span><div class="lue-timeline__entry"><p class="lue-timeline__title">Founder</p><p class="lue-timeline__detail">Lue Studio.</p></div></li></ol>
+      <figure class="lue-code"><figcaption><span>CSS</span><span>Glass</span></figcaption><pre tabindex="0"><code><span class="lue-code__token" data-kind="comment">/* A pane of glass */</span> .button { <span class="lue-code__token" data-kind="property">backdrop-filter</span>: blur(10px); }</code></pre></figure>
+    </div>`,
 };
 
 describe.runIf(server.platform === 'linux')('visual', () => {

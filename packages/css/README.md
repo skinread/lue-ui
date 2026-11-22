@@ -41,7 +41,8 @@ never changes which rules win:
 | `lue.css` | Everything below, bundled |
 | `base.css` | Element defaults (opt-in) |
 | `components/*.css` | One file per component: button, field, dialog, menu, alert, toast, tag, disclosure, steps, breadcrumb, pagination, card, and the shared chrome ring |
-| `blocks.css` | Portfolio and editorial blocks |
+| `blocks.css` | Portfolio and editorial blocks, all of them ([ADR-0011](../../docs/architecture/adr/0011-content-blocks-are-components.md)) |
+| `blocks/<id>.css` | One block on its own, such as `blocks/hero.css` |
 | `fonts.css`, `fonts/` | Opt-in. Epilogue, Figtree (and italic) and Spline Sans Mono as Latin woff2 (SIL OFL, licences in `fonts/`, 111 KB; budget 130 KB), each with a metric-matched fallback face (Arial / Courier New or their Liberation clones) so nothing shifts while they load |
 | `materials.css` | Glass, ambient light, satin, metal tiles, chrome text |
 

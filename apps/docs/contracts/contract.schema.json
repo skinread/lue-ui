@@ -316,7 +316,7 @@
         },
         "class": {
           "type": "string",
-          "pattern": "^lue-[a-z-]+(__[a-z-]+)?(\\|lue-[a-z-]+(__[a-z-]+)?)*$"
+          "pattern": "^lue-[a-z0-9-]+(__[a-z0-9-]+)?(\\|lue-[a-z0-9-]+(__[a-z0-9-]+)?)*$"
         },
         "required": {
           "type": "boolean"

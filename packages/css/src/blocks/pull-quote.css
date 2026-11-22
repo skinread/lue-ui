@@ -1,0 +1,12 @@
+/* Pull quote - <aside class="lue-pull" aria-hidden="true">: a line from the body, repeated large between two fading
+   chrome lines. Hidden from assistive technology because the body already says it. Contract:
+   apps/docs/contracts/pull-quote.json. */
+@layer lue.blocks {
+  .lue-pull { margin: 0; font-family: var(--lue-font-family-display); font-weight: 300; font-size: clamp(1.6rem, 1.15rem + 1.4vi, 2.4rem); line-height: 1.2; letter-spacing: -0.02em; text-align: center; text-wrap: balance; padding-block: 0.7em; border-block: var(--lue-border-width-thin) solid transparent; border-image: linear-gradient(90deg, transparent, var(--lue-chrome-line), transparent) 1; }
+}
+
+@layer lue.contrast {
+  @media (forced-colors: active) {
+    :where(.lue-pull) { border-image: none; border-block-color: CanvasText; }
+  }
+}

@@ -1,0 +1,7 @@
+/* Tag filter - a group of toggle buttons (<div class="lue-tag-filter" role="group" aria-label>, aria-pressed), or a
+   navigation of links to filtered pages (<nav class="lue-tag-filter" aria-label><ul>, aria-current="page"). The
+   buttons are small .lue-button; the chosen one is the raised key. Contract: apps/docs/contracts/tag-filter.json. */
+@layer lue.blocks {
+  .lue-tag-filter, .lue-tag-filter > :where(ul) { display: flex; flex-wrap: wrap; gap: var(--lue-space-2xs); }
+  .lue-tag-filter > :where(ul) { list-style: none; margin: 0; padding: 0; }
+}
