@@ -30,8 +30,8 @@
 
 @layer lue.contrast {
   @media (forced-colors: active) {
-    :where(.lue-toc :where(a))::before { background: CanvasText; }
-    :where(.lue-toc :where(a)[aria-current="true"]) { color: Highlight; }
-    :where(.lue-toc :where(a)[aria-current="true"])::before { background: Highlight; }
+    :where(.lue-toc a)::before { background: CanvasText; }
+    :where(.lue-toc a[aria-current="true"]) { color: Highlight; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.3em; }
+    :where(.lue-toc a[aria-current="true"])::before { background: Highlight; }
   }
 }
