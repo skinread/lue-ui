@@ -7,13 +7,15 @@
   .lue-post:where([data-variant="card"]) > :where(:not(.lue-media)) { margin-inline: var(--lue-space-xs); }
   .lue-post:where(:hover)::before { --lue-angle: 120deg; }
   /* The title's link covers the whole item; the item shows the focus ring, since the link's own outline would only
-     circle the title. Tags and other links sit above it. */
-  .lue-post :where(h2, h3, h4) a { color: var(--lue-color-fg-default); text-decoration: none; }
-  .lue-post :where(h2, h3, h4) a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 1; }
-  .lue-post :where(h2, h3, h4) a:where(:hover) { text-decoration: underline; text-underline-offset: 0.2em; }
+     circle the title. Other links and buttons sit above it. */
+  .lue-post :where(:is(h2, h3, h4) a) { color: var(--lue-color-fg-default); text-decoration: none; }
+  .lue-post :where(:is(h2, h3, h4) a)::after { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 1; }
+  .lue-post :where(:is(h2, h3, h4) a):where(:hover) { text-decoration: underline; text-underline-offset: 0.2em; }
   .lue-post:where(:has(:is(h2, h3, h4) a:focus-visible)) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); }
-  .lue-post :where(h2, h3, h4) a:where(:focus-visible) { outline: none; text-decoration: underline; }
   .lue-post :where(a, button):where(:not(:is(h2, h3, h4) a)) { position: relative; z-index: 2; }
+  .lue-post :where(:is(h2, h3, h4) a):where(:focus-visible) { outline: none; text-decoration: underline; }
+  /* The chrome line fades toward the end of the line, in either direction. */
+  .lue-post:where(:dir(rtl):not([data-variant="card"])) { border-image: linear-gradient(270deg, var(--lue-chrome-line), transparent) 1; }
 }
 
 /* Increased contrast, reduced transparency and no backdrop-filter: an opaque surface. Forced colours: Canvas with a

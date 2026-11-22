@@ -2,11 +2,11 @@
 // section, Tab through the links and Enter goes to a section, axe in every theme, reflow, increased contrast and forced
 // colours. Chromium, Firefox and WebKit.
 import { describe, expect, it } from 'vitest';
-import { userEvent } from 'vitest/browser';
+import { server, userEvent } from 'vitest/browser';
 import '../../packages/tokens/dist/tokens.css';
 import '../../packages/css/src/lue.css';
 import { TableOfContents } from '@lue-ui/react';
-import { $, focusDocument, frame, tab } from '../support/browser.js';
+import { $, emulate, focusDocument, frame, tab } from '../support/browser.js';
 import { blockGates, cleanUp, labelOf } from '../support/blocks.js';
 
 const html = `<nav class="lue-toc" id="toc" aria-labelledby="toc-title">
@@ -41,5 +41,11 @@ describe('Table of contents', () => {
     await userEvent.keyboard('{Enter}');
     await frame();
     expect(location.hash).toBe('#contrast');
+  });
+
+  it.skipIf(server.browser === 'webkit')('underlines the current section in forced colours, so colour is not the only cue', async () => {
+    document.body.innerHTML = html;
+    await emulate({ forcedColors: 'active' });
+    expect(getComputedStyle($('a[aria-current="true"]')).textDecorationLine).toBe('underline');
   });
 });

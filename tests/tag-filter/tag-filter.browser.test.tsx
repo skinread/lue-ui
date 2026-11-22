@@ -33,8 +33,10 @@ cleanUp();
 describe('Tag filter', () => {
   blockGates({ html: buttons, react: <TagFilter label="Filter projects" options={options} defaultValue={['systems']} /> });
 
-  it('renders the links form when every tag has an href', () => {
+  it('renders the links form when every tag has an href, with one current page', () => {
     expect(outline(renderToStaticMarkup(<TagFilter label="Filter projects" options={linked} value={['systems']} />))).toEqual(outline(links));
+    document.body.innerHTML = renderToStaticMarkup(<TagFilter label="Filter projects" options={linked} value={['systems', 'product']} />);
+    expect(document.querySelectorAll('[aria-current]')).toHaveLength(1);
   });
 
   it('moves between tags with Tab; Space and Enter turn them on and off, and say what is chosen', async () => {

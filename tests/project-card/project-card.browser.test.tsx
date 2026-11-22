@@ -41,12 +41,12 @@ describe('Project card', () => {
     ),
   });
 
-  it('is its link all over, with its tags on top', () => {
+  it('is its link all over, its tags included (they are text, not targets)', () => {
     document.body.innerHTML = html;
     const box = $('#card').getBoundingClientRect();
     expect(at(box.left + 6, box.top + 6)).toBe($('#card a'));
     const tag = $('.lue-tag').getBoundingClientRect();
-    expect($('.lue-tags').contains(at(tag.left + tag.width / 2, tag.top + tag.height / 2))).toBe(true);
+    expect(at(tag.left + tag.width / 2, tag.top + tag.height / 2)).toBe($('#card a'));
   });
 
   it('shows the focus ring on the card, and Enter follows the link', async () => {

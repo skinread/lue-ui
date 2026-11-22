@@ -2,9 +2,9 @@
    source's avatar, name and role. Contract: apps/docs/contracts/quote.json. */
 @layer lue.blocks {
   .lue-quote { margin: 0; display: grid; gap: var(--lue-space-m); justify-items: start; max-inline-size: 64rem; }
-  .lue-quote > blockquote { margin: 0; font-family: var(--lue-font-family-display); font-weight: 300; font-size: clamp(1.7rem, 1.15rem + 1.8vi, 2.75rem); line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
-  .lue-quote > blockquote > :where(p) { margin: 0; }
-  .lue-quote > figcaption { display: flex; align-items: center; gap: var(--lue-space-s); }
+  .lue-quote > :where(blockquote) { margin: 0; font-family: var(--lue-font-family-display); font-weight: 300; font-size: clamp(1.7rem, 1.15rem + 1.8vi, 2.75rem); line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
+  .lue-quote > :where(blockquote) > :where(p) { margin: 0; }
+  .lue-quote > :where(figcaption) { display: flex; align-items: center; gap: var(--lue-space-s); }
   /* Line height 1 keeps the glyph inside its box, where the chrome gradient is painted (background-clip: text). */
   .lue-quote__mark { font: 300 6rem/1 var(--lue-font-family-display); block-size: 0.5em; }
   .lue-quote__source { display: grid; }

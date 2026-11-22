@@ -2,15 +2,17 @@
    line of detail, between chrome lines. Contract: apps/docs/contracts/timeline.json. */
 @layer lue.blocks {
   .lue-timeline { list-style: none; margin: 0; padding: 0; display: grid; }
-  .lue-timeline > li { display: flex; flex-wrap: wrap; gap: var(--lue-space-3xs) var(--lue-space-l); padding-block: var(--lue-space-m); border-block-start: var(--lue-border-width-thin) solid transparent; border-image: linear-gradient(90deg, var(--lue-chrome-line), transparent) 1; }
+  .lue-timeline > :where(li) { display: flex; flex-wrap: wrap; gap: var(--lue-space-3xs) var(--lue-space-l); padding-block: var(--lue-space-m); border-block-start: var(--lue-border-width-thin) solid transparent; border-image: linear-gradient(90deg, var(--lue-chrome-line), transparent) 1; }
   .lue-timeline__when { flex: 0 0 11rem; }
   .lue-timeline__entry { flex: 1 1 22rem; display: grid; gap: var(--lue-space-3xs); }
   .lue-timeline__title { margin: 0; font-weight: 600; }
   .lue-timeline__detail { margin: 0; color: var(--lue-color-fg-muted); }
+  /* The chrome line fades toward the end of the line, in either direction. */
+  .lue-timeline > :where(li):where(:dir(rtl)) { border-image: linear-gradient(270deg, var(--lue-chrome-line), transparent) 1; }
 }
 
 @layer lue.contrast {
   @media (forced-colors: active) {
-    :where(.lue-timeline > li) { border-image: none; border-block-start-color: CanvasText; }
+    :where(.lue-timeline > :where(li)) { border-image: none; border-block-start-color: CanvasText; }
   }
 }

@@ -16,9 +16,10 @@ export interface TagFilterOption {
 export interface TagFilterProps extends Omit<ComponentPropsWithRef<'div'>, 'onChange' | 'defaultValue'> {
   /** What the tags filter, translated: "Filter projects". It names the group. */
   label: string;
-  /** The tags. When every one has an `href`, they render as links to filtered pages, and need no script. */
+  /** The tags. When every one has an `href`, they render as links to filtered pages (a `<nav>`, which takes no `ref`)
+   *  and need no script; when any lacks one, they are all toggle buttons. */
   options: TagFilterOption[];
-  /** The chosen tags (controlled). Pair it with `onChange`. */
+  /** The chosen tags (controlled). Pair it with `onChange`. In the links form only the first is the current page. */
   value?: string[] | undefined;
   /** The tags chosen at first, when uncontrolled. */
   defaultValue?: string[] | undefined;
@@ -40,7 +41,7 @@ export function TagFilter({ label, options, value, defaultValue = [], onChange, 
         <ul>
           {options.map((o) => (
             <li key={o.value}>
-              <a className="lue-button" data-size="sm" href={o.href} aria-current={chosen.includes(o.value) ? 'page' : undefined}>{o.label}</a>
+              <a className="lue-button" data-size="sm" href={o.href} aria-current={o.value === chosen[0] ? 'page' : undefined}>{o.label}</a>
             </li>
           ))}
         </ul>

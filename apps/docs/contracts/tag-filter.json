@@ -76,7 +76,11 @@
       "indicator": "The button's :focus-visible outline"
     }
   },
-  "ownedAttributes": {},
+  "ownedAttributes": {
+    "data-lue-toggle": [
+      "aria-pressed"
+    ]
+  },
   "react": {
     "component": "TagFilter",
     "props": {
@@ -97,7 +101,8 @@
   "rules": [
     "Without script, use the links form: each tag is a link to the filtered page",
     "Filtering doesn't move focus; announce the new count in a status message (WCAG 4.1.3)",
-    "The chosen state is said in words (aria-pressed, aria-current) and drawn as the raised key"
+    "The chosen state is said in words (aria-pressed, aria-current) and drawn as the raised key",
+    "In the links form one tag is the current page: aria-current goes on one link only"
   ],
   "withoutJavaScript": "The links form works fully; the buttons form needs data-lue-toggle (from @lue-ui/elements) or a framework",
   "contrast": "As Button",

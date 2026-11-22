@@ -3,9 +3,9 @@
    <span class="lue-code__token" data-kind="property|comment">. Contract: apps/docs/contracts/code-block.json. */
 @layer lue.blocks {
   .lue-code { margin: 0; min-inline-size: 0; border-radius: var(--lue-radius-m); overflow: clip; background-color: var(--lue-material-glass-overlay); }
-  .lue-code > figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--lue-space-3xs) var(--lue-space-xs); padding: var(--lue-space-2xs) var(--lue-space-s); font: 500 0.75rem/1.4 var(--lue-font-family-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lue-color-fg-muted); border-block-end: var(--lue-border-width-thin) solid var(--lue-color-border-subtle); }
-  .lue-code pre { margin: 0; padding: var(--lue-space-s); overflow-inline: auto; font-size: 0.875rem; line-height: 1.7; }
-  .lue-code pre:where(:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: calc(var(--lue-focus-width) * -1 - 2px); }
+  .lue-code > :where(figcaption) { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--lue-space-3xs) var(--lue-space-xs); padding: var(--lue-space-2xs) var(--lue-space-s); font: 500 0.75rem/1.4 var(--lue-font-family-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--lue-color-fg-muted); border-block-end: var(--lue-border-width-thin) solid var(--lue-color-border-subtle); }
+  .lue-code :where(pre) { margin: 0; padding: var(--lue-space-s); overflow-inline: auto; font-size: 0.875rem; line-height: 1.7; }
+  .lue-code :where(pre):where(:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: calc(var(--lue-focus-width) * -1 - 2px); }
   .lue-code__token:where([data-kind="property"]) { color: var(--lue-color-fg-accent); }
   .lue-code__token:where([data-kind="comment"]) { color: var(--lue-color-fg-muted); }
 }

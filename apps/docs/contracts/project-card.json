@@ -115,7 +115,7 @@
   },
   "rules": [
     "One link per card; don't wrap the whole card in an <a>",
-    "Tags sit above the stretched link and aren't links themselves",
+    "Tags are plain text under the stretched link; links and buttons inside the card sit above it",
     "Text in the card can't be selected by dragging: keep it short"
   ],
   "withoutJavaScript": "Works fully",

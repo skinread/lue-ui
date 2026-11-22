@@ -13,7 +13,7 @@ export interface QuoteProps extends Omit<ComponentPropsWithRef<'figure'>, 'role'
 }
 
 /**
- * `<figure class="lue-quote">` - a quotation (the children, one paragraph) with a decorative chrome mark and its
+ * `<figure class="lue-quote">` - a quotation (the children: inline content, which becomes one paragraph) with a decorative chrome mark and its
  * source in the caption. Real quotes only. Contract: apps/docs/contracts/quote.json.
  */
 export function Quote({ name, role, avatar, cite, className, children, ...props }: QuoteProps): ReactNode {

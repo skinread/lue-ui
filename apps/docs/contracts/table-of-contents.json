@@ -94,6 +94,6 @@
   ],
   "withoutJavaScript": "Works fully",
   "contrast": "An opaque surface (--lue-color-bg-surface) under increased contrast, reduced transparency or without backdrop-filter",
-  "forcedColors": "Canvas with a CanvasText border; the current link in Highlight",
+  "forcedColors": "Canvas with a CanvasText border; the current link in Highlight, underlined",
   "deletionTrigger": null
 }

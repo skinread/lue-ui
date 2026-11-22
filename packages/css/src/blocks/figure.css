@@ -3,5 +3,5 @@
 @layer lue.blocks {
   .lue-figure { margin: 0; display: grid; gap: var(--lue-space-xs); min-inline-size: 0; }
   .lue-figure > :where(img) { inline-size: 100%; block-size: auto; border-radius: calc(var(--lue-radius-l) - 8px); }
-  .lue-figure > figcaption { font-size: 0.9375rem; color: var(--lue-color-fg-muted); }
+  .lue-figure > :where(figcaption) { font-size: 0.9375rem; color: var(--lue-color-fg-muted); }
 }

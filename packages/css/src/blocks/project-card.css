@@ -6,15 +6,15 @@
   .lue-project__body { display: grid; gap: var(--lue-space-2xs); padding-inline: var(--lue-space-xs); }
   .lue-project:where(:hover)::before { --lue-angle: 120deg; }
   /* The title's link covers the whole item; the item shows the focus ring, since the link's own outline would only
-     circle the title. Tags and other links sit above it. */
-  .lue-project :where(h2, h3, h4) a { color: var(--lue-color-fg-default); text-decoration: none; }
-  .lue-project :where(h2, h3, h4) a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 1; }
-  .lue-project :where(h2, h3, h4) a:where(:hover) { text-decoration: underline; text-underline-offset: 0.2em; }
+     circle the title. Other links and buttons sit above it. */
+  .lue-project :where(:is(h2, h3, h4) a) { color: var(--lue-color-fg-default); text-decoration: none; }
+  .lue-project :where(:is(h2, h3, h4) a)::after { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 1; }
+  .lue-project :where(:is(h2, h3, h4) a):where(:hover) { text-decoration: underline; text-underline-offset: 0.2em; }
   .lue-project:where(:has(:is(h2, h3, h4) a:focus-visible)) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); }
-  .lue-project :where(h2, h3, h4) a:where(:focus-visible) { outline: none; text-decoration: underline; }
   .lue-project :where(a, button):where(:not(:is(h2, h3, h4) a)) { position: relative; z-index: 2; }
-  /* A list of tags; above a stretched link, so each stays its own target. */
-  .lue-tags { display: flex; flex-wrap: wrap; gap: var(--lue-space-3xs); list-style: none; margin: 0; padding: 0; position: relative; z-index: 2; }
+  .lue-project :where(:is(h2, h3, h4) a):where(:focus-visible) { outline: none; text-decoration: underline; }
+  /* A list of tags: plain text under the stretched link (tags aren't links). */
+  .lue-tags { display: flex; flex-wrap: wrap; gap: var(--lue-space-3xs); list-style: none; margin: 0; padding: 0; }
 }
 
 /* Increased contrast, reduced transparency and no backdrop-filter: an opaque surface. Forced colours: Canvas with a

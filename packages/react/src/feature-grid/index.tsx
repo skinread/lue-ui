@@ -23,7 +23,7 @@ export interface FeatureProps extends Omit<ComponentPropsWithRef<'li'>, 'title'>
   headingLevel?: 'h2' | 'h3' | 'h4' | undefined;
 }
 
-/** `<li class="lue-feature">` - an icon tile, a heading and a sentence (the children). */
+/** `<li class="lue-feature">` - an icon tile, a heading and a sentence (the children: inline content, in a `<p>`). */
 export function Feature({ icon, title, headingLevel = 'h3', className, children, ...props }: FeatureProps): ReactNode {
   return (
     <li {...props} className={cx('lue-feature', className)}>
