@@ -21,7 +21,7 @@ export const WithHint: Story = { args: { hint: 'Up to 10 per order.' } };
 /** + steps up; − is marked unavailable at the minimum. */
 export const Step: Story = {
   play: async ({ canvas, canvasElement }) => {
-    await waitFor(() => expect(canvasElement.ownerDocument.defaultView!.customElements.get('lue-stepper')).toBeDefined());
+    await canvasElement.ownerDocument.defaultView!.customElements.whenDefined('lue-stepper');
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Decrease Quantity' })).toHaveAttribute('aria-disabled', 'true'));
     await userEvent.click(canvas.getByRole('button', { name: 'Increase Quantity' }));
     await expect(canvas.getByRole('spinbutton', { name: 'Quantity' })).toHaveValue(2);

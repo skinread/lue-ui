@@ -32,7 +32,7 @@ export const Default: Story = {};
 export const WithAction: Story = {
   play: async ({ canvas, canvasElement }) => {
     const doc = canvasElement.ownerDocument;
-    await waitFor(() => expect(doc.defaultView!.customElements.get('lue-toast-region')).toBeDefined());
+    await doc.defaultView!.customElements.whenDefined('lue-toast-region');
     await userEvent.click(canvas.getByRole('button', { name: 'Remove image' }));
     await waitFor(() => expect(doc.querySelector('.lue-toast')).toHaveTextContent('Image removed'));
     await userEvent.click(doc.querySelector<HTMLElement>('.lue-toast .lue-button')!);

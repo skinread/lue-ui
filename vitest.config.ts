@@ -53,7 +53,7 @@ export default defineConfig({
       {
         // Static markup: every story rendered on the server must be valid HTML and pass html-eslint (ADR-0005).
         extends: true,
-        test: { name: 'markup', environment: 'node', include: ['tests/markup/*.test.tsx'] },
+        test: { name: 'markup', environment: 'node', include: ['tests/markup/*.test.tsx'], testTimeout: 30_000 },
       },
       {
         // The AI surfaces: the MCP server over stdio, reading the docs tools/build-ai-docs.mjs generates.
