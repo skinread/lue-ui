@@ -1,0 +1,24 @@
+/* Author card - <section class="lue-author" aria-label="About the author">: avatar, name, a line of bio and a link, in
+   a glass panel. Contract: apps/docs/contracts/author-card.json. */
+@layer lue.blocks {
+  .lue-author { display: flex; flex-wrap: wrap; gap: var(--lue-space-s) var(--lue-space-m); align-items: center; padding: var(--lue-space-m); border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); backdrop-filter: var(--lue-glass-filter); }
+  .lue-author__text { flex: 1 1 18rem; display: grid; gap: var(--lue-space-3xs); }
+  .lue-author__name { margin: 0; font-weight: 600; }
+  .lue-author__bio { margin: 0; color: var(--lue-color-fg-muted); }
+}
+
+/* Increased contrast, reduced transparency and no backdrop-filter: an opaque surface. Forced colours: Canvas with a
+   visible border. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-author),
+  :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-author) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+    :where(.lue-author) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    :where(.lue-author) { background-color: var(--lue-color-bg-surface); background-image: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.lue-author) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
+  }
+}

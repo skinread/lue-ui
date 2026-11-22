@@ -1,0 +1,125 @@
+{
+  "name": "ProjectCard",
+  "summary": "A piece of work: media, client and year, a title linking over the whole card, a line and discipline tags.",
+  "guidance": {
+    "useFor": "A portfolio's selected work, in a grid: one card per case study.",
+    "insteadUse": [
+      "A journal post: Post item",
+      "A card with several actions or no link: Card"
+    ],
+    "content": [
+      "The title is the project's name, so the link's name is short",
+      "One line on the problem and what changed",
+      "Two or three discipline tags"
+    ]
+  },
+  "status": "experimental",
+  "covers": [
+    "Tags"
+  ],
+  "rung": "css",
+  "rungReason": "An <article> whose heading's link stretches over the card by a pseudo-element, as Card does; no script.",
+  "anatomy": {
+    "card": {
+      "element": "article",
+      "class": "lue-project"
+    },
+    "media": {
+      "element": "div or img",
+      "class": "lue-media",
+      "required": false
+    },
+    "body": {
+      "element": "div",
+      "class": "lue-project__body"
+    },
+    "meta": {
+      "element": "p",
+      "class": "lue-meta",
+      "required": false
+    },
+    "heading": {
+      "element": "h3",
+      "class": "lue-h3"
+    },
+    "link": {
+      "element": "a",
+      "attributes": {
+        "href": "required"
+      }
+    },
+    "excerpt": {
+      "element": "p",
+      "class": "lue-excerpt",
+      "required": false
+    },
+    "tags": {
+      "element": "ul",
+      "class": "lue-tags",
+      "required": false,
+      "attributes": {
+        "aria-label": "Disciplines (translated)"
+      }
+    }
+  },
+  "a11y": {
+    "role": "article",
+    "name": "Its heading; the link's name is the heading's text",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Reaches the card's link"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "Follows the card's link"
+      }
+    ],
+    "focus": {
+      "indicator": "The card shows the outline while its link has focus (:has(:focus-visible))"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "ProjectCard",
+    "props": {
+      "href": "the case study",
+      "title": "the heading and link",
+      "media": "a Media frame or an img",
+      "meta": "ReactNode[] of short facts",
+      "excerpt": "one line",
+      "tags": "ReactNode[]",
+      "tagsLabel": "Disciplines",
+      "headingLevel": "h3 (default)"
+    }
+  },
+  "tokens": [
+    "--lue-material-glass-overlay",
+    "--lue-glass-sheen",
+    "--lue-glass-filter",
+    "--lue-shadow-raised",
+    "--lue-shadow-fringe",
+    "--lue-radius-l",
+    "--lue-color-focus-ring"
+  ],
+  "platform": {
+    "baseline": [
+      ":has()",
+      "::after",
+      "backdrop-filter"
+    ]
+  },
+  "rules": [
+    "One link per card; don't wrap the whole card in an <a>",
+    "Tags sit above the stretched link and aren't links themselves",
+    "Text in the card can't be selected by dragging: keep it short"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "An opaque surface (--lue-color-bg-surface) under increased contrast, reduced transparency or without backdrop-filter",
+  "forcedColors": "Canvas with a CanvasText border",
+  "deletionTrigger": null
+}

@@ -1,0 +1,34 @@
+/* Project card - <article class="lue-project">: media, client and year, a title whose link covers the card, a line of
+   description and a list of discipline tags (.lue-tags). One link per card. Contract:
+   apps/docs/contracts/project-card.json. */
+@layer lue.blocks {
+  .lue-project { display: grid; gap: var(--lue-space-s); align-content: start; padding: var(--lue-space-xs) var(--lue-space-xs) var(--lue-space-m); border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); background-image: var(--lue-glass-sheen); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-raised), var(--lue-shadow-fringe); }
+  .lue-project__body { display: grid; gap: var(--lue-space-2xs); padding-inline: var(--lue-space-xs); }
+  .lue-project:where(:hover)::before { --lue-angle: 120deg; }
+  /* The title's link covers the whole item; the item shows the focus ring, since the link's own outline would only
+     circle the title. Tags and other links sit above it. */
+  .lue-project :where(h2, h3, h4) a { color: var(--lue-color-fg-default); text-decoration: none; }
+  .lue-project :where(h2, h3, h4) a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 1; }
+  .lue-project :where(h2, h3, h4) a:where(:hover) { text-decoration: underline; text-underline-offset: 0.2em; }
+  .lue-project:where(:has(:is(h2, h3, h4) a:focus-visible)) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); }
+  .lue-project :where(h2, h3, h4) a:where(:focus-visible) { outline: none; text-decoration: underline; }
+  .lue-project :where(a, button):where(:not(:is(h2, h3, h4) a)) { position: relative; z-index: 2; }
+  /* A list of tags; above a stretched link, so each stays its own target. */
+  .lue-tags { display: flex; flex-wrap: wrap; gap: var(--lue-space-3xs); list-style: none; margin: 0; padding: 0; position: relative; z-index: 2; }
+}
+
+/* Increased contrast, reduced transparency and no backdrop-filter: an opaque surface. Forced colours: Canvas with a
+   visible border. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-project),
+  :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-project) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+    :where(.lue-project) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    :where(.lue-project) { background-color: var(--lue-color-bg-surface); background-image: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.lue-project) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
+  }
+}

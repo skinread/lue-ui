@@ -1,6 +1,7 @@
 // Builds @lue-ui/css with Lightning CSS and no targets, so nothing is lowered or rewritten (ADR-0002):
 //   dist/lue.css            src/lue.css with its @imports bundled
-//   dist/<file>.css         every other source file on its own (base.css, components/*.css, blocks, materials, fonts)
+//   dist/blocks.css         src/blocks.css with its @imports bundled (every block, ADR-0011)
+//   dist/<file>.css         every other source file on its own (base.css, components/*.css, blocks/*.css, materials, fonts)
 //   dist/fonts/             the woff2 files and their OFL licences, which fonts.css points at
 // Everything is minified. Prints Brotli sizes against the RFC-0001 §9 budgets (and the fonts' 130 KB) and fails when
 // one is passed.
@@ -32,12 +33,13 @@ const report = (result, file) => {
 };
 
 fs.rmSync(DIST, { recursive: true, force: true });
-const files = fs.readdirSync(SRC, { recursive: true }).filter((f) => f.endsWith('.css') && f !== 'lue.css').sort();
+const BUNDLED = ['lue.css', 'blocks.css'];
+const files = fs.readdirSync(SRC, { recursive: true }).filter((f) => f.endsWith('.css') && !BUNDLED.includes(f)).sort();
 const over = [];
 for (const rel of files) {
   const code = report(transform({ filename: rel, code: fs.readFileSync(path.join(SRC, rel)), minify: true }), rel);
   write(rel, code);
-  if (rel.startsWith('components/')) {
+  if (rel.startsWith('components/') || rel.startsWith('blocks/')) {
     const size = brotli(code);
     console.log(`  ${rel.padEnd(28)} ${fmt(size)}`);
     if (size > BUDGET.component) over.push(`${rel} is ${fmt(size)} (budget ${fmt(BUDGET.component)})`);
@@ -47,6 +49,10 @@ fs.cpSync(path.join(SRC, 'fonts'), path.join(DIST, 'fonts'), { recursive: true }
 const fontBytes = fs.readdirSync(path.join(SRC, 'fonts')).filter((f) => f.endsWith('.woff2')).reduce((n, f) => n + fs.statSync(path.join(SRC, 'fonts', f)).size, 0);
 console.log(`fonts: ${fmt(fontBytes)} woff2 (budget ${fmt(BUDGET.fonts)})`);
 if (fontBytes > BUDGET.fonts) over.push(`fonts are ${fmt(fontBytes)} (budget ${fmt(BUDGET.fonts)})`);
+
+const blocks = report(bundle({ filename: path.join(SRC, 'blocks.css'), minify: true }), 'blocks.css');
+write('blocks.css', blocks);
+console.log(`blocks.css: ${fmt(brotli(blocks))} Brotli`);
 
 const lue = report(bundle({ filename: path.join(SRC, 'lue.css'), minify: true }), 'lue.css');
 write('lue.css', lue);

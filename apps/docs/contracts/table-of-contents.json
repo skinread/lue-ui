@@ -1,0 +1,99 @@
+{
+  "name": "TableOfContents",
+  "summary": "An article's sections as in-page links in a glass panel, named by its visible title.",
+  "guidance": {
+    "useFor": "Long articles and documentation with four or more sections: beside the prose on wide screens, above it on narrow ones.",
+    "insteadUse": [
+      "Moving between pages: Site header or Pagination",
+      "Panels of content shown one at a time: Tabs"
+    ],
+    "content": [
+      "Use the headings' own words",
+      "Mark the section being read with aria-current=\"true\""
+    ]
+  },
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "<nav> with an ordered list of in-page links; the browser moves focus and scroll on activation.",
+  "anatomy": {
+    "toc": {
+      "element": "nav",
+      "class": "lue-toc",
+      "attributes": {
+        "aria-labelledby": "the title's id"
+      }
+    },
+    "title": {
+      "element": "p",
+      "class": "lue-kicker"
+    },
+    "link": {
+      "element": "a",
+      "attributes": {
+        "href": "#a heading's id",
+        "aria-current": "true, on the section being read"
+      }
+    }
+  },
+  "a11y": {
+    "role": "navigation",
+    "name": "Its visible title (aria-labelledby)",
+    "states": [
+      {
+        "state": "current section",
+        "via": "[aria-current=\"true\"]"
+      }
+    ],
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Moves through the links"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "Goes to the section"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline (--lue-focus-width, --lue-color-focus-ring), inset"
+    },
+    "targetSize": "--lue-size-target-min high"
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "TableOfContents",
+    "props": {
+      "items": "{ href, label }[]",
+      "current": "the href being read",
+      "title": "On this page"
+    }
+  },
+  "tokens": [
+    "--lue-material-glass-overlay",
+    "--lue-glass-filter",
+    "--lue-material-button-tint",
+    "--lue-prism-fill",
+    "--lue-color-border-strong",
+    "--lue-size-target-min",
+    "--lue-color-focus-ring"
+  ],
+  "platform": {
+    "baseline": [
+      "backdrop-filter",
+      "scroll-margin"
+    ]
+  },
+  "rules": [
+    "The headings it links to get scroll-margin-block-start (in .lue-prose), so a sticky header doesn't cover them",
+    "The current section is said in words (aria-current) and shown by more than colour",
+    "Highlighting the section from scroll position is a later enhancement (ADR-0011)"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "An opaque surface (--lue-color-bg-surface) under increased contrast, reduced transparency or without backdrop-filter",
+  "forcedColors": "Canvas with a CanvasText border; the current link in Highlight",
+  "deletionTrigger": null
+}

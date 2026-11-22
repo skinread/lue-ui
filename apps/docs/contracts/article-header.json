@@ -1,0 +1,96 @@
+{
+  "name": "ArticleHeader",
+  "summary": "The top of an article: breadcrumb, kicker, title, dek and a byline with the author and date.",
+  "guidance": {
+    "useFor": "The start of a journal post or case study, inside its <article>.",
+    "insteadUse": [
+      "The top of a home or landing page: Hero",
+      "A post in a list of posts: Post item"
+    ],
+    "content": [
+      "The kicker carries the category and the reading time: \"Craft · 5 min read\"",
+      "Write the date as people say it; the datetime attribute carries the machine form"
+    ]
+  },
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "<header> inside <article> groups its introduction without being a landmark; <time datetime> makes the date machine-readable.",
+  "anatomy": {
+    "header": {
+      "element": "header",
+      "class": "lue-article-header"
+    },
+    "kicker": {
+      "element": "p",
+      "class": "lue-kicker",
+      "required": false
+    },
+    "title": {
+      "element": "h1",
+      "class": "lue-title"
+    },
+    "dek": {
+      "element": "p",
+      "class": "lue-dek",
+      "required": false
+    },
+    "byline": {
+      "element": "div",
+      "class": "lue-byline",
+      "required": false
+    },
+    "date": {
+      "element": "time",
+      "required": false,
+      "attributes": {
+        "datetime": "required"
+      }
+    }
+  },
+  "a11y": {
+    "role": "None: a header inside an article isn't a landmark",
+    "name": "n/a",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Reaches the breadcrumb's links"
+      }
+    ],
+    "focus": {
+      "indicator": "The links' own"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "ArticleHeader",
+    "props": {
+      "title": "the h1",
+      "kicker, dek": "optional",
+      "breadcrumb": "a Breadcrumb",
+      "author": "a decorative Avatar and the name",
+      "published": "{ dateTime, label }"
+    }
+  },
+  "tokens": [
+    "--lue-space-m",
+    "--lue-space-xl",
+    "--lue-space-2xl",
+    "--lue-color-fg-muted"
+  ],
+  "platform": {
+    "baseline": [
+      "<time datetime>",
+      "flexbox gap"
+    ]
+  },
+  "rules": [
+    "Put it inside the <article> it introduces",
+    "The author's avatar is decorative: the name is written beside it"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "n/a",
+  "forcedColors": "System text colours",
+  "deletionTrigger": null
+}

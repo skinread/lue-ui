@@ -1,6 +1,6 @@
 # Component inventory and contracts
 
-> **Status:** Draft v0.1 · Phase 1 · 2026-10-05 · updated through Pass 5 (2026-10-25): every Tier 0, 1 and 2 component is built
+> **Status:** Draft v0.1 · Phase 1 · 2026-10-05 · updated through Pass 5 (2026-10-25): every Tier 0, 1 and 2 component is built, and the content blocks (2026-11-22)
 > Prefix `lue` ([ADR-0008](../architecture/adr/0008-name-lue-ui.md)). Visual design comes from Claude Design; this page fixes **semantics, behaviour and
 > platform strategy** for every component.
 
@@ -92,30 +92,34 @@ that open a Dialog or Drawer do nothing - ADR-0004), 2 use an opt-in behaviour, 
 ## Content blocks - portfolio and editorial (Pass 2)
 
 Added 2026-10-05, when the focus moved from commerce to portfolio and blog sites. Blocks are **compositions**
-of the components above, shipped as documented HTML recipes first (React adapters render the same markup). Each is
-drawn on the C2 canvas.
+of the components above, each drawn on the C2 canvas. **Built 2026-11-22 as components** ([ADR-0011](../architecture/adr/0011-content-blocks-are-components.md)):
+each has a contract, its CSS in `packages/css/src/blocks/<id>.css` (all bundled in `@lue-ui/css/blocks.css`), a React
+adapter, stories under Blocks/ and the same gates. The statement and split heroes are one contract (Hero); Prose and
+Section cover the text styles and page sections every block uses.
 
-| Block | Structure | Pattern | JS | Depends on / fallback |
+| Block | Contract | Structure | JS | Depends on / fallback |
 | --- | --- | --- | --- | --- |
-| Site header | `<header>` + `<nav aria-label="Main">` + list of links, `aria-current="page"` | Disclosure navigation on small screens | none | Sticky glass bar; `scroll-padding-top` keeps focused targets clear of it (WCAG 2.4.11); opaque without `backdrop-filter` |
-| Hero - statement | `<section aria-labelledby>`: kicker, `<h1>`, lede, up to two actions | - | none | Satin background is decorative (`aria-hidden` SVG); text contrast is checked against its lightest and darkest folds; flat canvas fallback |
-| Hero - split | Statement hero + `<figure>` (`<img alt>`, or decorative media with empty `alt`) | - | none | Stacks through a container query |
-| Hero - article | `<header>` inside `<article>`: kicker, `<h1>`, dek, byline with `<time datetime>` | - | none | - |
-| Feature grid | `<ul>` of items: icon tile (decorative), `<h3>`, `<p>` | - | none | `repeat(auto-fit, minmax(min(…, 100%), 1fr))` |
-| Project card | `<article>`: `<h3><a>` stretched over the card, media, tag list | Card (Tier 2) | none | One link per card; tags stay outside the stretched link's text |
-| Post list item | `<article>`: kicker, `<h3><a>`, excerpt, `<time datetime>` | - | none | - |
-| Quote | `<figure>` + `<blockquote>` + `<figcaption>` | - | none | - |
-| Pull quote | `<aside aria-hidden="true">` repeating a line from the body | - | none | Hidden from assistive tech because the line is already read in the body |
-| Media + text | `<section>` + `<figure>` + text column | - | none | Container query stacks it |
-| Timeline | `<ol>` of `<li>` with `<time datetime>` | - | none | - |
-| Table of contents | `<nav aria-label="On this page">` + `<ol>` of in-page links | - | none | Current-section highlight via scroll-state queries as PE |
-| Code block | `<figure>` + `<pre tabindex="0"><code>` + caption naming the language | - | none (copy button opt-in) | `tabindex="0"` so a scrolling block is reachable by keyboard (WCAG 2.1.1) |
-| Figure | `<figure>` + `<img alt>` + `<figcaption>` | - | none | - |
-| Author card | `<aside aria-label="About the author">`: avatar, name, short bio, links | - | none | Avatar from Tier 2 |
-| Newsletter / CTA band | `<section>` + `<form>`: label, email input, button | - | none | Field + validation from Tier 1 |
-| Tag filter | Group of toggle buttons (`aria-pressed`), or links when filtering is a navigation | Button (toggle) | opt-in | Without JS: links to filtered URLs |
-| Site footer | `<footer>` + `<nav aria-label="Footer">` | - | none | - |
-| Icon tile | Decorative `<span>` with inline SVG, `aria-hidden="true"`; meaning lives in the adjacent text | - | none | Forced colours: the tile drops its material and keeps a border |
+| Site header | `site-header` | `<header>` + wordmark + `<nav aria-label="Main">` + list of links, `aria-current="page"` | none | Glass bar, opaque without `backdrop-filter`. The list wraps on narrow screens (no disclosure yet, ADR-0011); sticky only on viewports at least 30rem tall, with `scroll-padding-block-start` where it sticks (WCAG 1.4.10, 2.4.11) |
+| Hero - statement | `hero` | `<section aria-labelledby>`: kicker, `<h1>`, lede, up to two actions, decorative object | none | Satin background is decorative (`aria-hidden` SVG); text contrast is checked against its lightest and darkest folds; flat canvas fallback |
+| Hero - split | `hero` | Hero with a `<figure>` as its object | none | Stacks by grid `auto-fit` when either column would be under 27rem |
+| Hero - article | `article-header` | `<header>` inside `<article>`: breadcrumb, kicker, `<h1>`, dek, byline with `<time datetime>` | none | - |
+| Feature grid | `feature-grid` | `<ul>` of items: icon tile (decorative), `<h3>`, `<p>` | none | `repeat(auto-fit, minmax(min(15rem, 100%), 1fr))` |
+| Project card | `project-card` | `<article>`: `<h3><a>` stretched over the card, media, tag list | none | One link per card; tags sit above the stretched link |
+| Post list item | `post-item` | `<article>`: kicker, `<time datetime>`, `<h3><a>`, excerpt; a row or a glass card | none | - |
+| Quote | `quote` | `<figure>` + decorative mark + `<blockquote>` + `<figcaption>` | none | - |
+| Pull quote | `pull-quote` | `<aside aria-hidden="true">` repeating a line from the body | none | Hidden from assistive tech because the line is already read in the body |
+| Media + text | `media-text` | `<section aria-labelledby>` + `<figure>` + text column | none | Stacks by grid `auto-fit`; the figure's side follows source order |
+| Timeline | `timeline` | `<ol>` of `<li>`: `<time datetime>` for a single date, a `<span>` for a range | none | - |
+| Table of contents | `table-of-contents` | `<nav aria-labelledby>` its visible title + `<ol>` of in-page links, `aria-current="true"` | none | Current-section highlight from scroll state: later, as PE |
+| Code block | `code-block` | `<figure>` + caption naming the language + `<pre tabindex="0"><code>` | none | `tabindex="0"` so a scrolling block is reachable by keyboard (WCAG 2.1.1). Copy button: not built |
+| Figure | `figure` | `<figure>` + `<img alt>` or a `.lue-media` frame + `<figcaption>` | none | - |
+| Author card | `author-card` | `<section aria-label="About the author">`: avatar, name, bio, link | none | Not an `<aside>`: inside `<main>` it would be a nested complementary landmark (ADR-0011) |
+| Newsletter / CTA band | `cta-band` | `<section aria-labelledby>` + `<form>`: label, email input, button | none | Field + validation from Tier 1 |
+| Tag filter | `tag-filter` | Group of toggle buttons (`aria-pressed`), or a `<nav>` of links to filtered URLs (`aria-current="page"`) | opt-in `data-lue-toggle` | Without JS: the links form |
+| Site footer | `site-footer` | `<footer>` + wordmark + `<nav aria-label="Footer">` + note | none | - |
+| Icon tile | `icon-tile` | Decorative `<span>` with inline SVG, `aria-hidden="true"`; meaning lives in the adjacent text | none | Forced colours: the tile drops its material and keeps a border |
+| Text styles and body | `prose` | Classes on native headings and paragraphs; `.lue-prose` for an article's body | none | - |
+| Page sections | `section` | `<section aria-labelledby>` with a head; `.lue-wrap` column; `.lue-actions` row | none | - |
 
 ## Contract format
 

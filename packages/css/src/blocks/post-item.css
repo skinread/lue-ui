@@ -1,0 +1,39 @@
+/* Post item - <article class="lue-post">: kicker and date, a title whose link covers the item, and an excerpt. A row
+   between chrome lines, or a glass card with media (data-variant="card"). Contract:
+   apps/docs/contracts/post-item.json. */
+@layer lue.blocks {
+  .lue-post { position: relative; display: grid; gap: var(--lue-space-2xs); align-content: start; padding-block: var(--lue-space-m); border-block-start: var(--lue-border-width-thin) solid transparent; border-image: linear-gradient(90deg, var(--lue-chrome-line), transparent) 1; }
+  .lue-post:where([data-variant="card"]) { padding: var(--lue-space-xs) var(--lue-space-xs) var(--lue-space-m); border-image: none; border-radius: var(--lue-radius-l); gap: var(--lue-space-s); background-color: var(--lue-material-glass-overlay); backdrop-filter: var(--lue-glass-filter); box-shadow: var(--lue-shadow-raised), var(--lue-shadow-fringe); }
+  .lue-post:where([data-variant="card"]) > :where(:not(.lue-media)) { margin-inline: var(--lue-space-xs); }
+  .lue-post:where(:hover)::before { --lue-angle: 120deg; }
+  /* The title's link covers the whole item; the item shows the focus ring, since the link's own outline would only
+     circle the title. Tags and other links sit above it. */
+  .lue-post :where(h2, h3, h4) a { color: var(--lue-color-fg-default); text-decoration: none; }
+  .lue-post :where(h2, h3, h4) a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 1; }
+  .lue-post :where(h2, h3, h4) a:where(:hover) { text-decoration: underline; text-underline-offset: 0.2em; }
+  .lue-post:where(:has(:is(h2, h3, h4) a:focus-visible)) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); }
+  .lue-post :where(h2, h3, h4) a:where(:focus-visible) { outline: none; text-decoration: underline; }
+  .lue-post :where(a, button):where(:not(:is(h2, h3, h4) a)) { position: relative; z-index: 2; }
+}
+
+/* Increased contrast, reduced transparency and no backdrop-filter: an opaque surface. Forced colours: Canvas with a
+   visible border. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-post[data-variant="card"]),
+  :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-post[data-variant="card"]) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+    :where(.lue-post[data-variant="card"]) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    :where(.lue-post[data-variant="card"]) { background-color: var(--lue-color-bg-surface); background-image: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.lue-post[data-variant="card"]) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
+  }
+}
+
+@layer lue.contrast {
+  @media (forced-colors: active) {
+    :where(.lue-post:not([data-variant="card"])) { border-image: none; border-block-start-color: CanvasText; }
+  }
+}

@@ -1,0 +1,43 @@
+/* Site header - <header class="lue-site-header">: a floating bar of overlay glass with the wordmark and the main
+   navigation (aria-current="page" on the current link). The list wraps on narrow screens. Sticky only on viewports
+   at least 30rem tall, so at high zoom it never covers what has focus (WCAG 1.4.10, 2.4.11); where it sticks, give
+   the page scroll-padding-block-start. Contract: apps/docs/contracts/site-header.json. */
+@layer lue.blocks {
+  .lue-site-header { z-index: var(--lue-layer-sticky); }
+  @media (min-height: 30rem) {
+    .lue-site-header { position: sticky; inset-block-start: var(--lue-space-s); }
+  }
+  .lue-site-header__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--lue-space-2xs) var(--lue-space-m); padding: var(--lue-space-2xs); padding-inline-start: var(--lue-space-m); border-radius: var(--lue-radius-full); background-color: var(--lue-material-glass-overlay); backdrop-filter: var(--lue-glass-filter); }
+  .lue-site-header ul { display: flex; flex-wrap: wrap; gap: 2px; list-style: none; margin: 0; padding: 0; }
+  .lue-site-header__link { display: inline-flex; align-items: center; min-block-size: var(--lue-size-target-min); padding-inline: var(--lue-space-s); border-radius: var(--lue-radius-full); color: var(--lue-color-fg-default); text-decoration: none; font-weight: 500; transition: background-color var(--lue-motion-duration-slow) var(--lue-motion-ease-standard); }
+  .lue-site-header__link:where([aria-current="page"]) { background-color: var(--lue-material-button-tint); box-shadow: var(--lue-button-depth); }
+  .lue-site-header__link:where(:hover) { background-color: var(--lue-material-button-tint); text-decoration: underline; text-underline-offset: 0.2em; }
+  .lue-site-header__link:where(:focus-visible), .lue-wordmark:where(:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: var(--lue-focus-offset); }
+  /* The site's name, with an optional icon tile; shared with the footer. */
+  .lue-wordmark { --lue-tile-size: 34px; display: inline-flex; align-items: center; gap: var(--lue-space-2xs); min-block-size: var(--lue-size-target-min); border-radius: var(--lue-radius-s); font: 400 1.375rem/1 var(--lue-font-family-display); letter-spacing: -0.02em; color: var(--lue-color-fg-default); text-decoration: none; }
+}
+
+/* Increased contrast, reduced transparency and no backdrop-filter: an opaque surface. Forced colours: Canvas with a
+   visible border. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-site-header__bar),
+  :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-site-header__bar) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+    :where(.lue-site-header__bar) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    :where(.lue-site-header__bar) { background-color: var(--lue-color-bg-surface); background-image: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.lue-site-header__bar) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
+  }
+}
+
+@layer lue.contrast {
+  @media (forced-colors: active) {
+    :where(.lue-site-header__link[aria-current="page"]) { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.3em; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :where(.lue-site-header__link) { transition: none; }
+  }
+}

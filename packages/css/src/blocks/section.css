@@ -1,0 +1,8 @@
+/* Section - the page's column (.lue-wrap), a section of a page with a head (.lue-section, .lue-section__head) and a
+   row of actions that wraps (.lue-actions). Contract: apps/docs/contracts/section.json. */
+@layer lue.blocks {
+  .lue-wrap { inline-size: min(100% - 2 * var(--lue-gutter), 75rem); margin-inline: auto; }
+  .lue-section { display: grid; gap: var(--lue-space-l); padding-block: var(--lue-space-2xl); }
+  .lue-section__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--lue-space-s) var(--lue-space-l); }
+  .lue-actions { display: flex; flex-wrap: wrap; gap: var(--lue-space-xs); }
+}

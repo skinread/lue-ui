@@ -1,0 +1,119 @@
+{
+  "name": "PostItem",
+  "summary": "A journal post in a list: category and date, a linked title and an excerpt, as a row or a glass card.",
+  "guidance": {
+    "useFor": "A blog's index, a \"latest posts\" section, related posts.",
+    "insteadUse": [
+      "A piece of portfolio work: Project card",
+      "The top of the post itself: Article header"
+    ],
+    "content": [
+      "The excerpt says what the post is about in a sentence, not its first sentence",
+      "Write the date as people say it"
+    ]
+  },
+  "status": "experimental",
+  "rung": "css",
+  "rungReason": "An <article> whose heading's link covers the item by a pseudo-element; <time datetime> for the date. No script.",
+  "anatomy": {
+    "post": {
+      "element": "article",
+      "class": "lue-post"
+    },
+    "meta": {
+      "element": "p",
+      "class": "lue-meta",
+      "required": false
+    },
+    "date": {
+      "element": "time",
+      "class": "lue-kicker",
+      "required": false,
+      "attributes": {
+        "datetime": "required"
+      }
+    },
+    "heading": {
+      "element": "h3",
+      "class": "lue-h3"
+    },
+    "link": {
+      "element": "a",
+      "attributes": {
+        "href": "required"
+      }
+    },
+    "excerpt": {
+      "element": "p",
+      "class": "lue-excerpt",
+      "required": false
+    }
+  },
+  "variants": {
+    "variant": {
+      "attribute": "data-variant",
+      "values": [
+        "card"
+      ],
+      "default": "a row between chrome lines (no attribute)"
+    }
+  },
+  "a11y": {
+    "role": "article",
+    "name": "Its heading; the link's name is the heading's text",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Reaches the post's link"
+      },
+      {
+        "keys": [
+          "Enter"
+        ],
+        "action": "Follows the post's link"
+      }
+    ],
+    "focus": {
+      "indicator": "The item shows the outline while its link has focus"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "PostItem",
+    "props": {
+      "href, title": "the link",
+      "category": "the kicker",
+      "published": "{ dateTime, label }",
+      "excerpt": "a sentence",
+      "variant": "card",
+      "media": "for the card",
+      "headingLevel": "h3 (default)"
+    }
+  },
+  "tokens": [
+    "--lue-chrome-line",
+    "--lue-material-glass-overlay",
+    "--lue-glass-filter",
+    "--lue-shadow-raised",
+    "--lue-radius-l",
+    "--lue-color-focus-ring"
+  ],
+  "platform": {
+    "baseline": [
+      ":has()",
+      "::after",
+      "border-image",
+      "backdrop-filter"
+    ]
+  },
+  "rules": [
+    "One link per item",
+    "The category and date come before the heading in reading order, as they look"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "The card: An opaque surface (--lue-color-bg-surface) under increased contrast, reduced transparency or without backdrop-filter",
+  "forcedColors": "The card: Canvas with a CanvasText border; the row's chrome line: a CanvasText border",
+  "deletionTrigger": null
+}

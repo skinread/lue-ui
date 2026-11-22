@@ -1,0 +1,87 @@
+{
+  "name": "Timeline",
+  "summary": "Experience or history as an ordered list: each entry a date, a title and a line of detail.",
+  "guidance": {
+    "useFor": "A CV's roles, a studio's history, a project's milestones.",
+    "insteadUse": [
+      "Progress through a flow: Steps",
+      "Posts by date: Post item"
+    ],
+    "content": [
+      "Write ranges as people say them: \"2021 - 2024\", \"2024 - now\"",
+      "The title is the role or event; the detail, the place and what happened"
+    ]
+  },
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "An <ol> keeps the order and count; <time datetime> makes a single date machine-readable.",
+  "anatomy": {
+    "list": {
+      "element": "ol",
+      "class": "lue-timeline"
+    },
+    "when": {
+      "element": "time or span",
+      "class": "lue-timeline__when",
+      "attributes": {
+        "datetime": "on <time>, a valid date or year"
+      }
+    },
+    "entry": {
+      "element": "div",
+      "class": "lue-timeline__entry"
+    },
+    "title": {
+      "element": "p",
+      "class": "lue-timeline__title"
+    },
+    "detail": {
+      "element": "p",
+      "class": "lue-timeline__detail",
+      "required": false
+    }
+  },
+  "a11y": {
+    "role": "list, of listitems",
+    "name": "n/a",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Passes over it: nothing here takes focus"
+      }
+    ],
+    "focus": {
+      "indicator": "n/a"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Timeline",
+    "props": {
+      "items": "{ when, dateTime?, title, detail? }[]"
+    }
+  },
+  "tokens": [
+    "--lue-chrome-line",
+    "--lue-space-m",
+    "--lue-space-l",
+    "--lue-color-fg-muted"
+  ],
+  "platform": {
+    "baseline": [
+      "<time datetime>",
+      "border-image",
+      "flexbox gap"
+    ]
+  },
+  "rules": [
+    "A range isn't a valid datetime: it is a <span>, and a single date or year is a <time>",
+    "The date column wraps above the entry when narrow (WCAG 1.4.10)"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "n/a",
+  "forcedColors": "Chrome lines become CanvasText borders",
+  "deletionTrigger": null
+}

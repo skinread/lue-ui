@@ -1,0 +1,37 @@
+/* Table of contents - <nav class="lue-toc" aria-labelledby> named by its visible title, with an ordered list of
+   in-page links; the current section is aria-current="true" and gets a prism dot. Contract:
+   apps/docs/contracts/table-of-contents.json. */
+@layer lue.blocks {
+  .lue-toc { display: grid; gap: var(--lue-space-xs); padding: var(--lue-space-s); border-radius: var(--lue-radius-l); background-color: var(--lue-material-glass-overlay); backdrop-filter: var(--lue-glass-filter); }
+  .lue-toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+  .lue-toc a { display: flex; align-items: center; gap: var(--lue-space-2xs); min-block-size: var(--lue-size-target-min); padding-inline: var(--lue-space-xs); border-radius: var(--lue-radius-s); color: var(--lue-color-fg-muted); text-decoration: none; }
+  .lue-toc a::before { content: ""; inline-size: 6px; block-size: 6px; border-radius: 50%; background: var(--lue-color-border-strong); flex: none; }
+  .lue-toc a:where(:hover) { color: var(--lue-color-fg-default); text-decoration: underline; text-underline-offset: 0.2em; }
+  .lue-toc a:where(:focus-visible) { outline: var(--lue-focus-width) solid var(--lue-color-focus-ring); outline-offset: calc(var(--lue-focus-width) * -1); }
+  .lue-toc a:where([aria-current="true"]) { color: var(--lue-color-fg-default); background-color: var(--lue-material-button-tint); }
+  .lue-toc a:where([aria-current="true"])::before { background: linear-gradient(135deg, var(--lue-prism-fill)); }
+}
+
+/* Increased contrast, reduced transparency and no backdrop-filter: an opaque surface. Forced colours: Canvas with a
+   visible border. */
+@layer lue.contrast {
+  :where([data-theme$="-more"], [data-contrast="more"]) :where(.lue-toc),
+  :where([data-theme$="-more"], [data-contrast="more"]):where(.lue-toc) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  @media (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+    :where(.lue-toc) { background-color: var(--lue-color-bg-surface); background-image: none; backdrop-filter: none; }
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    :where(.lue-toc) { background-color: var(--lue-color-bg-surface); background-image: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.lue-toc) { border-color: CanvasText; background-color: Canvas; background-image: none; backdrop-filter: none; }
+  }
+}
+
+@layer lue.contrast {
+  @media (forced-colors: active) {
+    :where(.lue-toc a)::before { background: CanvasText; }
+    :where(.lue-toc a[aria-current="true"]) { color: Highlight; }
+    :where(.lue-toc a[aria-current="true"])::before { background: Highlight; }
+  }
+}

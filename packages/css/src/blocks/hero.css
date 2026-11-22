@@ -1,0 +1,13 @@
+/* Hero - <section class="lue-hero" aria-labelledby>: the opening statement of a page. Kicker, headline, lede and up
+   to two actions, beside an object (a decorative prism, or a figure for the split hero); data-layout="center" for a
+   single message without one. A decorative satin backdrop (.lue-satin, aria-hidden) may come first. Sized to its
+   content, never 100vh. Contract: apps/docs/contracts/hero.json. */
+@layer lue.blocks {
+  .lue-hero { position: relative; isolation: isolate; overflow: clip; padding-block: clamp(4.5rem, 10vi, 9rem) clamp(4rem, 8vi, 7.5rem); }
+  .lue-hero__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(27rem, 100%), 1fr)); gap: var(--lue-space-xl); align-items: center; }
+  .lue-hero__text { display: grid; gap: var(--lue-space-m); justify-items: start; }
+  .lue-hero:where([data-layout="center"]) :where(.lue-hero__grid) { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
+  .lue-hero:where([data-layout="center"]) :where(.lue-hero__text) { justify-items: center; }
+  .lue-hero:where([data-layout="center"]) :where(.lue-actions) { justify-content: center; }
+  .lue-hero__object { display: grid; place-items: center; min-inline-size: 0; }
+}

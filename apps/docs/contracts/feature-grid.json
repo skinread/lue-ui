@@ -1,0 +1,91 @@
+{
+  "name": "FeatureGrid",
+  "summary": "What you offer, as a list of features, each a decorative icon tile, a heading and a sentence.",
+  "guidance": {
+    "useFor": "Services, capabilities or principles: three to six short items of the same kind.",
+    "insteadUse": [
+      "Items that each link somewhere: Project card or Card",
+      "Steps in an order: an ordered list, or Steps"
+    ],
+    "content": [
+      "The heading names the feature in two or three words",
+      "One sentence each; don't repeat the heading"
+    ]
+  },
+  "status": "experimental",
+  "covers": [
+    "Feature"
+  ],
+  "rung": "native-element",
+  "rungReason": "A <ul> says how many features there are; grid with auto-fit reflows it with no queries.",
+  "anatomy": {
+    "grid": {
+      "element": "ul",
+      "class": "lue-feature-grid",
+      "attributes": {
+        "style": "--lue-feature-min (15rem)"
+      }
+    },
+    "feature": {
+      "element": "li",
+      "class": "lue-feature"
+    },
+    "tile": {
+      "element": "span",
+      "class": "lue-tile",
+      "required": false,
+      "attributes": {
+        "aria-hidden": "true"
+      }
+    },
+    "heading": {
+      "element": "h3",
+      "class": "lue-h3"
+    }
+  },
+  "a11y": {
+    "role": "list, of listitems",
+    "name": "n/a (the section's heading introduces it)",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Passes over it: nothing here takes focus"
+      }
+    ],
+    "focus": {
+      "indicator": "n/a"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "FeatureGrid, Feature",
+    "props": {
+      "min": "--lue-feature-min",
+      "Feature.icon": "a decorative IconTile",
+      "Feature.title": "the heading",
+      "Feature.headingLevel": "h3 (default), h2 or h4",
+      "Feature.children": "the sentence"
+    }
+  },
+  "tokens": [
+    "--lue-space-s",
+    "--lue-space-l",
+    "--lue-color-fg-muted"
+  ],
+  "platform": {
+    "baseline": [
+      "grid auto-fit",
+      "min()"
+    ]
+  },
+  "rules": [
+    "Tiles are decorative: the heading says what the feature is",
+    "Reflow at 320 px: one column"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "n/a",
+  "forcedColors": "Tiles: Canvas with a CanvasText border",
+  "deletionTrigger": null
+}

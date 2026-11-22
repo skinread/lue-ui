@@ -1,0 +1,95 @@
+{
+  "name": "Quote",
+  "summary": "A testimonial or citation: the quotation in the display face, a chrome mark and the source in a caption.",
+  "guidance": {
+    "useFor": "A client's words about working with you, or a citation worth setting apart.",
+    "insteadUse": [
+      "Repeating a line from the article: Pull quote",
+      "A short quotation inside a sentence: <q>"
+    ],
+    "content": [
+      "Real quotes only, with the person's permission",
+      "The caption names the person, then their role and organisation"
+    ]
+  },
+  "status": "experimental",
+  "rung": "native-element",
+  "rungReason": "<figure>, <blockquote> and <figcaption> tie the quotation to its source natively.",
+  "anatomy": {
+    "figure": {
+      "element": "figure",
+      "class": "lue-quote"
+    },
+    "mark": {
+      "element": "span",
+      "class": "lue-quote__mark",
+      "attributes": {
+        "aria-hidden": "true"
+      }
+    },
+    "quotation": {
+      "element": "blockquote"
+    },
+    "caption": {
+      "element": "figcaption"
+    },
+    "source": {
+      "element": "span",
+      "class": "lue-quote__source"
+    },
+    "name": {
+      "element": "span",
+      "class": "lue-quote__name"
+    },
+    "role": {
+      "element": "span",
+      "class": "lue-quote__role",
+      "required": false
+    }
+  },
+  "a11y": {
+    "role": "figure, containing a blockquote",
+    "name": "Its figcaption",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Passes over it: nothing here takes focus"
+      }
+    ],
+    "focus": {
+      "indicator": "n/a"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "Quote",
+    "props": {
+      "children": "the quotation, one paragraph",
+      "name": "who said it",
+      "role": "their role",
+      "avatar": "a decorative Avatar",
+      "cite": "the source URL"
+    }
+  },
+  "tokens": [
+    "--lue-font-family-display",
+    "--lue-space-s",
+    "--lue-space-m",
+    "--lue-color-fg-muted"
+  ],
+  "platform": {
+    "baseline": [
+      "background-clip: text"
+    ]
+  },
+  "rules": [
+    "The large quotation mark is decorative (aria-hidden); the blockquote is the quotation",
+    "The avatar is decorative: the name is written beside it"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "n/a",
+  "forcedColors": "The mark in CanvasText; the avatar Canvas with a border",
+  "deletionTrigger": null
+}

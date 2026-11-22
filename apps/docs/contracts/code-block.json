@@ -1,0 +1,105 @@
+{
+  "name": "CodeBlock",
+  "summary": "Code in a glass panel with a caption naming the language; focusable so a wide block scrolls by keyboard.",
+  "guidance": {
+    "useFor": "Code samples in articles and documentation.",
+    "insteadUse": [
+      "A word of code in a sentence: <code>",
+      "Keys to press: Kbd"
+    ],
+    "content": [
+      "The caption names the language, then what the code does",
+      "Keep lines short; long ones scroll"
+    ]
+  },
+  "status": "experimental",
+  "covers": [
+    "Code token"
+  ],
+  "rung": "native-attribute",
+  "rungReason": "<pre tabindex=\"0\"> makes a scrolling block reachable from the keyboard (WCAG 2.1.1); the rest is native.",
+  "anatomy": {
+    "figure": {
+      "element": "figure",
+      "class": "lue-code"
+    },
+    "caption": {
+      "element": "figcaption"
+    },
+    "pre": {
+      "element": "pre",
+      "attributes": {
+        "tabindex": "0"
+      }
+    },
+    "token": {
+      "element": "span",
+      "class": "lue-code__token",
+      "required": false,
+      "attributes": {
+        "data-kind": "property or comment"
+      }
+    }
+  },
+  "a11y": {
+    "role": "figure",
+    "name": "Its figcaption",
+    "keyboard": [
+      {
+        "keys": [
+          "Tab"
+        ],
+        "action": "Focuses the code"
+      },
+      {
+        "keys": [
+          "ArrowRight"
+        ],
+        "action": "Scrolls a wide block toward the end of its lines"
+      },
+      {
+        "keys": [
+          "ArrowLeft"
+        ],
+        "action": "Scrolls back"
+      }
+    ],
+    "focus": {
+      "indicator": ":focus-visible outline inside the panel"
+    }
+  },
+  "ownedAttributes": {},
+  "react": {
+    "component": "CodeBlock, CodeToken",
+    "props": {
+      "language": "named in the caption",
+      "title": "what the code is",
+      "children": "the code",
+      "CodeToken.kind": "property or comment"
+    }
+  },
+  "tokens": [
+    "--lue-material-glass-overlay",
+    "--lue-radius-m",
+    "--lue-font-family-mono",
+    "--lue-color-fg-accent",
+    "--lue-color-fg-muted",
+    "--lue-color-border-subtle",
+    "--lue-color-focus-ring"
+  ],
+  "platform": {
+    "baseline": [
+      "overflow-inline",
+      "tabindex"
+    ]
+  },
+  "rules": [
+    "The block scrolls inside itself; the page never scrolls sideways (WCAG 1.4.10)",
+    "Highlighting is colour only on top of the code itself: it never carries meaning alone",
+    "No copy button yet (ADR-0011)"
+  ],
+  "withoutJavaScript": "Works fully",
+  "contrast": "An opaque surface (--lue-color-bg-surface) under increased contrast, reduced transparency or without backdrop-filter",
+  "forcedColors": "Canvas with a CanvasText border; tokens in CanvasText",
+  "deletionTrigger": null
+}
