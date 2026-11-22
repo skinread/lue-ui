@@ -34,7 +34,7 @@ export interface TagFilterProps extends Omit<ComponentPropsWithRef<'div'>, 'onCh
 export function TagFilter({ label, options, value, defaultValue = [], onChange, className, ...props }: TagFilterProps): ReactNode {
   const [own, setOwn] = useState(defaultValue);
   const chosen = value ?? own;
-  if (options.every((o) => o.href)) {
+  if (options.every((o) => o.href !== undefined)) {
     const { ref: _ref, ...rest } = props;
     return (
       <nav {...rest} className={cx('lue-tag-filter', className)} aria-label={label}>

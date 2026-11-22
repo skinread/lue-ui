@@ -37,6 +37,8 @@ describe('Tag filter', () => {
     expect(outline(renderToStaticMarkup(<TagFilter label="Filter projects" options={linked} value={['systems']} />))).toEqual(outline(links));
     document.body.innerHTML = renderToStaticMarkup(<TagFilter label="Filter projects" options={linked} value={['systems', 'product']} />);
     expect(document.querySelectorAll('[aria-current]')).toHaveLength(1);
+    document.body.innerHTML = renderToStaticMarkup(<TagFilter label="Filter projects" options={[{ value: 'all', label: 'All', href: '' }, ...linked]} value={['all']} />);
+    expect(document.querySelector('nav a[aria-current="page"]')?.textContent).toBe('All');
   });
 
   it('moves between tags with Tab; Space and Enter turn them on and off, and say what is chosen', async () => {
